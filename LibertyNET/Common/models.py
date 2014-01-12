@@ -2,6 +2,7 @@ from django.db import models
 
 #region BaseModels
 
+
 class Person(models.Model):
     """
     Base class for any model that is a person.
@@ -102,6 +103,8 @@ class Address(models.Model):
     state = models.CharField(max_length=30, choices=STATE_CHOICES, default='NY')
     zip_code = models.CharField("zip code", max_length=10)
 
+    objects = AddressManager()
+
     def __unicode__(self):
         return (u'%s %s %s %s %s' % (self.address, self.address2,
                                      self.city.city_name, self.state, self.zip_code))
@@ -116,6 +119,8 @@ class Contact(models.Model):
     email = models.EmailField(blank=True)
     work_email = models.EmailField(blank=True)
     website = models.URLField(blank=True)
+
+    objects = ContactManager()
 
     def __unicode__(self):
         """
@@ -141,12 +146,15 @@ class Call_List(models.Model):
     cl_contact = models.ForeignKey('Common.Contact')
     cl_order = models.IntegerField(choices=NUMBER_CHOICES)
     cl_is_enabled = models.BooleanField(default=True)
-    cl_type = models.ForeignKey('Common.Type')
+    cl_genre = models.ForeignKey('Common.Genre')
 
-    #TODO - def __unicode__(self):
+    objects = CallListManager()
+
+    def __unicode__(self):
+        return "%s %s" % (tuple(self.cl_genre, self.cl_is_enabled))
 
 
-class Type(models.Model):
+class Genre(models.Model):
     #TODO THIS WILL BE BURG, FIRE, CAMERA
     GENERAL = 'G'
     BURG = 'B'
@@ -155,18 +163,20 @@ class Type(models.Model):
     ENVIRONMENTAL = 'E'
     ALTERNATE = 'A'
     ALTERNATE2 = 'A2'
-    TYPE_CHOICES = (
+    genre_CHOICES = (
         (GENERAL, 'General Call List'),
         (BURG, "Burg Call List"),
         (FIRE, 'Fire Call List'),
         (MEDICAL, 'Medical Call List'),
         (ENVIRONMENTAL, 'Environmental Call List'),
         (ALTERNATE, 'Alternate Call List'),
-        (ALTERNATE2, 'Alternate Call List 2'),
+        (ALTERNATE2, 'Alternate Call List 2'),)
     #Probably will do like Titles, in DB
-    type_id = models.AutoField(primary_key=True)
-    type = models.CharField(max_length=45)
-    type_description = models.CharField(max_length=144)
+    genre_id = models.AutoField(primary_key=True)
+    genre = models.CharField(max_length=45)
+    genre_description = models.CharField(max_length=144)
+
+    objects = GenreManager()
 
     #TODO - def __unicode__(self):
 
@@ -176,7 +186,7 @@ class Billing(models.Model):
     Billing connects to a client by client_id. Adddress and Contact are FK.
     Display changes based on business or not.
     """
-    client_id = models.ForeignKey('Client.Client')
+    billing_client_id = models.ForeignKey('Client.Client')
     profile_name = models.CharField(max_length=45)
     method = models.IntegerField(max_length=11)
     billing_address = models.ForeignKey('Common.Address', null=True, blank=True)
@@ -184,18 +194,20 @@ class Billing(models.Model):
     card = models.ForeignKey('Common.Card', null=True, blank=True)
     is_business = models.BooleanField(default=False)
 
+    objects = BillingManager()
+
     def __unicode__(self):
         """
         Display for billing information.
         @return: business name or first and last name of client.
         """
-        if self.is_business == True:
+        if self.is_business:
             return (self.business_name)
         else:
             return (u'%s %s' % (self.attention_first_name, self.attention_last_name))
 
 
-#TODO ==> Should this be comapny and then we make installer_code an attribute that is searched for?
+#TODO ==> Should this be company and then we make installer_code an attribute that is searched for?
 class Installer(models.Model):
     installer_id = models.AutoField(primary_key=True)
     installer_code = models.IntegerField(max_length=11)
@@ -276,3 +288,117 @@ STATE_CHOICES = (
 )
 
 #endregion
+
+#region ModelManagers
+
+
+class AddressManager(models.Manager):
+    def create_address(self, street, unit, city, state, zip_code):
+        """
+        Creates an address.
+        @rtype: Address.
+        @param street: street info.
+        @param unit: unit info.
+        @param city: city name.
+        @param state: state name.
+        @param zip_code: zip code.
+        @return: Address.
+        """
+        address = self.create(street=street, unit=unit, city=city,
+                              state=state, zip_code=zip_code)
+        address.save()
+        return address
+
+
+class ContactManager(models.Manager):
+    def create_contact(self, phone, phone_extension, cell, office_phone, office_phone_extension,
+                       email, work_email, website):
+        """
+        Creates a contact object.
+        @rtype: Contact.
+        @param phone: phone.
+        @param phone_extension: extension.
+        @param cell: cell.
+        @param office_phone: office phone.
+        @param office_phone_extension: extension.
+        @param email: personal email.
+        @param work_email: work email.
+        @param website: website (optional).
+        @return:
+        """
+        contact = self.create(phone=phone, phone_extension=phone_extension, cell=cell,
+                              office_phone=office_phone, office_phone_extension=office_phone_extension,
+                              email=email, work_email=work_email, website=website)
+        contact.save()
+        return contact
+
+
+class CallListManager(models.Manager):
+    def create_call_list(self, cl_contact, cl_order, cl_is_enabled, cl_genre):
+        """
+        Creates a call list object.
+        @rtype: Call_List.
+        @param cl_contact: contact info.
+        @param cl_order: call list order.
+        @param cl_is_enabled: call list's active status.
+        @param cl_genre: call list's genre.
+        @return:
+        """
+        call_list = self.create(cl_contact=cl_contact, cl_order=cl_order, cl_is_enabled=cl_is_enabled,
+                                cl_genre=cl_genre)
+        call_list.save()
+        return call_list
+
+
+class GenreManager(models.Manager):
+    def create_genre(self, genre, genre_description):
+        """
+        Creates a genre.
+        @rtype: Genre.
+        @param genre: Type.
+        @param genre_description: Description.
+        @return: Genre object.
+        """
+        genre = self.create(genre=genre, genre_description=genre_description)
+        genre.save()
+        return genre
+
+
+class BillingManager(models.Manager):
+    def create_billing(self, billing_client_id, profile_name, method, billing_address, billing_contact, card,
+                       is_business):
+        """
+        Creates a billing object.
+        @rtype : Billing.
+        @param billing_client_id: Client Id.
+        @param profile_name: profile name.
+        @param method: method.
+        @param billing_address: address.
+        @param billing_contact: contact.
+        @param card: card.
+        @param is_business: is business account.
+        @return: Billing object.
+        """
+        billing = self.create_billing(billing_client_id=billing_client_id, profile_name=profile_name, method=method,
+                                      billing_address=billing_address, billing_contact=billing_contact, card=card,
+                                      is_business=is_business)
+        billing.save()
+        return billing
+
+
+class InstallerManager(models.Manager):
+    def create_installer(self, installer_code, installer_company_name, installer_notes):
+        """
+        Creates an installer Object
+        @rtype: Installer.
+        @param installer_code: code.
+        @param installer_company_name: name.
+        @param installer_notes: notes.
+        @return: Installer Object.
+        """
+        installer = self.create_installer(installer_code=installer_code, installer_company_name=installer_company_name,
+                                          installer_notes=installer_notes)
+        installer.save()
+        return installer
+
+        #endregion

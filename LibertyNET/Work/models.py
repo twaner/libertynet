@@ -19,11 +19,11 @@ class Task(models.Model):
     #TODO ==> Can this be M2M ??
     ticket_id = models.ForeignKey('Vendor.Ticket')
     task_name = models.CharField(max_length=45)
-    task_created = models.DateField()
+    task_created_date = models.DateField()
     task_creator = models.ForeignKey('Employee.Employee')
     #TODO ==> Order task should be completed in
     task_order = models.IntegerField(choices=NUMBER_CHOICES)
-    is_completed = models.BooleanField(default=False)
+    is_task_completed = models.BooleanField(default=False)
     completed_by = models.ForeignKey('Employee.Employee')
     task_completed_date = models.DateField()
     task_notes = models.CharField(max_length=200)
@@ -44,12 +44,12 @@ class Ticket(models.Model):
     end_time = models.TimeField()
     task_site_contact = models.ForeignKey('Common.Contact')
     ticket_site_signature = models.CharField(max_length=45)
-    is_completed = models.BooleanField(default=True)
+    is_ticket_completed = models.BooleanField(default=True)
     ticket_employee = models.ManyToManyField('Employee.Employee')
 
     #TODO ==> _unicode_
 
-class Wages(models.Model):
+class Wage(models.Model):
     wages_id = models.AutoField(primary_key=True)
     wages_employee_id = models.ForeignKey('Employee.Employee')
     wages_date = models.DateField()
@@ -59,7 +59,7 @@ class Wages(models.Model):
     wages_end_time = models.TimeField()
     hourly_rate = models.DecimalField(max_length=10, decimal_places=2)
     gross_wage = models.DecimalField(max_length=10, decimal_places=2)
-    total_hours = models.DecimalField(max_length=10, decimal_places=2)
+    wages_total_hours = models.DecimalField(max_length=10, decimal_places=2)
 
     #TODO ==> _unicode_
 

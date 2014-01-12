@@ -1,5 +1,5 @@
 from django import forms
-from models import Address, Billing, Contact, Installer
+from models import Address, Billing, Contact, Call_List, Installer
 
 #region AddressForms
 
@@ -30,6 +30,7 @@ class AddressForm(forms.ModelForm):
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
+        fields = '__all__'
 
 
 class EmployeeContactForm(forms.ModelForm):
@@ -46,6 +47,7 @@ class EmployeeContactForm(forms.ModelForm):
 class BillingForm(forms.ModelForm):
     class Meta:
         model = Billing
+        fields = '__all__'
 
 #endregion
 
@@ -55,8 +57,15 @@ class BillingForm(forms.ModelForm):
 class Installer(forms.ModelForm):
     class Meta:
         model = Installer
+        fields = '__all__'
         widgets = {
             'installer_notes': forms.Textarea(attrs={'cols': 50, 'rows': 2}),
         }
+
+
+class CallListForm(forms.ModelForm):
+    class Meta:
+        model = Call_List
+        fields = '__all__'
 
 #endregion

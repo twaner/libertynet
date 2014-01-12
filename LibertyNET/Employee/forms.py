@@ -11,7 +11,8 @@ class EmployeeForm(forms.ModelForm):
         model = Employee
         exclude = ['emp_address', 'emp_contact']
         widgets = {
-            'hire_date': BootstrapDateInput, 'termination_date': BootstrapDateInput,
+            'hire_date': BootstrapDateInput,
+            'termination_date': BootstrapDateInput,
             'termination_reason': forms.Textarea(attrs={'cols': 160, 'rows': 10})
         }
 
@@ -29,5 +30,6 @@ class AddEmployeeForm(forms.ModelForm):
 class TitleForm(forms.ModelForm):
     class Meta:
         model = Title
+        fields = '__all__'
 
 #endregion
