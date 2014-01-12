@@ -9,8 +9,8 @@ class Manufacturer(models.Model):
     name = models.CharField(max_length=45)
     manu_address = models.ForeignKey('Common.Address', blank=True, null=True)
     manu_contact = models.ForeignKey('Common.Contact', blank=True, null=True)
-    manu_primary_supplier = models.ForeignKey('Vendor.Supplier')
-    manu_secondary_supplier = models.ForeignKey('Vendor.Supplier')
+    manu_primary_supplier = models.ForeignKey('Vendor.Supplier', related_name="primary supplier",blank=True, null=True)
+    manu_secondary_supplier = models.ForeignKey('Vendor.Supplier', related_name="secondary supplier",blank=True, null=True)
     #TODO ==> What is default?
     is_direct = models.BooleanField(default=False)
 

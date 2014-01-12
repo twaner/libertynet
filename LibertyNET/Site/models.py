@@ -4,7 +4,7 @@ from django.db import models
 
 class Site(models.Model):
     site_id = models.AutoField(primary_key=True)
-    site_client = models.ForeignKey('Common.Client')
+    site_client = models.ForeignKey('Client.Client')
 
 class System(models.Model):
     system_id = models.AutoField(primary_key=True)
@@ -12,7 +12,7 @@ class System(models.Model):
     system_site = models.ForeignKey('Site.Site')
     system_name = models.CharField(max_length=45)
     system_client_id = models.ForeignKey('Client.Client')
-    system_type_id = models.ForeignKey('Equipment.Type')
+    system_type_id = models.ForeignKey('Common.Genre')
     system_panel_id = models.ForeignKey('Equipment.Panel', blank=True, null=True)
     tampered_id = models.IntegerField(max_length=11)
     is_system_local = models.BooleanField(default=False)
@@ -22,7 +22,7 @@ class System(models.Model):
     secondary_communications = models.IntegerField(max_length=11)
     backup_communications = models.IntegerField(max_length=11)
     #TODO ==> Should this be Installer and we get code from Installer Model => nullable
-    system_installer_code = models.ForeignKey('Common.Installer_Code', null=True, blank=True)
+    system_installer_code = models.ForeignKey('Common.Installer', null=True, blank=True)
     master_code = models.IntegerField(max_length=11)
     lockout_code = models.IntegerField(max_length=11)
     #TODO make a common Network Model

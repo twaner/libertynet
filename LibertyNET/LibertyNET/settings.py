@@ -67,7 +67,7 @@ WSGI_APPLICATION = 'LibertyNET.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'LibertyNET',                      # Or path to database file if using sqlite3.
+        'NAME': 'LibertyNET1',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
         'PASSWORD': '',
@@ -121,7 +121,7 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     #'/Users/taiowawaner/Documents/LibertyNET/Django Projects/LibertySecurity/liberty/static/',
     DIRECTORY_STRING + 'static',
-    os.path.join(PROJECT_DIR), 'static',
+    #os.path.join(PROJECT_DIR), 'static',
 )
 
 TEMPLATE_DIRS = (
@@ -130,6 +130,6 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-
+)
 ROOT_URLCONF = 'liberty.urls'
 

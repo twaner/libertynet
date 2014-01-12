@@ -17,24 +17,24 @@ class Job(models.Model):
 class Task(models.Model):
     task_id = models.AutoField(primary_key=True)
     #TODO ==> Can this be M2M ??
-    ticket_id = models.ForeignKey('Vendor.Ticket')
+    task_ticket_id = models.ForeignKey('Work.Ticket')
     task_name = models.CharField(max_length=45)
     task_created_date = models.DateField()
-    task_creator = models.ForeignKey('Employee.Employee')
-    #TODO ==> Order task should be completed in
+    task_creator = models.ForeignKey('Employee.Employee', related_name="task created by")
     task_order = models.IntegerField(choices=NUMBER_CHOICES)
     is_task_completed = models.BooleanField(default=False)
-    completed_by = models.ForeignKey('Employee.Employee')
+    task_completed_by = models.ForeignKey('Employee.Employee', related_name="task completed by")
     task_completed_date = models.DateField()
     task_notes = models.CharField(max_length=200)
 
-    #TODO ==> _unicode_
+    def __str__(self):
+        return self.task_name
 
 class Ticket(models.Model):
     ticket_id = models.AutoField(primary_key=True)
     scheduled_date = models.DateField()
     scheduled_time = models.TimeField()
-    ticket_job = models.ForeignKey('Vendor.Job')
+    ticket_job = models.ForeignKey('Work.Job')
     ticket_system = models.ForeignKey('Site.System')
     description_work = models.CharField(max_length=500)
     technician_note = models.CharField(max_length=500)
@@ -57,9 +57,9 @@ class Wage(models.Model):
     wages_lunch_start = models.TimeField()
     wages_lunch_end = models.TimeField()
     wages_end_time = models.TimeField()
-    hourly_rate = models.DecimalField(max_length=10, decimal_places=2)
-    gross_wage = models.DecimalField(max_length=10, decimal_places=2)
-    wages_total_hours = models.DecimalField(max_length=10, decimal_places=2)
+    hourly_rate = models.DecimalField(max_digits=10, decimal_places=2)
+    gross_wage = models.DecimalField(max_digits=10, decimal_places=2)
+    wages_total_hours = models.DecimalField(max_digits=10, decimal_places=2)
 
     #TODO ==> _unicode_
 

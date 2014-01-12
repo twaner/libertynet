@@ -2,6 +2,8 @@ from django.db import models
 from Common.models import Person
 
 #region Employee Attributes
+
+
 class Title(models.Model):
     SALES = 'S'
     TECHNICIAN = 'T'
@@ -46,7 +48,7 @@ class Employee(Person):
     emp_address = models.ForeignKey('Common.Address')
     emp_contact = models.ForeignKey('Common.Contact')
     hire_date = models.DateField()
-    pay_type = models.CharField(choices=PAY_TYPE_CHOICES, default='HR')
+    pay_type = models.CharField(choices=PAY_TYPE_CHOICES, default='HR', max_length=12)
     pay_rate = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
     is_terminated = models.BooleanField(default=False)
     termination_date = models.DateField(null=True, blank=True)

@@ -1,5 +1,191 @@
 from django.db import models
 
+#region Choices
+
+#This will be used to provide a drop down menu for any field that is a number in a range.
+NUMBER_CHOICES = (
+    (1, '1st'),
+    (2, '2nd'),
+    (3, '3rd'),
+    (4, '4th'),
+    (5, '5th'),
+    (6, '6th'),
+    (7, '7th'),
+    (8, '8th'),
+    (9, '9th'),
+    (10, '10th'),
+)
+
+STATE_CHOICES = (
+    ('Alabama', 'AL'),
+    ('Alaska', 'AK'),
+    ('Arizona', 'AZ'),
+    ('Arkansas', 'AR'),
+    ('California', 'CA'),
+    ('Colorado', 'CO'),
+    ('Connecticut', 'CT'),
+    ('Delaware', 'DE'),
+    ('District of Columbia', 'DC'),
+    ('Florida', 'FL'),
+    ('Georgia', 'GA'),
+    ('Hawaii', 'HI'),
+    ('Idaho', 'ID'),
+    ('Illinois', 'IL'),
+    ('Indiana', 'IN'),
+    ('Iowa', 'IA'),
+    ('Kansas', 'KS'),
+    ('Kentucky', 'KY'),
+    ('Louisiana', 'LA'),
+    ('Maine', 'ME'),
+    ('Maryland', 'MD'),
+    ('Massachusetts', 'MA'),
+    ('Michigan', 'MI'),
+    ('Minnesota', 'MN'),
+    ('Mississippi', 'MS'),
+    ('Missouri', 'MO'),
+    ('Montana', 'MT'),
+    ('Nebraska', 'NE'),
+    ('Nevada', 'NV'),
+    ('New Hampshire', 'NH'),
+    ('New Jersey', 'NJ'),
+    ('New Mexico', 'NM'),
+    ('New York', 'NY'),
+    ('North Carolina', 'NC'),
+    ('North Dakota', 'ND'),
+    ('Ohio', 'OH'),
+    ('Oklahoma', 'OK'),
+    ('Oregon', 'OR'),
+    ('Pennsylvania', 'PA'),
+    ('Rhode Island', 'RI'),
+    ('South Carolina', 'SC'),
+    ('South Dakota', 'SD'),
+    ('Tennessee', 'TN'),
+    ('Texas', 'TX'),
+    ('Utah', 'UT' ),
+    ('Vermont', 'VT'),
+    ('Virginia', 'VA'),
+    ('Washington', 'WA'),
+    ('West Virginia', 'WV'),
+    ('Wisconsin', 'WI'),
+    ('Wyoming', 'WY'),
+)
+
+#endregion
+
+#region ModelManagers
+
+
+class AddressManager(models.Manager):
+    def create_address(self, street, unit, city, state, zip_code):
+        """
+        Creates an address.
+        @rtype: Address.
+        @param street: street info.
+        @param unit: unit info.
+        @param city: city name.
+        @param state: state name.
+        @param zip_code: zip code.
+        @return: Address.
+        """
+        address = self.create(street=street, unit=unit, city=city,
+                              state=state, zip_code=zip_code)
+        address.save()
+        return address
+
+
+class ContactManager(models.Manager):
+    def create_contact(self, phone, phone_extension, cell, office_phone, office_phone_extension,
+                       email, work_email, website):
+        """
+        Creates a contact object.
+        @rtype: Contact.
+        @param phone: phone.
+        @param phone_extension: extension.
+        @param cell: cell.
+        @param office_phone: office phone.
+        @param office_phone_extension: extension.
+        @param email: personal email.
+        @param work_email: work email.
+        @param website: website (optional).
+        @return:
+        """
+        contact = self.create(phone=phone, phone_extension=phone_extension, cell=cell,
+                              office_phone=office_phone, office_phone_extension=office_phone_extension,
+                              email=email, work_email=work_email, website=website)
+        contact.save()
+        return contact
+
+
+class CallListManager(models.Manager):
+    def create_call_list(self, cl_contact, cl_order, cl_is_enabled, cl_genre):
+        """
+        Creates a call list object.
+        @rtype: Call_List.
+        @param cl_contact: contact info.
+        @param cl_order: call list order.
+        @param cl_is_enabled: call list's active status.
+        @param cl_genre: call list's genre.
+        @return:
+        """
+        call_list = self.create(cl_contact=cl_contact, cl_order=cl_order, cl_is_enabled=cl_is_enabled,
+                                cl_genre=cl_genre)
+        call_list.save()
+        return call_list
+
+
+class GenreManager(models.Manager):
+    def create_genre(self, genre, genre_description):
+        """
+        Creates a genre.
+        @rtype: Genre.
+        @param genre: Type.
+        @param genre_description: Description.
+        @return: Genre object.
+        """
+        genre = self.create(genre=genre, genre_description=genre_description)
+        genre.save()
+        return genre
+
+
+class BillingManager(models.Manager):
+    def create_billing(self, billing_client_id, profile_name, method, billing_address, billing_contact, card,
+                       is_business):
+        """
+        Creates a billing object.
+        @rtype : Billing.
+        @param billing_client_id: Client Id.
+        @param profile_name: profile name.
+        @param method: method.
+        @param billing_address: address.
+        @param billing_contact: contact.
+        @param card: card.
+        @param is_business: is business account.
+        @return: Billing object.
+        """
+        billing = self.create_billing(billing_client_id=billing_client_id, profile_name=profile_name, method=method,
+                                      billing_address=billing_address, billing_contact=billing_contact, card=card,
+                                      is_business=is_business)
+        billing.save()
+        return billing
+
+
+class InstallerManager(models.Manager):
+    def create_installer(self, installer_code, installer_company_name, installer_notes):
+        """
+        Creates an installer Object
+        @rtype: Installer.
+        @param installer_code: code.
+        @param installer_company_name: name.
+        @param installer_notes: notes.
+        @return: Installer Object.
+        """
+        installer = self.create_installer(installer_code=installer_code, installer_company_name=installer_company_name,
+                                          installer_notes=installer_notes)
+        installer.save()
+        return installer
+
+#endregion
+
 #region BaseModels
 
 
@@ -28,7 +214,7 @@ class City(models.Model):
     city_id = models.AutoField(primary_key=True)
     city_name = models.CharField(max_length=30)
 
-    def __unicode__(self):
+    def __str__(self):
         return (self.city_name)
 
 
@@ -215,190 +401,12 @@ class Installer(models.Model):
     installer_notes = models.CharField(max_length=50)
 
 
-#endregion
+class Card(models.Model):
+    card_id = models.AutoField(primary_key=True)
+    card_number = models.IntegerField(max_length=20)
+    card_code = models.IntegerField(max_length=6)
+    card_first_name = models.CharField(max_length=20)
+    card_last_name = models.CharField(max_length=20)
 
-#region Choices
-
-#This will be used to provide a dropdown menu for any field that is a number in a range.
-NUMBER_CHOICES = (
-    (1, '1st'),
-    (2, '2nd'),
-    (3, '3rd'),
-    (4, '4th'),
-    (5, '5th'),
-    (6, '6th'),
-    (7, '7th'),
-    (8, '8th'),
-    (9, '9th'),
-    (10, '10th'),
-)
-
-STATE_CHOICES = (
-    ('Alabama', 'AL'),
-    ('Alaska', 'AK'),
-    ('Arizona', 'AZ'),
-    ('Arkansas', 'AR'),
-    ('California', 'CA'),
-    ('Colorado', 'CO'),
-    ('Connecticut', 'CT'),
-    ('Delaware', 'DE'),
-    ('District of Columbia', 'DC'),
-    ('Florida', 'FL'),
-    ('Georgia', 'GA'),
-    ('Hawaii', 'HI'),
-    ('Idaho', 'ID'),
-    ('Illinois', 'IL'),
-    ('Indiana', 'IN'),
-    ('Iowa', 'IA'),
-    ('Kansas', 'KS'),
-    ('Kentucky', 'KY'),
-    ('Louisiana', 'LA'),
-    ('Maine', 'ME'),
-    ('Maryland', 'MD'),
-    ('Massachusetts', 'MA'),
-    ('Michigan', 'MI'),
-    ('Minnesota', 'MN'),
-    ('Mississippi', 'MS'),
-    ('Missouri', 'MO'),
-    ('Montana', 'MT'),
-    ('Nebraska', 'NE'),
-    ('Nevada', 'NV'),
-    ('New Hampshire', 'NH'),
-    ('New Jersey', 'NJ'),
-    ('New Mexico', 'NM'),
-    ('New York', 'NY'),
-    ('North Carolina', 'NC'),
-    ('North Dakota', 'ND'),
-    ('Ohio', 'OH'),
-    ('Oklahoma', 'OK'),
-    ('Oregon', 'OR'),
-    ('Pennsylvania', 'PA'),
-    ('Rhode Island', 'RI'),
-    ('South Carolina', 'SC'),
-    ('South Dakota', 'SD'),
-    ('Tennessee', 'TN'),
-    ('Texas', 'TX'),
-    ('Utah', 'UT' ),
-    ('Vermont', 'VT'),
-    ('Virginia', 'VA'),
-    ('Washington', 'WA'),
-    ('West Virginia', 'WV'),
-    ('Wisconsin', 'WI'),
-    ('Wyoming', 'WY'),
-)
-
-#endregion
-
-#region ModelManagers
-
-
-class AddressManager(models.Manager):
-    def create_address(self, street, unit, city, state, zip_code):
-        """
-        Creates an address.
-        @rtype: Address.
-        @param street: street info.
-        @param unit: unit info.
-        @param city: city name.
-        @param state: state name.
-        @param zip_code: zip code.
-        @return: Address.
-        """
-        address = self.create(street=street, unit=unit, city=city,
-                              state=state, zip_code=zip_code)
-        address.save()
-        return address
-
-
-class ContactManager(models.Manager):
-    def create_contact(self, phone, phone_extension, cell, office_phone, office_phone_extension,
-                       email, work_email, website):
-        """
-        Creates a contact object.
-        @rtype: Contact.
-        @param phone: phone.
-        @param phone_extension: extension.
-        @param cell: cell.
-        @param office_phone: office phone.
-        @param office_phone_extension: extension.
-        @param email: personal email.
-        @param work_email: work email.
-        @param website: website (optional).
-        @return:
-        """
-        contact = self.create(phone=phone, phone_extension=phone_extension, cell=cell,
-                              office_phone=office_phone, office_phone_extension=office_phone_extension,
-                              email=email, work_email=work_email, website=website)
-        contact.save()
-        return contact
-
-
-class CallListManager(models.Manager):
-    def create_call_list(self, cl_contact, cl_order, cl_is_enabled, cl_genre):
-        """
-        Creates a call list object.
-        @rtype: Call_List.
-        @param cl_contact: contact info.
-        @param cl_order: call list order.
-        @param cl_is_enabled: call list's active status.
-        @param cl_genre: call list's genre.
-        @return:
-        """
-        call_list = self.create(cl_contact=cl_contact, cl_order=cl_order, cl_is_enabled=cl_is_enabled,
-                                cl_genre=cl_genre)
-        call_list.save()
-        return call_list
-
-
-class GenreManager(models.Manager):
-    def create_genre(self, genre, genre_description):
-        """
-        Creates a genre.
-        @rtype: Genre.
-        @param genre: Type.
-        @param genre_description: Description.
-        @return: Genre object.
-        """
-        genre = self.create(genre=genre, genre_description=genre_description)
-        genre.save()
-        return genre
-
-
-class BillingManager(models.Manager):
-    def create_billing(self, billing_client_id, profile_name, method, billing_address, billing_contact, card,
-                       is_business):
-        """
-        Creates a billing object.
-        @rtype : Billing.
-        @param billing_client_id: Client Id.
-        @param profile_name: profile name.
-        @param method: method.
-        @param billing_address: address.
-        @param billing_contact: contact.
-        @param card: card.
-        @param is_business: is business account.
-        @return: Billing object.
-        """
-        billing = self.create_billing(billing_client_id=billing_client_id, profile_name=profile_name, method=method,
-                                      billing_address=billing_address, billing_contact=billing_contact, card=card,
-                                      is_business=is_business)
-        billing.save()
-        return billing
-
-
-class InstallerManager(models.Manager):
-    def create_installer(self, installer_code, installer_company_name, installer_notes):
-        """
-        Creates an installer Object
-        @rtype: Installer.
-        @param installer_code: code.
-        @param installer_company_name: name.
-        @param installer_notes: notes.
-        @return: Installer Object.
-        """
-        installer = self.create_installer(installer_code=installer_code, installer_company_name=installer_company_name,
-                                          installer_notes=installer_notes)
-        installer.save()
-        return installer
 
 #endregion
