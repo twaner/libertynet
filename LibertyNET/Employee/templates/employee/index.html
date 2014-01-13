@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+
+{% block content %}
+<p>Welcome to the Liberty Security Services Employee Management site.</p>
+<p>Please select an option from the following choices or go back to the home page.</p>
+
+{% if all_employees_list %}
+    <ul>
+        {% for e in all_employees_list %}
+        <li>
+                <a href="{% url 'employee:details' e.employee_id %}">
+                {{e.employee_id}} {{e.first_name}} {{e.last_name}}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+        <p>No employees are available.</p>
+{% endif %}
+
+{% comment %}
+    <a href="/employeetest/{{ e.employee_id }}/">
+    <a href="{% url 'detailed' e.employee_id %}">
+    <a href="/employeetest/{{ e.employee_id }}/">
+{% endcomment %}
+
+{% endblock %}

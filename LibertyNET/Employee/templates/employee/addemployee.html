@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load bootstrap_toolkit %}
+<form action="" method="post">{% csrf_token %}
+{% block content %}
+    <p>Employee Information</p>
+    {{ form|as_bootstrap }}
+
+    <p>Address Information</p>
+    {{ form1|as_bootstrap }}
+
+    <p>Contact Information</p>
+    {{ form2|as_bootstrap }}
+
+    {{ form3|as_boostrap }}
+<br />
+<input type="submit" value="Submit" class="btn btn-primary" />
+</form>
+{% endblock %}

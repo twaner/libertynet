@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load bootstrap_toolkit %}
+{% load url from future %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Liberty Security Services</title>
+    <meta name="description" content="">
+    <meta name="author" content="Taiowa Waner">
+{% bootstrap_stylesheet_tag %}
+{% bootstrap_stylesheet_tag "responsive" %}
+
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <!-- Breaks dropdown menu
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    -->
+
+    <link href="/static/datepicker/css/datepicker.css" type="text/css" media="screen" rel="stylesheet" />
+    <script type="text/javascript" src="/static/datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/static/bootstrap_toolkit/js/init_datepicker.js"></script>
+    <!--<script type="text/javascript" src="/static/js/address_autocomplete.js"><</script> -->
+    {% comment %}
+    {% include 'autocomplete_light/static.html' %}
+    {% endcomment %}
+    {% bootstrap_javascript_tag %}
+    {% block extra_head %}{% endblock %}
+</head>
+{% block body_block %}
+<body>
+{% endblock %}
+{% load staticfiles %}
+<img src="{{ STATIC_URL }}media/website_logo_sm.png"  alt="Liberty Logo"/>
+<!--<img src="{% static "media/website_logo_sm.png" %}"  alt="Liberty Logo"/>-->
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/">Liberty Security Services </a>
+            <ul class="nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employee<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'Employee:index' %}">Employee Home</a></li>
+                        <li><a href="{% url 'Employee:index' %}">Add Employee</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Client<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Client Home</a> </li>
+                        {% comment %}
+                        <li><a href="{% url 'Client:index' %}">Client Home</a> </li>
+                        <li><a href="{% url 'Client:addclient' %}">Add Client</a></li>
+                        <li><a href="{% url 'Client:salesprospectindex' %}">Sales Prospect Home</a></li>
+                        <li><a href="{% url 'Client:addsalesprospect' %}">Add Sales Prospect</a></li>
+                        {% endcomment %}
+                    </ul>
+                </li>
+                 <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Site<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Site Home</a></li>
+                        <li><a href="#%}">Add Site Info</a></li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'admin:index' %}">Admin</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    {% bootstrap_messages %}
+
+    {% block content %}Empty page{% endblock %}
+
+    <p><hr></p>
+
+    <footer class="row">
+        <div class="span6">
+            <p>Built using <a href="https://github.com/dyve/django-bootstrap-toolkit">django-bootstrap-toolkit</a></p>
+            <p>Powered by django</p>
+        </div>
+        <div class="span6" style="text-align:right">
+            <p>
+                &copy; <a href="http://twitter.com/wanert">Taiowa Waner</a> 2013
+                |
+                <a href="https://raw.github.com/dyve/django-bootstrap-toolkit/master/LICENSE">license</a>
+            </p>
+            <p>
+                Address Autocomplete <br />
+                <img src="{{ STATIC_URL }}media/powered-by-google-on-white.png"  alt="Liberty Logo"/>
+            </p>
+        </div>
+    </footer>
+
+</div> <!-- container -->
+
+</body>
+</html>

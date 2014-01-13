@@ -1,7 +1,41 @@
 from django.db import models
 from Common.models import Person
 
-#region Employee Attributes
+#region ModelManagers
+
+
+class EmployeeManager(models.Manager):
+    def create_employee(self, first_name, last_name, emp_number, emp_title, emp_address, emp_contact,
+                        hire_date,pay_type, pay_rate, is_terminated, termination_date, termination_reason):
+        """
+        Creates a new employee. Terminated attributes are False and None by default.
+        @param last_name: employee's last name.
+        @param first_name: employee's first name
+        @param emp_number: employee number.
+        @param emp_title: employee title.
+        @param emp_address: employee address.
+        @param emp_contact: employee contact.
+        @param hire_date: employee's hire date.
+        @param pay_type: employee's pay type.
+        @param pay_rate: employee's pay rate.
+        @param is_terminated: is employee terminated (False).
+        @param termination_date: employee termination date (None).
+        @param termination_reason: employee termination reason (None).
+        @return:
+        """
+        employee = self.create(first_name=first_name, last_name=last_name, emp_number=emp_number,
+                               emp_title=emp_title, emp_address=emp_address,
+                               emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
+                               pay_rate=pay_rate, is_terminated=False,
+                               termination_date=None,
+                               termination_reason=None)
+        employee.save()
+        return employee
+
+
+#endregion
+
+#region Models
 
 
 class Title(models.Model):
@@ -22,15 +56,18 @@ class Title(models.Model):
     title_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=2, choices=TITLE_CHOICES)
 
-    def __unicode__(self):
+    def __str__(self):
         """
         Used to display names of the titles.
         @return: title names.
         """
         return self.get_title_display()
+
 #endregion
 
 #region Employee class
+
+
 class Employee(Person):
     """
     Employee model. To add titles use e.emp_title.add(t).
@@ -51,10 +88,12 @@ class Employee(Person):
     pay_type = models.CharField(choices=PAY_TYPE_CHOICES, default='HR', max_length=12)
     pay_rate = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
     is_terminated = models.BooleanField(default=False)
-    termination_date = models.DateField(null=True, blank=True)
-    termination_reason = models.CharField(max_length=300, blank=True)
+    termination_date = models.DateField(null=True, blank=True, default=None)
+    termination_reason = models.CharField(max_length=300, blank=True, default=None)
 
-    def __unicode__(self):
+    objects = EmployeeManager()
+
+    def __str__(self):
         """
         Displays first and last of Employee
         @return: Employee first and last name.
@@ -66,10 +105,6 @@ class Employee(Person):
         Displays titles.
         @return: Titles for Employee
         """
-        return (self.e_title)
+        return (self.emp_title)
 
-#end region
-
-#region Employee Managers
-#TODO Add Managers
 #endregion

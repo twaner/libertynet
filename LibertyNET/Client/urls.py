@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+"""from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 from django.views.generic import list_detail
 from models import Client, Sales_Prospect
@@ -15,3 +15,4 @@ urlpatterns = patterns('',
     }),
     (r'^index/$', list_detail.object_list, client_info)
 )
+"""

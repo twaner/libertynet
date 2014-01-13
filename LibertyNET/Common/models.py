@@ -115,6 +115,19 @@ class ContactManager(models.Manager):
         contact.save()
         return contact
 
+    def create_employee_contact(self, phone, cell, email, work_email):
+        """
+        Creates contact object for an employee
+        @param phone: phone.
+        @param cell: cell.
+        @param email: email.
+        @param work_email: work email.
+        @return: employee based contact object.
+        """
+        contact = self.create_employee_contact(phone=phone, cell=cell, email=email, work_email=work_email)
+        contact.save()
+        return contact
+
 
 class CallListManager(models.Manager):
     def create_call_list(self, cl_contact, cl_order, cl_is_enabled, cl_genre):
@@ -285,15 +298,15 @@ class Address(models.Model):
     """
     street = models.CharField("street address", max_length=30)
     unit = models.CharField("unit address", max_length=30, blank=True)
-    city = models.ForeignKey(City, blank=True)
+    city = models.CharField(max_length=30)
     state = models.CharField(max_length=30, choices=STATE_CHOICES, default='NY')
     zip_code = models.CharField("zip code", max_length=10)
 
     objects = AddressManager()
 
-    def __unicode__(self):
-        return (u'%s %s %s %s %s' % (self.address, self.address2,
-                                     self.city.city_name, self.state, self.zip_code))
+    def __str__(self):
+        return (u'%s %s %s %s %s' % (self.street, self.unit,
+                                     self.city, self.state, self.zip_code))
 
 
 class Contact(models.Model):

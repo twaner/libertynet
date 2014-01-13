@@ -14,6 +14,7 @@ class Job(models.Model):
 
     #TODO ==> _unicode_
 
+
 class Task(models.Model):
     task_id = models.AutoField(primary_key=True)
     #TODO ==> Can this be M2M ??
@@ -29,6 +30,7 @@ class Task(models.Model):
 
     def __str__(self):
         return self.task_name
+
 
 class Ticket(models.Model):
     ticket_id = models.AutoField(primary_key=True)
@@ -49,6 +51,7 @@ class Ticket(models.Model):
 
     #TODO ==> _unicode_
 
+
 class Wage(models.Model):
     wages_id = models.AutoField(primary_key=True)
     wages_employee_id = models.ForeignKey('Employee.Employee')
@@ -63,4 +66,4 @@ class Wage(models.Model):
 
     #TODO ==> _unicode_
 
-#endregion
+    #endregion

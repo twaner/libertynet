@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'Work',
     'south',
     'bootstrap3',
+    'bootstrap_toolkit',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -131,5 +132,5 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
-ROOT_URLCONF = 'liberty.urls'
+
 
