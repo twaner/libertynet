@@ -9,7 +9,7 @@ var componentForm = {
     administrative_area_level_1: 'long_name',
     postal_code: 'short_name'
 };
-var myAddress = ["id_address", "id_state", "id_zip_code", "id_city_name"];
+var myAddress = ["id_street", "id_state", "id_zip_code", "id_city"];
 function initialize() {
 // Create the autocomplete object, restricting the search
 // to geographical location types.
@@ -39,11 +39,11 @@ for (var i = 0; i < place.address_components.length; i++) {
         q++;
     }
 }
-document.getElementById("id_address").value = g_Addy[0] + ' ' + g_Addy[1];
+document.getElementById("id_street").value = g_Addy[0] + ' ' + g_Addy[1];
 document.getElementById("id_zip_code").value = g_Addy[4];
 
-if (document.getElementById("id_city_name")){
-    document.getElementById("id_city_name").value = g_Addy[2];
+if (document.getElementById("id_city")){
+    document.getElementById("id_city").value = g_Addy[2];
 } else {
     document.getElementById("id_city").value = g_Addy[2];
 }

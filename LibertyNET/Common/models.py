@@ -124,7 +124,7 @@ class ContactManager(models.Manager):
         @param work_email: work email.
         @return: employee based contact object.
         """
-        contact = self.create_employee_contact(phone=phone, cell=cell, email=email, work_email=work_email)
+        contact = self.create(phone=phone, cell=cell, email=email, work_email=work_email)
         contact.save()
         return contact
 

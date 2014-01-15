@@ -1,5 +1,6 @@
 from django import forms
 from models import Address, Billing, Contact, Call_List, Installer
+from django.utils.translation import gettext as _
 
 #region AddressForms
 
@@ -8,13 +9,10 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
         fields = '__all__'
-        labels = {
-            'street': _('Street Address'),
-            'unit': _('Unit Number'),
-        }
+        labels = dict(street=_('Street Address'), unit=_('Unit Number'))
         help_texts = {
-            'street': _('Ex. 44 Broadway, 4 W. Downs St.'),
-            'unit': _('Ex. Apt 23, Unit 4b'),
+            'street': _('Ex. 44 Broadway'),
+            'unit': _('Ex. Apt 23'),
         }
         error_messages = {
             'zip_code': {
@@ -31,6 +29,10 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = '__all__'
+        labels = {
+            'phone': _('Phone'),
+            'cell': _('Cell Phone'),
+        }
 
 
 class EmployeeContactForm(forms.ModelForm):
@@ -38,6 +40,10 @@ class EmployeeContactForm(forms.ModelForm):
         model = Contact
         exclude = ['phone_extension', 'office_phone', 'office_phone_extension',
                    'website']
+        labels = {
+            'phone': _('Phone'),
+            'cell': _('Cell Phone'),
+        }
 
 #endregion
 

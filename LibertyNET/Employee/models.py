@@ -12,7 +12,7 @@ class EmployeeManager(models.Manager):
         @param last_name: employee's last name.
         @param first_name: employee's first name
         @param emp_number: employee number.
-        @param emp_title: employee title.
+        @param emp_title: employee title will be requests list.
         @param emp_address: employee address.
         @param emp_contact: employee contact.
         @param hire_date: employee's hire date.
@@ -26,9 +26,11 @@ class EmployeeManager(models.Manager):
         employee = self.create(first_name=first_name, last_name=last_name, emp_number=emp_number,
                                emp_title=emp_title, emp_address=emp_address,
                                emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
-                               pay_rate=pay_rate, is_terminated=False,
-                               termination_date=None,
-                               termination_reason=None)
+                               pay_rate=pay_rate)
+                               #is_terminated=False, termination_date=None, termination_reason=None)
+        print("EMP_TITLE==>", type(emp_title))
+        employee.save(commit=False)
+        [employee.emp_title.add(et) for et in emp_title]
         employee.save()
         return employee
 
@@ -89,7 +91,7 @@ class Employee(Person):
     pay_rate = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
     is_terminated = models.BooleanField(default=False)
     termination_date = models.DateField(null=True, blank=True, default=None)
-    termination_reason = models.CharField(max_length=300, blank=True, default=None)
+    termination_reason = models.CharField(max_length=300, blank=True, null=True)
 
     objects = EmployeeManager()
 

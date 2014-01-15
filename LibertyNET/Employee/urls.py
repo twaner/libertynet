@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from views import EmployeeListView, EmployeeDetailList
+from views import EmployeeListView, EmployeeDetailList, addemployee
 #region urlpatterns
 
 
 urlpatterns = patterns('',
     url(r'^index/$', EmployeeListView.as_view(), name="index"),
+    url(r'addemployee/$', addemployee, name='addemployee'),
     #url(r'employee/([\d-]+)/$', EmployeeDetailList.as_view()),
 )
 
