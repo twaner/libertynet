@@ -49,12 +49,12 @@ class EmployeeContactForm(forms.ModelForm):
 
 #region BillingForm
 
-
+"""
 class BillingForm(forms.ModelForm):
     class Meta:
         model = Billing
         fields = '__all__'
-
+"""
 #endregion
 
 #region Installer

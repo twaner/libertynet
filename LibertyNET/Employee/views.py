@@ -37,7 +37,7 @@ class EmployeeDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(EmployeeDetailView, self).get_context_data(**kwargs)
-    
+
 
 #endview
 

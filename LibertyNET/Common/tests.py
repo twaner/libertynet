@@ -1,5 +1,6 @@
 from django.test import TestCase
 from Common.models import Address, Contact
+from factories import AddressFactory, ContactEmployeeFactory
 
 #region Address Test
 
@@ -41,5 +42,31 @@ class ContactEmployeeTest(TestCase):
         con = self.create_contact_employee()
         self.assertTrue(isinstance(con, Contact), "Employee contact is not instance")
 
+#endregion
 
-#endregiong
+#region Factory Tests
+
+
+class FactoryTestCase(TestCase):
+    def test_address_factory(self):
+        address = AddressFactory()
+        self.assertTrue(isinstance(address, Address), "AddressFactory is not address")
+
+    def test_contact_employee_factory(self):
+        contact = ContactEmployeeFactory()
+        self.assertTrue(isinstance(contact, Contact),
+                        "ContactEmployeeFactory is not Contact")
+
+#endregion
+
+#region FORM TESTS
+
+class AddressFormTest(TestCase):
+    def test_address_form(self):
+        print("AddressFormTest")
+        a = AddressFactory()
+        self.assertTrue(isinstance(a, Address), "Is not address AddressFormTest")
+        address_data = {'street': a.street, 'unit': a.unit, 'city': a.city, 'state': a.state,
+                        'zip_code': a.zip_code, }
+
+#endregion
