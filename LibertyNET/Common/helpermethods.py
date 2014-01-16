@@ -63,9 +63,16 @@ def form_generator(n):
     return form_list
 
 
+def form_errors_printer(form_list):
+    for i in form_list:
+        if not i.is_valid():
+            print("Form not valid =>", i.errors)
+
+
 def dict_generator(form_list):
     """
     genrates dictionary to hold forms.
+    @param form_list: List of forms.
     @type form_list: List
     @param: list.
     @return: dictionary with k, v for forms.

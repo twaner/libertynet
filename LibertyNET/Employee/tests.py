@@ -6,19 +6,19 @@ from Common.forms import AddressForm, EmployeeContactForm
 from Common.factories import AddressFactory, ContactEmployeeFactory
 from helpermethods import create_employee_helper
 from Common.models import Contact, Address
-from Common.helpermethods import create_address_helper, create_employee_contact_helper
+import Common.helpermethods as CHM
 
 #class Employee Tests
 
 
 class EmployeeTest(TestCase):
     def setUp(self):
-        pass
-        Address.objects.create(street="44 Broadway", unit="4B", city="Kingston", state="NY",
-                               zip_code="12401")
-        Contact.objects.create(phone="8453334444", cell="8456667777",
-                               email="test@test.com", work_email="work@work.com")
-
+        a = Address.objects.create(street='44 Broadway', unit='4B', city='Kingston', state='NY',
+                                   zip_code='12401')
+        self.assertTrue(isinstance(a, Address), "Address not created")
+        c = Contact.objects.create(phone='8453334444', cell='8456667777',
+                                   email='test@test.com', work_email='work@work.com')
+        self.assertTrue(isinstance(c, Contact), "Contact not created.")
 
     def test_form(self):
         a = AddressFactory()
@@ -29,7 +29,8 @@ class EmployeeTest(TestCase):
         self.assertTrue(isinstance(e, Employee), "Is not Employee ==> test_form")
 
         address_data = {'street': a.street, 'unit': a.unit, 'city': a.city, 'state': a.state,
-                        'zip_code': a.zip_code, }
+                        'zip_code': a.zip_code,
+                        }
         contact_date = {
             'phone': c.phone, 'cell': c.cell, 'email': c.email, 'work_email': c.work_email,
         }
@@ -40,13 +41,19 @@ class EmployeeTest(TestCase):
             'pay_type': e.pay_type, 'pay_rate': e.pay_rate,
         }
 
-        address_form = AddressForm(data=address_data)
-        contact_form = EmployeeContactForm(data=contact_date)
-        emp_form = AddEmployeeForm(data=employee_data)
+        form_list = CHM.form_generator(3)
 
-        self.assertTrue(address_form.is_valid())
-        self.assertTrue(contact_form.is_valid())
-        self.assertTrue(emp_form.is_valid())
+        form_list[0] = AddressForm(data=address_data)
+        form_list[1] = EmployeeContactForm(data=contact_date)
+        form_list[2] = AddEmployeeForm(data=employee_data)
+
+        CHM.form_errors_printer(form_list)
+
+        self.assertTrue(form_list[0].is_valid())
+        self.assertTrue(form_list[1].is_valid())
+        self.assertTrue(form_list[2].is_valid())
+
+
 
 
 #endregion

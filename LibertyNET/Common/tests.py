@@ -1,6 +1,7 @@
 from django.test import TestCase
 from Common.models import Address, Contact
 from factories import AddressFactory, ContactEmployeeFactory
+from Common.forms import AddressForm, EmployeeContactForm
 
 #region Address Test
 
@@ -30,7 +31,7 @@ class ContactTest(TestCase):
 
     def test_create_contact_full_creation(self):
         c = self.create_contact_full()
-        self.assertTrue(isinstance(c, Contact), "Is not contact")
+        self.assertTrue(isinstance(c, Contact), "Is not Contact [full]")
 
 
 class ContactEmployeeTest(TestCase):
@@ -40,7 +41,7 @@ class ContactEmployeeTest(TestCase):
 
     def test_create_contact_employee(self):
         con = self.create_contact_employee()
-        self.assertTrue(isinstance(con, Contact), "Employee contact is not instance")
+        self.assertTrue(isinstance(con, Contact), "Employee Contact is not instance")
 
 #endregion
 
@@ -68,5 +69,21 @@ class AddressFormTest(TestCase):
         self.assertTrue(isinstance(a, Address), "Is not address AddressFormTest")
         address_data = {'street': a.street, 'unit': a.unit, 'city': a.city, 'state': a.state,
                         'zip_code': a.zip_code, }
+        form = AddressForm(data=address_data)
+        self.assertTrue(form.is_valid(), "AddressForm not valid.")
+
+    def test_contact_form_employee(self):
+        print('test_contact_form_employee: ')
+        c = ContactEmployeeFactory()
+        self.assertTrue(isinstance(c, Contact), "Is not Contact Address Form")
+        contact_date = {
+            'phone': c.phone, 'cell': c.cell, 'email': c.email, 'work_email': c.work_email,
+        }
+        form = EmployeeContactForm(data=contact_date)
+        self.assertTrue(form.is_valid())
+        self.assertTrue(form.is_valid(), "EmployeeContactForm is not valid")
+
+
+
 
 #endregion

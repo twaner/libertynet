@@ -8,7 +8,7 @@ class AddressFactory(factory.Factory):
     street = '44 Test St'
     unit = '4B'
     city = 'Kingston'
-    state = 'NY'
+    state = 'New York'
     zip_code = '12401'
 
 
