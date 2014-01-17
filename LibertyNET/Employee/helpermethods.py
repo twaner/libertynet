@@ -62,4 +62,20 @@ def create_employee_worker(request, *args):
     employee.save()
     return employee
 
-    #endregion
+#endregion
+
+#region TitleHelperMethods
+
+
+def titles_to_pk_list(employee):
+    print("title2pk id", employee.employee_id)
+    print("TTTT ", employee.emp_title.all())
+    title_list = Employee.objects.values_list('emp_title', flat=True)
+    print("TITLELIST ", title_list)
+    the_list = list(title_list)
+    print("title2pk ", the_list)
+    return the_list
+
+
+
+#endregion

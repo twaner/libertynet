@@ -64,9 +64,11 @@ def form_generator(n):
 
 
 def form_errors_printer(form_list):
+    q = 0
     for i in form_list:
         if not i.is_valid():
-            print("Form not valid =>", i.errors)
+            print("Form[", q, "] not valid =>", i.errors)
+        q += 1
 
 
 def dict_generator(form_list):

@@ -1,0 +1,24 @@
+[{"pk": 1, 
+  	"model": "Employee.title", 
+  	"fields": {"title": "S"}}, 
+ {"pk": 2, "model": "Employee.title", "fields": {"title": "T"}}, 
+ {"pk": 3, "model": "Employee.title", "fields": {"title": "O"}}, 
+ {"pk": 4, "model": "Employee.title", "fields": {"title": "M"}}, 
+ {"pk": 5, "model": "Employee.title", "fields": {"title": "C"}}, 
+ {"pk": 6, "model": "Employee.title", "fields": {"title": "I"}}, 
+ 
+ {"pk": 1, "model": "Employee.employee", 
+  	"fields": {
+      		   "emp_contact": 1, 
+               "pay_type": "HR", 
+               "first_name": "John", 
+               "last_name": "Stevenson", 
+               "termination_reason": null, 
+               "emp_number": 1234, 
+               "emp_title": [1, 2, 3], 
+               "pay_rate": "12.00", 
+               "hire_date": "2014-01-15", 
+               "termination_date": null, 
+               "emp_address": 1, 
+               "is_terminated": false}
+ }]
