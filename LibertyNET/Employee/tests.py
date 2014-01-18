@@ -85,7 +85,9 @@ class EmployeeTest(TestCase):
                         'zip_code': a.zip_code,
                         }
         contact_date = {
-            'phone': c.phone, 'cell': c.cell, 'email': c.email, 'work_email': c.work_email,
+            'phone': c.phone, 'cell': c.cell, 'office_phone': c.office_phone,
+            'office_phone_extension': c.office_phone_extension,
+            'email': c.email, 'work_email': c.work_email,
         }
 
         e_title = titles_to_pk_list(e)
@@ -108,6 +110,19 @@ class EmployeeTest(TestCase):
         self.assertTrue(form_list[1].is_valid())
         self.assertTrue(form_list[2].is_valid())
 
+        #test helper methods
+        #TODO simulate request
+        """
+        a = CHM.create_address_helper(form_list[0])
+        self.assertTrue(isinstance(a, Address),
+                        "create_address_helper did not return Address")
+        c = CHM.create_employee_contact_helper(form_list[1])
+        self.assertTrue(isinstance(a, Contact),
+                        "create_employee_contact_helper did not return Contact")
+        employee_from_form = create_employee_helper(form_list[2]. a, c)
+        self.assertTrue(isinstance(employee_from_form, Employee),
+                        'create_employee_helper did not return Employee')
+        """
 
 #endregion
 

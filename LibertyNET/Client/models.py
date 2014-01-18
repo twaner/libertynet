@@ -107,7 +107,7 @@ class SalesProspectManager(models.Manager):
 class Client(Person):
     client_id = models.AutoField(primary_key=True)
     client_number = models.IntegerField(max_length=10)
-    business_name = models.CharField(max_length=50, blank=True)
+    business_name = models.CharField(max_length=50, blank=True, null=True)
     is_business = models.BooleanField(default=False)
     client_address = models.ForeignKey('Common.Address')
     client_contact = models.ForeignKey('Common.Contact')

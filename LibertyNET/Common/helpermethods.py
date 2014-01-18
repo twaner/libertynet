@@ -69,15 +69,13 @@ def create_contact_helper(request):
 #region Billing Helper Methods
 
 
-def create_billing_helper(request, *args):
-    if type(args[0]) == Client:
-        billing_client_id = args[0]
+def create_billing_helper(request):
     profile_name = request.POST.get('profile_name')
     method = request.POST.get('method')
     billing_address = request.POST.get('billing_address')
     card = request.POST.get('card')
 
-    billing = Billing.objects.create(billing_client_id=billing_client_id, profile_name=profile_name,
+    billing = Billing.objects.create(profile_name=profile_name,
                                      method=method, billing_address=billing_address, card=card)
     billing.save()
     return billing

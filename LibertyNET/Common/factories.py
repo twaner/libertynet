@@ -12,6 +12,7 @@ class AddressFactory(factory.DjangoModelFactory):
     state = 'New York'
     zip_code = factory.sequence(lambda n: '%05d' % n)
 
+
 class ContactEmployeeFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Contact
     id = factory.sequence(lambda n: '889%d' % n)
@@ -22,6 +23,19 @@ class ContactEmployeeFactory(factory.DjangoModelFactory):
     email = 'test@test.com'
     work_email = 'work.test@test.com'
 
+
+class ContactFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Contact
+    id = factory.sequence(lambda n: '889%d' % n)
+    phone = factory.sequence(lambda n: '84567809%02d' % n)
+    phone_extension = factory.sequence(lambda n: '%03d' % n)
+    cell = factory.sequence(lambda n: '97811122%02d' % n)
+    office_phone = factory.sequence(lambda n: '97811144%02d' % n)
+    office_phone_extension = factory.sequence(lambda n: '34%d' % n)
+    email = 'contactfull@contactfull.com'
+    work_email = 'work.contact@workcontact.com'
+
+
 class CardFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Card
     first_name = 'John'
@@ -31,7 +45,13 @@ class CardFactory(factory.DjangoModelFactory):
     card_code = factory.sequence(lambda n: '%04d' % n)
     card_type = 'VISA'
 
+
 class BillingFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Billing
-    id = 678
-    billing_client = factory
+    profile_name = 'Johnson Billing'
+    method = factory.sequence(lambda n: '%04d' % n)
+    billing_address = factory.SubFactory(AddressFactory)
+    card = factory.SubFactory(CardFactory)
+
+
+

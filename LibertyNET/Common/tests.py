@@ -1,6 +1,6 @@
 from django.test import TestCase
-from Common.models import Address, Contact
-from factories import AddressFactory, ContactEmployeeFactory
+from Common.models import Address, Contact, Card, Billing
+import factories as f
 from Common.forms import AddressForm, EmployeeContactForm
 
 #region Address Test
@@ -50,22 +50,31 @@ class ContactEmployeeTest(TestCase):
 
 class FactoryTestCase(TestCase):
     def test_address_factory(self):
-        address = AddressFactory()
+        address = f.AddressFactory()
         self.assertTrue(isinstance(address, Address), "AddressFactory is not address")
 
     def test_contact_employee_factory(self):
-        contact = ContactEmployeeFactory()
+        contact = f.ContactEmployeeFactory()
         self.assertTrue(isinstance(contact, Contact),
                         "ContactEmployeeFactory is not Contact")
+
+    def test_card_factory(self):
+        card = f.CardFactory()
+        self.assertTrue(isinstance(card, Card), "CardFactory is not Card")
+
+    def test_billing_factory(self):
+        billing = f.BillingFactory()
+        self.assertTrue(isinstance(billing, Billing), "BillingFactory is not Billing")
 
 #endregion
 
 #region FORM TESTS
 
+
 class AddressFormTest(TestCase):
     def test_address_form(self):
         print("AddressFormTest")
-        a = AddressFactory()
+        a = f.AddressFactory()
         self.assertTrue(isinstance(a, Address), "Is not address AddressFormTest")
         address_data = {'street': a.street, 'unit': a.unit, 'city': a.city, 'state': a.state,
                         'zip_code': a.zip_code, }
@@ -74,7 +83,7 @@ class AddressFormTest(TestCase):
 
     def test_contact_form_employee(self):
         print('test_contact_form_employee: ')
-        c = ContactEmployeeFactory()
+        c = f.ContactEmployeeFactory()
         self.assertTrue(isinstance(c, Contact), "Is not Contact Address Form")
         contact_date = {
             'phone': c.phone, 'cell': c.cell, 'email': c.email, 'work_email': c.work_email,
@@ -82,8 +91,5 @@ class AddressFormTest(TestCase):
         form = EmployeeContactForm(data=contact_date)
         self.assertTrue(form.is_valid())
         self.assertTrue(form.is_valid(), "EmployeeContactForm is not valid")
-
-
-
 
 #endregion
