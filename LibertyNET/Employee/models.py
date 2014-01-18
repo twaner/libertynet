@@ -5,10 +5,11 @@ from Common.models import Person
 
 
 class EmployeeManager(models.Manager):
-    def create_employee(self, first_name, last_name, emp_number, emp_title, emp_address, emp_contact,
-                        hire_date,pay_type, pay_rate, is_terminated, termination_date, termination_reason):
+    def create_employee(self, first_name, middle_initial, last_name, emp_number, emp_title, emp_address, emp_contact,
+                        hire_date, pay_type, pay_rate, is_terminated, termination_date, termination_reason):
         """
         Creates a new employee. Terminated attributes are False and None by default.
+        @param middle_initial: employee's middle initial.
         @param last_name: employee's last name.
         @param first_name: employee's first name
         @param emp_number: employee number.
@@ -23,8 +24,8 @@ class EmployeeManager(models.Manager):
         @param termination_reason: employee termination reason (None).
         @return:
         """
-        employee = self.create(first_name=first_name, last_name=last_name, emp_number=emp_number,
-                               emp_title=emp_title, emp_address=emp_address,
+        employee = self.create(first_name=first_name, last_name=last_name, middle_initial=middle_initial,
+                               emp_number=emp_number, emp_title=emp_title, emp_address=emp_address,
                                emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
                                pay_rate=pay_rate)
                                #is_terminated=False, termination_date=None, termination_reason=None)

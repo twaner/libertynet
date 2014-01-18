@@ -173,16 +173,33 @@ class BillingManager(models.Manager):
         @param profile_name: profile name.
         @param method: method.
         @param billing_address: address.
-        @param billing_contact: contact.
         @param card: card.
-        @param is_business: is business account.
         @return: Billing object.
         """
         billing = self.create_billing(billing_client_id=billing_client_id, profile_name=profile_name, method=method,
-                                      billing_address=billing_address, billing_contact=billing_contact, card=card,
-                                      is_business=is_business)
+                                      billing_address=billing_address, card=card)
         billing.save()
         return billing
+
+
+class CardManager(models.Manager):
+    def create_card(self, first_name, middle_initial, last_name, card_number, card_code, card_type):
+        """
+        Creates a Card object.
+        @param first_name: first name.
+        @param middle_initial: middle initial.
+        @param last_name: last name.
+        @param card_number: Card number.
+        @param card_code: card code.
+        @param card_type: type of card (ie Visa).
+        @rtype : Card
+        @return: Card object.
+        """
+        card = self.create_card(first_name=first_name, middle_initial=middle_initial,
+                                last_name=last_name, card_number=card_number,
+                                card_code=card_code, card_type=card_type)
+        card.save()
+        return card
 
 
 class InstallerManager(models.Manager):
@@ -210,6 +227,7 @@ class Person(models.Model):
     Base class for any model that is a person.
     """
     first_name = models.CharField(max_length=30)
+    middle_initial = models.CharField(max_length=2, blank=True, null=True)
     last_name = models.CharField(max_length=30)
 
     class Meta:
@@ -392,9 +410,7 @@ class Billing(models.Model):
     profile_name = models.CharField(max_length=45)
     method = models.IntegerField(max_length=11)
     billing_address = models.ForeignKey('Common.Address', null=True, blank=True)
-    billing_contact = models.ForeignKey('Common.Contact', null=True, blank=True)
     card = models.ForeignKey('Common.Card', null=True, blank=True)
-    is_business = models.BooleanField(default=False)
 
     objects = BillingManager()
 
@@ -421,8 +437,9 @@ class Card(models.Model):
     card_id = models.AutoField(primary_key=True)
     card_number = models.IntegerField(max_length=20)
     card_code = models.IntegerField(max_length=6)
-    card_first_name = models.CharField(max_length=20)
-    card_last_name = models.CharField(max_length=20)
+    card_type = models.CharField(max_length=14)
+    objects = CardManager()
 
-
+    def __str__(self):
+        return '%s %s', self.card_first_name, self.card_last_name
 #endregion

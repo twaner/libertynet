@@ -1,6 +1,6 @@
 import factory
 import factory.fuzzy
-from models import Address, Contact
+from models import Address, Contact, Card, Billing
 
 
 class AddressFactory(factory.DjangoModelFactory):
@@ -12,7 +12,6 @@ class AddressFactory(factory.DjangoModelFactory):
     state = 'New York'
     zip_code = factory.sequence(lambda n: '%05d' % n)
 
-
 class ContactEmployeeFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Contact
     id = factory.sequence(lambda n: '889%d' % n)
@@ -22,3 +21,17 @@ class ContactEmployeeFactory(factory.DjangoModelFactory):
     office_phone_extension = factory.sequence(lambda n: '34%d' % n)
     email = 'test@test.com'
     work_email = 'work.test@test.com'
+
+class CardFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Card
+    first_name = 'John'
+    middle_initial = 'E'
+    last_name = 'Cardtest'
+    card_number = factory.sequence(lambda n: '%12d' % n)
+    card_code = factory.sequence(lambda n: '%04d' % n)
+    card_type = 'VISA'
+
+class BillingFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Billing
+    id = 678
+    billing_client = factory

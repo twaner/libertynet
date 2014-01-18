@@ -1,4 +1,5 @@
 import factory
+import factory.fuzzy
 from models import Employee, Title
 import Common.factories
 
@@ -22,6 +23,7 @@ class EmployeeFactory(factory.DjangoModelFactory):
     """
     employee_id = factory.sequence(lambda n: '999%d' % n)
     first_name = 'John'
+    middle_initial = factory.fuzzy.FuzzyText(length=1)
     last_name = 'Smith'
     emp_number = factory.sequence(lambda n: '5678%d' % n)
     #emp_address = address
@@ -61,6 +63,7 @@ class EmployeeDjangoFactory(factory.DjangoModelFactory):
 
     employee_id = factory.sequence(lambda n: '888%d' % n)
     first_name = 'John'
+    middle_initial = factory.fuzzy.FuzzyText(length=1)
     last_name = 'Smith'
     emp_number = 1234
     emp_address = factory.lazy_attribute(lambda a: Common.factories.AddressFactory.create())
@@ -84,6 +87,7 @@ class EmployeeFactoryLatest(factory.DjangoModelFactory):
 
     employee_id = factory.sequence(lambda n: '1234%d' % n)
     first_name = 'John'
+    middle_initial = factory.fuzzy.FuzzyText(length=1)
     last_name = 'Smith'
     emp_number = 1234
     emp_address = factory.lazy_attribute(lambda a: Common.factories.AddressFactory.create())

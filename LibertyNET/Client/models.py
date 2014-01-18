@@ -3,12 +3,15 @@ from Common.models import Person, Business
 
 #region ModelManagers
 
+
 class ClientManager(models.Manager):
-    def create_client(self, first_name, last_name, client_number, business_name, is_business, client_address,
+    def create_client(self, first_name, middle_initial, last_name, client_number, business_name,
+                      is_business, client_address,
                       client_contact, client_billing, client_date):
         """
         Base create for a client.
         @param first_name: client's first name.
+        @param middle_initial: client's middle initial.
         @param last_name: client's last name.
         @param client_number: the client's number.
         @param business_name: business name if business.
@@ -19,7 +22,7 @@ class ClientManager(models.Manager):
         @param client_date: date client opened account with company.
         @return: client object
         """
-        client = self.create(first_name=first_name, last_name=last_name,
+        client = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
                              client_number=client_number, business_name=business_name,
                              is_business=is_business, client_address=client_address,
                              client_contact=client_contact, client_billing=client_billing,
@@ -66,11 +69,12 @@ class PersonalManager(models.Manager):
 
 
 class SalesProspectManager(models.Manager):
-    def create_sales_prospect(self, first_name, last_name, sp_business_name,
+    def create_sales_prospect(self, first_name, middle_initial, last_name, sp_business_name,
                               is_business, sp_liberty_contact, sales_type, sales_probability,
                               initial_contact_date, comments, sp_address, sp_contact, is_client):
         """
         Creates and returns a sales prospect.
+        @param middle_initial: sales prospect's middle initial.
         @param first_name: sales prospect's first name.
         @param last_name: sales prospect's last name.
         @param sp_business_name: sales prospect's business name (can be null)
@@ -85,7 +89,7 @@ class SalesProspectManager(models.Manager):
         @param is_client: has sales prospect become client?
         @return: Sales Prospect.
         """
-        sales_prospect = self.create(first_name=first_name, last_name=last_name,
+        sales_prospect = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
                                      sp_business_name=sp_business_name, is_business=is_business,
                                      sp_liberty_contact=sp_liberty_contact,
                                      sales_type=sales_type, initial_contact_date=initial_contact_date,

@@ -1,8 +1,13 @@
-"""from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
-from django.views.generic import list_detail
-from models import Client, Sales_Prospect
+from django.conf.urls import patterns, include, url
+from views import ClientDetailList, ClientListView
 
+urlpatterns = patterns('',
+    url(r'index/$', ClientListView.as_view(), name='index'),
+    #url(r'employee/([\d-]+)/$', EmployeeDetailList.as_view() name='details),
+
+)
+
+"""
 client_info = {
     'queryset': Client.objects.all(),
     'template_name': 'index.html',

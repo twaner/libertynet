@@ -9,9 +9,11 @@ def create_employee_helper(request, *args):
     Creates an employee object from a form.
     @param request: request.
     @param args: Address and Contact objects.
+    @rtype : Employee
     @return: Employee.
     """
     first_name = request.POST.get('first_name')
+    middle_initial = request.POST.get('middle_initial')
     last_name = request.POST.get('last_name')
     emp_number = request.POST.get('emp_number')
     #emp_address = request.POST.get('emp_address')
@@ -27,12 +29,11 @@ def create_employee_helper(request, *args):
     elif type(args[1]) == Address:
         emp_address = args[1]
         emp_contact = args[0]
-    print("EMP_TITLE==>", emp_title)
-    employee = Employee.objects.create(first_name=first_name, last_name=last_name, emp_number=emp_number,
-                                       emp_title=emp_title, emp_address=emp_address, emp_contact=emp_contact,
+    employee = Employee.objects.create(first_name=first_name, middle_initial=middle_initial,
+                                       last_name=last_name, emp_number=emp_number, emp_title=emp_title,
+                                       emp_address=emp_address, emp_contact=emp_contact,
                                        hire_date=hire_date, pay_type=pay_type, pay_rate=pay_rate)
     employee.save(commit=False)
-    print("EMP_TITLE==>", emp_title)
     [employee.emp_title.add(et) for et in request.POST.getlist('emp_title')]
     employee.save()
     return employee
@@ -43,6 +44,7 @@ def create_employee_worker(request, *args):
     Creates a new employee object.
     @param request: request.
     @param args: address and contact.
+    @rtype: Employee
     @return: Employee object.
     """
     first_name = request.POST.get('first_name')
@@ -60,8 +62,8 @@ def create_employee_worker(request, *args):
     elif type(args[1]) == Address:
         emp_address = args[1]
         emp_contact = args[0]
-    employee = Employee(first_name=first_name, last_name=last_name, emp_number=emp_number,
-                        emp_address=emp_address, emp_contact=emp_contact,
+    employee = Employee(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
+                        emp_number=emp_number, emp_address=emp_address, emp_contact=emp_contact,
                         hire_date=hire_date, pay_type=pay_type, pay_rate=pay_rate)
     employee.save()
     [employee.emp_title.add(et) for et in request.POST.getlist('emp_title')]
@@ -77,6 +79,7 @@ def titles_to_pk_list(employee):
     """
     Takes an employee object's list and converts titles to flat list for a ModelForm
     @param employee: Employee object.
+    @rtype: list
     @return: List of titles.
     """
     the_list = list(Employee.objects.values_list('emp_title', flat=True))

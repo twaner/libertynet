@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext as _
 from models import Client, Sales_Prospect
 from bootstrap_toolkit.widgets import BootstrapDateInput
 
