@@ -39,6 +39,12 @@ def create_employee_helper(request, *args):
 
 
 def create_employee_worker(request, *args):
+    """
+    Creates a new employee object.
+    @param request: request.
+    @param args: address and contact.
+    @return: Employee object.
+    """
     first_name = request.POST.get('first_name')
     last_name = request.POST.get('last_name')
     emp_number = request.POST.get('emp_number')
@@ -68,14 +74,12 @@ def create_employee_worker(request, *args):
 
 
 def titles_to_pk_list(employee):
-    print("title2pk id", employee.employee_id)
-    print("TTTT ", employee.emp_title.all())
-    title_list = Employee.objects.values_list('emp_title', flat=True)
-    print("TITLELIST ", title_list)
-    the_list = list(title_list)
-    print("title2pk ", the_list)
+    """
+    Takes an employee object's list and converts titles to flat list for a ModelForm
+    @param employee: Employee object.
+    @return: List of titles.
+    """
+    the_list = list(Employee.objects.values_list('emp_title', flat=True))
     return the_list
-
-
 
 #endregion

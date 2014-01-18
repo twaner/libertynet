@@ -33,7 +33,12 @@ def create_employee_contact_helper(request):
     cell = request.POST.get('cell')
     email = request.POST.get('email')
     work_email = request.POST.get('work_email')
-    contact = Contact.objects.create(phone=phone, cell=cell, email=email, work_email=work_email)
+    office = request.POST.get('office_phone')
+    office_ext = request.POST.get('office_phone_extension')
+    contact = Contact.objects.create(phone=phone, cell=cell, office_phone=office,
+                                     office_phone_extension=office_ext,
+                                     email=email, work_email=work_email,
+    )
     return contact
 
 #endregion
@@ -101,4 +106,4 @@ def form_worker(form_list, requested, *args):
 
     return form_list
 
-#endregion
+    #endregion

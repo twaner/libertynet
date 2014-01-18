@@ -12,24 +12,38 @@ import Common.helpermethods as CHM
 
 
 class TestFactory(TestCase):
+    def test_full_employee_factory(self):
+        print('Staring full_employee_factory...')
+        title = TitleFactory.create(title_id=69, title="I")
+        title2 = TitleFactory.create(title_id=99, title="O")
+        self.assertNotEqual(title.title, title2.title, "Titles are the same")
+        employee = EmployeeFactory.create(emp_title=(title, title2))
+        self.assertTrue(isinstance(employee, Employee), "EmployeeFactory() is not Employee!")
+        self.assertEqual(employee.emp_title.count(), 2, "Title Count does not match")
+        self.assertTrue(isinstance(employee.emp_address, Address), 'Employee Address not valid')
+        self.assertTrue(isinstance(employee.emp_contact, Contact), 'Employee Contact not valid')
 
     def test_employee_factory_latest(self):
-        print("starting...test_employee_factory_latest")
+        print("starting...test_employee_factory_latest...")
         employee = EmployeeFactoryLatest()
         self.assertTrue(isinstance(employee, Employee), 'EmployeeFactoryLatest is not Employee')
-        print("title time==> " % employee.emp_title.all())
-        print(employee.emp_title.all())
+        self.assertTrue(isinstance(employee.emp_address, Address), 'Employee Address not valid')
+        self.assertTrue(isinstance(employee.emp_contact, Contact), 'Employee Contact not valid')
+        self.assertEqual(employee.emp_title.count(), 2, "Title Count does not match")
 
     def test_employee_django_factory(self):
+        print('test_employee_django_factory....')
         employee = EmployeeDjangoFactory()
         self.assertTrue(isinstance(employee, Employee), 'EmployeeDjangoFactory is not Employee')
-
+        self.assertTrue(isinstance(employee.emp_address, Address), 'Employee Address not valid')
+        self.assertTrue(isinstance(employee.emp_contact, Contact), 'Employee Contact not valid')
+        self.assertEqual(employee.emp_title.count(), 1, "Title count doesn't match")
 
     def test_employee_factory(self):
         employee = EmployeeFactory()
         self.assertTrue(isinstance(employee, Employee), "EmployeeFactory() is not Employee!")
-        print("emp factory =>", employee.emp_title.all())
-        print("Completed employee factory")
+        self.assertTrue(isinstance(employee.emp_address, Address), 'Employee Address not valid')
+        self.assertTrue(isinstance(employee.emp_contact, Contact), 'Employee Contact not valid')
 
     def test_title_factory(self):
         title = TitleFactory(title_id=69, title="I")
@@ -38,16 +52,6 @@ class TestFactory(TestCase):
         self.assertEqual(title.title, 'I', "title is not equal")
         print("Completed title factory")
 
-    def full_employee_factory(self):
-        print('Staring full_employee_factory...')
-        title = TitleFactory(title_id=69, title="I")
-        title2 = TitleFactory(title_id=99, title="O")
-        self.assertNotEqual(title.title, title2.title, "Titles are the same")
-        print("Titles created full employee factory")
-        employee = EmployeeFactory.create(emp_title=(title, title2))
-        print("EMPLOYEE==> %" % employee)
-        self.assertTrue(isinstance(employee, Employee), "EmployeeFactory() is not Employee!")
-        self.assertTrue(employee.emp_title.count(), 2, "Title Count does not match")
 
 #endregion
 
@@ -71,9 +75,10 @@ class EmployeeTest(TestCase):
         self.assertTrue(isinstance(a, Address), "Is not Address => test_form")
         c = ContactEmployeeFactory()
         self.assertTrue(isinstance(c, Contact), "Is not Contact => test_form")
-        title = TitleFactory(title_id=6, title="I")
-        title2 = TitleFactory(title_id=3, title="O")
+        title = TitleFactory.create(title_id=6, title="I")
+        title2 = TitleFactory.create(title_id=3, title="O")
         e = EmployeeFactory.create(emp_title=(title, title2))
+        #e = EmployeeFactoryLatest()
         self.assertTrue(isinstance(e, Employee), "Is not Employee ==> test_form")
 
         address_data = {'street': a.street, 'unit': a.unit, 'city': a.city, 'state': a.state,
@@ -84,11 +89,9 @@ class EmployeeTest(TestCase):
         }
 
         e_title = titles_to_pk_list(e)
-        print("e_title ==>", e_title)
-
         employee_data = {
             'first_name': e.first_name, 'last_name': e.last_name, 'emp_number': e.emp_number,
-            'emp_title': [3, 6],
+            'emp_title': e_title,
             'hire_date': e.hire_date,
             'pay_type': e.pay_type, 'pay_rate': e.pay_rate,
         }

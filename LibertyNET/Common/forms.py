@@ -32,17 +32,21 @@ class ContactForm(forms.ModelForm):
         labels = {
             'phone': _('Phone'),
             'cell': _('Cell Phone'),
+            'office_phone': _('Office Phone'),
+            'office_phone_extension': _('Office Ext.'),
         }
 
 
 class EmployeeContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        exclude = ['phone_extension', 'office_phone', 'office_phone_extension',
+        exclude = ['phone_extension',
                    'website']
         labels = {
             'phone': _('Phone'),
             'cell': _('Cell Phone'),
+            'office_phone': _('Office Phone'),
+            'office_phone_extension': _('Office Ext.'),
         }
 
 #endregion
