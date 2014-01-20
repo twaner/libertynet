@@ -31,6 +31,7 @@ class ContactForm(forms.ModelForm):
         fields = '__all__'
         labels = {
             'phone': _('Phone'),
+            'phone_extension': _('Phone Ext.'),
             'cell': _('Cell Phone'),
             'office_phone': _('Office Phone'),
             'office_phone_extension': _('Office Ext.'),

@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, include, url
-from views import ClientDetailList, ClientListView
+from views import ClientDetailList, ClientListView, addclient
 
 urlpatterns = patterns('',
     url(r'index/$', ClientListView.as_view(), name='index'),
+    url(r'addclient/$', addclient, name='addclient'),
     #url(r'employee/([\d-]+)/$', EmployeeDetailList.as_view() name='details),
 
 )

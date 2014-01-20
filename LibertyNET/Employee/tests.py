@@ -61,13 +61,25 @@ class TestFactory(TestCase):
 class EmployeeTest(TestCase):
     def setUp(self):
         print('Starting setup...')
-        a = Address.objects.create(street='44 Broadway', unit='4B', city='Kingston', state='NY',
+        a = Address.objects.create(id=1111, street='44 Broadway', unit='4B', city='Kingston', state='NY',
                                    zip_code='12401')
         self.assertTrue(isinstance(a, Address), "Address not created")
-        c = Contact.objects.create(phone='8453334444', cell='8456667777',
+        c = Contact.objects.create(id=2222, phone='8453334444', cell='8456667777',
+                                   office_phone='9998883333', office_phone_extension='4545',
                                    email='test@test.com', work_email='work@work.com')
         self.assertTrue(isinstance(c, Contact), "Contact not created.")
         print('setup completed...')
+
+    def test_create_employee(self):
+        print('Starting test_create_employee...')
+        address = Address.objects.get(pk=1111)
+        contact = Contact.objects.get(pk=2222)
+        title = TitleFactory()
+        employee = Employee.objects.create(first_name='Jay', middle_initial='Q', last_name='Smith',
+                                           emp_number=6969, hire_date='2013-01-13', pay_type='HR',
+                                           pay_rate=12.99, emp_title=title, emp_address=address,
+                                           emp_contact=contact)
+        self.assertTrue(isinstance(employee, Employee), 'test_create_employee is not Employee')
 
     def test_form(self):
         print('Starting test_form...')
@@ -83,7 +95,7 @@ class EmployeeTest(TestCase):
 
         address_data = {'street': a.street, 'unit': a.unit, 'city': a.city, 'state': a.state,
                         'zip_code': a.zip_code,
-                        }
+        }
         contact_date = {
             'phone': c.phone, 'cell': c.cell, 'office_phone': c.office_phone,
             'office_phone_extension': c.office_phone_extension,
@@ -109,6 +121,7 @@ class EmployeeTest(TestCase):
         self.assertTrue(form_list[0].is_valid())
         self.assertTrue(form_list[1].is_valid())
         self.assertTrue(form_list[2].is_valid())
+
 
         #test helper methods
         #TODO simulate request

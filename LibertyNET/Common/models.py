@@ -346,13 +346,15 @@ class Contact(models.Model):
         Display for contact.
         @return: Formatted phone number.
         """
-        return "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
+        return '%s%s%s-%s%s%s-%s%s%s%s' % tuple(self.phone)
 
     def phone_extension_helper(self):
         """
         Helps create a readable phone number and extension.
         @return: a phone and extension if it exists.
         """
+        pass
+        print('AFTER PASS!!!!!!')
         if self.phone_extension is None:
             return "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
         else:

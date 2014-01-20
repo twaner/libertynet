@@ -27,8 +27,38 @@ class EmployeeManager(models.Manager):
         employee = self.create(first_name=first_name, last_name=last_name, middle_initial=middle_initial,
                                emp_number=emp_number, emp_title=emp_title, emp_address=emp_address,
                                emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
+                               pay_rate=pay_rate,
+                               is_terminated=False, termination_date=None, termination_reason=None)
+        print("EMP_TITLE==>", type(emp_title))
+        employee.save(commit=False)
+        [employee.emp_title.add(et) for et in emp_title]
+        employee.save()
+        return employee
+
+    def create_employee(self, first_name, middle_initial, last_name, emp_number, emp_title, emp_address, emp_contact,
+                        hire_date, pay_type, pay_rate):
+        """
+        Creates a new employee. Terminated attributes are False and None by default.
+        @param middle_initial: employee's middle initial.
+        @param last_name: employee's last name.
+        @param first_name: employee's first name
+        @param emp_number: employee number.
+        @param emp_title: employee title will be requests list.
+        @param emp_address: employee address.
+        @param emp_contact: employee contact.
+        @param hire_date: employee's hire date.
+        @param pay_type: employee's pay type.
+        @param pay_rate: employee's pay rate.
+        @param is_terminated: is employee terminated (False).
+        @param termination_date: employee termination date (None).
+        @param termination_reason: employee termination reason (None).
+        @return:
+        """
+        employee = self.create(first_name=first_name, last_name=last_name, middle_initial=middle_initial,
+                               emp_number=emp_number, emp_title=emp_title, emp_address=emp_address,
+                               emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
                                pay_rate=pay_rate)
-                               #is_terminated=False, termination_date=None, termination_reason=None)
+
         print("EMP_TITLE==>", type(emp_title))
         employee.save(commit=False)
         [employee.emp_title.add(et) for et in emp_title]

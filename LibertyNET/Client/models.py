@@ -1,5 +1,7 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from Common.models import Person, Business
+from Common.helpermethods import boolean_helper
 
 #region ModelManagers
 
@@ -7,7 +9,7 @@ from Common.models import Person, Business
 class ClientManager(models.Manager):
     def create_client(self, first_name, middle_initial, last_name, client_number, business_name,
                       is_business, client_address,
-                      client_contact, client_billing, client_date):
+                      client_contact, client_date):
         """
         Base create for a client.
         @param first_name: client's first name.
@@ -18,15 +20,13 @@ class ClientManager(models.Manager):
         @param is_business: is client a business.
         @param client_address: client's address.
         @param client_contact: client's contact info.
-        @param client_billing: client's billing info.
         @param client_date: date client opened account with company.
         @return: client object
         """
         client = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
                              client_number=client_number, business_name=business_name,
                              is_business=is_business, client_address=client_address,
-                             client_contact=client_contact, client_billing=client_billing,
-                             client_date=client_date)
+                             client_contact=client_contact, client_date=client_date)
         client.save()
         return client
 
@@ -111,12 +111,25 @@ class Client(Person):
     is_business = models.BooleanField(default=False)
     client_address = models.ForeignKey('Common.Address')
     client_contact = models.ForeignKey('Common.Contact')
-    client_billing = models.ForeignKey('Common.Billing')
+    client_billing = models.ForeignKey('Common.Billing', null=True, blank=True)
     client_date = models.DateField()
 
     objects = models.Manager()
     personal = PersonalManager()
     business = BusinessManager()
+
+    def clean(self):
+        super(Client, self).clean()
+        print('self.is_business', self.is_business)
+        print('self.business_name', self.business_name)
+        print('SUPERCLEAN===>')
+        if boolean_helper(self.is_business) and self.business_name == '':
+            print('SUPERCLEAN===>IF')
+            raise ValidationError('Please enter a business name')
+        elif not boolean_helper(self.is_business) and self.business_name != '':
+            print('SUPERCLEAN===>ELIF')
+            raise ValidationError("Please select /'Is Business/'")
+
 
     def __unicode__(self):
         """
@@ -127,7 +140,6 @@ class Client(Person):
             return self.business_name
         else:
             return u'%s %s' % (self.first_name, self.last_name)
-
 
     def is_a_business(self):
         """

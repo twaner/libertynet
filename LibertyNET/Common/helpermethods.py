@@ -1,5 +1,4 @@
 from models import Address, Contact, Card, Billing
-from Client.models import Client
 
 #region Address Helpers
 
@@ -57,11 +56,11 @@ def create_contact_helper(request):
     office = request.POST.get('office_phone')
     office_ext = request.POST.get('office_phone_extension')
     website = request.POST.get('website')
-    contact = Contact.objects.create_contact(phone=phone, phone_extension=phone_extension,
-                                             cell=cell, office_phone=office,
-                                             office_phone_extension=office_ext,
-                                             email=email, work_email=work_email,
-                                             website=website)
+    contact = Contact.objects.create(phone=phone, phone_extension=phone_extension,
+                                     cell=cell, office_phone=office,
+                                     office_phone_extension=office_ext,
+                                     email=email, work_email=work_email,
+                                     website=website)
     return contact
 
 #endregion

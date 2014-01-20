@@ -4,7 +4,6 @@ from django.views.generic import ListView, DetailView
 from models import Employee, Title
 from forms import AddEmployeeForm, EmployeeForm
 from helpermethods import create_employee_helper, create_employee_worker
-from Common.models import Address, Contact
 from Common.helpermethods import create_address_helper, create_employee_contact_helper, form_generator, \
     validation_helper, dict_generator
 from Common.forms import AddressForm, EmployeeContactForm

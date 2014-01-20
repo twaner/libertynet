@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from models import Client, Sales_Prospect
@@ -29,7 +30,7 @@ class ClientDetailList(ListView):
 #region AddClientView
 
 
-class addclient(request):
+def addclient(request):
     form_list = form_generator(4)
     if request.method == 'POST':
         form_list[0] = ClientForm(request.POST)
@@ -40,8 +41,24 @@ class addclient(request):
         if validation:
             address = create_address_helper(request)
             contact = create_contact_helper(request)
-            client = create_client_helper
+            client = create_client_helper(request, address, contact)
+            #return HttpResponseRedirect('/client/index/')
+            return HttpResponseRedirect(reverse('Client:index'))
+    else:
+        form_list[0] = ClientForm()
+        form_list[1] = AddressForm()
+        form_list[2] = ContactForm()
+    form_dict = dict_generator(form_list)
+
+    return render(request, 'client/addclient.html', form_dict)
+
+#endregion
+
+#region Billing Views
 
 
+def addbilling(request, client_id):
+    pass
+    #TODO Create view to add billing information
 
 #endregion

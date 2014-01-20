@@ -26,10 +26,6 @@ class EmployeeFactory(factory.DjangoModelFactory):
     middle_initial = factory.fuzzy.FuzzyText(length=1)
     last_name = 'Smith'
     emp_number = factory.sequence(lambda n: '5678%d' % n)
-    #emp_address = address
-    #emp_contact = contact
-    #emp_address = factory.lazy_attribute(lambda a: Common.factories.AddressFactory())
-    #emp_contact = factory.lazy_attribute(lambda a: Common.factories.ContactEmployeeFactory())
     emp_address = factory.SubFactory(Common.factories.AddressFactory)
     emp_contact = factory.SubFactory(Common.factories.ContactEmployeeFactory)
     hire_date = '2014-01-13'
