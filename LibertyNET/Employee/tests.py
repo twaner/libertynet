@@ -77,8 +77,10 @@ class EmployeeTest(TestCase):
         title = TitleFactory()
         employee = Employee.objects.create(first_name='Jay', middle_initial='Q', last_name='Smith',
                                            emp_number=6969, hire_date='2013-01-13', pay_type='HR',
-                                           pay_rate=12.99, emp_title=title, emp_address=address,
-                                           emp_contact=contact)
+                                           pay_rate=12.99, emp_address=address, emp_contact=contact)
+        employee.save()
+        employee.emp_title.add(title)
+        self.assertEqual(1, employee.emp_title.count(), 'title count is not 1.')
         self.assertTrue(isinstance(employee, Employee), 'test_create_employee is not Employee')
 
     def test_form(self):

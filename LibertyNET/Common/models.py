@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.encoding import force_bytes
+from django.core.exceptions import ValidationError
+
 
 #region Choices
 
@@ -340,6 +342,14 @@ class Contact(models.Model):
     website = models.URLField(blank=True)
 
     objects = ContactManager()
+
+    def clean(self):
+        super(Contact, self).clean()
+        # Phone Extension with no phone (office and phone)
+        if self.office_phone == '' and self.office_phone_extension != '':
+            raise ValidationError('Please enter an Office Phone Number.')
+        if self.phone == '' and self.phone_extension != '':
+            raise ValidationError('Please enter a Phone Number.')
 
     def __unicode__(self):
         """

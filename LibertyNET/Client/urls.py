@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, include, url
-from views import ClientDetailList, ClientListView, addclient
+from views import ClientDetailList, ClientListView, addclient, SalesProspectView, SalesProspectListView
 
 urlpatterns = patterns('',
-    url(r'index/$', ClientListView.as_view(), name='index'),
-    url(r'addclient/$', addclient, name='addclient'),
+    url(r'^index/$', ClientListView.as_view(), name='index'),
+    url(r'^addclient/$', addclient, name='addclient'),
+    url(r'^salesprospectindex/$', SalesProspectListView.as_view(), name='salesprospectindex'),
+    url(r'^addsalesprospect/$', SalesProspectView.as_view(), name='addsalesprospect')
     #url(r'employee/([\d-]+)/$', EmployeeDetailList.as_view() name='details),
-
 )
 
 """

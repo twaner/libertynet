@@ -11,12 +11,12 @@ class ClientForm(forms.ModelForm):
         model = Client
         exclude = ['client_address', 'client_contact', 'client_billing']
         help_texts = {
+            'business_name': _('Optional.'),
             'is_business': _('Select for commercial accounts.'),
         }
         widgets = {
             'client_date': BootstrapDateInput,
         }
-
 
 #endregion
 
@@ -26,17 +26,19 @@ class ClientForm(forms.ModelForm):
 class SalesProspectForm(forms.ModelForm):
     class Meta:
         model = Sales_Prospect
-        exclude = ['sp_address', 'sp_contact']
-        help_texts = {
-            'is_client': _('Select to convert to a Client.')
-        }
+        exclude = ['sp_address', 'sp_contact', 'is_client']
         widgets = {
             'initial_contact_date': BootstrapDateInput,
         }
-
+        help_texts = {
+            'is_business': _('Select for commercial accounts.'),
+        }
+        labels = {
+            'sp_business_name': _('Business Name'),
+            }
     #endregion
 
-    """
+"""
         def clean(self):
             cleaned_data = Client.clean()
             is_business = boolean_helper(cleaned_data.get('is_business'))
@@ -60,3 +62,8 @@ class SalesProspectForm(forms.ModelForm):
 
 """msg = u"You mus enter a business name."
                 self._errors["business_name"] = self.error_class([msg])"""
+"""
+help_texts = {
+            'is_client': _('Select to convert to a Client.')
+        }
+"""

@@ -11,7 +11,7 @@ class ClientManager(models.Manager):
                       is_business, client_address,
                       client_contact, client_date):
         """
-        Base create for a client.
+        Base create for a client with business attributes.
         @param first_name: client's first name.
         @param middle_initial: client's middle initial.
         @param last_name: client's last name.
@@ -26,6 +26,25 @@ class ClientManager(models.Manager):
         client = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
                              client_number=client_number, business_name=business_name,
                              is_business=is_business, client_address=client_address,
+                             client_contact=client_contact, client_date=client_date)
+        client.save()
+        return client
+
+    def create_client(self, first_name, middle_initial, last_name, client_number,
+                      client_address, client_contact, client_date):
+        """
+        Base create for a client with NO business attributes
+        @param first_name: client's first name.
+        @param middle_initial: client's middle initial.
+        @param last_name: client's last name.
+        @param client_number: the client's number.
+        @param client_address: client's address.
+        @param client_contact: client's contact info.
+        @param client_date: date client opened account with company.
+        @return: client object
+        """
+        client = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
+                             client_number=client_number, client_address=client_address,
                              client_contact=client_contact, client_date=client_date)
         client.save()
         return client
@@ -74,8 +93,8 @@ class SalesProspectManager(models.Manager):
                               initial_contact_date, comments, sp_address, sp_contact, is_client):
         """
         Creates and returns a sales prospect.
-        @param middle_initial: sales prospect's middle initial.
         @param first_name: sales prospect's first name.
+        @param middle_initial: sales prospect's middle initial.
         @param last_name: sales prospect's last name.
         @param sp_business_name: sales prospect's business name (can be null)
         @param is_business: sales prospect is commercial accounts.
@@ -86,7 +105,6 @@ class SalesProspectManager(models.Manager):
         @param comments: comments.
         @param sp_address: sales prospect's address (optional)
         @param sp_contact: sales prospect's contact info.
-        @param is_client: has sales prospect become client?
         @return: Sales Prospect.
         """
         sales_prospect = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
@@ -95,7 +113,33 @@ class SalesProspectManager(models.Manager):
                                      sales_type=sales_type, initial_contact_date=initial_contact_date,
                                      comments=comments, sp_address=sp_address,
                                      sales_probability=sales_probability,
-                                     sp_contact=sp_contact, is_client=is_client)
+                                     sp_contact=sp_contact)
+        sales_prospect.save()
+        return sales_prospect
+
+    def create_sales_prospect(self, first_name, middle_initial, last_name,
+                              sp_liberty_contact, sales_type, sales_probability,
+                              initial_contact_date, comments, sp_address, sp_contact):
+        """
+        Creates and returns a sales prospect with NO business attributes.
+        @param first_name: sales prospect's first name.
+        @param middle_initial: sales prospect's middle initial.
+        @param last_name: sales prospect's last name.
+        @param sp_liberty_contact: liberty employee who brought contact.
+        @param sales_type: type of sale.
+        @param sales_probability: estimate of sale's probability.
+        @param initial_contact_date: contact date.
+        @param comments: comments.
+        @param sp_address: sales prospect's address (optional)
+        @param sp_contact: sales prospect's contact info.
+        @return: Sales Prospect.
+        """
+        sales_prospect = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
+                                     sp_liberty_contact=sp_liberty_contact,
+                                     sales_type=sales_type, initial_contact_date=initial_contact_date,
+                                     comments=comments, sp_address=sp_address,
+                                     sales_probability=sales_probability,
+                                     sp_contact=sp_contact)
         sales_prospect.save()
         return sales_prospect
 
@@ -114,22 +158,21 @@ class Client(Person):
     client_billing = models.ForeignKey('Common.Billing', null=True, blank=True)
     client_date = models.DateField()
 
-    objects = models.Manager()
+    objects = ClientManager()
     personal = PersonalManager()
     business = BusinessManager()
 
     def clean(self):
+        """
+        Performs custom validation for creating a business Client.
+        @raise ValidationError:
+        """
         super(Client, self).clean()
-        print('self.is_business', self.is_business)
-        print('self.business_name', self.business_name)
-        print('SUPERCLEAN===>')
-        if boolean_helper(self.is_business) and self.business_name == '':
-            print('SUPERCLEAN===>IF')
+        # Business validation
+        if self.is_business and self.business_name == '':
             raise ValidationError('Please enter a business name')
-        elif not boolean_helper(self.is_business) and self.business_name != '':
-            print('SUPERCLEAN===>ELIF')
-            raise ValidationError("Please select /'Is Business/'")
-
+        elif self.is_business is False and (self.business_name != ''):
+            raise ValidationError("Please select 'Is Business'")
 
     def __unicode__(self):
         """
@@ -173,7 +216,7 @@ class Sales_Prospect(Person):
     sales_prospect_id = models.AutoField(primary_key=True)
     sp_business_name = models.CharField(max_length=50, blank=True)
     is_business = models.BooleanField(default=False)
-    sp_liberty_contact = models.ForeignKey('Employee.Employee', verbose_name="Liberty employee", null=True, blank=True)
+    sp_liberty_contact = models.ForeignKey('Employee.Employee', verbose_name="liberty employee", null=True, blank=True)
     sales_type = models.CharField(max_length=40, blank=True)
     sales_probability = models.CharField(choices=PROBABILITY, max_length=10)
     initial_contact_date = models.DateField(null=True, blank=True)
@@ -183,6 +226,10 @@ class Sales_Prospect(Person):
     is_client = models.BooleanField(default=False)
 
     objects = SalesProspectManager()
+
+    def clean(self):
+        super(Sales_Prospect, self).clean()
+
 
     def __unicode__(self):
         """
