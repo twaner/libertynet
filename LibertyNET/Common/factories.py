@@ -35,6 +35,7 @@ class ContactFactory(factory.DjangoModelFactory):
     office_phone_extension = factory.Sequence(lambda n: '34%d' % n)
     email = 'contactfull@contactfull.com'
     work_email = 'work.contact@workcontact.com'
+    website = 'www.contactwebsite.com'
 
 
 class CardFactory(factory.DjangoModelFactory):
