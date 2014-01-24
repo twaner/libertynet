@@ -174,7 +174,7 @@ class Client(Person):
         elif self.is_business is False and (self.business_name != ''):
             raise ValidationError("Please select 'Is Business'")
 
-    def __unicode__(self):
+    def __str__(self):
         """
         Sets display for Client object to first and last name.
         @return: first and last name of Client.
@@ -190,9 +190,9 @@ class Client(Person):
             @return: Business name or first name of the client.
             """
         if self.is_business:
-            return self.business_name
+            return True
         else:
-            return self.first_name
+            return False
 
 #endregion
 
@@ -230,8 +230,7 @@ class Sales_Prospect(Person):
     def clean(self):
         super(Sales_Prospect, self).clean()
 
-
-    def __unicode__(self):
+    def __str__(self):
         """
         Sets display for Sales_Prospect object to first and last name.
         @return: first and last name of Sales_Prospect.

@@ -7,6 +7,16 @@ from Common.models import Address, Contact, Card, Billing
 from Common.factories import *
 import Common.helpermethods as CHM
 
+#region Globals
+
+
+add = {'street': '44 Broadway', 'unit': '4B', 'city': 'Kingston', 'state': 'New York', 'zip_code': '12401'}
+
+con = {'phone': '8453334444', 'cell': '8456667777', 'office_phone': '9998883333', 'office_phone_extension': '4545',
+       'email': 'test@test.com', 'work_email': 'work@work.com'}
+
+#endregion
+
 #region ClientFactoryTest
 
 
@@ -38,7 +48,7 @@ class FactoryTests(TestCase):
         self.assertEqual(sales_prospect.is_business, False, 'SP.is_business !False')
 
     def test_create_sales_prospect_business(self):
-        print('...')
+        print('test_create_sales_prospect_business...')
         sales_prospect = SalesProspectBusinessFactory()
         self.assertTrue(isinstance(sales_prospect, Sales_Prospect), 'SalesProspectResidentialFactory !SalesProspect')
         self.assertEqual(sales_prospect.sp_business_name, 'Salesprospectbusiness', 'SP business name is incorrect')
@@ -68,3 +78,4 @@ class ClientTest(TestCase):
                                               client_number=9191, client_address=a, client_contact=c,
                                               client_date='2013-12-29')
         self.assertTrue(isinstance(client, Client), 'client is not Client')
+        self.assertEqual(client.__str__(), client.first_name + '' + client.last_name, '__str__ not matching')

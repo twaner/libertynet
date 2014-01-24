@@ -177,7 +177,7 @@ class BillingManager(models.Manager):
         @param card: card.
         @return: Billing object.
         """
-        billing = self.create_billing(profile_name=profile_name, method=method,
+        billing = self.create(profile_name=profile_name, method=method,
                                       billing_address=billing_address, card=card)
         billing.save()
         return billing
@@ -196,7 +196,7 @@ class CardManager(models.Manager):
         @rtype : Card
         @return: Card object.
         """
-        card = self.create_card(first_name=first_name, middle_initial=middle_initial,
+        card = self.create(first_name=first_name, middle_initial=middle_initial,
                                 last_name=last_name, card_number=card_number,
                                 card_code=card_code, card_type=card_type)
         card.save()
@@ -213,7 +213,7 @@ class InstallerManager(models.Manager):
         @param installer_notes: notes.
         @return: Installer Object.
         """
-        installer = self.create_installer(installer_code=installer_code, installer_company_name=installer_company_name,
+        installer = self.create(installer_code=installer_code, installer_company_name=installer_company_name,
                                           installer_notes=installer_notes)
         installer.save()
         return installer
@@ -351,7 +351,7 @@ class Contact(models.Model):
         if self.phone == '' and self.phone_extension != '':
             raise ValidationError('Please enter a Phone Number.')
 
-    def __unicode__(self):
+    def __str__(self):
         """
         Display for contact.
         @return: Formatted phone number.
@@ -363,13 +363,11 @@ class Contact(models.Model):
         Helps create a readable phone number and extension.
         @return: a phone and extension if it exists.
         """
-        pass
-        print('AFTER PASS!!!!!!')
         if self.phone_extension is None:
             return "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
         else:
-            return "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone),
-        " ", self.phone_extension
+            phone = "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
+            return ('%s ext. %s' % (phone, self.phone_extension))
 
 
 class Call_List(models.Model):

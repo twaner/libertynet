@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from Common.models import Person
 
 #region ModelManagers
@@ -9,9 +10,9 @@ class EmployeeManager(models.Manager):
                         hire_date, pay_type, pay_rate, is_terminated, termination_date, termination_reason):
         """
         Creates a new employee. Terminated attributes are False and None by default.
+        @param first_name: employee's first name
         @param middle_initial: employee's middle initial.
         @param last_name: employee's last name.
-        @param first_name: employee's first name
         @param emp_number: employee number.
         @param emp_title: employee title will be requests list.
         @param emp_address: employee address.
@@ -39,9 +40,9 @@ class EmployeeManager(models.Manager):
                         hire_date, pay_type, pay_rate):
         """
         Creates a new employee. Terminated attributes are False and None by default.
+        @param first_name: employee's first name
         @param middle_initial: employee's middle initial.
         @param last_name: employee's last name.
-        @param first_name: employee's first name
         @param emp_number: employee number.
         @param emp_title: employee title will be requests list.
         @param emp_address: employee address.
@@ -125,6 +126,11 @@ class Employee(Person):
     termination_reason = models.CharField(max_length=300, blank=True, null=True)
 
     objects = EmployeeManager()
+
+    def clean(self):
+        super(Employee, self).clean()
+        if self.is_terminated or self.termination_reason == '' or self.termination_date == '':
+            raise ValidationError('Please fill out all termination fields.')
 
     def __str__(self):
         """
