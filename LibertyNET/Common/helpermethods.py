@@ -18,6 +18,21 @@ def create_address_helper(request):
     return address
 
 
+def update_address_helper(request, address):
+    """
+    Updates an address object.
+    @param request: request.
+    @param address: address object.
+    @return: address.
+    """
+    address.street = request.POST.get('street')
+    address.unit = request.POST.get('unit')
+    address.city = request.POST.get('city')
+    address.state = request.POST.get('state')
+    address.zip_code = request.POST.get('zip_code')
+    address.save(update_fields=['street', 'unit', 'city', 'state', 'zip_code'])
+    return address
+
 #endregion
 
 #region Contact Helpers
@@ -37,8 +52,7 @@ def create_employee_contact_helper(request):
     office_ext = request.POST.get('office_phone_extension')
     contact = Contact.objects.create(phone=phone, cell=cell, office_phone=office,
                                      office_phone_extension=office_ext,
-                                     email=email, work_email=work_email,
-    )
+                                     email=email, work_email=work_email)
     return contact
 
 
@@ -61,6 +75,44 @@ def create_contact_helper(request):
                                      office_phone_extension=office_ext,
                                      email=email, work_email=work_email,
                                      website=website)
+    return contact
+
+
+def updated_contact_helper(request, contact):
+    """
+    Updates a contact object.
+    @param request: request.
+    @param contact: Contact object.
+    @return: Contact object.
+    """
+    contact.phone = request.POST.get('phone')
+    contact.phone_extension = request.POST.get('phone_extension')
+    contact.cell = request.POST.get('cell')
+    contact.email = request.POST.get('email')
+    contact.work_email = request.POST.get('work_email')
+    contact.office = request.POST.get('office_phone')
+    contact.office_ext = request.POST.get('office_phone_extension')
+    contact.website = request.POST.get('website')
+    contact.save(update_fields=['phone', 'phone_extension', 'cell', 'office_phone'
+                                'office_phone_extension', 'website' 'email', 'work_email'])
+    return contact
+
+
+def update_contact_employee_helper(request, contact):
+    """
+    Updates a contact object for an Employee.
+    @param request: request.
+    @param contact: Contact object.
+    @return: Contact object.
+    """
+    contact.phone = request.POST.get('phone')
+    contact.cell = request.POST.get('cell')
+    contact.email = request.POST.get('email')
+    contact.work_email = request.POST.get('work_email')
+    contact.office_phone = request.POST.get('office_phone')
+    contact.office_phone_extension = request.POST.get('office_phone_extension')
+    contact.save(update_fields=['phone', 'cell', 'office_phone',
+                                'office_phone_extension', 'email', 'work_email'])
     return contact
 
 #endregion

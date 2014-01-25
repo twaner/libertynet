@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+
+{% block content %}
+{% if employee_detail %}
+    <a href="{% url 'Employee:editemployee' employee_detail.employee_id %}">
+        Edit Employee Information
+    </a>
+    <ul>
+        <li>
+            Employee Info
+        </li>
+        <li>
+                {{employee_detail.emp_number}}
+        </li>
+        <li>
+                {{employee_detail.first_name}}
+                {{employee_detail.last_name}}
+        </li>
+        <li>
+                {{employee_detail.hire_date}}
+        </li>
+        {% if title_detail %}
+        <li>
+            Employee has {{ title_detail|length }} title{{ title_detail|pluralize }}.
+        </li>
+        {% for t in title_detail %}
+        <li>
+            {{ t.get_title_display }}
+        </li>
+        {% endfor %}
+        {% else %}
+        <li>
+            No titles on file
+        </li>
+        {% endif %}
+        <li>
+            Employee Address:
+        </li>
+        {% if address_detail %}
+        <li>
+            {{ address_detail }}
+        </li>
+        {% else %}
+        <li>
+            No address info.
+        </li>
+        {% endif %}
+        <li>
+            Employee Contact:
+        </li>
+        {% if contact_detail %}
+        <li>
+            {{ contact_detail }}
+        </li>
+        {% else %}
+        <li>
+            No contact information
+        </li>
+        {% endif %}
+    </ul>
+{% else %}
+        <p>No employees are available.</p>
+{% endif %}
+
+{% endblock %}

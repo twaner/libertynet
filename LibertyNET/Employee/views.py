@@ -1,13 +1,14 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
+from django.core.urlresolvers import reverse
 from models import Employee, Title
 from forms import AddEmployeeForm, EmployeeForm
-from helpermethods import create_employee_helper, create_employee_worker
+from helpermethods import create_employee_helper, create_employee_worker, update_employee
 from Common.helpermethods import create_address_helper, create_employee_contact_helper, form_generator, \
-    validation_helper, dict_generator
+    validation_helper, dict_generator, update_address_helper, update_contact_employee_helper
 from Common.forms import AddressForm, EmployeeContactForm
-
+from Common.models import Address, Contact
 
 #region ListViews
 
@@ -19,27 +20,56 @@ class EmployeeListView(ListView):
 
 
 class EmployeeDetailList(ListView):
-    template_name = 'employee/detail.html'
+    model = Employee
+    template_name = 'employee/details.html'
+    context_object_name = 'employee_detail'
 
     def get_queryset(self):
-        self.employee = get_object_or_404(Employee, name=self.args[0])
-        return Employee.objects.filter(employee=self.employee)
+        self.employee = get_object_or_404(Employee, employee_id=self.args[0])
+        print('*******', self.employee)
+        #return Employee.objects.filter(pk=self.employee_id)
+        return self.employee
+    """
+
+    def get_object(self):
+        object = super(EmployeeDetailList, self).get_object()
+        print("OBJECT==>", object)
+        return object
+    """
+
+class EmployeeDetailView(DetailView):
+    pass
+    model = Employee
+
+
+class EmployeeDetailView(DetailView):
+    model = Employee
+    employee_id = 'pk'
+
+    context_object_name = 'employee_detail'
+    template_name = 'employee/details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeDetailView, self).get_context_data(**kwargs)
+        employee = self.get_object()
+        context['address_detail'] = Address.objects.get(pk=employee.emp_address_id)
+        context['contact_detail'] = Contact.objects.get(pk=employee.emp_contact_id)
+        context['title_detail'] = employee.emp_title.all()
+        return context
 
 #endregion
 
 #region DetailView
 
 
-class EmployeeDetailView(DetailView):
+class EmployeeDetailsView(DetailView):
     pass
     model = Employee
 
     def get_context_data(self, **kwargs):
         context = super(EmployeeDetailView, self).get_context_data(**kwargs)
 
-
 #endview
-
 
 #region Employee Views
 
@@ -56,7 +86,7 @@ def addemployee(request):
             address = create_address_helper(request)
             contact = create_employee_contact_helper(request)
             employee = create_employee_worker(request, address, contact)
-            return HttpResponseRedirect('/employee/index/')
+            return HttpResponseRedirect(reverse('Employee:index'))
     else:
         form_list[0] = AddEmployeeForm()
         form_list[1] = AddressForm()
@@ -66,4 +96,46 @@ def addemployee(request):
     return render(request, 'employee/addemployee.html', form_dict)
 
 
-#endregion
+def editemployee(request, employee_id):
+    form_list = form_generator(3)
+    employee = Employee.objects.get(pk=employee_id)
+    address = Address.objects.get(pk=employee.emp_address_id)
+    contact = Contact.objects.get(pk=employee.emp_contact_id)
+    title_details = employee.emp_title.all()
+    # create dictionaries to bind to forms
+    employee_dict = {
+        'first_name': employee.first_name, 'middle_initial': employee.middle_initial,
+        'last_name': employee.last_name, 'emp_number': employee.emp_number,
+        'emp_title': title_details, 'hire_date': employee.hire_date,
+        'pay_type': employee.pay_type, 'pay_rate': employee.pay_rate
+    }
+    address_dict = {
+        'street': address.street, 'unit': address.unit, 'city': address.city,
+        'state': address.state, 'zip_code': address.zip_code
+    }
+    contact_dict = {
+        'phone': contact.phone, 'cell': contact.cell, 'email': contact.email,
+        'work_email': contact.work_email, 'office_phone': contact.office_phone,
+        'office_phone_extension': contact.office_phone_extension
+    }
+    if request.method == 'POST':
+        form_list[0] = EmployeeForm(request.POST)
+        form_list[1] = AddressForm(request.POST)
+        form_list[2] = EmployeeContactForm(request.POST)
+
+        validation = validation_helper(form_list)
+        if validation:
+            address_updated = update_address_helper(request, address)
+            contact_updated = update_contact_employee_helper(request, contact)
+            updated_employee = update_employee(request, employee, address_updated, contact_updated)
+            return HttpResponseRedirect(reverse('Employee:index'))
+    else:
+        # Display bound forms
+        form_list[0] = EmployeeForm(employee_dict)
+        form_list[1] = AddressForm(address_dict)
+        form_list[2] = EmployeeContactForm(contact_dict)
+    form_dict = dict_generator(form_list)
+    return render(request, 'employee/editemployee.html', form_dict)
+
+
+        #endregion

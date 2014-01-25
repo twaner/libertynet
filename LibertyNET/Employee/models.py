@@ -129,7 +129,7 @@ class Employee(Person):
 
     def clean(self):
         super(Employee, self).clean()
-        if self.is_terminated or self.termination_reason == '' or self.termination_date == '':
+        if self.is_terminated or self.termination_reason != '' or self.termination_date is not None:
             raise ValidationError('Please fill out all termination fields.')
 
     def __str__(self):
