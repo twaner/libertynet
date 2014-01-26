@@ -77,5 +77,7 @@ class ClientTest(TestCase):
         client = Client.objects.create_client(first_name='Al', middle_initial='Q', last_name='Alston',
                                               client_number=9191, client_address=a, client_contact=c,
                                               client_date='2013-12-29')
-        self.assertTrue(isinstance(client, Client), 'client is not Client')
-        self.assertEqual(client.__str__(), client.first_name + '' + client.last_name, '__str__ not matching')
+        self.assertTrue(isinstance(client, Client), 'client is not Client.')
+        self.assertEqual(client.__str__(), 'Al Alston', '__str__ not matching.')
+        self.assertEqual(client.is_business, False, 'Client.is_business is wrong.')
+        self.assertEqual(client.is_a_business(), False, 'Client is not a business.')

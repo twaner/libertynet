@@ -83,7 +83,7 @@ class ClientTest(TestCase):
         }
         sales_prospect_data = {
             'first_name': sp.first_name, 'middle_initial': sp.middle_initial, 'last_name': sp.last_name,
-            'sp_liberty_contact': sp.sp_liberty_contact, 'sales_type': sp.sales_type,
+            'sp_liberty_contact': sp.sp_liberty_contact_id, 'sales_type': sp.sales_type,
             'sales_probability': sp.sales_probability, 'initial_contact_date': sp.initial_contact_date,
             'comments': sp.comments
         }

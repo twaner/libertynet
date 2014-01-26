@@ -9,7 +9,9 @@
     <ul>
         {% for e in all_sales_prospect_list %}
         <li>
-            {{e.first_name}} {{e.last_name}}
+            <a href="{% url 'Client:salesprospectdetails' e.sales_prospect_id %}">
+                {{e.first_name}} {{e.last_name}}
+            </a>
         </li>
         {% endfor %}
     </ul>

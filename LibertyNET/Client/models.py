@@ -214,7 +214,7 @@ class Sales_Prospect(Person):
         (UNKNOWN, 'Unknown'),
     )
     sales_prospect_id = models.AutoField(primary_key=True)
-    sp_business_name = models.CharField(max_length=50, blank=True)
+    sp_business_name = models.CharField(max_length=50, null=True, blank=True)
     is_business = models.BooleanField(default=False)
     sp_liberty_contact = models.ForeignKey('Employee.Employee', verbose_name="liberty employee", null=True, blank=True)
     sales_type = models.CharField(max_length=40, blank=True)

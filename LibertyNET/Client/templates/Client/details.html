@@ -1,9 +1,76 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
 
-</body>
-</html>
+{% block content %}
+
+{% if client_detail %}
+    <a href="{% url 'Client:editclient' client_detail.client_id %}">
+        Edit Client Information
+    </a>
+
+ {% comment %}
+        {% if client_detail or business_client %}
+
+    <a href="{% url 'site_info:details' client_detail.client_id %}">
+ Client Site Information
+    </a>
+        {% endcomment %}
+    <ul>
+        <li>
+            Client Info
+        </li>
+        {% if client_detail %}
+        <li>
+            {{ client_detail.first_name }} {{ client_detail.last_name }}
+        </li>
+        {% endif %}
+        {% if business_client %}
+        <li>
+            {{ business_client.business_name }}
+        </li>
+        <li>
+            {{ business_client.first_name }} {{ business_client.last_name }}
+        </li>
+        {% endif %}
+        <li>
+            Client Address:
+        </li>
+        {% if address_detail %}
+        <li>
+            {{ address_detail }}
+        </li>
+        {% else %}
+        <li>
+            No address info.
+        </li>
+        {% endif %}
+        <li>
+            Client Contact:
+        </li>
+        {% if contact_detail %}
+        <li>
+            {{ contact_detail }}
+        </li>
+        {% else %}
+        <li>
+            No contact information
+        </li>
+        {% endif %}
+        <li>
+            Billing Information
+        </li>
+        {% if billing_detail %}
+        <li>
+            {{ billing_detail }}
+        </li>
+        {% else %}
+        <li>
+            No billing information
+        </li>
+        {% endif %}
+    </ul>
+{% else %}
+        <p>No Clients are available.</p>
+{% endif %}
+
+{% endblock %}

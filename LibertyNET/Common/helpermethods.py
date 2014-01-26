@@ -115,12 +115,37 @@ def update_contact_employee_helper(request, contact):
                                 'office_phone_extension', 'email', 'work_email'])
     return contact
 
+
+def update_contact_helper(request, contact):
+    """
+    Updates a full contact object.
+    @param request: request.
+    @param contact: Contact object.
+    @return: Contact.
+    """
+    contact.phone = request.POST.get('phone')
+    contact.phone_extension = request.POST.get('phone_extension')
+    contact.cell = request.POST.get('cell')
+    contact.email = request.POST.get('email')
+    contact.work_email = request.POST.get('work_email')
+    contact.website = request.POST.get('website')
+    contact.office_phone = request.POST.get('office_phone')
+    contact.office_phone_extension = request.POST.get('office_phone_extension')
+    contact.save(update_fields=['phone', 'phone_extension', 'cell', 'office_phone',
+                                'office_phone_extension', 'email', 'work_email', 'website'])
+    return contact
+
 #endregion
 
 #region Billing Helper Methods
 
 
 def create_billing_helper(request):
+    """
+    Creates a new Billing object.
+    @param request: request.
+    @return: Billing.
+    """
     profile_name = request.POST.get('profile_name')
     method = request.POST.get('method')
     billing_address = request.POST.get('billing_address')
@@ -138,6 +163,11 @@ def create_billing_helper(request):
 
 
 def create_card_helper(request):
+    """
+    Creates a Credit Card.
+    @param request: request.
+    @return: Credit Card.
+    """
     first_name = request.POST.get('first_name')
     middle_initial = request.POST.get('middle_initial')
     last_name = request.POST.get('last_name')
@@ -193,7 +223,7 @@ def form_errors_printer(form_list):
 
 def dict_generator(form_list):
     """
-    genrates dictionary to hold forms.
+    generates dictionary to hold forms.
     @param form_list: List of forms.
     @type form_list: List
     @param: list.

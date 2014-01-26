@@ -1,25 +1,17 @@
-from django.conf.urls import patterns, include, url
-from views import ClientDetailList, ClientListView, addclient, SalesProspectView, SalesProspectListView
+from django.conf.urls import patterns, url
+from views import ClientDetailView, ClientListView, SalesProspectView, SalesProspectListView, \
+    ClientView, editclient, editsalesprospect, SalesProspectDetailView
 
 urlpatterns = patterns('',
     url(r'^index/$', ClientListView.as_view(), name='index'),
-    url(r'^addclient/$', addclient, name='addclient'),
+    url(r'^addclient/$', ClientView.as_view(), name='addclient'),
+    url(r'editclient/(?P<client_id>\d+)/$', editclient, name='editclient'),
+    url(r'^(?P<pk>[\d-]+)/$', ClientDetailView.as_view(), name='details'),
     url(r'^salesprospectindex/$', SalesProspectListView.as_view(), name='salesprospectindex'),
-    url(r'^addsalesprospect/$', SalesProspectView.as_view(), name='addsalesprospect')
-    #url(r'employee/([\d-]+)/$', EmployeeDetailList.as_view() name='details),
+    url(r'^salesprospectdetails/(?P<pk>[\d-]+)/$', SalesProspectDetailView.as_view(),
+        name='salesprospectdetails'),
+    url(r'^addsalesprospect/$', SalesProspectView.as_view(), name='addsalesprospect'),
+    url(r'^editsalesprospect/(?P<pk>\d+)/$', editsalesprospect, name='editsalesprospect'),
+    #url(r'^editclient/(?P<pk>\d+)/$', EditClientView.as_view(), name='editclient'),
 )
 
-"""
-client_info = {
-    'queryset': Client.objects.all(),
-    'template_name': 'index.html',
-    'template_object_name': 'client',
-}
-
-urlpatterns = patterns('',
-     (r'^index1/$', direct_to_template, {
-        'template': 'index1.html'
-    }),
-    (r'^index/$', list_detail.object_list, client_info)
-)
-"""
