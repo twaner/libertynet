@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 from Common.models import Person, Business
 from Common.helpermethods import boolean_helper
 
@@ -162,6 +163,13 @@ class Client(Person):
     personal = PersonalManager()
     business = BusinessManager()
 
+    #def get_absolute_url(self):
+     #   return reverse('views.ClientDetailView', args=[str(self.client_id)])
+
+    @models.permalink
+    def get_absolute_url(self):
+        return 'details', {'pk': self.client_id}
+
     def clean(self):
         """
         Performs custom validation for creating a business Client.
@@ -226,6 +234,10 @@ class Sales_Prospect(Person):
     is_client = models.BooleanField(default=False)
 
     objects = SalesProspectManager()
+
+    def get_absolute_url(self):
+        return reverse('salesprospectdetails', args=[str(self.sales_prospect_id)])
+                       #kwargs={'pk': self.sales_prospect_id}) Client:salesprospectdetails
 
     def clean(self):
         super(Sales_Prospect, self).clean()

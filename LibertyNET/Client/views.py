@@ -2,6 +2,7 @@ from django.core.context_processors import request
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
@@ -63,11 +64,29 @@ class SalesProspectDetailView(View):
     def get_context_data(self, **kwargs):
         context = super(SalesProspectDetailView, self).get_context_data(**kwargs)
         sales = self.get_object()
-        context['address_detail'] = Address.objects.get(pk=sales.sp_address_id)
-        context['contact_detail'] = Contact.objects.get(pk=sales.sp_contact_id)
-
+        try:
+            context['address_detail'] = Address.objects.get(pk=sales.sp_address_id)
+        except Address.DoesNotExist:
+            pass
+        try:
+            context['contact_detail'] = Contact.objects.get(pk=sales.sp_contact_id)
+        except Contact.DoesNotExist:
+            pass
         return context
 
+
+def salesprospectdetails(request, sales_prospect_id):
+    sales_prospect_detail = Sales_Prospect.objects.get(pk=sales_prospect_id)
+    try:
+        address_detail = Address.objects.get(pk=sales_prospect_detail.sp_address_id)
+    except Address.DoesNotExist:
+        address_detail = None
+    contact_detail = Contact.objects.get(pk=sales_prospect_detail.sp_contact_id)
+    context = {
+        'sales_prospect_detail': sales_prospect_detail, 'address_detail': address_detail,
+        'contact_detail': contact_detail
+    }
+    return render(request, 'client/salesprospectdetails.html', context)
 
 #endregion
 
@@ -102,14 +121,22 @@ class SalesProspectView(View):
 def editsalesprospect(request, pk):
     form_list = form_generator(3)
     sales = Sales_Prospect.objects.get(pk=pk)
-    address = Address.objects.get(pk=sales.sp_address_id)
     contact = Contact.objects.get(pk=sales.sp_contact_id)
-
+    try:
+        address = Address.objects.get(pk=sales.sp_address_id)
+    except ObjectDoesNotExist:
+        address = None
     # Dictionaries to bind to form
-    address_dict = {
-        'street': address.street, 'unit': address.unit, 'city': address.city,
-        'state': address.state, 'zip_code': address.zip_code
-    }
+    if address is not None:
+        address_dict = {
+            'street': address.street, 'unit': address.unit, 'city': address.city,
+            'state': address.state, 'zip_code': address.zip_code
+        }
+    else:
+        address_dict = {
+            'street': '', 'unit': '', 'city': '',
+            'state': '', 'zip_code': ''
+        }
     contact_dict = {
         'phone': contact.phone, 'phone_extension': contact.phone_extension,
         'cell': contact.cell, 'email': contact.email, 'website': contact.website,
@@ -119,11 +146,10 @@ def editsalesprospect(request, pk):
     sales_dict = {
         'first_name': sales.first_name, 'middle_initial': sales.middle_initial,
         'last_name': sales.last_name, 'sp_business_name': sales.sp_business_name,
-        'is_business': sales.is_business, 'sp_liberty_contact': sales.sp_liberty_contact,
+        'is_business': sales.is_business, 'sp_liberty_contact': sales.sp_liberty_contact_id,
         'sales_type': sales.sales_type, 'sales_probability': sales.sales_probability,
         'initial_contact_date': sales.initial_contact_date, 'comments': sales.comments
     }
-
     if request.method == 'POST':
         form_list[0] = SalesProspectForm(request.POST)
         form_list[1] = AddressForm(request.POST)
@@ -133,14 +159,15 @@ def editsalesprospect(request, pk):
         if validation:
             address_up = update_address_helper(request, address)
             contact_up = update_contact_helper(request, contact)
-            sales_up = update_sales_prospect_helper(request, address, contact)
+            sales_up = update_sales_prospect_helper(request, address_up, contact_up)
+
             return HttpResponseRedirect(reverse('Client:salesprospectindex'))
-        else:
-            form_list[0] = SalesProspectForm(sales_dict)
-            form_list[1] = AddressForm(address_dict)
-            form_list[2] = ContactForm(contact_dict)
-            form_dict = dict_generator(form_list)
-            return render(request, 'client/editsalesprospect.html', form_dict)
+    else:
+        form_list[0] = SalesProspectForm(sales_dict)
+        form_list[1] = AddressForm(address_dict)
+        form_list[2] = ContactForm(contact_dict)
+    form_dict = dict_generator(form_list)
+    return render(request, 'client/editsalesprospect.html', form_dict)
 
 #endregion
 
