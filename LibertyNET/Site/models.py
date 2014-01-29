@@ -16,6 +16,31 @@ class SystemManager(models.Manager):
                       primary_communications, secondary_communications, backup_communications,
                       system_installer_code, master_code, lockout_code, system_ip_address, port,
                       user_name, password, network_id):
+        """
+        Creates a new system.
+        @rtype : System
+        @param system_site: Site where System is located.
+        @param system_name: Name of system.
+        @param system_client_id: Client Id.
+        @param system_type_id: System Type Id.
+        @param system_panel_id: Panel Id.
+        @param tampered_id: Tampered Id.
+        @param is_system_local: Is Local?
+        @param panel_location: Location of Panel.
+        @param primary_power_location: Location of primary power source.
+        @param primary_communications: Primary communications.
+        @param secondary_communications: Location of secondary power source.
+        @param backup_communications: Backup communications.
+        @param system_installer_code: Installer's Code.
+        @param master_code: Master code.
+        @param lockout_code: Lockout code.
+        @param system_ip_address: Ip Address.
+        @param port: Port.
+        @param user_name: Username.
+        @param password: Password.
+        @param network_id: Network Id.
+        @return: System.
+        """
         system = self.create(system_site=system_site, system_name=system_name, system_client_id=system_client_id,
                              system_type_id=system_type_id, system_panel_id=system_panel_id, tampered_id=tampered_id,
                              is_system_local=is_system_local, panel_location=panel_location,
@@ -34,6 +59,10 @@ class SystemManager(models.Manager):
 class NetworkManager(models.Manager):
     def create_network(self, network_name, router_address, router_user_name,
                        router_password, wifi_name, wifi_password, wifi_notes):
+        """
+
+        @rtype : Network.
+        """
         network = self.create(network_name=network_name, router_address=router_address,
                               router_user_name=router_user_name,
                               router_password=router_password, wifi_name=wifi_name,
@@ -124,6 +153,7 @@ class Network(models.Model):
 
     def __str__(self):
         return '%s' % self.network_name
+
 
 class Zone(models.Model):
     zone_id = models.AutoField(primary_key=True)
