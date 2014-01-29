@@ -11,29 +11,58 @@ class SiteManager(models.Manager):
 
 
 class SystemManager(models.Manager):
-    pass
-    """
     def create_system(self, system_site, system_name, system_client_id, system_type_id, system_panel_id,
                       tampered_id, is_system_local, panel_location, primary_power_location,
                       primary_communications, secondary_communications, backup_communications,
-                      system_installer_code, master_code, lockout_code
-                      ):
-    """
+                      system_installer_code, master_code, lockout_code, system_ip_address, port,
+                      user_name, password, network_id):
+        system = self.create(system_site=system_site, system_name=system_name, system_client_id=system_client_id,
+                             system_type_id=system_type_id, system_panel_id=system_panel_id, tampered_id=tampered_id,
+                             is_system_local=is_system_local, panel_location=panel_location,
+                             primary_power_location=primary_power_location,
+                             primary_communications=primary_communications,
+                             secondary_communications=secondary_communications,
+                             backup_communications=backup_communications,
+                             system_installer_code=system_installer_code, master_code=master_code,
+                             lockout_code=lockout_code,
+                             system_ip_address=system_ip_address, port=port, user_name=user_name, password=password,
+                             network_id=network_id)
+        system.save()
+        return system
+
 
 class NetworkManager(models.Manager):
-    pass
+    def create_network(self, network_name, router_address, router_user_name,
+                       router_password, wifi_name, wifi_password, wifi_notes):
+        network = self.create(network_name=network_name, router_address=router_address,
+                              router_user_name=router_user_name,
+                              router_password=router_password, wifi_name=wifi_name,
+                              wifi_password=wifi_password, wifi_notes=wifi_notes)
+        network.save()
+        return network
 
 
 class ZoneManager(models.Manager):
-    pass
+    def create_zone(self, system_id, zone_name, zone_location, zone_notes,
+                    is_wireless):
+        zone = self.create(system_id=system_id, zone_name=zone_name,
+                           zone_location=zone_location, zone_notes=zone_notes,
+                           is_wireless=is_wireless)
+        zone.save()
+        return zone
 
 
 class MonitoringManager(models.Manager):
-    pass
+    def create_monitoring(self, mon_system_id, mon_company, receiver_number):
+        monitoring = self.create(mon_system_id=mon_system_id, mon_company=mon_company,
+                                 receiver_number=receiver_number)
+        monitoring.save()
+        return monitoring
 
 #endregion
 
 #region Models
+
 
 class Site(models.Model):
     site_id = models.AutoField(primary_key=True)
@@ -42,6 +71,7 @@ class Site(models.Model):
 
     def __str__(self):
         return '%s' % self.site_client
+
 
 class System(models.Model):
     system_id = models.AutoField(primary_key=True)
@@ -71,7 +101,11 @@ class System(models.Model):
     #TODO is this a FK? to a network model
     network_id = models.ForeignKey('Site.Network')
 
-    #TODO ==> _unicode_
+    objects = SystemManager()
+
+    def __str__(self):
+        return '%s' % self.system_name
+
 
 class Network(models.Model):
     network_id = models.AutoField(primary_key=True)
@@ -86,7 +120,10 @@ class Network(models.Model):
     wifi_password = models.CharField(max_length=45)
     wifi_notes = models.CharField(max_length=45)
 
-    #TODO _unicode_
+    objects = NetworkManager()
+
+    def __str__(self):
+        return '%s' % self.network_name
 
 class Zone(models.Model):
     zone_id = models.AutoField(primary_key=True)
@@ -96,7 +133,10 @@ class Zone(models.Model):
     zone_notes = models.CharField(max_length=100)
     is_wireless = models.BooleanField(default=False)
 
-    #TODO _unicode_
+    objects = ZoneManager()
+
+    def __str__(self):
+        return '%s %s' % self.zone_location, self.zone_name
 
 
 class Monitoring(models.Model):
@@ -108,4 +148,10 @@ class Monitoring(models.Model):
     #TODO ==> Model for company
     mon_company = models.IntegerField(max_length=11)
     receiver_number = models.IntegerField(max_length=11)
+
+    objects = MonitoringManager()
+
+    def __str__(self):
+        return 'Monitoring %s' % self.mon_company
+
 #endregion

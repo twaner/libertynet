@@ -1,6 +1,6 @@
 import factory
 import factory.fuzzy
-from Site.models import Site
+from Site.models import Site, Network
 import Common.factories as comF
 from Common.models import Call_List
 import Client.factories as cF
@@ -21,3 +21,13 @@ class SiteFactory(factory.DjangoModelFactory):
                 comF.Call_ListFactory.create()
             [self.site_call_list.add(sc) for sc in Call_List.objects.all()]
 
+
+class NetworkFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Network
+    network_id = 987
+    router_address = '192.168.90.6969'
+    router_user_name = 'Smith'
+    router_password = 'secret'
+    wifi_name = 'smithwifi'
+    wifi_password = 'secretwifi'
+    wifi_notes = 'wifi notes'
