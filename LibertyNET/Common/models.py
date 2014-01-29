@@ -167,7 +167,7 @@ class GenreManager(models.Manager):
 
 
 class BillingManager(models.Manager):
-    def create_billing(self, profile_name, method, billing_address, card,):
+    def create_billing(self, profile_name, method, billing_address, card, ):
         """
         Creates a billing object.
         @rtype : Billing.
@@ -178,7 +178,7 @@ class BillingManager(models.Manager):
         @return: Billing object.
         """
         billing = self.create(profile_name=profile_name, method=method,
-                                      billing_address=billing_address, card=card)
+                              billing_address=billing_address, card=card)
         billing.save()
         return billing
 
@@ -197,8 +197,8 @@ class CardManager(models.Manager):
         @return: Card object.
         """
         card = self.create(first_name=first_name, middle_initial=middle_initial,
-                                last_name=last_name, card_number=card_number,
-                                card_code=card_code, card_type=card_type)
+                           last_name=last_name, card_number=card_number,
+                           card_code=card_code, card_type=card_type)
         card.save()
         return card
 
@@ -214,7 +214,7 @@ class InstallerManager(models.Manager):
         @return: Installer Object.
         """
         installer = self.create(installer_code=installer_code, installer_company_name=installer_company_name,
-                                          installer_notes=installer_notes)
+                                installer_notes=installer_notes)
         installer.save()
         return installer
 
@@ -367,7 +367,7 @@ class Contact(models.Model):
             return "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
         else:
             phone = "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
-            return ('%s ext. %s' % (phone, self.phone_extension))
+            return ('%s ext. %s' % (self.phone, self.phone_extension))
 
 
 class Call_List(models.Model):
@@ -380,7 +380,7 @@ class Call_List(models.Model):
     objects = CallListManager()
 
     def __unicode__(self):
-        return "%s %s" % (tuple(self.cl_genre, self.cl_is_enabled))
+        return "%s %s" % (self.cl_genre, self.cl_is_enabled)
 
 
 class Genre(models.Model):
@@ -447,4 +447,4 @@ class Card(Person):
 
     def __str__(self):
         return force_bytes('Card Info: %s %s' % (self.first_name, self.last_name))
-#endregion
+        #endregion

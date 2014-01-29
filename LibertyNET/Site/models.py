@@ -1,10 +1,47 @@
 from django.db import models
+from Common.models import Call_List
+from django.core.exceptions import ValidationError
+
+#region ModelManagers
+
+
+class SiteManager(models.Manager):
+    pass
+    #def create_site(self, site_client, site_call_list):
+
+
+class SystemManager(models.Manager):
+    pass
+    """
+    def create_system(self, system_site, system_name, system_client_id, system_type_id, system_panel_id,
+                      tampered_id, is_system_local, panel_location, primary_power_location,
+                      primary_communications, secondary_communications, backup_communications,
+                      system_installer_code, master_code, lockout_code
+                      ):
+    """
+
+class NetworkManager(models.Manager):
+    pass
+
+
+class ZoneManager(models.Manager):
+    pass
+
+
+class MonitoringManager(models.Manager):
+    pass
+
+#endregion
 
 #region Models
 
 class Site(models.Model):
     site_id = models.AutoField(primary_key=True)
     site_client = models.ForeignKey('Client.Client')
+    site_call_list = models.ManyToManyField('Common.Call_List', blank=True, null=True)
+
+    def __str__(self):
+        return '%s' % self.site_client
 
 class System(models.Model):
     system_id = models.AutoField(primary_key=True)
