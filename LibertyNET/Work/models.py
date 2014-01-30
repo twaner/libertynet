@@ -3,9 +3,11 @@ from Common.models import NUMBER_CHOICES
 
 #region Models
 
+
 class Job(models.Model):
     job_id = models.AutoField(primary_key=True)
     job_name = models.CharField(max_length=45)
+    #TODO Should be FK
     building_owner = models.IntegerField(max_length=11)
     job_client = models.ForeignKey('Client.Client')
     job_address = models.ForeignKey('Common.Address')
@@ -24,13 +26,26 @@ class Task(models.Model):
     task_creator = models.ForeignKey('Employee.Employee', related_name="task created by")
     task_order = models.IntegerField(choices=NUMBER_CHOICES)
     is_task_completed = models.BooleanField(default=False)
-    task_completed_by = models.ForeignKey('Employee.Employee', related_name="task completed by")
-    task_completed_date = models.DateField()
+    task_completed_by = models.ForeignKey('Employee.Employee', related_name="task completed by",
+                                          null=True, blank=True)
+    task_completed_date = models.DateField(null=True, blank=True)
+    #TODO Task Notes as its own model
     task_notes = models.CharField(max_length=200)
 
     def __str__(self):
         return self.task_name
 
+"""
+class Task_Notes(models.Model):
+    note_id = models.AutoField(primary_key=True)
+    note_date = models.DateField()
+    note_title = models.CharField(max_length=50)
+    note_creator = models.ForeignKey('Employee.Employee')
+    notes = models.CharField(max_length=200)
+
+    def __str__(self):
+        return '%' % self.note_title
+"""
 
 class Ticket(models.Model):
     ticket_id = models.AutoField(primary_key=True)
@@ -39,13 +54,14 @@ class Ticket(models.Model):
     ticket_job = models.ForeignKey('Work.Job')
     ticket_system = models.ForeignKey('Site.System')
     description_work = models.CharField(max_length=500)
+    #TODO make this ForeignKey('Work.Task_Notes')
     technician_note = models.CharField(max_length=500)
     start_date = models.DateField()
     start_time = models.TimeField()
-    end_date = models.DateField()
-    end_time = models.TimeField()
+    end_date = models.DateField(blank=True, null=True)
+    end_time = models.TimeField(blank=True, null=True)
     task_site_contact = models.ForeignKey('Common.Contact')
-    ticket_site_signature = models.CharField(max_length=45)
+    ticket_site_signature = models.CharField(max_length=45, null=True, blank=True)
     is_ticket_completed = models.BooleanField(default=True)
     ticket_employee = models.ManyToManyField('Employee.Employee')
 

@@ -15,7 +15,6 @@ class FactoryTestCases(TestCase):
 
     def test_supplier_factory(self):
         supplier = SupplierFactory()
-        print('supplier.supplier_id', supplier.supplier_id)
         self.assertTrue(isinstance(supplier, Supplier), 'SupplierFactory is not Supplier')
 
     def test_supplier_list_factory(self):
