@@ -17,7 +17,7 @@ class SupplierListFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Supplier_List
     supplier_list_id = 9010
     supplier_id = factory.SubFactory(SupplierFactory)
-    position_id = '2nd'
+    position_id = '2'
 
 
 class ManufacturerFactory(factory.DjangoModelFactory):
