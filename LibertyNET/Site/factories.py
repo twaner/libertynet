@@ -70,6 +70,7 @@ class ZoneFactory(factory.DjangoModelFactory):
 
 
 class MonitoringFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Monitoring
     monitoring_id = 3453
     mon_system_id = factory.SubFactory(SystemFactory)
     mon_company = 'Liberty Security'

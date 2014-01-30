@@ -8,7 +8,7 @@ import Common.factories as cF
 
 class SupplierFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Supplier
-    supplier_id = 6563
+    supplier_id = factory.Sequence(lambda n: '%04d' % n, type=int)
     supplier_company_id = 6543
     supplier_contact_id = factory.SubFactory(cF.ContactFactory)
     account_id = 8712
