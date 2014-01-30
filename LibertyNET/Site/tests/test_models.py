@@ -7,6 +7,7 @@ from Site.models import Site, Network, Zone, System, Monitoring
 
 class FactoryTestCases(TestCase):
     print('Starting SiteFactoryTestCases...')
+
     def test_site_factory(self):
         site = sF.SiteFactory()
         self.assertTrue(isinstance(site, Site), "SiteFactory is not Site")
