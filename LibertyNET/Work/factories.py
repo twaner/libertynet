@@ -4,6 +4,7 @@ from Work.models import Job, Task, Ticket, Wage
 from Common.factories import AddressFactory, ContactFactory
 from Client.factories import ClientFactory
 from Employee.factories import EmployeeFactory
+from Employee.models import Employee
 from Site.factories import SystemFactory
 
 #region Factories
@@ -17,6 +18,17 @@ class JobFactory(factory.DjangoModelFactory):
     job_address = factory.SubFactory(AddressFactory)
     #TODO m2m2
     #job_employee
+    @factory.post_generation
+    def add_job_employee(self, create, extracted, **kwargs):
+        if extracted and type(extracted) == type(Employee.objects.all()):
+            self.job_employee = extracted
+            self.save()
+        else:
+            if Employee.objects.all().count() < 1:
+                EmployeeFactory.create()
+            [self.job_employee.add(je) for je in Employee.objects.all()]
+
+
 
 class TaskFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Task
@@ -30,6 +42,7 @@ class TaskFactory(factory.DjangoModelFactory):
     task_completed_by = None
     task_completed_date = ''
     task_notes = 'Going Well'
+
 
 class TicketFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Ticket
@@ -49,6 +62,7 @@ class TicketFactory(factory.DjangoModelFactory):
     is_ticket_completed = False
     #TODO add m2m
     #ticket_employee
+
 
 class WageFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Wage
