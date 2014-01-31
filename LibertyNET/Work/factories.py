@@ -9,6 +9,7 @@ from Site.factories import SystemFactory
 
 #region Factories
 
+
 class JobFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Job
     job_id = 2323
@@ -27,7 +28,6 @@ class JobFactory(factory.DjangoModelFactory):
             if Employee.objects.all().count() < 1:
                 EmployeeFactory.create()
             [self.job_employee.add(je) for je in Employee.objects.all()]
-
 
 
 class TaskFactory(factory.DjangoModelFactory):
@@ -54,18 +54,35 @@ class TicketFactory(factory.DjangoModelFactory):
     description_work = 'Ticked description'
     technician_note = 'Technician notes'
     start_date = '2014-1-26'
-    start_time = '1:21'
+    start_time = '01:21'
     end_date = None
     end_time = None
     task_site_contact = factory.SubFactory(ContactFactory)
     ticket_site_signature = None
     is_ticket_completed = False
     #TODO add m2m
-    #ticket_employee
+    @factory.post_generation
+    def add_job_employee(self, create, extracted, **kwargs):
+        if extracted and type(extracted) == type(Employee.objects.all()):
+            self.ticket_employee = extracted
+            self.save()
+        else:
+            if Employee.objects.all().count() < 1:
+                EmployeeFactory.create()
+            [self.ticket_employee.add(je) for je in Employee.objects.all()]
 
 
 class WageFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Wage
-    pass
+    wage_id = 4949
+    wages_employee_id = factory.SubFactory(EmployeeFactory)
+    wages_date = '2014-1-23'
+    wages_start_time = '01:21'
+    wages_lunch_start = '04:29'
+    wages_lunch_end = '05:00'
+    wages_end_time = '05:53'
+    hourly_rate = 10.99
+    gross_wage = 89.69
+    wages_total_hours = 8.4
 
 #endregion

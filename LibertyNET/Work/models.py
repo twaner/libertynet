@@ -14,7 +14,8 @@ class Job(models.Model):
     # This will generate the M2M table
     job_employee = models.ManyToManyField('Employee.Employee')
 
-    #TODO ==> _unicode_
+    def __str__(self):
+        return '%s' % self.job_name
 
 
 class Task(models.Model):
@@ -65,7 +66,8 @@ class Ticket(models.Model):
     is_ticket_completed = models.BooleanField(default=True)
     ticket_employee = models.ManyToManyField('Employee.Employee')
 
-    #TODO ==> _unicode_
+    def __str__(self):
+        return '%s' % self.description_work
 
 
 class Wage(models.Model):
@@ -73,13 +75,14 @@ class Wage(models.Model):
     wages_employee_id = models.ForeignKey('Employee.Employee')
     wages_date = models.DateField()
     wages_start_time = models.TimeField()
-    wages_lunch_start = models.TimeField()
-    wages_lunch_end = models.TimeField()
-    wages_end_time = models.TimeField()
+    wages_lunch_start = models.TimeField(blank=True, null=True)
+    wages_lunch_end = models.TimeField(blank=True, null=True)
+    wages_end_time = models.TimeField(blank=True, null=True)
     hourly_rate = models.DecimalField(max_digits=10, decimal_places=2)
-    gross_wage = models.DecimalField(max_digits=10, decimal_places=2)
-    wages_total_hours = models.DecimalField(max_digits=10, decimal_places=2)
+    gross_wage = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    wages_total_hours = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
-    #TODO ==> _unicode_
+    def __str__(self):
+        return '%s' % self.wages_employee_id.first_name
 
     #endregion

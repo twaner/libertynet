@@ -14,6 +14,12 @@ class SiteFactory(factory.DjangoModelFactory):
 
     @factory.post_generation
     def add_call_list(self, create, extracted, **kwargs):
+        """
+        Adds Call_List as m2m
+        @param create: create.
+        @param extracted: extracted.
+        @param kwargs: kwargs.
+        """
         if extracted and type(extracted) == type(Call_List.objects.all()):
             self.site_call_list = extracted
             self.save()
