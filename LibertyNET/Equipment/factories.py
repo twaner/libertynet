@@ -2,7 +2,7 @@ import factory
 import factory.fuzzy
 from Equipment.models import Panel, Part, Camera, Device
 import Vendor.factories as vF
-import Site.factories as sF
+from Site.factories import SystemFactory, ZoneFactory
 import Common.factories as cF
 
 #region Factory
@@ -24,15 +24,15 @@ class DeviceFactory(factory.DjangoModelFactory):
     device_id = 3737
     name = 'device name'
     location = 'device base location'
-    device_system_id = factory.SubFactory(sF.SystemFactory)
+    device_system_id = factory.SubFactory(SystemFactory)
     device_location = 'device location'
     device_part_id = factory.SubFactory(PartFactory)
     device_function = 'device function'
-    device_zone_id = factory.SubFactory(sF.ZoneFactory)
+    device_zone_id = factory.SubFactory(ZoneFactory)
 
     @factory.post_generation
     def add_camera_id(self, create, extracted, **kwargs):
-        if extracted and type(extracted) == type(Employee.objects.all()):
+        if extracted and type(extracted) == type(Camera.objects.all()):
             self.camera_id = extracted
             self.save()
         else:
@@ -56,7 +56,7 @@ class CameraFactory(factory.DjangoModelFactory):
     camera_id = 2525
     name = 'Camera name'
     location = 'Camera location'
-    camera_system_id = factory.SubFactory(sF.SystemFactory)
+    camera_system_id = factory.SubFactory(SystemFactory)
     notes = 'Camera notes'
     is_wireless = False
 

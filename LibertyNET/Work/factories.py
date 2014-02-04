@@ -5,7 +5,7 @@ from Common.factories import AddressFactory, ContactFactory
 from Client.factories import ClientFactory
 from Employee.factories import EmployeeFactory
 from Employee.models import Employee
-from Site.factories import SystemFactory
+import Site.factories
 
 #region Factories
 
@@ -47,13 +47,13 @@ class TicketFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Ticket
     ticket_id = 5454
     scheduled_date = '2014-1-21'
-    scheduled_time =
+    scheduled_time = '12:11'
     ticket_job = factory.SubFactory(JobFactory)
-    ticket_system = factory.SubFactory(SystemFactory)
+    ticket_system = factory.SubFactory(Site.factories.SystemFactory)
     description_work = 'Ticked description'
     technician_note = 'Technician notes'
     start_date = '2014-1-26'
-    start_time = '01:21'
+    start_time = '14:21'
     end_date = None
     end_time = None
     task_site_contact = factory.SubFactory(ContactFactory)
