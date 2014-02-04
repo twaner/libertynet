@@ -29,7 +29,16 @@ class DeviceFactory(factory.DjangoModelFactory):
     device_part_id = factory.SubFactory(PartFactory)
     device_function = 'device function'
     device_zone_id = factory.SubFactory(sF.ZoneFactory)
-    # TODO add m2m for camera
+
+    @factory.post_generation
+    def add_camera_id(self, create, extracted, **kwargs):
+        if extracted and type(extracted) == type(Employee.objects.all()):
+            self.camera_id = extracted
+            self.save()
+        else:
+            if Camera.objects.all().count() < 1:
+                CameraFactory.create()
+            [self.camera_id.add(je) for je in Camera.objects.all()]
 
 
 class PartFactory(factory.DjangoModelFactory):

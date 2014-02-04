@@ -17,8 +17,7 @@ class JobFactory(factory.DjangoModelFactory):
     building_owner = 'Job building owner'
     job_client = factory.SubFactory(ClientFactory)
     job_address = factory.SubFactory(AddressFactory)
-    #TODO m2m2
-    #job_employee
+
     @factory.post_generation
     def add_job_employee(self, create, extracted, **kwargs):
         if extracted and type(extracted) == type(Employee.objects.all()):
@@ -60,9 +59,9 @@ class TicketFactory(factory.DjangoModelFactory):
     task_site_contact = factory.SubFactory(ContactFactory)
     ticket_site_signature = None
     is_ticket_completed = False
-    #TODO add m2m
+
     @factory.post_generation
-    def add_job_employee(self, create, extracted, **kwargs):
+    def add_ticket_employee(self, create, extracted, **kwargs):
         if extracted and type(extracted) == type(Employee.objects.all()):
             self.ticket_employee = extracted
             self.save()
