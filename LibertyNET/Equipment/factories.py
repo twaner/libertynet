@@ -2,8 +2,8 @@ import factory
 import factory.fuzzy
 from Equipment.models import Panel, Part, Camera, Device
 import Vendor.factories as vF
-from Site.factories import SystemFactory, ZoneFactory
 import Common.factories as cF
+import Site.factories
 
 #region Factory
 
@@ -24,11 +24,11 @@ class DeviceFactory(factory.DjangoModelFactory):
     device_id = 3737
     name = 'device name'
     location = 'device base location'
-    device_system_id = factory.SubFactory(SystemFactory)
+    device_system_id = factory.SubFactory('Site.factories.SystemFactory')
     device_location = 'device location'
-    device_part_id = factory.SubFactory(PartFactory)
+    device_part_id = factory.SubFactory('Equipment.factories.PartFactory')
     device_function = 'device function'
-    device_zone_id = factory.SubFactory(ZoneFactory)
+    device_zone_id = factory.SubFactory('Site.factories.ZoneFactory')
 
     @factory.post_generation
     def add_camera_id(self, create, extracted, **kwargs):
@@ -56,7 +56,7 @@ class CameraFactory(factory.DjangoModelFactory):
     camera_id = 2525
     name = 'Camera name'
     location = 'Camera location'
-    camera_system_id = factory.SubFactory(SystemFactory)
+    camera_system_id = factory.SubFactory('Site.factories.SystemFactory')
     notes = 'Camera notes'
     is_wireless = False
 

@@ -9,7 +9,7 @@ from Employee.factories import *
 
 class ClientFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Client
-    client_id = 967
+    client_id = factory.fuzzy.FuzzyInteger(99, 200)
     first_name = 'Stephen'
     middle_initial = 'Q'
     last_name = 'Clienttest'
@@ -24,7 +24,7 @@ class ClientFactory(factory.DjangoModelFactory):
 
 class ClientFactoryNoBilling(factory.DjangoModelFactory):
     FACTORY_FOR = Client
-    client_id = 967
+    client_id = 977
     first_name = 'Stephen'
     middle_initial = 'Q'
     last_name = 'Clienttest'
@@ -38,7 +38,7 @@ class ClientFactoryNoBilling(factory.DjangoModelFactory):
 
 class ClientFactoryBusiness(factory.DjangoModelFactory):
     FACTORY_FOR = Client
-    client_id = 967
+    client_id = 987
     first_name = 'Stephen'
     middle_initial = 'Q'
     last_name = 'Clienttest'
@@ -72,7 +72,7 @@ class SalesProspectResidentialFactory(factory.DjangoModelFactory):
 
 class SalesProspectBusinessFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Sales_Prospect
-    sales_prospect_id = 999
+    sales_prospect_id = 9901
     first_name = 'John'
     middle_initial = 'P'
     last_name = 'Businessprospect'

@@ -367,7 +367,7 @@ class Contact(models.Model):
             return "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
         else:
             phone = "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
-            return ('%s ext. %s' % (self.phone, self.phone_extension))
+            return ('%s ext. %s' % (phone, self.phone_extension))
 
 
 class Call_List(models.Model):

@@ -4,7 +4,7 @@ from Site.models import Site, Network, Zone, System, Monitoring
 import Common.factories as comF
 from Common.models import Call_List
 import Client.factories as cF
-import Equipment.factories as eQF
+#from Equipment.factories import PanelFactory
 
 
 class SiteFactory(factory.DjangoModelFactory):
@@ -25,7 +25,9 @@ class SiteFactory(factory.DjangoModelFactory):
             self.save()
         else:
             if Call_List.objects.all().count() < 1:
+                print('INIF SITEFACTORY')
                 comF.Call_ListFactory.create()
+                print('%*%*%*%**%*%**%*%*%*', Call_List.objects.all())
             [self.site_call_list.add(sc) for sc in Call_List.objects.all()]
 
 
@@ -46,8 +48,8 @@ class SystemFactory(factory.DjangoModelFactory):
     system_site = factory.SubFactory(SiteFactory)
     system_name = 'Burg System'
     system_client_id = factory.SubFactory(cF.ClientFactory)
-    system_type_id = factory.SubFactory(comF.Genre)
-    system_panel_id = factory.SubFactory(eQF.PanelFactory)
+    system_type_id = factory.SubFactory(comF.GenreFactory)
+    system_panel_id = factory.SubFactory('Equipment.factories.PanelFactory')
     tampered_id = '6868'
     is_system_local = True
     panel_location = 'Front Door'
