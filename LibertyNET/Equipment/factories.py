@@ -13,7 +13,7 @@ class PanelFactory(factory.DjangoModelFactory):
     panel_id = 2929
     name = 'panel name'
     location = 'panel location'
-    panel_id = 3838
+    panel_id = factory.Sequence(lambda n: '%04d' % n, type=int)
     panel_manufacturer = factory.SubFactory(vF.ManufacturerFactory)
     user_manual = 'panel user manual'
     installation_manual = 'panel installation manual'
@@ -25,10 +25,14 @@ class DeviceFactory(factory.DjangoModelFactory):
     name = 'device name'
     location = 'device base location'
     device_system_id = factory.SubFactory('Site.factories.SystemFactory')
+    #print('device_system', device_system_id.system_id)
     device_location = 'device location'
-    device_part_id = factory.SubFactory('Equipment.factories.PartFactory')
+    # TODO m2m
+    #device_part_id = factory.SubFactory('Equipment.factories.PartFactory')
+    #print('device_part_id', device_part_id.part_id)
     device_function = 'device function'
     device_zone_id = factory.SubFactory('Site.factories.ZoneFactory')
+    #print('device_zone_id', device_zone_id.zone_id)
 
     @factory.post_generation
     def add_camera_id(self, create, extracted, **kwargs):
@@ -39,6 +43,16 @@ class DeviceFactory(factory.DjangoModelFactory):
             if Camera.objects.all().count() < 1:
                 CameraFactory.create()
             [self.camera_id.add(je) for je in Camera.objects.all()]
+
+    @factory.post_generation
+    def add_part_id(self, create, extracted, **kwargs):
+        if extracted and type(extracted) == type(Part.objects.all()):
+            self.device_part_id = extracted
+            self.save()
+        else:
+            if Part.objects.all().count() < 1:
+                PartFactory.create()
+            [self.device_part_id.add(pid) for pid in Part.objects.all()]
 
 
 class PartFactory(factory.DjangoModelFactory):

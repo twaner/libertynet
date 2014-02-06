@@ -166,7 +166,7 @@ class Zone(models.Model):
     objects = ZoneManager()
 
     def __str__(self):
-        return '%s %s' % self.zone_location, self.zone_name
+        return '%s %s' % (self.zone_location, self.zone_name)
 
 
 class Monitoring(models.Model):

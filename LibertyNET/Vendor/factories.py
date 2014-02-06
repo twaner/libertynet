@@ -22,7 +22,7 @@ class SupplierListFactory(factory.DjangoModelFactory):
 
 class ManufacturerFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Manufacturer
-    manufacturer_id = 1928
+    manufacturer_id = factory.Sequence(lambda n: '%04d' % n, type=int)  #1928
     name = 'Manfacturer name'
     manu_address = factory.SubFactory(cF.AddressFactory)
     manu_contact = factory.SubFactory(cF.ContactFactory)

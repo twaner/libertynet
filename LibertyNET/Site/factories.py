@@ -9,7 +9,7 @@ import Client.factories as cF
 
 class SiteFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Site
-    site_id = 999
+    site_id = factory.Sequence(lambda n: '%04d' % n, type=int)
     site_client = factory.SubFactory(cF.ClientFactory)
 
     @factory.post_generation
@@ -27,13 +27,12 @@ class SiteFactory(factory.DjangoModelFactory):
             if Call_List.objects.all().count() < 1:
                 print('INIF SITEFACTORY')
                 comF.Call_ListFactory.create()
-                print('%*%*%*%**%*%**%*%*%*', Call_List.objects.all())
             [self.site_call_list.add(sc) for sc in Call_List.objects.all()]
 
 
 class NetworkFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Network
-    network_id = 987
+    network_id = factory.Sequence(lambda n: '%04d' % n, type=int)
     router_address = '192.168.90.6969'
     router_user_name = 'Smith'
     router_password = 'secret'
@@ -44,7 +43,7 @@ class NetworkFactory(factory.DjangoModelFactory):
 
 class SystemFactory(factory.DjangoModelFactory):
     FACTORY_FOR = System
-    system_id = 4567
+    system_id = factory.Sequence(lambda n: '%04d' % n, type=int)
     system_site = factory.SubFactory(SiteFactory)
     system_name = 'Burg System'
     system_client_id = factory.SubFactory(cF.ClientFactory)
@@ -54,9 +53,9 @@ class SystemFactory(factory.DjangoModelFactory):
     is_system_local = True
     panel_location = 'Front Door'
     primary_power_location = 'Panel primary'
-    primary_communications = 'Communications primary'
-    secondary_communications = 'Communications secondary'
-    backup_communications = 'Communication backup'
+    primary_communications = factory.sequence(lambda n: "%33d" % n)
+    secondary_communications = factory.sequence(lambda n: "%44d" % n)
+    backup_communications = factory.sequence(lambda n: "%55d" % n)
     system_installer_code = factory.SubFactory(comF.InstallerFactory)
     master_code = '1234'
     lockout_code = '2345'
@@ -81,5 +80,5 @@ class MonitoringFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Monitoring
     monitoring_id = 3453
     mon_system_id = factory.SubFactory(SystemFactory)
-    mon_company = 'Liberty Security'
+    mon_company = 9494
     receiver_number = '676767'

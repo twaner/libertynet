@@ -58,7 +58,7 @@ class BillingFactory(factory.DjangoModelFactory):
 
 class InstallerFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Installer
-    installer_id = 9898
+    installer_id = factory.Sequence(lambda n: '%04d' % n, type=int)
     installer_code = 7654
     installer_company_name = 'Liberty Security Services'
     installer_notes = "test note text."
@@ -66,7 +66,14 @@ class InstallerFactory(factory.DjangoModelFactory):
 
 class GenreFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Genre
-    genre_id = 1
+    genre_id = factory.Sequence(lambda n: '%04d' % n, type=int)
+    genre = 'General Call List'
+    genre_description = 'Non-specific call list.'
+
+
+class GenreRandomFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Genre
+    genre_id = factory.fuzzy.FuzzyInteger(100, 500)
     genre = 'General Call List'
     genre_description = 'Non-specific call list.'
 
@@ -77,5 +84,5 @@ class Call_ListFactory(factory.DjangoModelFactory):
     cl_contact = factory.SubFactory(ContactFactory)
     cl_order = '2'
     cl_is_enabled = True
-    cl_genre = factory.SubFactory(GenreFactory)
+    cl_genre = factory.SubFactory(GenreRandomFactory)
 
