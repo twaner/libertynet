@@ -6,8 +6,16 @@ from django.core.exceptions import ValidationError
 
 
 class SiteManager(models.Manager):
-    pass
-    #def create_site(self, site_client, site_call_list):
+
+    def create_client_site(self, site_client):
+        """
+        Creates a site with only a client.
+        @param site_client: Client related to site.
+        @return: Site.
+        """
+        site = self.create(site_client=site_client)
+        site.save()
+        return site
 
 
 class SystemManager(models.Manager):
@@ -97,6 +105,8 @@ class Site(models.Model):
     site_id = models.AutoField(primary_key=True)
     site_client = models.ForeignKey('Client.Client')
     site_call_list = models.ManyToManyField('Common.Call_List', blank=True, null=True)
+
+    objects = SiteManager()
 
     def __str__(self):
         return '%s' % self.site_client

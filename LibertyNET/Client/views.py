@@ -2,18 +2,18 @@ from django.core.context_processors import request
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 from models import Client, Sales_Prospect
 from helpermethods import create_client_helper, create_sales_prospect_helper, update_client_helper, \
     update_sales_prospect_helper
-from forms import ClientForm, SalesProspectForm
+from forms import ClientForm, SalesProspectForm, SalesProspectEditForm
 from Common.forms import AddressForm, ContactForm
 from Common.models import Address, Contact, Billing
 from Common.helpermethods import create_address_helper, form_generator, create_contact_helper,\
-    validation_helper, dict_generator, update_address_helper, update_contact_helper
+    validation_helper, dict_generator, update_address_helper, update_contact_helper, boolean_helper
+from Site.models import Site
 
 #region GenericViews
 
@@ -45,7 +45,15 @@ class ClientDetailView(DetailView):
         client = self.get_object()
         context['address_detail'] = Address.objects.get(pk=client.client_address_id)
         context['contact_detail'] = Contact.objects.get(pk=client.client_contact_id)
-
+        #if client.client_billing_id is not None:
+        try:
+            context['billing_detail'] = Billing.objects.get(pk=client.client_billing_id)
+        except ObjectDoesNotExist:
+            pass
+        try:
+            context['site_detail'] = Site.objects.get(site_client_id=client.client_id)
+        except ObjectDoesNotExist:
+            pass
         return context
 
 
@@ -109,6 +117,8 @@ class SalesProspectView(View):
             contact = create_contact_helper(request)
             sales_prospect = create_sales_prospect_helper(request, address=address, contact=contact)
             return HttpResponseRedirect(reverse('Client:salesprospectindex'))
+        else:
+            return render(request, self.template_name, dict_generator(form_list))
 
     def get(self, request, form_list=form_list, *args, **kwargs):
         form_list[0] = SalesProspectForm()
@@ -151,7 +161,7 @@ def editsalesprospect(request, pk):
         'initial_contact_date': sales.initial_contact_date, 'comments': sales.comments
     }
     if request.method == 'POST':
-        form_list[0] = SalesProspectForm(request.POST)
+        form_list[0] = SalesProspectEditForm(request.POST)
         form_list[1] = AddressForm(request.POST)
         form_list[2] = ContactForm(request.POST)
 
@@ -159,15 +169,27 @@ def editsalesprospect(request, pk):
         if validation:
             address_up = update_address_helper(request, address)
             contact_up = update_contact_helper(request, contact)
-            sales_up = update_sales_prospect_helper(request, address_up, contact_up)
+
+            sales_up = update_sales_prospect_helper(request, sales, address_up, contact_up)
+
+            sp_to_client = boolean_helper(sales_up.is_client)
+            if sp_to_client:
+                #TODO -- Add manner to send to edit client with dictionaries.
+                pass
+                convert_to_client(sales_up)
 
             return HttpResponseRedirect(reverse('Client:salesprospectindex'))
     else:
-        form_list[0] = SalesProspectForm(sales_dict)
+        form_list[0] = SalesProspectEditForm(sales_dict)
         form_list[1] = AddressForm(address_dict)
         form_list[2] = ContactForm(contact_dict)
     form_dict = dict_generator(form_list)
     return render(request, 'client/editsalesprospect.html', form_dict)
+
+
+def convert_to_client(sales_prospect):
+    pass
+
 
 #endregion
 
@@ -190,13 +212,15 @@ class ClientView(View):
             contact = create_contact_helper(request)
             client = create_client_helper(request, address, contact)
             return HttpResponseRedirect(reverse('Client:index'))
+        else:
+            return render(request, self.template_name, dict_generator(form_list))
 
     def get(self, request, form_list=form_list, *args, **kwargs):
         form_list[0] = ClientForm()
         form_list[1] = AddressForm()
         form_list[2] = ContactForm()
         form_dict = dict_generator(form_list)
-        return render(request, 'client/addclient.html', form_dict)
+        return render(request, self.template_name, form_dict)
 
 
 def editclient(request, client_id):
@@ -223,7 +247,7 @@ def editclient(request, client_id):
     }
 
     # Post
-    if request.method =='POST':
+    if request.method == 'POST':
         form_list[0] = ClientForm(request.POST)
         form_list[1] = AddressForm(request.POST)
         form_list[2] = ClientForm(request.POST)
@@ -232,7 +256,7 @@ def editclient(request, client_id):
         if validation:
             a = update_address_helper(request, address)
             c = update_contact_helper(request, contact)
-            cl = update_client_helper(request, a, c)
+            cl = update_client_helper(request, client, a, c)
             return HttpResponseRedirect(reverse('Client:index'))
 
     else:

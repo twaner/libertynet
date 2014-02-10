@@ -241,7 +241,22 @@ class Sales_Prospect(Person):
 
     def clean(self):
         super(Sales_Prospect, self).clean()
-
+        # Business validation
+        if self.is_business and self.sp_business_name == '':
+            raise ValidationError('Please enter a business name')
+        elif self.is_business is False and (self.sp_business_name != ''):
+            raise ValidationError("Please select 'Is Business'")
+        """
+        print('IN CLEANADDRESS//CONTACT==>', self.sp_address, self.sp_contact)
+        if self.is_client:
+            needs_address = ''
+            needs_contact = ''
+            if self.sp_address is None:
+                needs_address = "Address Information"
+            if self.sp_contact is None:
+                needs_contact = "Contaction information"
+            raise ValidationError('To convert to Client %s %s' % (needs_address, needs_contact))
+        """
     def __str__(self):
         """
         Sets display for Sales_Prospect object to first and last name.

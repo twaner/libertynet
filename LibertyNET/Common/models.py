@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.encoding import force_bytes
 from django.core.exceptions import ValidationError
+from datetime import date
 
 
 #region Choices
@@ -136,7 +137,8 @@ class ContactManager(models.Manager):
 
 
 class CallListManager(models.Manager):
-    def create_call_list(self, cl_contact, cl_order, cl_is_enabled, cl_genre):
+    def create_call_list(self, first_name, middle_initial, last_name, cl_contact, cl_order,
+                         cl_is_enabled, cl_genre):
         """
         Creates a call list object.
         @rtype: Call_List.
@@ -146,7 +148,9 @@ class CallListManager(models.Manager):
         @param cl_genre: call list's genre.
         @return:
         """
-        call_list = self.create(cl_contact=cl_contact, cl_order=cl_order, cl_is_enabled=cl_is_enabled,
+        call_list = self.create(first_name=first_name, last_name=last_name,
+                                middle_initial=middle_initial, cl_contact=cl_contact,
+                                cl_order=cl_order, cl_is_enabled=cl_is_enabled,
                                 cl_genre=cl_genre)
         call_list.save()
         return call_list
@@ -184,7 +188,7 @@ class BillingManager(models.Manager):
 
 
 class CardManager(models.Manager):
-    def create_card(self, first_name, middle_initial, last_name, card_number, card_code, card_type):
+    def create_card(self, first_name, middle_initial, last_name, card_number, card_code, card_type, card_expiration):
         """
         Creates a Card object.
         @param first_name: first name.
@@ -193,12 +197,13 @@ class CardManager(models.Manager):
         @param card_number: Card number.
         @param card_code: card code.
         @param card_type: type of card (ie Visa).
+        @param card_expiration: Expiration Date.
         @rtype : Card
         @return: Card object.
         """
         card = self.create(first_name=first_name, middle_initial=middle_initial,
-                           last_name=last_name, card_number=card_number,
-                           card_code=card_code, card_type=card_type)
+                           last_name=last_name, card_number=card_number, card_code=card_code,
+                           card_type=card_type, card_expiration=card_expiration)
         card.save()
         return card
 
@@ -217,6 +222,7 @@ class InstallerManager(models.Manager):
                                 installer_notes=installer_notes)
         installer.save()
         return installer
+
 
 #endregion
 
@@ -370,7 +376,8 @@ class Contact(models.Model):
             return ('%s ext. %s' % (phone, self.phone_extension))
 
 
-class Call_List(models.Model):
+# 2/9 Changed to subclass person
+class Call_List(Person):
     call_list_id = models.AutoField(primary_key=True)
     cl_contact = models.ForeignKey('Common.Contact')
     cl_order = models.IntegerField(choices=NUMBER_CHOICES)
@@ -416,6 +423,7 @@ class Billing(models.Model):
     Display changes based on business or not.
     """
     profile_name = models.CharField(max_length=45)
+    # TODO - Handle this with a list
     method = models.IntegerField(max_length=11)
     billing_address = models.ForeignKey('Common.Address', null=True, blank=True)
     card = models.ForeignKey('Common.Card', null=True, blank=True)
@@ -442,8 +450,22 @@ class Card(Person):
     card_id = models.AutoField(primary_key=True)
     card_number = models.IntegerField(max_length=20)
     card_code = models.IntegerField(max_length=6)
+    #TODO - Make dropdown list - research types
     card_type = models.CharField(max_length=14)
+    card_expiration = models.DateField()
+    #
     objects = CardManager()
+
+    def clean(self):
+        super(Card, self).clean()
+        # Is card expired?
+        if self.card_expiration is not None:
+            try:
+                # Force dates to same format for valid comparison
+                if self.card_expiration.strftime("%Y-%m-%d") <= date.today().strftime("%Y-%m-%d"):
+                    raise ValidationError('Credit Card is expired')
+            except TypeError:
+                raise TypeError('Dates format invalid')
 
     def __str__(self):
         return force_bytes('Card Info: %s %s' % (self.first_name, self.last_name))

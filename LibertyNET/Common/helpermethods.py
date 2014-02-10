@@ -1,4 +1,4 @@
-from models import Address, Contact, Card, Billing
+from models import Address, Contact, Card, Billing, Call_List
 
 #region Address Helpers
 
@@ -32,6 +32,7 @@ def update_address_helper(request, address):
     address.zip_code = request.POST.get('zip_code')
     address.save(update_fields=['street', 'unit', 'city', 'state', 'zip_code'])
     return address
+
 
 #endregion
 
@@ -94,7 +95,8 @@ def updated_contact_helper(request, contact):
     contact.office_ext = request.POST.get('office_phone_extension')
     contact.website = request.POST.get('website')
     contact.save(update_fields=['phone', 'phone_extension', 'cell', 'office_phone'
-                                'office_phone_extension', 'website' 'email', 'work_email'])
+                                                                    'office_phone_extension', 'website' 'email',
+                                'work_email'])
     return contact
 
 
@@ -135,26 +137,63 @@ def update_contact_helper(request, contact):
                                 'office_phone_extension', 'email', 'work_email', 'website'])
     return contact
 
+
 #endregion
 
 #region Billing Helper Methods
 
 
-def create_billing_helper(request):
+def create_billing_helper(request, address, card):
     """
     Creates a new Billing object.
+    @param address: Address object.
+    @param card: Card object.
     @param request: request.
     @return: Billing.
     """
     profile_name = request.POST.get('profile_name')
     method = request.POST.get('method')
-    billing_address = request.POST.get('billing_address')
-    card = request.POST.get('card')
+    billing_address = address
+    card = card
 
     billing = Billing.objects.create(profile_name=profile_name,
                                      method=method, billing_address=billing_address, card=card)
     billing.save()
     return billing
+
+
+def update_billing_helper(request, billing, address, card):
+    billing.profile_name = request.POST.get('profile_name')
+    billing.method = request.POST.get('method')
+    billing.billing_address = address
+    billing.card = card
+
+    billing.save(update_fields=['profile_name',
+                                'method', 'billing_address', 'card'])
+    return billing
+
+
+#endregion
+
+#region CallList
+
+
+def create_call_list_helper(request, contact, site):
+    first_name = request.POST.get('first_name')
+    middle_initial = request.POST.get('middle_initial')
+    last_name = request.POST.get('last_name')
+    cl_contact = contact
+    cl_order = request.POST.get('cl_order')
+    cl_is_enabled = boolean_helper(request.POST.get('cl_is_enabled'))
+    cl_genre = request.POST.get('genre')
+
+    call_list = Call_List.objects.create_call_list(first_name=first_name, last_name=last_name,
+                                                   middle_initial=middle_initial, cl_contact=cl_contact,
+                                                   cl_order=cl_order, cl_is_enabled=cl_is_enabled,
+                                                   cl_genre=cl_genre)
+    call_list.save()
+    site.site_call_list.add(call_list)
+    return call_list
 
 
 #endregion
@@ -174,10 +213,28 @@ def create_card_helper(request):
     card_number = request.POST.get('card_number')
     card_code = request.POST.get('card_code')
     card_type = request.POST.get('card_type')
+    card_expiration = request.POST.get('card_expiration')
 
     card = Card.objects.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
-                               card_number=card_number, card_code=card_code, card_type=card_type)
+                               card_number=card_number, card_code=card_code, card_type=card_type,
+                               card_expiration=card_expiration)
     card.save()
+    return card
+
+
+def update_card_helper(request, card):
+    card.first_name = request.POST.get('first_name')
+    card.middle_initial = request.POST.get('middle_initial')
+    card.last_name = request.POST.get('last_name')
+    card.card_number = request.POST.get('card_number')
+    card.card_code = request.POST.get('card_code')
+    card.card_type = request.POST.get('card_type')
+    card.card_expiration = request.POST.get('card_expiration')
+
+    card.save(update_fields=['first_name', 'middle_initial', 'last_name',
+                             'card_number', 'card_code', 'card_type',
+                             'card_expiration'])
+    assert isinstance(card, Card)
     return card
 
 
@@ -194,6 +251,7 @@ def validation_helper(form_list):
     """
     for i in form_list:
         if not i.is_valid():
+            print('VALIDATION_HELPER ==> %s |||| %s' % ((i.errors), len(i.errors)))
             return False
         else:
             return True
@@ -234,7 +292,7 @@ def dict_generator(form_list):
     return d
 
 
-def form_worker(form_list, requested, *args):
+def form_worker(form_list, request, *args):
     """
     Takes form list and either runs a request.POST or generate unbound forms.
     @param requested: Boolean for whether to run request routine
@@ -259,8 +317,9 @@ def boolean_helper(*args):
     @return: boolean updated to reflect selection
     """
     worker = True
-    print('before if boolean', args[0])
-    if args[0] is None or args[0] == 'None':
+    print('before boolean_helper', args[0])
+    if args[0] is None or args[0] == 'None' or args[0] == '':
         worker = False
+    print('After boolean_helper', worker)
     return worker
     #endregion

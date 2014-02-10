@@ -1,6 +1,7 @@
 from django import forms
-from models import Address, Billing, Contact, Call_List, Installer
+from models import Address, Billing, Contact, Call_List, Installer, Card
 from django.utils.translation import gettext as _
+from bootstrap_toolkit.widgets import BootstrapDateInput
 
 #region AddressForms
 
@@ -54,12 +55,29 @@ class EmployeeContactForm(forms.ModelForm):
 
 #region BillingForm
 
-"""
+
 class BillingForm(forms.ModelForm):
     class Meta:
         model = Billing
-        fields = '__all__'
-"""
+        exclude = ['billing_address', 'card']
+        labels = {
+            'profile_name': _('Billing Profile Name'),
+            'method': _('Billing Method i.e. Credit Card'),
+        }
+
+#endregion
+
+#region CardForm
+
+
+class CardForm(forms.ModelForm):
+    class Meta:
+        model = Card
+        field = '__all__'
+        widgets = {
+            'card_expiration': BootstrapDateInput,
+        }
+
 #endregion
 
 #region Installer
@@ -77,6 +95,12 @@ class Installer(forms.ModelForm):
 class CallListForm(forms.ModelForm):
     class Meta:
         model = Call_List
-        fields = '__all__'
+        exclude = ['cl_contact']
+        help_texts = {
+            'cl_is_enabled': _('Is call list enabled'),
+        }
+        labels = {
+            'cl_is_enabled': _('Enable Call List')
+        }
 
 #endregion

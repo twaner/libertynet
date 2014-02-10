@@ -35,8 +35,25 @@ class SalesProspectForm(forms.ModelForm):
         }
         labels = {
             'sp_business_name': _('Business Name'),
-            }
-    #endregion
+        }
+
+
+class SalesProspectEditForm(forms.ModelForm):
+    class Meta:
+        model = Sales_Prospect
+        exclude = ['sp_address', 'sp_contact']
+        widgets = {
+            'initial_contact_date': BootstrapDateInput,
+        }
+        help_texts = {
+            'is_business': _('Select for commercial accounts.'),
+            'is_client': _('Select to convert to Client.'),
+        }
+        labels = {
+            'sp_business_name': _('Business Name'),
+        }
+
+#endregion
 
 """
         def clean(self):
@@ -58,7 +75,6 @@ class SalesProspectForm(forms.ModelForm):
                 raise forms.ValidationError('Please select \'Is Business\'')
             return cleaned_data
 """
-
 
 """msg = u"You mus enter a business name."
                 self._errors["business_name"] = self.error_class([msg])"""

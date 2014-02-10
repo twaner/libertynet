@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body_block %}
+    <body onload="initialize()">
+{% endblock %}
+    {% load bootstrap_toolkit %}
+{% block content %}
+        <form action="" method="post">
+        {% csrf_token %}
+        <p>Call List Information:</p>
+        {{ form0 }}
+        <p>Contact Information:</p>
+        {{ form1 }}
+        <div class="form-actions">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </form>
+{% endblock %}

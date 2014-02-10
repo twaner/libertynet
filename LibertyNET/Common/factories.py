@@ -46,6 +46,7 @@ class CardFactory(factory.DjangoModelFactory):
     card_number = factory.Sequence(lambda n: '%08d' % n)
     card_code = factory.Sequence(lambda n: '%04d' % n)
     card_type = 'VISA'
+    card_expiration = '2013-11-10'
 
 
 class BillingFactory(factory.DjangoModelFactory):
@@ -81,6 +82,9 @@ class GenreRandomFactory(factory.DjangoModelFactory):
 class Call_ListFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Call_List
     call_list_id = 4545
+    first_name = 'Jason'
+    middle_initial = 'E'
+    last_name = 'Calllist'
     cl_contact = factory.SubFactory(ContactFactory)
     cl_order = '2'
     cl_is_enabled = True

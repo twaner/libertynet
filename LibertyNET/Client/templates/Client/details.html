@@ -2,12 +2,18 @@
 {% load bootstrap_toolkit %}
 
 {% block content %}
-
+<a href="{% url 'Client:index' %}">
+    Client Home
+</a> &nbsp;/&nbsp;
 {% if client_detail %}
     <a href="{% url 'Client:editclient' client_detail.client_id %}">
         Edit Client Information
-    </a>
-
+    </a> &nbsp;/&nbsp;
+    {% if billing_detail %}
+    <a href="{% url 'Client:editclientbilling' billing_detail.id %}">
+        Edit Billing Information
+    </a> &nbsp;&nbsp;
+    {% endif %}
  {% comment %}
         {% if client_detail or business_client %}
 
@@ -54,6 +60,18 @@
         {% else %}
         <li>
             No contact information
+        </li>
+        {% endif %}
+        <li>
+            Site Information
+        </li>
+        {% if site_detail %}
+        <li>
+            {{ site_detail }}
+        </li>
+        {% else %}
+        <li>
+            No Site information
         </li>
         {% endif %}
         <li>

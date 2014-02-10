@@ -40,6 +40,7 @@ def create_employee_helper(request, *args):
 
 
 def update_employee(request, employee, address, contact):
+    #TODO -- Remove emp_number this should not change
     employee.first_name = request.POST.get('first_name')
     employee.middle_initial = request.POST.get('middle_initial')
     employee.last_name = request.POST.get('last_name')

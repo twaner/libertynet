@@ -13,7 +13,7 @@ con = dict(phone="8453334444", phone_extension="2", cell="8456667777",
 econ = dict(phone="8453334444", cell="8456667777", office_phone='6549087711',
             office_phone_extension='888', email="test@test.com", work_email="work@work.com")
 card = dict(first_name='Liam', middle_initial='L', last_name='Larson', card_number='5432123',
-            card_code='555', card_type='VISA')
+            card_code='555', card_type='VISA', card_expiration='2014-12-22')
 
 #endregion
 
@@ -75,7 +75,8 @@ class CardTest(TestCase):
     def create_card(self, first_name='Liam', middle_initial='L', last_name='Larson', card_number='5432123',
                     card_code='555', card_type='VISA'):
         return Card.objects.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
-                                   card_number=card_number, card_code=card_code, card_type=card_type)
+                                   card_number=card_number, card_code=card_code, card_type=card_type,
+                                   card_expiration='2014-11-11')
 
     def test_create_card(self):
         card = self.create_card()
@@ -93,7 +94,7 @@ class BillingTest(TestCase):
 
     def setUp(self):
         card = Card.objects.create(card_id=787, first_name='Kelly', middle_initial='K', last_name='Klark',
-                                   card_number='123456', card_code='543', card_type='VISA')
+                                   card_number='123456', card_code='543', card_type='VISA', card_expiration='2014-12-12')
         address = Address.objects.create(id=989, street="44 Broadway", unit="4B", city="Kingston", state="NY",
                                          zip_code="12401")
 
