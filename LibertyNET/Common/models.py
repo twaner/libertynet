@@ -369,14 +369,13 @@ class Contact(models.Model):
         Helps create a readable phone number and extension.
         @return: a phone and extension if it exists.
         """
-        if self.phone_extension is None:
+        if self.phone_extension is None or self.phone_extension == '':
             return "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
         else:
             phone = "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
             return ('%s ext. %s' % (phone, self.phone_extension))
 
 
-# 2/9 Changed to subclass person
 class CallList(Person):
     call_list_id = models.AutoField(primary_key=True)
     cl_contact = models.ForeignKey('Common.Contact')

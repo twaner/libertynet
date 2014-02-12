@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+
+{% block content %}
+        {% if site_detail %}
+        <p>{{ site_detail.site_client_id }}</p>
+        {% endif %}
+        {% if client_detail %}
+        <p>Client</p>
+        <p>{{ client_detail }}</p>
+        {% endif %}
+        {% if address_detail %}
+        <p>Site Address</p>
+        <p>{{ address_detail }}</p>
+        {% endif %}
+
+{% endblock %}

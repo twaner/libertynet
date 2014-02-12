@@ -17,6 +17,9 @@
     {% if site_detail %}
         <a href="{% url 'Client:addclientcalllist' site_detail.site_id %}">
             Add Call List
+        </a>&nbsp;/&nbsp;
+        <a href="{% url 'Client:sitedetails' site_detail.site_id %}">
+            Site Details
         </a>
     {% endif %}
 

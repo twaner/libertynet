@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 from views import ClientDetailView, ClientListView, SalesProspectView, SalesProspectListView, \
     ClientView, editclient, editsalesprospect, SalesProspectDetailView, salesprospectdetails
 from Common.views import addclientbilling, editclientbilling, addcalllist
+from Site.views import SiteDetailView
 
 urlpatterns = patterns('',
                        url(r'^index/$', ClientListView.as_view(), name='index'),
@@ -14,6 +15,7 @@ urlpatterns = patterns('',
                            name='editclientbilling'),
                        url(r'addclientcalllist/(?P<pk>[\d-]+)/$', addcalllist,
                            name='addclientcalllist'),
+                       url(r'sitedetails/(?P<pk>[\d-]+)/$', SiteDetailView.as_view(), name='sitedetails'),
 
                        url(r'^salesprospectindex/$', SalesProspectListView.as_view(), name='salesprospectindex'),
                        url(r'^salesprospectdetails/(?P<pk>\d+)/$', SalesProspectDetailView.as_view(),

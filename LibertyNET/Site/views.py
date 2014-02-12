@@ -9,8 +9,10 @@ from Common.helpermethods import create_address_helper, form_generator, create_c
     validation_helper, dict_generator, update_address_helper, update_contact_helper
 from Client.models import Client
 from Site.models import Site
+from Common.models import Address, CallList
 
-#region AddClientSite
+#region ClientSite
+
 
 def editclientsite(request, pk):
     template_name = 'client/editclientsite.html'
@@ -25,5 +27,22 @@ def editclientsite(request, pk):
     else:
 
         return render(request, template_name, dict_generator(form_list))
+
+
+class SiteDetailView(DetailView):
+    model = Site
+    site_id = 'pk'
+    context_object_name = 'site_detail'
+    template_name = 'client/sitedetails.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SiteDetailView, self).get_context_data(**kwargs)
+        site = self.get_object()
+        client = Client.objects.get(pk=site.site_client_id)
+        context['client_detail'] = Client.objects.get(pk=client.client_id)
+        context['address_detail'] = Address.objects.get(pk=client.client_address_id)
+        context['calllist_detail'] = Site.objects.filter(site_call_list__call_list_id=site.site_call_list)
+            #CallList.objects.filter(pk=site.site_call_list)
+        return context
 
 #endregion
