@@ -1,11 +1,11 @@
 from django.test import TestCase
-from Client.models import Client, Sales_Prospect
+from Client.models import Client, SalesProspect
 from Client.factories import *
 from Client.forms import ClientForm, SalesProspectForm
 from Common.forms import AddressForm, ContactForm
 from Common.models import Address, Contact, Card, Billing
 from Common.factories import *
-import Common.helpermethods as CHM
+import Common.helpermethods as chm
 
 #region ClientTest Form
 
@@ -35,7 +35,7 @@ class ClientTest(TestCase):
         #setup for forms
         address_data = {'street': a.street, 'unit': a.unit, 'city': a.city, 'state': a.state,
                         'zip_code': a.zip_code,
-        }
+                        }
         contact_data = {
             'phone': c.phone, 'cell': c.cell, 'office_phone': c.office_phone,
             'office_phone_extension': c.office_phone_extension,
@@ -46,13 +46,13 @@ class ClientTest(TestCase):
             'client_number': client.client_number, 'client_date': client.client_date
         }
 
-        form_list = CHM.form_generator(3)
+        form_list = chm.form_generator(3)
 
         form_list[0] = AddressForm(data=address_data)
         form_list[1] = ContactForm(data=contact_data)
         form_list[2] = ClientForm(data=client_data)
         # For debugging
-        CHM.form_errors_printer(form_list)
+        chm.form_errors_printer(form_list)
 
         self.assertTrue(form_list[0].is_valid())
         self.assertTrue(form_list[1].is_valid())
@@ -65,17 +65,17 @@ class ClientTest(TestCase):
         self.assertTrue(isinstance(c, Contact), 'contact != Contact')
         liberty_contact = EmployeeFactory()
         # Sales Prospect
-        sp = Sales_Prospect.objects.create_sales_prospect(first_name='Ken', middle_initial='L',
+        sp = SalesProspect.objects.create_sales_prospect(first_name='Ken', middle_initial='L',
                                                           last_name='Salesprospect',
                                                           sp_liberty_contact=liberty_contact,
                                                           sales_type='New', sales_probability='L',
                                                           initial_contact_date='2014-1-15', comments='new lead.',
                                                           sp_address=a, sp_contact=c)
-        self.assertTrue(isinstance(sp, Sales_Prospect), 'salesprospect != SalesProspect')
+        self.assertTrue(isinstance(sp, SalesProspect), 'salesprospect != SalesProspect')
         # Form work
         address_data = {'street': a.street, 'unit': a.unit, 'city': a.city, 'state': a.state,
                         'zip_code': a.zip_code,
-        }
+                        }
         contact_data = {
             'phone': c.phone, 'cell': c.cell, 'office_phone': c.office_phone,
             'office_phone_extension': c.office_phone_extension,
@@ -88,13 +88,13 @@ class ClientTest(TestCase):
             'comments': sp.comments
         }
         # form work
-        form_list = CHM.form_generator(3)
+        form_list = chm.form_generator(3)
 
         form_list[0] = AddressForm(data=address_data)
         form_list[1] = ContactForm(data=contact_data)
         form_list[2] = SalesProspectForm(data=sales_prospect_data)
         # For debugging
-        CHM.form_errors_printer(form_list)
+        chm.form_errors_printer(form_list)
         # Verify forms are valid
         self.assertTrue(form_list[0].is_valid())
         self.assertTrue(form_list[1].is_valid())

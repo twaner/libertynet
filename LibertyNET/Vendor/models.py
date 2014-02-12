@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.encoding import force_bytes
 from Common.models import NUMBER_CHOICES
 
 #region ModelManagers
@@ -33,7 +34,7 @@ class SupplierManager(models.Manager):
         return supplier
 
 
-class Supplier_ListManager(models.Manager):
+class SupplierListManager(models.Manager):
     def create_supplier_list(self, supplier_id, position_id):
         supplier_list = self.create(supplier_id=supplier_id, position_id=position_id)
         supplier_list.save()
@@ -55,23 +56,28 @@ class Manufacturer(models.Model):
     #TODO ==> What is default?
     is_direct = models.BooleanField(default=False)
 
-    #TODO ==> _unicode_
+    def __str__(self):
+        return '%s' % self.name
 
 
 class Supplier(models.Model):
     supplier_id = models.AutoField(primary_key=True)
     #TODO ==> How do we handle this make a FK
+    #TODO ==> Supplier name?
     supplier_company_id = models.IntegerField(max_length=11)
     #supplier_contact_id = models.IntegerField(max_length=11)
     supplier_contact_id = models.ForeignKey('Common.Contact')
     account_id = models.IntegerField(max_length=11)
 
-    #TODO ==> _unicode_
+    def __str__(self):
+        return force_bytes('%s' % self.account_id)
 
 
-class Supplier_List(models.Model):
+class SupplierList(models.Model):
     supplier_list_id = models.AutoField(primary_key=True)
     supplier_id = models.ForeignKey('Vendor.Supplier')
     position_id = models.IntegerField(choices=NUMBER_CHOICES)
 
-    #endregion
+    #TODO ==> def __str__(self):
+
+#endregion

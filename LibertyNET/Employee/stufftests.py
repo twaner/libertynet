@@ -6,7 +6,7 @@ from Common.forms import AddressForm, EmployeeContactForm
 from Common.factories import AddressFactory, ContactEmployeeFactory
 from helpermethods import create_employee_helper, titles_to_pk_list
 from Common.models import Contact, Address
-import Common.helpermethods as CHM
+import Common.helpermethods as chm
 
 #region Factory Tests
 
@@ -112,13 +112,13 @@ class EmployeeTest(TestCase):
             'pay_type': e.pay_type, 'pay_rate': e.pay_rate,
         }
         # Generates and return a list of forms
-        form_list = CHM.form_generator(3)
+        form_list = chm.form_generator(3)
 
         form_list[0] = AddressForm(data=address_data)
         form_list[1] = EmployeeContactForm(data=contact_date)
         form_list[2] = AddEmployeeForm(data=employee_data)
         # For debugging
-        CHM.form_errors_printer(form_list)
+        chm.form_errors_printer(form_list)
 
         self.assertTrue(form_list[0].is_valid())
         self.assertTrue(form_list[1].is_valid())

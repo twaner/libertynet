@@ -23,7 +23,7 @@ def create_employee_helper(request, *args):
     pay_rate = request.POST.get('pay_rate')
     emp_title = request.POST.getlist('emp_title')
     #handle how *args are ordered
-    if isinstance(type(args[0], Address)):
+    if type(args[0]) == Address:
         emp_address = args[0]
         emp_contact = args[1]
     elif type(args[1]) == Address:
@@ -40,7 +40,6 @@ def create_employee_helper(request, *args):
 
 
 def update_employee(request, employee, address, contact):
-    #TODO -- Remove emp_number this should not change
     employee.first_name = request.POST.get('first_name')
     employee.middle_initial = request.POST.get('middle_initial')
     employee.last_name = request.POST.get('last_name')
@@ -86,7 +85,7 @@ def create_employee_worker(request, *args):
     hire_date = request.POST.get('hire_date')
     pay_type = request.POST.get('pay_type')
     pay_rate = request.POST.get('pay_rate')
-    emp_title = request.POST.getlist('emp_title')
+    #emp_title = request.POST.getlist('emp_title')
     if type(args[0]) == Address:
         emp_address = args[0]
         emp_contact = args[1]

@@ -19,13 +19,12 @@
         <p>No Sales Prospects are available.</p>
 {% endif %}
 
-{% comment %}
-     Add back in when details is there
-        <a href="{% url 'Employee:details' e.employee_id %}">
+    {% comment %}
+         Add back in when details is there
+            <a href="{% url 'Employee:details' e.employee_id %}"/>
 
-    <a href="/employeetest/{{ e.employee_id }}/">
-    <a href="{% url 'detailed' e.employee_id %}">
-    <a href="/employeetest/{{ e.employee_id }}/">
-{% endcomment %}
-
+        <a href="/employeetest/{{ e.employee_id }}"/>
+        <a href="{% url 'detailed' e.employee_id %}"/>
+        <a href="/employeetest/{{ e.employee_id }}/">
+    {% endcomment %}
 {% endblock %}

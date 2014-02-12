@@ -1,16 +1,16 @@
 import factory
 import factory.fuzzy
 from Site.models import Site, Network, Zone, System, Monitoring
-import Common.factories as comF
-from Common.models import Call_List
-import Client.factories as cF
+import Common.factories as comf
+from Common.models import CallList
+import Client.factories as cf
 #from Equipment.factories import PanelFactory
 
 
 class SiteFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Site
     site_id = factory.Sequence(lambda n: '%04d' % n, type=int)
-    site_client = factory.SubFactory(cF.ClientFactory)
+    site_client = factory.SubFactory(cf.ClientFactory)
 
     @factory.post_generation
     def add_call_list(self, create, extracted, **kwargs):
@@ -20,14 +20,14 @@ class SiteFactory(factory.DjangoModelFactory):
         @param extracted: extracted.
         @param kwargs: kwargs.
         """
-        if extracted and type(extracted) == type(Call_List.objects.all()):
+        if extracted and type(extracted) == type(CallList.objects.all()):
             self.site_call_list = extracted
             self.save()
         else:
-            if Call_List.objects.all().count() < 1:
+            if CallList.objects.all().count() < 1:
                 print('INIF SITEFACTORY')
-                comF.Call_ListFactory.create()
-            [self.site_call_list.add(sc) for sc in Call_List.objects.all()]
+                comf.Call_ListFactory.create()
+            [self.site_call_list.add(sc) for sc in CallList.objects.all()]
 
 
 class NetworkFactory(factory.DjangoModelFactory):
@@ -46,8 +46,8 @@ class SystemFactory(factory.DjangoModelFactory):
     system_id = factory.Sequence(lambda n: '%04d' % n, type=int)
     system_site = factory.SubFactory(SiteFactory)
     system_name = 'Burg System'
-    system_client_id = factory.SubFactory(cF.ClientFactory)
-    system_type_id = factory.SubFactory(comF.GenreFactory)
+    system_client_id = factory.SubFactory(cf.ClientFactory)
+    system_type_id = factory.SubFactory(comf.GenreFactory)
     system_panel_id = factory.SubFactory('Equipment.factories.PanelFactory')
     tampered_id = '6868'
     is_system_local = True
@@ -56,7 +56,7 @@ class SystemFactory(factory.DjangoModelFactory):
     primary_communications = factory.sequence(lambda n: "%33d" % n)
     secondary_communications = factory.sequence(lambda n: "%44d" % n)
     backup_communications = factory.sequence(lambda n: "%55d" % n)
-    system_installer_code = factory.SubFactory(comF.InstallerFactory)
+    system_installer_code = factory.SubFactory(comf.InstallerFactory)
     master_code = '1234'
     lockout_code = '2345'
     system_ip_address = '192.168.90.1234'

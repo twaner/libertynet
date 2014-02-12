@@ -37,10 +37,6 @@ class EmployeeDetailList(ListView):
         return object
     """
 
-class EmployeeDetailView(DetailView):
-    pass
-    model = Employee
-
 
 class EmployeeDetailView(DetailView):
     model = Employee

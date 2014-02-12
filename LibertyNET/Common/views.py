@@ -5,11 +5,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
-from Common.models import Address, Billing, Card, Call_List, Genre
-from Common.forms import AddressForm, CardForm, BillingForm, CallListForm, ContactForm
+from Common.models import Address, Billing, Card, CallList, Genre
+from Common.forms import AddressForm, CardForm, BillingForm, CallListForm, ContactForm, \
+    CallListContactForm
 from helpermethods import form_generator, dict_generator, create_billing_helper, validation_helper, \
     create_address_helper, create_card_helper, update_address_helper, update_billing_helper, \
-    update_card_helper, create_contact_helper, create_call_list_helper
+    update_card_helper, create_contact_helper, create_call_list_helper, create_call_list_contact_helper
 from Client.models import Client
 from Client.helpermethods import update_client_billing_helper
 from Site.models import Site
@@ -100,19 +101,22 @@ def addcalllist(request, pk):
     template_name = 'client/addclientcalllist.html'
     site = Site.objects.get(pk=pk)
     form_list = form_generator(2)
-    form_list[0] = CallListForm(request.POST)
+    form_list[0] = CallListContactForm(request.POST)
     form_list[1] = ContactForm(request.POST)
 
     if request.method == 'POST':
         if validation_helper(form_list):
-            contact = create_contact_helper(request)
+            contact = create_call_list_contact_helper(request)
             call_list = create_call_list_helper(request, contact, site)
-            return HttpResponseRedirect(reverse('Client:index'))
+            # Assumption a site must have a client
+            related_client = Client.objects.get(pk=site.site_client_id)
+            return HttpResponseRedirect(reverse('Client:details',
+                                                kwargs={'pk': related_client.client_id}))
         else:
             return render(request, template_name, dict_generator(form_list))
     else:
         form_list[0] = CallListForm()
-        form_list[1] = ContactForm()
+        form_list[1] = CallListContactForm()
         return render(request, template_name, dict_generator(form_list))
 
 

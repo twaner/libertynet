@@ -1,6 +1,6 @@
 import factory
 import factory.fuzzy
-from models import Client, Sales_Prospect
+from models import Client, SalesProspect
 from Common.factories import *
 from Employee.factories import *
 
@@ -56,7 +56,7 @@ class ClientFactoryBusiness(factory.DjangoModelFactory):
 
 
 class SalesProspectResidentialFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Sales_Prospect
+    FACTORY_FOR = SalesProspect
     sales_prospect_id = 999
     first_name = 'Sally'
     middle_initial = 'P'
@@ -71,7 +71,7 @@ class SalesProspectResidentialFactory(factory.DjangoModelFactory):
 
 
 class SalesProspectBusinessFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Sales_Prospect
+    FACTORY_FOR = SalesProspect
     sales_prospect_id = 9901
     first_name = 'John'
     middle_initial = 'P'

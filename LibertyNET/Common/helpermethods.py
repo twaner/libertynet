@@ -1,4 +1,4 @@
-from models import Address, Contact, Card, Billing, Call_List
+from models import Address, Contact, Card, Billing, CallList, Genre
 
 #region Address Helpers
 
@@ -76,6 +76,16 @@ def create_contact_helper(request):
                                      office_phone_extension=office_ext,
                                      email=email, work_email=work_email,
                                      website=website)
+    contact.save()
+    return contact
+
+
+def create_call_list_contact_helper(request):
+    phone = request.POST.get('phone')
+    phone_extension = request.POST.get('phone_extension')
+
+    contact = Contact.objects.create(phone=phone, phone_extension=phone_extension)
+    contact.save()
     return contact
 
 
@@ -185,16 +195,16 @@ def create_call_list_helper(request, contact, site):
     cl_contact = contact
     cl_order = request.POST.get('cl_order')
     cl_is_enabled = boolean_helper(request.POST.get('cl_is_enabled'))
-    cl_genre = request.POST.get('genre')
+    cl_genre = Genre.objects.get(pk=request.POST.get('cl_genre'))
 
-    call_list = Call_List.objects.create_call_list(first_name=first_name, last_name=last_name,
+    print('type', type(cl_genre))
+    call_list = CallList.objects.create_call_list(first_name=first_name, last_name=last_name,
                                                    middle_initial=middle_initial, cl_contact=cl_contact,
                                                    cl_order=cl_order, cl_is_enabled=cl_is_enabled,
                                                    cl_genre=cl_genre)
     call_list.save()
     site.site_call_list.add(call_list)
     return call_list
-
 
 #endregion
 

@@ -27,4 +27,3 @@ def editclientsite(request, pk):
         return render(request, template_name, dict_generator(form_list))
 
 #endregion
-

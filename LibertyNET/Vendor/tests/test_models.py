@@ -1,6 +1,6 @@
 from django.test import TestCase
 from Vendor.factories import ManufacturerFactory, SupplierFactory, SupplierListFactory
-from Vendor.models import Manufacturer, Supplier, Supplier_List
+from Vendor.models import Manufacturer, Supplier, SupplierList
 
 #region Vendor Test
 
@@ -19,6 +19,6 @@ class FactoryTestCases(TestCase):
 
     def test_supplier_list_factory(self):
         supplier_list = SupplierListFactory()
-        self.assertTrue(isinstance(supplier_list, Supplier_List), 'SupplierListFactory is not SupplierList')
+        self.assertTrue(isinstance(supplier_list, SupplierList), 'SupplierListFactory is not SupplierList')
 
 #endregion

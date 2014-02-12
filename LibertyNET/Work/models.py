@@ -30,23 +30,12 @@ class Task(models.Model):
     task_completed_by = models.ForeignKey('Employee.Employee', related_name="task completed by",
                                           null=True, blank=True)
     task_completed_date = models.DateField(null=True, blank=True)
-    #TODO Task Notes as its own model
+    #TODO Task Notes as its own model m2m
     task_notes = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.task_name
+        return '%s' % self.task_name
 
-"""
-class Task_Notes(models.Model):
-    note_id = models.AutoField(primary_key=True)
-    note_date = models.DateField()
-    note_title = models.CharField(max_length=50)
-    note_creator = models.ForeignKey('Employee.Employee')
-    notes = models.CharField(max_length=200)
-
-    def __str__(self):
-        return '%' % self.note_title
-"""
 
 class Ticket(models.Model):
     ticket_id = models.AutoField(primary_key=True)

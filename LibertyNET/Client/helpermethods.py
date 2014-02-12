@@ -1,4 +1,4 @@
-from models import Client, Sales_Prospect
+from models import Client, SalesProspect
 from Common.models import Address, Billing, Contact
 from Common.helpermethods import boolean_helper
 from Employee.models import Employee
@@ -21,9 +21,6 @@ def create_client_helper(request, *args):
     business_name = request.POST.get('business_name')
     is_business = boolean_helper(request.POST.get('is_business'))
     client_date = request.POST.get('client_date')
-    #TODO -- REMOVE CODE
-    #client_address = [i for i in args if type(i) == Address]
-    #client_contact = [q for q in args if type(q) == Contact]
 
     client = Client.objects.create(first_name=first_name, middle_initial=middle_initial,
                                    last_name=last_name, client_number=client_number,
@@ -92,11 +89,8 @@ def create_sales_prospect_helper(request, address, contact):
     sales_probability = request.POST.get('sales_probability')
     initial_contact_date = request.POST.get('initial_contact_date')
     comments = request.POST.get('comments')
-    """if len(args) == 2:
-        contact = None
-    else:
-        contact = args[1] """
-    sales_prospect = Sales_Prospect.objects.create(first_name=first_name, middle_initial=middle_initial,
+
+    sales_prospect = SalesProspect.objects.create(first_name=first_name, middle_initial=middle_initial,
                                                    last_name=last_name, sp_liberty_contact=sp_liberty_contact,
                                                    sp_business_name=sp_business_name, is_business=is_business,
                                                    sales_type=sales_type, sales_probability=sales_probability,

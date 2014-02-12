@@ -99,6 +99,7 @@ class SalesProspectManager(models.Manager):
         @param last_name: sales prospect's last name.
         @param sp_business_name: sales prospect's business name (can be null)
         @param is_business: sales prospect is commercial accounts.
+        @param is_client: Is sales prospect a client.
         @param sp_liberty_contact: liberty employee who brought contact.
         @param sales_type: type of sale.
         @param sales_probability: estimate of sale's probability.
@@ -112,7 +113,7 @@ class SalesProspectManager(models.Manager):
                                      sp_business_name=sp_business_name, is_business=is_business,
                                      sp_liberty_contact=sp_liberty_contact,
                                      sales_type=sales_type, initial_contact_date=initial_contact_date,
-                                     comments=comments, sp_address=sp_address,
+                                     comments=comments, sp_address=sp_address, is_client=is_client,
                                      sales_probability=sales_probability,
                                      sp_contact=sp_contact)
         sales_prospect.save()
@@ -205,7 +206,9 @@ class Client(Person):
 #endregion
 
 #region Sales Prospects
-class Sales_Prospect(Person):
+
+
+class SalesProspect(Person):
     """
     Sales Prospect model. 'sp' is used as abbreviation to save typing
     for FK fields.
@@ -240,7 +243,7 @@ class Sales_Prospect(Person):
                        #kwargs={'pk': self.sales_prospect_id}) Client:salesprospectdetails
 
     def clean(self):
-        super(Sales_Prospect, self).clean()
+        super(SalesProspect, self).clean()
         # Business validation
         if self.is_business and self.sp_business_name == '':
             raise ValidationError('Please enter a business name')

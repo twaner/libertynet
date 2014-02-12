@@ -47,7 +47,7 @@ class PanelManager(models.Manager):
 
 
 class PartManager(models.Manager):
-    def create_manufacturer(self, name, location, part_manufacturer, part_number, type):
+    def create_manufacturer(self, name, location, part_manufacturer, part_number, genre):
         """
         Creates a Part.
         @rtype : Part
@@ -59,7 +59,7 @@ class PartManager(models.Manager):
         @return: Part.
         """
         part = self.create(name=name, location=location, part_manufacturer=part_manufacturer,
-                           part_number=part_number, type=type)
+                           part_number=part_number, genre=genre)
         part.save()
         return part
 
@@ -99,6 +99,8 @@ class Equipment(models.Model):
 #endregion
 
 #region Subclasses
+
+
 class Device(Equipment):
     """
     Any piece of Equipment. Can be made up of multiple parts.

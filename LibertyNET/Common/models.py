@@ -377,7 +377,7 @@ class Contact(models.Model):
 
 
 # 2/9 Changed to subclass person
-class Call_List(Person):
+class CallList(Person):
     call_list_id = models.AutoField(primary_key=True)
     cl_contact = models.ForeignKey('Common.Contact')
     cl_order = models.IntegerField(choices=NUMBER_CHOICES)
@@ -414,7 +414,8 @@ class Genre(models.Model):
 
     objects = GenreManager()
 
-    #TODO - def __unicode__(self):
+    def __str__(self):
+        return self.genre
 
 
 class Billing(models.Model):

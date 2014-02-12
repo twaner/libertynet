@@ -1,5 +1,5 @@
 from django import forms
-from models import Manufacturer, Supplier, Supplier_List
+from models import Manufacturer, Supplier, SupplierList
 
 #region ModelForms
 
@@ -17,7 +17,7 @@ class SupplierForm(forms.ModelForm):
 
 class SupplierListForm(forms.ModelForm):
     class Meta:
-        model = Supplier_List
+        model = SupplierList
         fields = '__all__'
 
 #endregion

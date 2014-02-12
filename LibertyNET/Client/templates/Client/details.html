@@ -12,8 +12,15 @@
     {% if billing_detail %}
     <a href="{% url 'Client:editclientbilling' billing_detail.id %}">
         Edit Billing Information
-    </a> &nbsp;&nbsp;
+    </a> &nbsp;/&nbsp;
     {% endif %}
+    {% if site_detail %}
+        <a href="{% url 'Client:addclientcalllist' site_detail.site_id %}">
+            Add Call List
+        </a>
+    {% endif %}
+
+
  {% comment %}
         {% if client_detail or business_client %}
 

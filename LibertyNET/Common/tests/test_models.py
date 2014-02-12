@@ -1,5 +1,5 @@
 from django.test import TestCase
-from Common.models import Address, Contact, Card, Billing, Installer, Genre, Call_List
+from Common.models import Address, Contact, Card, Billing, Installer, Genre, CallList
 import Common.factories as f
 from Common.forms import AddressForm, EmployeeContactForm
 
@@ -145,7 +145,7 @@ class FactoryTestCase(TestCase):
 
     def test_call_list_factory(self):
         call_list = f.Call_ListFactory()
-        self.assertTrue(isinstance(call_list, Call_List), 'CallListFactory !Call_List')
+        self.assertTrue(isinstance(call_list, CallList), 'CallListFactory !Call_List')
 
     def test_genre_factory(self):
         genre = f.GenreFactory()

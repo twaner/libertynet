@@ -11,6 +11,7 @@
         <li>
             <a href="{% url 'Employee:details' e.employee_id %}">
             {{e.employee_id}} {{e.first_name}} {{e.last_name}}
+            </a>
         </li>
         {% endfor %}
     </ul>
@@ -22,9 +23,9 @@
      Add back in when details is there
 
 
-    <a href="/employeetest/{{ e.employee_id }}/">
-    <a href="{% url 'detailed' e.employee_id %}">
-    <a href="/employeetest/{{ e.employee_id }}/">
+    <a href="/employeetest/{{ e.employee_id }}/"></a>
+    <a href="{% url 'detailed' e.employee_id %}"></a>
+    <a href="/employeetest/{{ e.employee_id }}/"></a>
 {% endcomment %}
 
 {% endblock %}

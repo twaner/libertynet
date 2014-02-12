@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
-from models import Client, Sales_Prospect
+from models import Client, SalesProspect
 from helpermethods import create_client_helper, create_sales_prospect_helper, update_client_helper, \
     update_sales_prospect_helper
 from forms import ClientForm, SalesProspectForm, SalesProspectEditForm
@@ -15,7 +15,7 @@ from Common.helpermethods import create_address_helper, form_generator, create_c
     validation_helper, dict_generator, update_address_helper, update_contact_helper, boolean_helper
 from Site.models import Site
 
-#region GenericViews
+#region ListViews
 
 
 class ClientListView(ListView):
@@ -32,6 +32,14 @@ class ClientDetailList(ListView):
     def get_queryset(self):
         self.client = get_object_or_404(Client, client_id=self.args[0])
         return Client.objects.filter(pk=self.client_id)
+
+
+class SalesProspectListView(ListView):
+    model = SalesProspect
+    context_object_name = 'all_sales_prospect_list'
+    template_name = 'client/salesprospectindex.html'
+
+#region DetailViews
 
 
 class ClientDetailView(DetailView):
@@ -57,14 +65,8 @@ class ClientDetailView(DetailView):
         return context
 
 
-class SalesProspectListView(ListView):
-    model = Sales_Prospect
-    context_object_name = 'all_sales_prospect_list'
-    template_name = 'client/salesprospectindex.html'
-
-
-class SalesProspectDetailView(View):
-    model = Sales_Prospect
+class SalesProspectDetailView(DetailView):
+    model = SalesProspect
     sales_prospect_id = 'pk'
     template_name = 'client/salesprospectdetails.html'
     context_object_name = 'sales_prospect_detail'
@@ -83,8 +85,9 @@ class SalesProspectDetailView(View):
         return context
 
 
-def salesprospectdetails(request, sales_prospect_id):
-    sales_prospect_detail = Sales_Prospect.objects.get(pk=sales_prospect_id)
+def salesprospectdetails(request, pk):
+    template_name = 'client/salesprospectdetails.html'
+    sales_prospect_detail = SalesProspect.objects.get(pk=pk)
     try:
         address_detail = Address.objects.get(pk=sales_prospect_detail.sp_address_id)
     except Address.DoesNotExist:
@@ -94,15 +97,15 @@ def salesprospectdetails(request, sales_prospect_id):
         'sales_prospect_detail': sales_prospect_detail, 'address_detail': address_detail,
         'contact_detail': contact_detail
     }
-    return render(request, 'client/salesprospectdetails.html', context)
+    return render(request, template_name, context)
 
 #endregion
 
-#region SalesProspect View
+#region AddViews
 
 
 class SalesProspectView(View):
-    form_class = Sales_Prospect
+    form_class = SalesProspect
     template_name = 'client/addsalessprospect.html'
     form_list = form_generator(3)
 
@@ -128,9 +131,42 @@ class SalesProspectView(View):
         return render(request, self.template_name, form_dict)
 
 
-def editsalesprospect(request, pk):
+class ClientView(View):
+    form_class = Client
+    template_name = 'client/addclient.html'
     form_list = form_generator(3)
-    sales = Sales_Prospect.objects.get(pk=pk)
+
+    def post(self, request, form_list=form_list, *args, **kwargs):
+        form_list[0] = ClientForm(request.POST)
+        form_list[1] = AddressForm(request.POST)
+        form_list[2] = ContactForm(request.POST)
+
+        validation = validation_helper(form_list)
+        if validation:
+            address = create_address_helper(request)
+            contact = create_contact_helper(request)
+            client = create_client_helper(request, address, contact)
+            return HttpResponseRedirect(reverse('Client:details',
+                                                kwargs={'pk': client.client_id}))
+        else:
+            return render(request, self.template_name, dict_generator(form_list))
+
+    def get(self, request, form_list=form_list, *args, **kwargs):
+        form_list[0] = ClientForm()
+        form_list[1] = AddressForm()
+        form_list[2] = ContactForm()
+        form_dict = dict_generator(form_list)
+        return render(request, self.template_name, form_dict)
+
+#endregion
+
+#region EditViews
+
+
+def editsalesprospect(request, pk):
+    template_name = 'client/editsalesprospect.html'
+    form_list = form_generator(3)
+    sales = SalesProspect.objects.get(pk=pk)
     contact = Contact.objects.get(pk=sales.sp_contact_id)
     try:
         address = Address.objects.get(pk=sales.sp_address_id)
@@ -178,52 +214,22 @@ def editsalesprospect(request, pk):
                 pass
                 convert_to_client(sales_up)
 
-            return HttpResponseRedirect(reverse('Client:salesprospectindex'))
+            return HttpResponseRedirect(reverse('Client:salesprospectdetails',
+                                                kwargs={'pk': sales_up.sales_prospect_id}))
     else:
         form_list[0] = SalesProspectEditForm(sales_dict)
         form_list[1] = AddressForm(address_dict)
         form_list[2] = ContactForm(contact_dict)
     form_dict = dict_generator(form_list)
-    return render(request, 'client/editsalesprospect.html', form_dict)
+    return render(request, template_name, form_dict)
 
 
 def convert_to_client(sales_prospect):
     pass
 
 
-#endregion
-
-#region ClientViews
-
-
-class ClientView(View):
-    form_class = Client
-    template_name = 'client/addclient.html'
-    form_list = form_generator(3)
-
-    def post(self, request, form_list=form_list, *args, **kwargs):
-        form_list[0] = ClientForm(request.POST)
-        form_list[1] = AddressForm(request.POST)
-        form_list[2] = ContactForm(request.POST)
-
-        validation = validation_helper(form_list)
-        if validation:
-            address = create_address_helper(request)
-            contact = create_contact_helper(request)
-            client = create_client_helper(request, address, contact)
-            return HttpResponseRedirect(reverse('Client:index'))
-        else:
-            return render(request, self.template_name, dict_generator(form_list))
-
-    def get(self, request, form_list=form_list, *args, **kwargs):
-        form_list[0] = ClientForm()
-        form_list[1] = AddressForm()
-        form_list[2] = ContactForm()
-        form_dict = dict_generator(form_list)
-        return render(request, self.template_name, form_dict)
-
-
 def editclient(request, client_id):
+    template_name = 'client/editclient.html'
     form_list = form_generator(3)
     client = Client.objects.get(pk=client_id)
     address = Address.objects.get(pk=client.client_address_id)
@@ -257,15 +263,17 @@ def editclient(request, client_id):
             a = update_address_helper(request, address)
             c = update_contact_helper(request, contact)
             cl = update_client_helper(request, client, a, c)
-            return HttpResponseRedirect(reverse('Client:index'))
+            return HttpResponseRedirect(reverse('Client:details',
+                                                kwargs={'pk': cl.client_id}))
 
     else:
         form_list[0] = ClientForm(client_dict)
         form_list[1] = AddressForm(address_dict)
         form_list[2] = ContactForm(contact_dict)
     form_dict = dict_generator(form_list)
-    return render(request, 'client/editclient.html', form_dict)
+    return render(request, template_name, form_dict)
 
+#endregion
 
 """
 class EditClientView(View):
@@ -315,14 +323,5 @@ class EditClientView(View):
         form_dict = dict_generator(form_list)
         return render(request, 'client/editclient.html', form_dict)
 """
-
-#endregion
-
-#region Billing Views
-
-
-def addbilling(request, client_id):
-    pass
-    #TODO Create view to add billing information
 
 #endregion

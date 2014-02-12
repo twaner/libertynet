@@ -1,5 +1,5 @@
 from django import forms
-from models import Address, Billing, Contact, Call_List, Installer, Card
+from models import Address, Billing, Contact, CallList, Installer, Card
 from django.utils.translation import gettext as _
 from bootstrap_toolkit.widgets import BootstrapDateInput
 
@@ -51,6 +51,17 @@ class EmployeeContactForm(forms.ModelForm):
             'office_phone_extension': _('Office Ext.'),
         }
 
+
+class CallListContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        exclude = ['cell', 'office_phone', 'office_phone_extension',
+                   'website', 'email', 'work_email']
+        labels = {
+            'phone': _('Phone'),
+            'phone_extension': _('Phone Ext.'),
+        }
+
 #endregion
 
 #region BillingForm
@@ -94,13 +105,15 @@ class Installer(forms.ModelForm):
 
 class CallListForm(forms.ModelForm):
     class Meta:
-        model = Call_List
+        model = CallList
         exclude = ['cl_contact']
         help_texts = {
             'cl_is_enabled': _('Is call list enabled'),
         }
         labels = {
-            'cl_is_enabled': _('Enable Call List')
+            'cl_is_enabled': _('Enable Call List'),
+            'cl_genre': _('Call List Type'),
+            'cl_order': _('Call List Order'),
         }
 
 #endregion

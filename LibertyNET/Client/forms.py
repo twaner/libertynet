@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext as _
-from models import Client, Sales_Prospect
+from models import Client, SalesProspect
 from bootstrap_toolkit.widgets import BootstrapDateInput
 
 #region ClientForms
@@ -25,7 +25,7 @@ class ClientForm(forms.ModelForm):
 
 class SalesProspectForm(forms.ModelForm):
     class Meta:
-        model = Sales_Prospect
+        model = SalesProspect
         exclude = ['sp_address', 'sp_contact', 'is_client']
         widgets = {
             'initial_contact_date': BootstrapDateInput,
@@ -40,7 +40,7 @@ class SalesProspectForm(forms.ModelForm):
 
 class SalesProspectEditForm(forms.ModelForm):
     class Meta:
-        model = Sales_Prospect
+        model = SalesProspect
         exclude = ['sp_address', 'sp_contact']
         widgets = {
             'initial_contact_date': BootstrapDateInput,

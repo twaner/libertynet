@@ -1,6 +1,6 @@
 import factory
 import factory.fuzzy
-from models import Address, Contact, Card, Billing, Installer, Genre, Call_List
+from models import Address, Contact, Card, Billing, Installer, Genre, CallList
 
 
 class AddressFactory(factory.DjangoModelFactory):
@@ -80,7 +80,7 @@ class GenreRandomFactory(factory.DjangoModelFactory):
 
 
 class Call_ListFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Call_List
+    FACTORY_FOR = CallList
     call_list_id = 4545
     first_name = 'Jason'
     middle_initial = 'E'

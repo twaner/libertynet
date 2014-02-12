@@ -6,7 +6,7 @@ from Employee.factories import EmployeeFactory, EmployeeDjangoFactory, EmployeeF
 from Common.models import Address, Contact
 from Common.forms import AddressForm, EmployeeContactForm
 from Common.factories import AddressFactory, ContactEmployeeFactory
-import Common.helpermethods as cHM
+import Common.helpermethods as chm
 
 #region EmployeeTest
 
@@ -65,13 +65,13 @@ class EmployeeTest(TestCase):
             'pay_type': e.pay_type, 'pay_rate': e.pay_rate,
         }
         # Generates and return a list of forms
-        form_list = cHM.form_generator(3)
+        form_list = chm.form_generator(3)
 
         form_list[0] = AddressForm(data=address_data)
         form_list[1] = EmployeeContactForm(data=contact_date)
         form_list[2] = AddEmployeeForm(data=employee_data)
         # For debugging
-        cHM.form_errors_printer(form_list)
+        chm.form_errors_printer(form_list)
 
         self.assertTrue(form_list[0].is_valid())
         self.assertTrue(form_list[1].is_valid())

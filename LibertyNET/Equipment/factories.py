@@ -1,8 +1,8 @@
 import factory
 import factory.fuzzy
 from Equipment.models import Panel, Part, Camera, Device
-import Vendor.factories as vF
-import Common.factories as cF
+import Vendor.factories as vf
+import Common.factories as cf
 import Site.factories
 
 #region Factory
@@ -10,11 +10,11 @@ import Site.factories
 
 class PanelFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Panel
-    panel_id = 2929
+    #panel_id = 2929
     name = 'panel name'
     location = 'panel location'
     panel_id = factory.Sequence(lambda n: '%04d' % n, type=int)
-    panel_manufacturer = factory.SubFactory(vF.ManufacturerFactory)
+    panel_manufacturer = factory.SubFactory(vf.ManufacturerFactory)
     user_manual = 'panel user manual'
     installation_manual = 'panel installation manual'
 
@@ -25,14 +25,9 @@ class DeviceFactory(factory.DjangoModelFactory):
     name = 'device name'
     location = 'device base location'
     device_system_id = factory.SubFactory('Site.factories.SystemFactory')
-    #print('device_system', device_system_id.system_id)
     device_location = 'device location'
-    # TODO m2m
-    #device_part_id = factory.SubFactory('Equipment.factories.PartFactory')
-    #print('device_part_id', device_part_id.part_id)
     device_function = 'device function'
     device_zone_id = factory.SubFactory('Site.factories.ZoneFactory')
-    #print('device_zone_id', device_zone_id.zone_id)
 
     @factory.post_generation
     def add_camera_id(self, create, extracted, **kwargs):
@@ -60,9 +55,9 @@ class PartFactory(factory.DjangoModelFactory):
     id = 7676
     name = 'Part name'
     location = 'Part location'
-    part_manufacturer = factory.SubFactory(vF.ManufacturerFactory)
+    part_manufacturer = factory.SubFactory(vf.ManufacturerFactory)
     part_number = 54321
-    type = factory.SubFactory(cF.GenreFactory)
+    type = factory.SubFactory(cf.GenreFactory)
 
 
 class CameraFactory(factory.DjangoModelFactory):

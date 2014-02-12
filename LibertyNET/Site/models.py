@@ -1,5 +1,5 @@
 from django.db import models
-from Common.models import Call_List
+from Common.models import CallList
 from django.core.exceptions import ValidationError
 
 #region ModelManagers
@@ -104,7 +104,7 @@ class MonitoringManager(models.Manager):
 class Site(models.Model):
     site_id = models.AutoField(primary_key=True)
     site_client = models.ForeignKey('Client.Client')
-    site_call_list = models.ManyToManyField('Common.Call_List', blank=True, null=True)
+    site_call_list = models.ManyToManyField('Common.CallList', blank=True, null=True)
 
     objects = SiteManager()
 

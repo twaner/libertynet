@@ -1,8 +1,8 @@
 from django.test import TestCase
 from Employee.forms import *
 from Employee.helpermethods import *
-import Employee.factories as eF
-import Common.helpermethods as cHM
+import Employee.factories as ef
+import Common.helpermethods as chm
 
 #region FORM TESTS
 
@@ -11,9 +11,9 @@ class EmployeeFormTest(TestCase):
     print('Starting EmployeeFormTest....')
 
     def test_employee_form(self):
-        title = eF.TitleFactory()
-        title2 = eF.TitleFactory.create(title_id=3, title="O")
-        e = eF.EmployeeFactory.create(emp_title=(title, title2))
+        title = ef.TitleFactory()
+        title2 = ef.TitleFactory.create(title_id=3, title="O")
+        e = ef.EmployeeFactory.create(emp_title=(title, title2))
         self.assertTrue(isinstance(e, Employee), "Is not Employee ==> test_form")
 
         e_title = titles_to_pk_list(e)
@@ -24,11 +24,11 @@ class EmployeeFormTest(TestCase):
             'pay_type': e.pay_type, 'pay_rate': e.pay_rate,
         }
         # Generates and return a list of forms
-        form_list = cHM.form_generator(1)
+        form_list = chm.form_generator(1)
 
         form_list[0] = AddEmployeeForm(data=employee_data)
         # For debugging
-        cHM.form_errors_printer(form_list)
+        chm.form_errors_printer(form_list)
 
         self.assertTrue(form_list[0].is_valid(), 'AddEmployeeForm is not valid!')
 
