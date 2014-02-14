@@ -23,13 +23,12 @@
         </a>
     {% endif %}
 
-
  {% comment %}
         {% if client_detail or business_client %}
-
-    <a href="{% url 'site_info:details' client_detail.client_id %}">
- Client Site Information
-    </a>
+            <a href="{% url 'site_info:details' client_detail.client_id %}">
+         Client Site Information
+            </a>
+        {% endif %}
         {% endcomment %}
     <ul>
         <li>

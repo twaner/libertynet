@@ -5,12 +5,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
-from Common.models import Address, Billing, Card, CallList, Genre
+from Common.models import Address, Billing, Card, CallList, Genre, Contact
 from Common.forms import AddressForm, CardForm, BillingForm, CallListForm, ContactForm, \
     CallListContactForm
 from helpermethods import form_generator, dict_generator, create_billing_helper, validation_helper, \
     create_address_helper, create_card_helper, update_address_helper, update_billing_helper, \
-    update_card_helper, create_contact_helper, create_call_list_helper, create_call_list_contact_helper
+    update_card_helper, create_contact_helper, create_call_list_helper, create_calllist_contact_helper, \
+    update_call_list_helper, update_calllist_contact
 from Client.models import Client
 from Client.helpermethods import update_client_billing_helper
 from Site.models import Site
@@ -97,6 +98,19 @@ def editclientbilling(request, pk):
 #region CallList
 
 
+class CallListDetails(DetailView):
+    model = CallList
+    call_list_id = 'pk'
+    context_object_name = 'calllist_detail'
+    template_name = 'client/calllistdetails.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CallListDetails, self).get_context_data(**kwargs)
+        calllist = self.get_object()
+        context['contact_detail'] = Contact.objects.get(pk=calllist.cl_contact_id)
+        return context
+
+
 def addcalllist(request, pk):
     template_name = 'client/addclientcalllist.html'
     site = Site.objects.get(pk=pk)
@@ -106,7 +120,7 @@ def addcalllist(request, pk):
 
     if request.method == 'POST':
         if validation_helper(form_list):
-            contact = create_call_list_contact_helper(request)
+            contact = create_calllist_contact_helper(request)
             call_list = create_call_list_helper(request, contact, site)
             # Assumption a site must have a client
             related_client = Client.objects.get(pk=site.site_client_id)
@@ -119,6 +133,38 @@ def addcalllist(request, pk):
         form_list[1] = CallListContactForm()
         return render(request, template_name, dict_generator(form_list))
 
+
+def updatecalllist(request, pk):
+    template_name = 'client/editclientcalllist.html'
+    form_list = form_generator(2)
+    calllist = CallList.objects.get(pk=pk)
+    contact = Contact.objects.get(pk=calllist.cl_contact_id)
+    site = Site.objects.get(site_call_list=calllist.call_list_id)
+
+    contact_dict = {
+        'phone': contact.phone, 'phone_extension': contact.phone_extension
+    }
+    calllist_dict = {
+        'first_name': calllist.first_name, 'middle_initial': calllist.middle_initial,
+        'last_name': calllist.last_name, 'cl_order': calllist.cl_order,
+        'cl_is_enabled': calllist.cl_is_enabled, 'cl_genre': calllist.cl_genre_id
+    }
+
+    if request.method == 'POST':
+        form_list[0] = CallListContactForm(request.POST)
+        form_list[1] = ContactForm(request.POST)
+
+        if validation_helper(form_list):
+            contact_up = update_calllist_contact(request, contact)
+            calllist_up = update_call_list_helper(request, calllist, contact_up)
+            return HttpResponseRedirect(reverse('Client:sitedetails',
+                                                kwargs={'pk': site.site_id}))
+        else:
+            return render(request, template_name, dict_generator(form_list))
+    else:
+        form_list[0] = CallListForm(calllist_dict)
+        form_list[1] = CallListContactForm(contact_dict)
+        return render(request, template_name, dict_generator(form_list))
 
 #endregion
 

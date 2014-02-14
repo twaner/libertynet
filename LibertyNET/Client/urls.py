@@ -1,7 +1,9 @@
 from django.conf.urls import patterns, url
 from views import ClientDetailView, ClientListView, SalesProspectView, SalesProspectListView, \
-    ClientView, editclient, editsalesprospect, SalesProspectDetailView, salesprospectdetails
-from Common.views import addclientbilling, editclientbilling, addcalllist
+    ClientView, editclient, editsalesprospect, SalesProspectDetailView, salesprospectdetails, \
+    convert_to_client
+from Common.views import addclientbilling, editclientbilling, addcalllist, updatecalllist, \
+    CallListDetails
 from Site.views import SiteDetailView
 
 urlpatterns = patterns('',
@@ -16,13 +18,16 @@ urlpatterns = patterns('',
                        url(r'addclientcalllist/(?P<pk>[\d-]+)/$', addcalllist,
                            name='addclientcalllist'),
                        url(r'sitedetails/(?P<pk>[\d-]+)/$', SiteDetailView.as_view(), name='sitedetails'),
+                       url(r'calllistdetails/(?P<pk>[\d-]+)/$', CallListDetails.as_view(), name='calllistdetails'),
+                       url(r'editclientcalllist/(?P<pk>[\d-]+)/$', updatecalllist, name='editclientcalllist'),
+
 
                        url(r'^salesprospectindex/$', SalesProspectListView.as_view(), name='salesprospectindex'),
                        url(r'^salesprospectdetails/(?P<pk>\d+)/$', SalesProspectDetailView.as_view(),
                            name='salesprospectdetails'),
                        url(r'^addsalesprospect/$', SalesProspectView.as_view(), name='addsalesprospect'),
                        url(r'^editsalesprospect/(?P<pk>\d+)/$', editsalesprospect, name='editsalesprospect'),
-
+                       url(r'salestoclient/(?P<pk>\d+)/$', convert_to_client, name='salestoclient'),
 )
 
 

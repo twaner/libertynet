@@ -2,16 +2,42 @@
 {% load bootstrap_toolkit %}
 
 {% block content %}
-        {% if site_detail %}
-        <p>{{ site_detail.site_client_id }}</p>
-        {% endif %}
+        <a href="{{ client_detail.get_absolute_url }}">
+            Client Details Home
+        </a>
         {% if client_detail %}
-        <p>Client</p>
-        <p>{{ client_detail }}</p>
+            <p>Client:</p>
+            <p>{{ client_detail }}</p>
         {% endif %}
         {% if address_detail %}
-        <p>Site Address</p>
-        <p>{{ address_detail }}</p>
+            <p>Site Address:</p>
+            <p>{{ address_detail }}</p>
+        {% endif %}
+        {% if calllist_detail %}
+            <p>Call Lists Information:</p>
+            {% for c in calllist_detail %}
+                <a href="{% url 'Client:editclientcalllist' c.call_list_id %}">
+                    Edit
+                </a>
+            &nbsp/&nbsp
+                <a href="{% url 'Client:calllistdetails' c.call_list_id %}">
+                    Details
+                </a>
+                <p>{{ c.calllist_order }} {{ c.cl_genre }} {{ c.is_active }}</p>
+            {% endfor %}
+        {% endif %}
+{% endblock %}
+
+
+{% comment %}
+           {% if site_detail %}
+            <p>{{ site_detail.cl_genre }}</p>
         {% endif %}
 
-{% endblock %}
+        {% if site_detail %}
+            <p>Call Lists Information:</p>
+            {% for c in site_detail.site_call_lists.all %}
+                <p>{{ c.cl_genre }}</p>
+            {% endfor %}
+        {% endif %}
+{% endcomment %}

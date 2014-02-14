@@ -57,6 +57,24 @@ def create_employee_contact_helper(request):
     return contact
 
 
+def update_contact_employee_helper(request, contact):
+    """
+    Updates a contact object for an Employee.
+    @param request: request.
+    @param contact: Contact object.
+    @return: Contact object.
+    """
+    contact.phone = request.POST.get('phone')
+    contact.cell = request.POST.get('cell')
+    contact.email = request.POST.get('email')
+    contact.work_email = request.POST.get('work_email')
+    contact.office_phone = request.POST.get('office_phone')
+    contact.office_phone_extension = request.POST.get('office_phone_extension')
+    contact.save(update_fields=['phone', 'cell', 'office_phone',
+                                'office_phone_extension', 'email', 'work_email'])
+    return contact
+
+
 def create_contact_helper(request):
     """
     Creates employee based contact object based on request info.
@@ -76,15 +94,6 @@ def create_contact_helper(request):
                                      office_phone_extension=office_ext,
                                      email=email, work_email=work_email,
                                      website=website)
-    contact.save()
-    return contact
-
-
-def create_call_list_contact_helper(request):
-    phone = request.POST.get('phone')
-    phone_extension = request.POST.get('phone_extension')
-
-    contact = Contact.objects.create(phone=phone, phone_extension=phone_extension)
     contact.save()
     return contact
 
@@ -110,24 +119,6 @@ def updated_contact_helper(request, contact):
     return contact
 
 
-def update_contact_employee_helper(request, contact):
-    """
-    Updates a contact object for an Employee.
-    @param request: request.
-    @param contact: Contact object.
-    @return: Contact object.
-    """
-    contact.phone = request.POST.get('phone')
-    contact.cell = request.POST.get('cell')
-    contact.email = request.POST.get('email')
-    contact.work_email = request.POST.get('work_email')
-    contact.office_phone = request.POST.get('office_phone')
-    contact.office_phone_extension = request.POST.get('office_phone_extension')
-    contact.save(update_fields=['phone', 'cell', 'office_phone',
-                                'office_phone_extension', 'email', 'work_email'])
-    return contact
-
-
 def update_contact_helper(request, contact):
     """
     Updates a full contact object.
@@ -147,6 +138,22 @@ def update_contact_helper(request, contact):
                                 'office_phone_extension', 'email', 'work_email', 'website'])
     return contact
 
+
+def create_calllist_contact_helper(request):
+    phone = request.POST.get('phone')
+    phone_extension = request.POST.get('phone_extension')
+
+    contact = Contact.objects.create(phone=phone, phone_extension=phone_extension)
+    contact.save()
+    return contact
+
+
+def update_calllist_contact(request, contact):
+    contact.phone = request.POST.get('phone')
+    contact.phone_extension = request.POST.get('phone_extension')
+
+    contact.save(update_fields=['phone', 'phone_extension'])
+    return contact
 
 #endregion
 
@@ -189,6 +196,13 @@ def update_billing_helper(request, billing, address, card):
 
 
 def create_call_list_helper(request, contact, site):
+    """
+    Creates a Call List.
+    @param request: request.
+    @param contact: Contact.
+    @param site: Site.
+    @return: Call List.
+    """
     first_name = request.POST.get('first_name')
     middle_initial = request.POST.get('middle_initial')
     last_name = request.POST.get('last_name')
@@ -199,12 +213,37 @@ def create_call_list_helper(request, contact, site):
 
     print('type', type(cl_genre))
     call_list = CallList.objects.create_call_list(first_name=first_name, last_name=last_name,
-                                                   middle_initial=middle_initial, cl_contact=cl_contact,
-                                                   cl_order=cl_order, cl_is_enabled=cl_is_enabled,
-                                                   cl_genre=cl_genre)
+                                                  middle_initial=middle_initial, cl_contact=cl_contact,
+                                                  cl_order=cl_order, cl_is_enabled=cl_is_enabled,
+                                                  cl_genre=cl_genre)
     call_list.save()
     site.site_call_list.add(call_list)
     return call_list
+
+
+def update_call_list_helper(request, calllist, contact):
+    """
+    Updates a Call List
+    @param request: request.
+    @param calllist: Call List.
+    @param contact: Contact.
+    @return: Call List.
+    """
+    calllist.first_name = request.POST.get('first_name')
+    calllist.middle_initial = request.POST.get('middle_initial')
+    calllist.last_name = request.POST.get('last_name')
+    calllist.cl_contact = contact
+    calllist.cl_order = request.POST.get('cl_order')
+    calllist.cl_is_enabled = boolean_helper(request.POST.get('cl_is_enabled'))
+    calllist.cl_genre = Genre.objects.get(pk=request.POST.get('cl_genre'))
+
+    calllist.save(update_fields=['first_name', 'last_name',
+                                 'middle_initial', 'cl_contact',
+                                 'cl_order', 'cl_is_enabled',
+                                 'cl_genre'])
+    calllist.save()
+    return calllist
+
 
 #endregion
 
@@ -233,6 +272,12 @@ def create_card_helper(request):
 
 
 def update_card_helper(request, card):
+    """
+    Updates a Credit Card.
+    @param request: request.
+    @param card: Card.
+    @return: Card
+    """
     card.first_name = request.POST.get('first_name')
     card.middle_initial = request.POST.get('middle_initial')
     card.last_name = request.POST.get('last_name')
@@ -250,7 +295,7 @@ def update_card_helper(request, card):
 
 #endregion
 
-#region Form Helpers
+#region General Helpers
 
 
 def validation_helper(form_list):

@@ -41,8 +41,8 @@ class SiteDetailView(DetailView):
         client = Client.objects.get(pk=site.site_client_id)
         context['client_detail'] = Client.objects.get(pk=client.client_id)
         context['address_detail'] = Address.objects.get(pk=client.client_address_id)
-        context['calllist_detail'] = Site.objects.filter(site_call_list__call_list_id=site.site_call_list)
-            #CallList.objects.filter(pk=site.site_call_list)
+        context['calllist_detail'] = site.site_call_list.all()
+
         return context
 
 #endregion

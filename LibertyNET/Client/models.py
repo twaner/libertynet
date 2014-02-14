@@ -1,8 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
-from Common.models import Person, Business
-from Common.helpermethods import boolean_helper
+from Common.models import Person
 
 #region ModelManagers
 
@@ -164,12 +163,14 @@ class Client(Person):
     personal = PersonalManager()
     business = BusinessManager()
 
-    #def get_absolute_url(self):
-     #   return reverse('views.ClientDetailView', args=[str(self.client_id)])
-
-    @models.permalink
     def get_absolute_url(self):
-        return 'details', {'pk': self.client_id}
+        return reverse('Client:details', kwargs={'pk': self.client_id})
+
+    def get_absolute_url_edit(self):
+        return reverse('Client:editclient', kwargs={'pk': self.client_id})
+    #@models.permalink
+    #def get_absolute_url(self):
+     #   return 'ClientDetailView', [str(self.client_id)] #{'pk': self.client_id}
 
     def clean(self):
         """
@@ -239,7 +240,8 @@ class SalesProspect(Person):
     objects = SalesProspectManager()
 
     def get_absolute_url(self):
-        return reverse('salesprospectdetails', args=[str(self.sales_prospect_id)])
+        return reverse('Client:salesprospectdetails', kwargs={'pk': self.sales_prospect_id})
+                       #args=[str(self.sales_prospect_id)])
                        #kwargs={'pk': self.sales_prospect_id}) Client:salesprospectdetails
 
     def clean(self):

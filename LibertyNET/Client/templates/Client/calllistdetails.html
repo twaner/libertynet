@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+
+{% block content %}
+        {% if calllist_detail %}
+            <p>Call List Details:</p>
+            <p>{{ calllist_detail.cl_genre }}</p>
+            <p>{{ calllist_detail.calllist_contact_name }}</p>
+            <p>{{ calllist_detail.calllist_order }}</p>
+            <p>{{ calllist_detail.is_active }}</p>
+        {% endif %}
+        {% if contact_detail %}
+            <p>Contact Details:</p>
+            <p>{{ contact_detail.phone_extension_helper }}</p>
+        {% endif %}
+{% endblock %}

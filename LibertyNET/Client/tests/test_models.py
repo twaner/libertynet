@@ -46,6 +46,9 @@ class FactoryTests(TestCase):
         self.assertTrue(isinstance(sales_prospect.sp_address, Address), 'SalesProspect !Address')
         self.assertTrue(isinstance(sales_prospect.sp_contact, Contact), 'SalesProspect !Contact')
         self.assertEqual(sales_prospect.is_business, False, 'SP.is_business !False')
+        q = sales_prospect.get_absolute_url()
+        self.assertEqual(sales_prospect.get_absolute_url(),
+                         '/client/salesprospectdetails/999/', 'AbsoluteUrl does not match')
 
     def test_create_sales_prospect_business(self):
         print('test_create_sales_prospect_business...')
@@ -81,3 +84,4 @@ class ClientTest(TestCase):
         self.assertEqual(client.__str__(), 'Al Alston', '__str__ not matching.')
         self.assertEqual(client.is_business, False, 'Client.is_business is wrong.')
         self.assertEqual(client.is_a_business(), False, 'Client is not a business.')
+        #client.get_absolute_url()

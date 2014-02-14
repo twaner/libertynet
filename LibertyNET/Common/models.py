@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.encoding import force_bytes
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 from datetime import date
 
 
@@ -385,8 +386,26 @@ class CallList(Person):
 
     objects = CallListManager()
 
+    def get_absolute_url(self):
+        return reverse('Common.views.CallListDetails', args=[str(self.call_list_id)])
+
     def __unicode__(self):
         return "%s %s" % (self.cl_genre, self.cl_is_enabled)
+
+    @property
+    def is_active(self):
+        if self.cl_is_enabled:
+            return "Active"
+        else:
+            return "Inactive"
+
+    @property
+    def calllist_contact_name(self):
+        return "%s %s %s" % (self.first_name, self.middle_initial, self.last_name)
+
+    @property
+    def calllist_order(self):
+        return "%s" % self.cl_order
 
 
 class Genre(models.Model):
