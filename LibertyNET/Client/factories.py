@@ -66,8 +66,8 @@ class SalesProspectResidentialFactory(factory.DjangoModelFactory):
     sales_probability = 'M'
     initial_contact_date = '2014-01-21'
     comments = 'Met at local function.'
-    sp_address = factory.SubFactory(AddressFactory)
-    sp_contact = factory.SubFactory(ContactFactory)
+    sp_address = factory.lazy_attribute(lambda a: Common.factories.AddressFactory.create())
+    sp_contact = factory.lazy_attribute(lambda a: Common.factories.ContactEmployeeFactory.create())
 
 
 class SalesProspectBusinessFactory(factory.DjangoModelFactory):

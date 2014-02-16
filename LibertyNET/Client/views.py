@@ -84,6 +84,7 @@ class SalesProspectDetailView(DetailView):
             context['contact_detail'] = Contact.objects.get(pk=sales.sp_contact_id)
         except Contact.DoesNotExist:
             pass
+        print('$$$$', sales.is_client)
         return context
 
 
@@ -199,7 +200,8 @@ def editsalesprospect(request, pk):
         'last_name': sales.last_name, 'sp_business_name': sales.sp_business_name,
         'is_business': sales.is_business, 'sp_liberty_contact': sales.sp_liberty_contact_id,
         'sales_type': sales.sales_type, 'sales_probability': sales.sales_probability,
-        'initial_contact_date': sales.initial_contact_date, 'comments': sales.comments
+        'initial_contact_date': sales.initial_contact_date, 'comments': sales.comments,
+        'is_client': sales.is_client
     }
     if request.method == 'POST':
         form_list[0] = SalesProspectEditForm(request.POST)
@@ -258,11 +260,12 @@ def convert_to_client(request, pk):
     }
     # Create client for use with dictionary
     client = Client()
+    print('%$%$', sp.is_business)
     client_dict = {
         'first_name': sp.first_name, 'middle_initial': sp.middle_initial,
         'last_name': sp.last_name, 'client_number': '',
         'business_name': sp.sp_business_name, 'is_business': sp.is_business,
-        'client_date': date.today().strftime
+        'client_date': date.today().strftime("%Y-%m-%d")
     }
 
     if request.method == 'POST':
@@ -287,10 +290,10 @@ def convert_to_client(request, pk):
     return render(request, template_name, form_dict)
 
 
-def editclient(request, client_id):
+def editclient(request, pk):
     template_name = 'client/editclient.html'
     form_list = form_generator(3)
-    client = Client.objects.get(pk=client_id)
+    client = Client.objects.get(pk=pk)
     address = Address.objects.get(pk=client.client_address_id)
     contact = Contact.objects.get(pk=client.client_contact_id)
     # Create dictionaries to bind to forms

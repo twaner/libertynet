@@ -192,7 +192,7 @@ class Client(Person):
         if self.is_business:
             return self.business_name
         else:
-            return u'%s %s' % (self.first_name, self.last_name)
+            return u'%s %s %s' % (self.first_name, self.middle_initial, self.last_name)
 
     def is_a_business(self):
         """
@@ -244,6 +244,9 @@ class SalesProspect(Person):
                        #args=[str(self.sales_prospect_id)])
                        #kwargs={'pk': self.sales_prospect_id}) Client:salesprospectdetails
 
+    def get_absolute_url_edit(self):
+        return reverse('Client:editsalesprospect', kwargs={'pk': self.sales_prospect_id})
+
     def clean(self):
         super(SalesProspect, self).clean()
         # Business validation
@@ -262,11 +265,15 @@ class SalesProspect(Person):
                 needs_contact = "Contaction information"
             raise ValidationError('To convert to Client %s %s' % (needs_address, needs_contact))
         """
+
     def __str__(self):
         """
-        Sets display for Sales_Prospect object to first and last name.
-        @return: first and last name of Sales_Prospect.
+        Sets display for Client object to first and last name.
+        @return: first and last name of Client.
         """
-        return u'%s %s' % (self.first_name, self.last_name)
+        if self.is_business:
+            return self.sp_business_name
+        else:
+            return u'%s %s %s' % (self.first_name, self.middle_initial, self.last_name)
 
-        #endregion
+#endregion

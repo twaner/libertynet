@@ -374,7 +374,7 @@ class Contact(models.Model):
             return "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
         else:
             phone = "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
-            return ('%s ext. %s' % (phone, self.phone_extension))
+            return '%s ext. %s' % (phone, self.phone_extension)
 
 
 class CallList(Person):
@@ -383,6 +383,8 @@ class CallList(Person):
     cl_order = models.IntegerField(choices=NUMBER_CHOICES)
     cl_is_enabled = models.BooleanField(default=True)
     cl_genre = models.ForeignKey('Common.Genre')
+
+    ordering = ['-cl_order']
 
     objects = CallListManager()
 
@@ -456,6 +458,9 @@ class Billing(models.Model):
         """
         return (u'%s' % (self.profile_name))
 
+    def get_absolute_url_edit(self):
+        return reverse('Client:editclientbilling', kwargs={'pk': self.id})
+
 
 #TODO ==> Should this be company and then we make installer_code an attribute that is searched for?
 class Installer(models.Model):
@@ -463,6 +468,11 @@ class Installer(models.Model):
     installer_code = models.IntegerField(max_length=11)
     installer_company_name = models.CharField(max_length=45)
     installer_notes = models.CharField(max_length=50)
+
+    objects = InstallerManager()
+
+    def __str__(self):
+        return self.installer_company_name
 
 
 class Card(Person):
@@ -474,6 +484,12 @@ class Card(Person):
     card_expiration = models.DateField()
     #
     objects = CardManager()
+
+    def get_model_fields(self):
+        return self._meta.fields.name
+
+    def get_fields(self):
+        return [field.name for field in Card._meta.fields]
 
     def clean(self):
         super(Card, self).clean()
@@ -487,5 +503,6 @@ class Card(Person):
                 raise TypeError('Dates format invalid')
 
     def __str__(self):
-        return force_bytes('Card Info: %s %s' % (self.first_name, self.last_name))
-        #endregion
+        return 'Card Info: %s %s' % (self.first_name, self.last_name)
+
+#endregion

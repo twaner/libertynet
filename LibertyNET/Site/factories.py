@@ -25,7 +25,6 @@ class SiteFactory(factory.DjangoModelFactory):
             self.save()
         else:
             if CallList.objects.all().count() < 1:
-                print('INIF SITEFACTORY')
                 comf.Call_ListFactory.create()
             [self.site_call_list.add(sc) for sc in CallList.objects.all()]
 

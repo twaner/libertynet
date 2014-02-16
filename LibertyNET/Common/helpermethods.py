@@ -155,6 +155,7 @@ def update_calllist_contact(request, contact):
     contact.save(update_fields=['phone', 'phone_extension'])
     return contact
 
+
 #endregion
 
 #region Billing Helper Methods
@@ -298,6 +299,10 @@ def update_card_helper(request, card):
 #region General Helpers
 
 
+def get_model_fields(model):
+    return model._meta.fields
+
+
 def validation_helper(form_list):
     """
     Handles a list of request and runs is_valid() on them.
@@ -328,10 +333,13 @@ def form_generator(n):
 
 def form_errors_printer(form_list):
     q = 0
-    for i in form_list:
-        if not i.is_valid():
-            print("Form[", q, "] not valid =>", i.errors)
-        q += 1
+    if isinstance(form_list, list):
+        for i in form_list:
+            if not i.is_valid():
+                print("Form[", q, "] not valid =>", i.errors)
+            q += 1
+    else:
+        print(form_list.errors)
 
 
 def dict_generator(form_list):
@@ -350,12 +358,12 @@ def dict_generator(form_list):
 def form_worker(form_list, request, *args):
     """
     Takes form list and either runs a request.POST or generate unbound forms.
-    @param requested: Boolean for whether to run request routine
+    @param request: Boolean for whether to run request routine
     @param form_list: form list.
     @param args: ModelForms
     @return:
     """
-    if requested:
+    if request:
         for i in range(len(form_list)):
             form_list[i] = args[i](request.POST)
     else:
@@ -377,4 +385,50 @@ def boolean_helper(*args):
         worker = False
     print('After boolean_helper', worker)
     return worker
-    #endregion
+
+
+def assert_equals_worker(s, expected, got):
+    """
+    Performs an assert and gives clean message on failure.
+    @param s: Self.
+    @param expected: Expected value.
+    @param got: Received value.
+    @return:
+    """
+
+    return s.assertEquals(got, expected,
+                          '%s not equal. Expected %s got %s' %
+                          (str(got), expected, got))
+
+
+def assert_true_worker(s, ex, got):
+    """
+    Performs an assert and gives clean message on failure.
+    @param s: Self.
+    @param ex: Expected value.
+    @param got: Received value.
+    @return:
+    """
+    return s.assertTrue(isinstance(got, ex), '%s is not %s' % (str(got), str(ex)))
+
+
+def form_assert_true_worker(self, form):
+    """
+    Runs assertTrue on a Form. Prints formatted message on failure.
+    @param self: Self.
+    @param form: Form object.
+    @return: assertTrue.
+    """
+    return self.assertTrue(form.is_valid(), "%s is not valid" % form.__class__.__name__)
+
+
+def form_assert_false_worker(self, form):
+    """
+    Runs assertTrue on a Form. Prints formatted message on failure.
+    @param self: Self.
+    @param form: Form object.
+    @return: assertTrue.
+    """
+    return self.assertFalse(form.is_valid(), "%s is valid" % form.__class__.__name__)
+
+#endregion

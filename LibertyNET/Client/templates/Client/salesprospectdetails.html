@@ -3,7 +3,7 @@
 
 {% block content %}
 {% if sales_prospect_detail %}
-    <a href="{% url 'Client:editsalesprospect' sales_prospect_detail.sales_prospect_id %}">
+    <a href="{{ sales_prospect_detail.get_absolute_url_edit }}">
         Edit Prospect Information
     </a>
     <ul>
@@ -12,7 +12,7 @@
         </li>
         {% if sales_prospect_detail %}
         <li>
-            {{ sales_prospect_detail.first_name }} {{ sales_prospect_detail.last_name }}
+            {{ sales_prospect_detail }}
         </li>
         {% endif %}
 

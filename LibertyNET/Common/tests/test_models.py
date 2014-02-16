@@ -1,7 +1,9 @@
 from django.test import TestCase
+from django.core.exceptions import ValidationError
 from Common.models import Address, Contact, Card, Billing, Installer, Genre, CallList
 import Common.factories as f
-from Common.forms import AddressForm, EmployeeContactForm
+from Common.helpermethods import assert_equals_worker, assert_true_worker
+
 
 #region Globals
 
@@ -33,6 +35,7 @@ class AddressEmployeeTest(TestCase):
         self.assertTrue(isinstance(a, Address))
         self.assertEqual(a.__str__(), '44 Broadway 4B Kingston NY 12401')
 
+
 #endregion
 
 #region Contact
@@ -55,6 +58,13 @@ class ContactTest(TestCase):
         self.assertEqual(c.phone_extension_helper(), '845-333-4444 ext. 2', 'extension helper not matching.')
 
 
+    def test_contact_clean(self):
+        c = Contact()
+        self.assertRaises(ValidationError, c.clean())
+        self.assertRaisesMessage(ValidationError, 'Please enter an Office Phone Number.')
+        self.assertRaisesMessage(ValidationError, 'Please enter a Phone Number.')
+
+
 class ContactEmployeeTest(TestCase):
     print('Starting ContactEmployeeTest...')
 
@@ -66,6 +76,7 @@ class ContactEmployeeTest(TestCase):
     def test_create_contact_employee(self):
         con = self.create_contact_employee()
         self.assertTrue(isinstance(con, Contact), "Employee Contact is not instance")
+
 
 #endregion
 
@@ -81,7 +92,14 @@ class CardTest(TestCase):
     def test_create_card(self):
         card = self.create_card()
         self.assertTrue(isinstance(card, Card), 'card is not Card')
-        self.assertEqual(card.__str__(), 'Card Info: Liam Larson', '__str__ does not match')
+        assert_equals_worker(self, ('Card Info: %s %s' % (card.first_name, card.last_name)),
+                             card.__str__())
+
+
+    def test_card_clean(self):
+        c = Card()
+        self.assertRaises(ValidationError, c.clean())
+        self.assertRaisesMessage(ValidationError, 'Credit Card is expired')
 
 
 class BillingTest(TestCase):
@@ -94,7 +112,8 @@ class BillingTest(TestCase):
 
     def setUp(self):
         card = Card.objects.create(card_id=787, first_name='Kelly', middle_initial='K', last_name='Klark',
-                                   card_number='123456', card_code='543', card_type='VISA', card_expiration='2014-12-12')
+                                   card_number='123456', card_code='543', card_type='VISA',
+                                   card_expiration='2014-12-12')
         address = Address.objects.create(id=989, street="44 Broadway", unit="4B", city="Kingston", state="NY",
                                          zip_code="12401")
 
@@ -106,8 +125,21 @@ class BillingTest(TestCase):
         billing = Billing.objects.create(profile_name='Primary', method=454, billing_address=address,
                                          card=card)
 
-        self.assertTrue(isinstance(billing, Billing), 'billing != Billing')
+        assert_true_worker(self, Billing, billing)
         self.assertEqual(billing.__str__(), 'Primary', '__str__ not working')
+
+
+class InstallerTest(TestCase):
+    def setUp(self):
+        installer_setup = Installer.objects.create(installer_id=565, installer_code=101,
+                                                   installer_company_name='Installer Co',
+                                                   installer_notes='installer notes')
+        assert_true_worker(self, Installer,installer_setup)
+
+    def test_create_installer(self):
+        installer = Installer.objects.get(pk=565)
+        assert_true_worker(self, Installer, installer)
+        assert_equals_worker(self, installer.installer_company_name, installer.__str__())
 
 
 #endregion
@@ -121,6 +153,7 @@ class FactoryTestCase(TestCase):
     def test_address_factory(self):
         address = f.AddressFactory()
         self.assertTrue(isinstance(address, Address), "AddressFactory is not address")
+        assert_true_worker(self, Address, address)
 
     def test_contact_employee_factory(self):
         contact = f.ContactEmployeeFactory()
@@ -132,8 +165,8 @@ class FactoryTestCase(TestCase):
         self.assertTrue(isinstance(contact, Contact), 'ContactFactory !Contact')
 
     def test_card_factory(self):
-        card = f.CardFactory()
-        self.assertTrue(isinstance(card, Card), "CardFactory is not Card")
+        card1 = f.CardFactory()
+        self.assertTrue(isinstance(card1, Card), "CardFactory is not Card")
 
     def test_billing_factory(self):
         billing = f.BillingFactory()

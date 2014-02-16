@@ -41,12 +41,20 @@ def update_client_helper(request, client, address, contact):
     client.last_name = request.POST.get('last_name')
     client.business_name = request.POST.get('business_name')
     client.is_business = request.POST.get('is_business')
-    #ASSUMPTION address, billing, contact will not be None
+    client.client_date = request.POST.get('client_date')
+    client.client_number = request.POST.get('client_number')
     client.client_address = address
     client.client_contact = contact
-
+    """
     client.save(update_fields=['first_name', 'middle_initial', 'last_name', 'business_name', 'is_business',
                                'client_address', 'client_contact'])
+    client = Client.objects.create(first_name=first_name, middle_initial=middle_initial,
+                                   last_name=last_name, client_number=client_number,
+                                   business_name=business_name, is_business=is_business,
+                                   client_address=address, client_contact=contact,
+                                   client_date=client_date)
+    """
+    client.save()
     return client
 
 
@@ -107,7 +115,7 @@ def update_sales_prospect_helper(request, sp, address, contact):
     sp.sales_type = request.POST.get('sales_type')
     sp.sales_probability = request.POST.get('sales_probability')
     sp.comments = request.POST.get('comments')
-
+    sp.is_client = request.POST.get('is_client')
     #Logic section
     if address is not None:
         sp.sp_address = address
@@ -132,17 +140,6 @@ def update_sales_prospect_helper(request, sp, address, contact):
                            'sp_business_name', 'is_business',
                            'sales_type', 'sales_probability',
                            'initial_contact_date', 'sp_address',
-                           'sp_contact', 'comments'])
-    sp.save()
+                           'sp_contact', 'comments', 'is_client'])
     return sp
-    #TODO -- Add is_client == True support
-    if sp.is_client:
-        pass
-        #convert to Client
 
-
-def sales_prospect_to_client_helper(sales_prospect):
-    pass
-
-
-    #endregion

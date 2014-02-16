@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from Common.models import CallList
 from django.core.exceptions import ValidationError
@@ -110,6 +111,12 @@ class Site(models.Model):
 
     def __str__(self):
         return '%s' % self.site_client
+
+    def get_absolute_url_add_calllist(self):
+        return reverse('Client:addclientcalllist', kwargs={'pk': self.site_id})
+
+    def get_absolute_url(self):
+        return reverse('Client:sitedetails', kwargs={'pk': self.site_id})
 
 
 class System(models.Model):

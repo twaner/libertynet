@@ -94,7 +94,7 @@ class CardForm(forms.ModelForm):
 #region Installer
 
 
-class Installer(forms.ModelForm):
+class InstallerForm(forms.ModelForm):
     class Meta:
         model = Installer
         fields = '__all__'
@@ -102,6 +102,9 @@ class Installer(forms.ModelForm):
             'installer_notes': forms.Textarea(attrs={'cols': 50, 'rows': 2}),
         }
 
+#endregion
+
+#region CallListForms
 
 class CallListForm(forms.ModelForm):
     class Meta:

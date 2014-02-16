@@ -1,5 +1,6 @@
 import factory
 import factory.fuzzy
+from django.db import models
 from models import Address, Contact, Card, Billing, Installer, Genre, CallList
 
 
@@ -46,7 +47,7 @@ class CardFactory(factory.DjangoModelFactory):
     card_number = factory.Sequence(lambda n: '%08d' % n)
     card_code = factory.Sequence(lambda n: '%04d' % n)
     card_type = 'VISA'
-    card_expiration = '2013-11-10'
+    card_expiration = '2017-11-10'
 
 
 class BillingFactory(factory.DjangoModelFactory):
@@ -81,7 +82,7 @@ class GenreRandomFactory(factory.DjangoModelFactory):
 
 class Call_ListFactory(factory.DjangoModelFactory):
     FACTORY_FOR = CallList
-    call_list_id = 4545
+    call_list_id = factory.Sequence(lambda n: '%04d' % n, type=int)
     first_name = 'Jason'
     middle_initial = 'E'
     last_name = 'Calllist'
@@ -89,4 +90,12 @@ class Call_ListFactory(factory.DjangoModelFactory):
     cl_order = '2'
     cl_is_enabled = True
     cl_genre = factory.SubFactory(GenreRandomFactory)
+
+
+class IPAddressFactory(factory.DjangoModelFactory):
+    pass
+    #model = models.GenericIPAddressField
+
+
+
 
