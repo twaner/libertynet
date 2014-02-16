@@ -15,6 +15,12 @@ from Common.models import Address, CallList
 
 
 def editclientsite(request, pk):
+    """
+    Edits a Client's Site.
+    @param request: request.
+    @param pk: primary key.
+    @return: html redirect.
+    """
     template_name = 'client/editclientsite.html'
     site = Site.objects.get(site_id=pk)
     form_list = form_generator(1)

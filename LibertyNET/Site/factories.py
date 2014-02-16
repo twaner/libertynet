@@ -7,6 +7,28 @@ import Client.factories as cf
 #from Equipment.factories import PanelFactory
 
 
+class SiteFactoryId(factory.DjangoModelFactory):
+    FACTORY_FOR = Site
+    site_id = 9898
+    site_client = factory.SubFactory(cf.ClientFactory)
+
+    @factory.post_generation
+    def add_call_list(self, create, extracted, **kwargs):
+        """
+        Adds Call_List as m2m
+        @param create: create.
+        @param extracted: extracted.
+        @param kwargs: kwargs.
+        """
+        if extracted and type(extracted) == type(CallList.objects.all()):
+            self.site_call_list = extracted
+            self.save()
+        else:
+            if CallList.objects.all().count() < 1:
+                comf.Call_ListFactory.create()
+            [self.site_call_list.add(sc) for sc in CallList.objects.all()]
+
+
 class SiteFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Site
     site_id = factory.Sequence(lambda n: '%04d' % n, type=int)

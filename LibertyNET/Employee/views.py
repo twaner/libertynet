@@ -19,25 +19,6 @@ class EmployeeListView(ListView):
     template_name = 'employee/index.html'
 
 
-class EmployeeDetailList(ListView):
-    model = Employee
-    template_name = 'employee/details.html'
-    context_object_name = 'employee_detail'
-
-    def get_queryset(self):
-        self.employee = get_object_or_404(Employee, employee_id=self.args[0])
-        print('*******', self.employee)
-        #return Employee.objects.filter(pk=self.employee_id)
-        return self.employee
-    """
-
-    def get_object(self):
-        object = super(EmployeeDetailList, self).get_object()
-        print("OBJECT==>", object)
-        return object
-    """
-
-
 class EmployeeDetailView(DetailView):
     model = Employee
     employee_id = 'pk'
@@ -54,18 +35,6 @@ class EmployeeDetailView(DetailView):
         return context
 
 #endregion
-
-#region DetailView
-
-
-class EmployeeDetailsView(DetailView):
-    pass
-    model = Employee
-
-    def get_context_data(self, **kwargs):
-        context = super(EmployeeDetailView, self).get_context_data(**kwargs)
-
-#endview
 
 #region Employee Views
 
@@ -92,9 +61,9 @@ def addemployee(request):
     return render(request, 'employee/addemployee.html', form_dict)
 
 
-def editemployee(request, employee_id):
+def editemployee(request, pk):
     form_list = form_generator(3)
-    employee = Employee.objects.get(pk=employee_id)
+    employee = Employee.objects.get(pk=pk)
     address = Address.objects.get(pk=employee.emp_address_id)
     contact = Contact.objects.get(pk=employee.emp_contact_id)
     title_details = employee.emp_title.all()

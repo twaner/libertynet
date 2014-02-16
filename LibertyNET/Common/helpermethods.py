@@ -1,4 +1,5 @@
 from models import Address, Contact, Card, Billing, CallList, Genre
+from django.db import models
 
 #region Address Helpers
 
@@ -434,5 +435,14 @@ def form_assert_false_worker(self, form):
     @return: assertTrue.
     """
     return self.assertFalse(form.is_valid(), "%s is valid" % form.__class__.__name__)
+
+
+def model_to_dict(instance):
+    data = {}
+    for field in instance._meta.fields:
+        data[field.name] = field.value_from_object(instance)
+        if isinstance(field, models.ForeignKey):
+            data[field.name] = field.rel.to.objects.get(pk=data[field.name])
+    return data
 
 #endregion

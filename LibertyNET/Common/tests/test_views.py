@@ -4,15 +4,18 @@ import Common.factories as cf
 import Client.factories as clf
 from Client.models import Client
 from Common.helpermethods import assert_equals_worker, assert_in_worker
-from Common.models import Billing, Card, CallList
+from Common.models import Billing, CallList
 from Site.factories import SiteFactory
-from Site.models import Site
+
 
 class TestCommonViews(TestCase):
     def setUp(self):
         client = clf.ClientFactory()
+        self.assertTrue(isinstance(client, Client))
         billing = cf.BillingFactory()
+        self.assertTrue(isinstance(billing, Billing))
         calllist = cf.Call_ListFactory()
+        self.assertTrue(isinstance(calllist, CallList))
 
     def test_add_client_billing_view(self):
         cl = Client.objects.get(first_name='Stephen')

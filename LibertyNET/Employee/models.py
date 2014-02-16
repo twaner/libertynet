@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 from Common.models import Person
 
 #region ModelManagers
@@ -25,7 +26,8 @@ class EmployeeManager(models.Manager):
         @param termination_reason: employee termination reason (None).
         @return:
         """
-        employee = self.create(first_name=first_name, last_name=last_name, middle_initial=middle_initial,
+
+        employee = self.create(first_name=first_name, last_name=last_name, middle_initial=middle_initial.upper(),
                                emp_number=emp_number, emp_title=emp_title, emp_address=emp_address,
                                emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
                                pay_rate=pay_rate,
@@ -55,7 +57,7 @@ class EmployeeManager(models.Manager):
         @param termination_reason: employee termination reason (None).
         @return:
         """
-        employee = self.create(first_name=first_name, last_name=last_name, middle_initial=middle_initial,
+        employee = self.create(first_name=first_name, last_name=last_name, middle_initial=middle_initial.upper(),
                                emp_number=emp_number, emp_title=emp_title, emp_address=emp_address,
                                emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
                                pay_rate=pay_rate)
@@ -97,6 +99,7 @@ class Title(models.Model):
         """
         return self.get_title_display()
 
+
 #endregion
 
 #region Employee class
@@ -127,11 +130,21 @@ class Employee(Person):
 
     objects = EmployeeManager()
 
+    def get_absolute_url(self):
+        return reverse('Employee:details', kwargs={'pk': self.employee_id})
+
+    def get_absolute_url_edit(self):
+        return reverse('Employee:editemployee', kwargs={'pk': self.employee_id})
+
     def clean(self):
         super(Employee, self).clean()
-        #print('is term /// term reason // term date', self.is_terminated,
-        # self.termination_reason, self.termination_date)
-        if self.is_terminated or self.termination_reason is not None or self.termination_date is not None:
+        # print('is term /// term reason // term date', self.is_terminated,
+        #       self.termination_reason, self.termination_date)
+        #if self.is_terminated or self.termination_reason is not None or self.termination_date is not None:
+        if self.is_terminated and self.termination_reason is not None and self.termination_date is not None or \
+                self.is_terminated is False and self.termination_reason is None and self.termination_date is None:
+            pass
+        else:
             raise ValidationError('Please fill out all termination fields.')
 
     def __str__(self):
@@ -139,13 +152,15 @@ class Employee(Person):
         Displays first and last of Employee
         @return: Employee first and last name.
         """
-        return u'%s %s' % (self.first_name, self.last_name)
+        return u'%s %s %s' % (self.first_name, self.middle_initial, self.last_name)
 
+    @property
     def worker_is(self):
         """
         Displays titles.
+        @rtype : Title.
         @return: Titles for Employee
         """
-        return (self.emp_title)
+        return self.emp_title.all()
 
 #endregion

@@ -89,8 +89,9 @@ class TestSite(TestCase):
         abs_url_str = '/client/sitedetails/%s/' % pk
         abs_url_edit_str = '/client/addclientcalllist/%s/' % pk
 
-        assert_equals_worker(self, abs_url_str, site.get_absolute_url_())
+        assert_equals_worker(self, abs_url_str, site.get_absolute_url())
         assert_equals_worker(self, abs_url_edit_str, site.get_absolute_url_add_calllist())
+
 
 class TestModels(TestCase):
     def setUp(self):

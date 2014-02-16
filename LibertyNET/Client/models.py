@@ -23,7 +23,7 @@ class ClientManager(models.Manager):
         @param client_date: date client opened account with company.
         @return: client object
         """
-        client = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
+        client = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
                              client_number=client_number, business_name=business_name,
                              is_business=is_business, client_address=client_address,
                              client_contact=client_contact, client_date=client_date)
@@ -43,7 +43,7 @@ class ClientManager(models.Manager):
         @param client_date: date client opened account with company.
         @return: client object
         """
-        client = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
+        client = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
                              client_number=client_number, client_address=client_address,
                              client_contact=client_contact, client_date=client_date)
         client.save()
@@ -108,7 +108,7 @@ class SalesProspectManager(models.Manager):
         @param sp_contact: sales prospect's contact info.
         @return: Sales Prospect.
         """
-        sales_prospect = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
+        sales_prospect = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
                                      sp_business_name=sp_business_name, is_business=is_business,
                                      sp_liberty_contact=sp_liberty_contact,
                                      sales_type=sales_type, initial_contact_date=initial_contact_date,
@@ -135,7 +135,7 @@ class SalesProspectManager(models.Manager):
         @param sp_contact: sales prospect's contact info.
         @return: Sales Prospect.
         """
-        sales_prospect = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
+        sales_prospect = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
                                      sp_liberty_contact=sp_liberty_contact,
                                      sales_type=sales_type, initial_contact_date=initial_contact_date,
                                      comments=comments, sp_address=sp_address,

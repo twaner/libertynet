@@ -150,7 +150,7 @@ class CallListManager(models.Manager):
         @return:
         """
         call_list = self.create(first_name=first_name, last_name=last_name,
-                                middle_initial=middle_initial, cl_contact=cl_contact,
+                                middle_initial=middle_initial.upper(), cl_contact=cl_contact,
                                 cl_order=cl_order, cl_is_enabled=cl_is_enabled,
                                 cl_genre=cl_genre)
         call_list.save()
@@ -202,7 +202,7 @@ class CardManager(models.Manager):
         @rtype : Card
         @return: Card object.
         """
-        card = self.create(first_name=first_name, middle_initial=middle_initial,
+        card = self.create(first_name=first_name, middle_initial=middle_initial.upper(),
                            last_name=last_name, card_number=card_number, card_code=card_code,
                            card_type=card_type, card_expiration=card_expiration)
         card.save()
