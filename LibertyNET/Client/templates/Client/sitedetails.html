@@ -23,7 +23,7 @@
                 <a href="{% url 'Client:calllistdetails' c.call_list_id %}">
                     Details
                 </a>
-                <p>{{ c.calllist_order }} {{ c.cl_genre }} {{ c.is_active }}</p>
+                <p>{{ c.get_cl_order_display }} {{ c.cl_genre }} {{ c.is_active }}</p>
             {% endfor %}
         {% endif %}
 {% endblock %}

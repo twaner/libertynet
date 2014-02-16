@@ -378,9 +378,32 @@ class Contact(models.Model):
 
 
 class CallList(Person):
+    FIRST = 1
+    SECOND = 2
+    THIRD = 3
+    FOURTH = 4
+    FIFTH = 5
+    SIXTH = 6
+    SEVENTH = 7
+    EIGHTH = 8
+    NINTH = 9
+    TENTH = 10
+    NUMBER_CHOICES2 = (
+        (FIRST, '1st'),
+        (SECOND, '2nd'),
+        (THIRD, '3rd'),
+        (FOURTH, '4th'),
+        (FIFTH, '5th'),
+        (SIXTH, '6th'),
+        (SEVENTH, '7th'),
+        (EIGHTH, '8th'),
+        (NINTH, '9th'),
+        (TENTH, '10th'),
+    )
     call_list_id = models.AutoField(primary_key=True)
     cl_contact = models.ForeignKey('Common.Contact')
-    cl_order = models.IntegerField(choices=NUMBER_CHOICES)
+    #2-16 ==> INTEGER => CHAR FIELD
+    cl_order = models.CharField(choices=NUMBER_CHOICES2, max_length=11)
     cl_is_enabled = models.BooleanField(default=True)
     cl_genre = models.ForeignKey('Common.Genre')
 
@@ -393,6 +416,10 @@ class CallList(Person):
 
     def __unicode__(self):
         return "%s %s" % (self.cl_genre, self.cl_is_enabled)
+
+    @property
+    def order(self):
+        return self.get_cl_order_display
 
     @property
     def is_active(self):
@@ -505,4 +532,4 @@ class Card(Person):
     def __str__(self):
         return 'Card Info: %s %s' % (self.first_name, self.last_name)
 
-#endregion
+        #endregion

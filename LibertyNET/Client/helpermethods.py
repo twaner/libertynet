@@ -27,7 +27,7 @@ def create_client_helper(request, *args):
                                    business_name=business_name, is_business=is_business,
                                    client_address=args[0], client_contact=args[1],
                                    client_date=client_date)
-
+    # Create Client's Site
     site = Site.objects.create_client_site(client)
 
     return client
@@ -40,7 +40,7 @@ def update_client_helper(request, client, address, contact):
     client.middle_initial = request.POST.get('middle_initial')
     client.last_name = request.POST.get('last_name')
     client.business_name = request.POST.get('business_name')
-    client.is_business = request.POST.get('is_business')
+    client.is_business = boolean_helper(request.POST.get('is_business'))
     client.client_date = request.POST.get('client_date')
     client.client_number = request.POST.get('client_number')
     client.client_address = address
@@ -48,12 +48,13 @@ def update_client_helper(request, client, address, contact):
     """
     client.save(update_fields=['first_name', 'middle_initial', 'last_name', 'business_name', 'is_business',
                                'client_address', 'client_contact'])
-    client = Client.objects.create(first_name=first_name, middle_initial=middle_initial,
-                                   last_name=last_name, client_number=client_number,
-                                   business_name=business_name, is_business=is_business,
-                                   client_address=address, client_contact=contact,
-                                   client_date=client_date)
     """
+    client.save(update_fields=['first_name', 'middle_initial',
+                               'last_name', 'client_number',
+                               'business_name', 'is_business',
+                               'client_address', 'client_contact',
+                               'client_date'])
+
     client.save()
     return client
 
@@ -69,6 +70,7 @@ def update_client_billing_helper(client, billing):
     client.client_billing = billing
     client.save()
     return client
+
 
 #endregion
 
@@ -99,11 +101,11 @@ def create_sales_prospect_helper(request, address, contact):
     comments = request.POST.get('comments')
 
     sales_prospect = SalesProspect.objects.create(first_name=first_name, middle_initial=middle_initial,
-                                                   last_name=last_name, sp_liberty_contact=sp_liberty_contact,
-                                                   sp_business_name=sp_business_name, is_business=is_business,
-                                                   sales_type=sales_type, sales_probability=sales_probability,
-                                                   initial_contact_date=initial_contact_date, sp_address=address,
-                                                   sp_contact=contact, comments=comments)
+                                                  last_name=last_name, sp_liberty_contact=sp_liberty_contact,
+                                                  sp_business_name=sp_business_name, is_business=is_business,
+                                                  sales_type=sales_type, sales_probability=sales_probability,
+                                                  initial_contact_date=initial_contact_date, sp_address=address,
+                                                  sp_contact=contact, comments=comments)
     sales_prospect.save()
     return sales_prospect
 
