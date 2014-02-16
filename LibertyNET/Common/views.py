@@ -167,34 +167,3 @@ def updatecalllist(request, pk):
         return render(request, template_name, dict_generator(form_list))
 
 #endregion
-
-#region spare code -- REMOVE
-"""
-class AddClientBillingView(View):
-    model = Billing
-    client_id = 'pk'
-    template_name = 'client/addclientbilling.html'
-    form_list = form_generator(3)
-
-    def post(self, request, form_list=form_list, *args, **kwargs):
-        form_list[0] = BillingForm(request.POST)
-        form_list[1] = AddressForm(request.POST)
-        form_list[2] = CardForm(request.POST)
-
-        validation = validation_helper(form_list)
-        if validation:
-            address = create_address_helper(request)
-            card = create_card_helper(request)
-            biliing = create_billing_helper(request, address=address, card=card)
-            return HttpResponseRedirect(reverse('Client:addclientsite'))
-        else:
-            return render(request, self.template_name, dict_generator(form_list))
-
-    def get(self, request, form_list=form_list, *args, **kwargs):
-        form_list[0] = BillingForm()
-        form_list[1] = AddressForm()
-        form_list[2] = CardForm()
-        form_dict = dict_generator(form_list)
-        return render(request, self.template_name, form_dict)
-"""
-#endregion

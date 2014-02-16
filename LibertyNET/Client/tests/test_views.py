@@ -1,9 +1,8 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.core.urlresolvers import reverse
 from Client.models import Client, SalesProspect
 import Client.factories as cf
-import Client.views as cv
-from Common.helpermethods import assert_true_worker, assert_equals_worker, assert_in_worker
+from Common.helpermethods import assert_equals_worker, assert_in_worker
 
 
 #region ClientViewTests

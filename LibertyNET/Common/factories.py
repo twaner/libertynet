@@ -52,6 +52,7 @@ class CardFactory(factory.DjangoModelFactory):
 
 class BillingFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Billing
+    id = factory.Sequence(lambda n: '%08d' % n)
     profile_name = 'Johnson Billing'
     method = factory.Sequence(lambda n: '%04d' % n)
     billing_address = factory.SubFactory(AddressFactory)
