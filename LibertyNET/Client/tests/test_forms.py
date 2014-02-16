@@ -23,41 +23,28 @@ class ClientTest(TestCase):
         self.assertTrue(isinstance(c, Contact), "Contact not created.")
         print('setup completed...')
 
-    def test_create_client(self):
+    def test_client_form(self):
         a = Address.objects.get(pk=1111)
-        self.assertTrue(isinstance(a, Address), 'address != Address')
         c = Contact.objects.get(pk=2222)
-        self.assertTrue(isinstance(c, Contact), 'contact != Contact')
         client = Client.objects.create_client(first_name='Al', middle_initial='Q', last_name='Alston',
                                               client_number=9191, client_address=a, client_contact=c,
                                               client_date='2013-12-29')
-        self.assertTrue(isinstance(client, Client), 'client is not Client')
-
-        #setup for forms
-        address_data = {'street': a.street, 'unit': a.unit, 'city': a.city, 'state': a.state,
-                        'zip_code': a.zip_code,
-        }
-        contact_data = {
-            'phone': c.phone, 'cell': c.cell, 'office_phone': c.office_phone,
-            'office_phone_extension': c.office_phone_extension,
-            'email': c.email, 'work_email': c.work_email,
-        }
+        chm.assert_true_worker(self, Client, client)
         client_data = {
             'first_name': client.first_name, 'middle_initial': client.middle_initial, 'last_name': client.last_name,
             'client_number': client.client_number, 'client_date': client.client_date
         }
+        form = ClientForm(data=client_data)
+        chm.form_assert_true_worker(self, form)
 
-        form_list = chm.form_generator(3)
-
-        form_list[0] = AddressForm(data=address_data)
-        form_list[1] = ContactForm(data=contact_data)
-        form_list[2] = ClientForm(data=client_data)
-        # For debugging
-        chm.form_errors_printer(form_list)
-
-        self.assertTrue(form_list[0].is_valid())
-        self.assertTrue(form_list[1].is_valid())
-        self.assertTrue(form_list[2].is_valid())
+    def test_invalid_client_form(self):
+        client = Client()
+        client_data = {
+            'first_name': client.first_name, 'middle_initial': client.middle_initial, 'last_name': client.last_name,
+            'client_number': client.client_number, 'client_date': client.client_date
+        }
+        form = ClientForm(data=client_data)
+        chm.form_assert_false_worker(self, form)
 
     def test_create_sales_prospect_residential(self):
         a = Address.objects.get(pk=1111)
@@ -99,6 +86,18 @@ class ClientTest(TestCase):
         form = SalesProspectEditForm(data=sales_prospect_data)
         self.assertTrue(form.is_valid(), 'SalesProspectEditForm is not valid!')
 
+    def test_invald_salesprospect_forms(self):
+        sp = SalesProspect()
+        sales_prospect_data = {
+            'first_name': sp.first_name, 'middle_initial': sp.middle_initial, 'last_name': sp.last_name,
+            'sp_liberty_contact': sp.sp_liberty_contact_id, 'sales_type': sp.sales_type,
+            'sales_probability': sp.sales_probability, 'initial_contact_date': sp.initial_contact_date,
+            'comments': sp.comments
+        }
+        form = SalesProspectEditForm(data=sales_prospect_data)
+        chm.form_assert_false_worker(self, form)
+        form2 = SalesProspectForm(data=sales_prospect_data)
+        chm.form_assert_false_worker(self, form2)
 
 #endregion
 

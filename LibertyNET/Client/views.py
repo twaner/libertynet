@@ -25,21 +25,10 @@ class ClientListView(ListView):
     template_name = 'client/index.html'
 
 
-class ClientDetailList(ListView):
-    model = Client
-    template_name = 'client/detail.html'
-    context_object_name = 'client_detail'
-
-    def get_queryset(self):
-        self.client = get_object_or_404(Client, client_id=self.args[0])
-        return Client.objects.filter(pk=self.client_id)
-
-
 class SalesProspectListView(ListView):
     model = SalesProspect
     context_object_name = 'all_sales_prospect_list'
     template_name = 'client/salesprospectindex.html'
-
 
 #region DetailViews
 
@@ -86,22 +75,6 @@ class SalesProspectDetailView(DetailView):
             pass
         print('$$$$', sales.is_client)
         return context
-
-
-def salesprospectdetails(request, pk):
-    template_name = 'client/salesprospectdetails.html'
-    sales_prospect_detail = SalesProspect.objects.get(pk=pk)
-    try:
-        address_detail = Address.objects.get(pk=sales_prospect_detail.sp_address_id)
-    except Address.DoesNotExist:
-        address_detail = None
-    contact_detail = Contact.objects.get(pk=sales_prospect_detail.sp_contact_id)
-    context = {
-        'sales_prospect_detail': sales_prospect_detail, 'address_detail': address_detail,
-        'contact_detail': contact_detail
-    }
-    return render(request, template_name, context)
-
 
 #endregion
 
@@ -337,53 +310,3 @@ def editclient(request, pk):
 
 #endregion
 
-"""
-class EditClientView(View):
-    form_class = Client
-    template_name = 'client/editclient.html'
-    form_list = form_generator(3)
-    client_id = 'pk'
-    # Get data
-    client = Client.objects.get(pk=client_id)
-    address = Address.objects.get(pk=client.client_address_id)
-    contact = Contact.objects.get(pk=client.client_contact_id)
-    # Create dictionaries to bind to forms
-    address_dict = {
-        'street': address.street, 'unit': address.unit, 'city': address.city,
-        'state': address.state, 'zip_code': address.zip_code
-    }
-    contact_dict = {
-        'phone': contact.phone, 'phone_extension': contact.phone_extension,
-        'cell': contact.cell, 'email': contact.email, 'website': contact.website,
-        'work_email': contact.work_email, 'office_phone': contact.office_phone,
-        'office_phone_extension': contact.office_phone_extension
-    }
-    client_dict = {
-        'first_name': client.first_name, 'middle_initial': client.middle_initial,
-        'last_name': client.last_name, 'client_number': client.client_number,
-        'business_name': client.business_name, 'is_business': client.is_business,
-        'client_date': client.client_date
-    }
-
-    # Post
-    def post(self, request, form_list=form_list, *args, **kwargs):
-        form_list[0] = ClientForm(request.POST)
-        form_list[1] = AddressForm(request.POST)
-        form_list[2] = ClientForm(request.POST)
-        validation = validation_helper(form_list)
-
-        if validation:
-            a = update_address_helper(request, address)
-            c = update_contact_helper(request, contact)
-            cl = update_client_helper(request, a, c)
-            return HttpResponseRedirect(reverse('Client:index'))
-
-    def get(self, request, form_list=form_list, *args, **kwargs):
-        form_list[0] = ClientForm(client_dict)
-        form_list[1] = AddressForm(address_dict)
-        form_list[2] = ContactForm(contact_dict)
-        form_dict = dict_generator(form_list)
-        return render(request, 'client/editclient.html', form_dict)
-"""
-
-#endregion

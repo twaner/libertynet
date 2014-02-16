@@ -387,7 +387,7 @@ def boolean_helper(*args):
     return worker
 
 
-def assert_equals_worker(s, expected, got):
+def assert_equals_worker(self, expected, got):
     """
     Performs an assert and gives clean message on failure.
     @param s: Self.
@@ -396,12 +396,12 @@ def assert_equals_worker(s, expected, got):
     @return:
     """
 
-    return s.assertEquals(got, expected,
+    return self.assertEquals(got, expected,
                           '%s not equal. Expected %s got %s' %
                           (str(got), expected, got))
 
 
-def assert_true_worker(s, ex, got):
+def assert_true_worker(self, exp, got):
     """
     Performs an assert and gives clean message on failure.
     @param s: Self.
@@ -409,7 +409,11 @@ def assert_true_worker(s, ex, got):
     @param got: Received value.
     @return:
     """
-    return s.assertTrue(isinstance(got, ex), '%s is not %s' % (str(got), str(ex)))
+    return self.assertTrue(isinstance(got, exp), '%s is not %s' % (str(got), str(exp)))
+
+
+def assert_in_worker(self, expected, got):
+    return self.assertIn(expected, got, '%s is not in %s' % (expected, str(got)))
 
 
 def form_assert_true_worker(self, form):
