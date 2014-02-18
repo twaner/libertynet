@@ -11,6 +11,7 @@ class SiteManager(models.Manager):
     def create_client_site(self, site_client):
         """
         Creates a site with only a client.
+        @rtype : Site
         @param site_client: Client related to site.
         @return: Site.
         """

@@ -8,8 +8,8 @@ from django.views.generic.base import View
 from datetime import date
 from models import Client, SalesProspect
 from helpermethods import create_client_helper, create_sales_prospect_helper, update_client_helper, \
-    update_sales_prospect_helper
-from forms import ClientForm, SalesProspectForm, SalesProspectEditForm
+    update_sales_prospect_helper, create_calllog_helper
+from forms import ClientForm, SalesProspectForm, SalesProspectEditForm, SalesProspectCallLogForm, ClientCallLogForm
 from Common.forms import AddressForm, ContactForm
 from Common.models import Address, Contact, Billing
 from Common.helpermethods import create_address_helper, form_generator, create_contact_helper, \
@@ -310,3 +310,26 @@ def editclient(request, pk):
 
 #endregion
 
+
+#region CallLogs
+
+
+def addclientcalllog(request, pk):
+    tempalte_name = 'client/addclientcalllog.html'
+    form_list = form_generator(1)
+    form_list[0] = ClientCallLogForm
+    client = Client.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        if validation_helper(form_list):
+            calllog = create_calllog_helper(request, client)
+            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.client_id}))
+        else:
+            return render(request, tempalte_name, dict_generator(form_list))
+    else:
+        form_list[0] = ClientCallLogForm()
+        return render(request, tempalte_name, dict_generator(form_list))
+
+
+
+#endregion

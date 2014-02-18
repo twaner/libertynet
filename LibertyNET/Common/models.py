@@ -257,7 +257,7 @@ class City(models.Model):
     city_name = models.CharField(max_length=30)
 
     def __str__(self):
-        return (self.city_name)
+        return self.city_name
 
 
 class State(models.Model):
@@ -483,7 +483,7 @@ class Billing(models.Model):
         Display for billing information.
         @return: business name or first and last name of client.
         """
-        return (u'%s' % (self.profile_name))
+        return u'%s' % self.profile_name
 
     def get_absolute_url_edit(self):
         return reverse('Client:editclientbilling', kwargs={'pk': self.id})
@@ -532,4 +532,16 @@ class Card(Person):
     def __str__(self):
         return 'Card Info: %s %s' % (self.first_name, self.last_name)
 
-        #endregion
+
+class CallLog(models.Model):
+    caller = models.ForeignKey('Employee.Employee', null=True, blank=True)
+    call_date = models.DateField()
+    call_time = models.TimeField()
+    purpose = models.CharField(max_length=150)
+    notes = models.CharField(max_length=500)
+    next_contact = models.DateField()
+
+    class Meta:
+        abstract = True
+
+#endregion

@@ -1,7 +1,9 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
-from Common.models import Person
+from Common.models import Person, CallLog
+from datetime import date
+
 
 #region ModelManagers
 
@@ -144,6 +146,66 @@ class SalesProspectManager(models.Manager):
         sales_prospect.save()
         return sales_prospect
 
+
+class ClientCallLogManager(models.Manager):
+    def create_client_calllog(self, client_id, caller, call_date, call_time, purpose, notes, next_contact):
+        """
+        Creates a ClientCallLog.
+        @param client_id: Client Id.
+        @param caller: Liberty Employee.
+        @param call_date: Date of call.
+        @param call_time: Time of call.
+        @param purpose: Purpose of call.
+        @param notes: Notes on call.
+        @param next_contact: Next date to contact.
+        @return: ClientCallLog.
+        """
+        calllog = self.create(client_id=client_id, caller=caller, call_date=call_date, call_time=call_time,
+                              purpose=purpose, notes=notes, next_contact=next_contact)
+        calllog.save()
+        return calllog
+
+    def get_next_contact_date(self, client):
+        """
+        Gets the next time a call should be made.
+        @param client: Client.
+        @return: ClientCallLog that has date of next call.
+        """
+        #call = ClientCallLog.objects.filter(client_id=client).latest('next_contact')
+        call = ClientCallLog.objects.filter(client_id=client).\
+            filter(next_contact__gte=date.today().strftime("%Y-%m-%d")).first()
+        return call
+
+
+class SalesProspectCallLogManager(models.Manager):
+    def create_sales_calllog(self, sales_id, caller, call_date, call_time, purpose, notes, next_contact):
+        """
+        Creates a SalesProspectCallLog.
+        @param sales_id: SalesProspect Id.
+        @param caller: Liberty Employee.
+        @param call_date: Date of call.
+        @param call_time: Time of call.
+        @param purpose: Purpose of call.
+        @param notes: Notes on call.
+        @param next_contact: Next date to contact.
+        @return: SalesProspectCallLog.
+        """
+        calllog = self.create(sales_id=sales_id, caller=caller, call_date=call_date, call_time=call_time,
+                              purpose=purpose, notes=notes, next_contact=next_contact)
+        calllog.save()
+        return calllog
+
+    def get_next_contact_date(self, sales):
+        """
+        Gets the CallList with the soonest contact date.
+        @param sales: SalesProspect.
+        @return: SalesProspectCallLog with date of soonest contact.
+        """
+        call = SalesProspectCallLog.objects.filter(sales_id=sales).\
+            filter(next_contact__gte=date.today().strftime("%Y-%m-%d")).first()
+        return call
+        return call
+
 #endregion
 
 #region Client Models
@@ -168,9 +230,12 @@ class Client(Person):
 
     def get_absolute_url_edit(self):
         return reverse('Client:editclient', kwargs={'pk': self.client_id})
-    #@models.permalink
-    #def get_absolute_url(self):
-     #   return 'ClientDetailView', [str(self.client_id)] #{'pk': self.client_id}
+        #@models.permalink
+        #def get_absolute_url(self):
+        #   return 'ClientDetailView', [str(self.client_id)] #{'pk': self.client_id}
+
+    def get_absolute_url_calllog(self):
+        return reverse('Client:addclientcalllog', kwargs={'pk': self.client_id})
 
     def clean(self):
         """
@@ -203,6 +268,7 @@ class Client(Person):
             return True
         else:
             return False
+
 
 #endregion
 
@@ -241,8 +307,8 @@ class SalesProspect(Person):
 
     def get_absolute_url(self):
         return reverse('Client:salesprospectdetails', kwargs={'pk': self.sales_prospect_id})
-                       #args=[str(self.sales_prospect_id)])
-                       #kwargs={'pk': self.sales_prospect_id}) Client:salesprospectdetails
+        #args=[str(self.sales_prospect_id)])
+        #kwargs={'pk': self.sales_prospect_id}) Client:salesprospectdetails
 
     def get_absolute_url_edit(self):
         return reverse('Client:editsalesprospect', kwargs={'pk': self.sales_prospect_id})
@@ -254,17 +320,6 @@ class SalesProspect(Person):
             raise ValidationError('Please enter a business name')
         elif self.is_business is False and (self.sp_business_name != ''):
             raise ValidationError("Please select 'Is Business'")
-        """
-        print('IN CLEANADDRESS//CONTACT==>', self.sp_address, self.sp_contact)
-        if self.is_client:
-            needs_address = ''
-            needs_contact = ''
-            if self.sp_address is None:
-                needs_address = "Address Information"
-            if self.sp_contact is None:
-                needs_contact = "Contaction information"
-            raise ValidationError('To convert to Client %s %s' % (needs_address, needs_contact))
-        """
 
     def __str__(self):
         """
@@ -276,4 +331,37 @@ class SalesProspect(Person):
         else:
             return u'%s %s %s' % (self.first_name, self.middle_initial, self.last_name)
 
+
 #endregion
+
+#region CallLogs
+
+
+class ClientCallLog(CallLog):
+    id = models.AutoField(primary_key=True)
+    client_id = models.ForeignKey('Client.Client')
+
+    objects = ClientCallLogManager()
+
+    def __str__(self):
+        return 'Client: %s Call Date: %s' % (self.client_id, self.call_date)
+
+    @property
+    def next_call(self):
+        return '%s' % self.next_contact
+
+
+class SalesProspectCallLog(CallLog):
+    id = models.AutoField(primary_key=True)
+    sales_id = models.ForeignKey('Client.SalesProspect')
+
+    objects = SalesProspectCallLogManager()
+
+    def __str__(self):
+        return 'Prospect: %s Call Date: %s' % (self.sales_id, self.call_date)
+
+    @property
+    def next_call(self):
+        return '%s' % self.next_contact
+
+        #endregion

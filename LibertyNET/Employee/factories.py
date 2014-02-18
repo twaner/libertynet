@@ -21,7 +21,7 @@ class EmployeeFactory(factory.DjangoModelFactory):
     contact = Common.factories.ContactEmployeeFactory.create()
     print("ADDRESS+CONTACT ==>", address.id, contact.id)
     """
-    employee_id = factory.sequence(lambda n: '999%d' % n)
+    employee_id = factory.sequence(lambda n: '81%d' % n)
     first_name = 'John'
     middle_initial = factory.fuzzy.FuzzyText(length=1)
     last_name = 'Smith'
@@ -57,7 +57,7 @@ class EmployeeFactory(factory.DjangoModelFactory):
 class EmployeeDjangoFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Employee
 
-    employee_id = factory.sequence(lambda n: '888%d' % n)
+    employee_id = factory.sequence(lambda n: '19%d' % n)
     first_name = 'John'
     middle_initial = factory.fuzzy.FuzzyText(length=1)
     last_name = 'Smith'

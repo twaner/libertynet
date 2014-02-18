@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext as _
-from models import Client, SalesProspect
+from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
 from bootstrap_toolkit.widgets import BootstrapDateInput
 
 #region ClientForms
@@ -55,31 +55,34 @@ class SalesProspectEditForm(forms.ModelForm):
 
 #endregion
 
-"""
-        def clean(self):
-            cleaned_data = Client.clean()
-            is_business = boolean_helper(cleaned_data.get('is_business'))
-            business_name = cleaned_data.get('business_name')
-            first_name = cleaned_data.get('first_name')
-            print("SUPERCLEAN ==> is_bus////bus_name", is_business, business_name)
-            if first_name != 'Terry':
-                raise forms.ValidationError('First name is not terry')
+#region CallLogForms
 
-            if is_business and business_name == '':
-                print('is_business and not business_name:')
-                raise forms.ValidationError("You need to enter a "
-                                            "business name")
 
-            elif not is_business and business_name != '':
-                print('is_business and business_name:')
-                raise forms.ValidationError('Please select \'Is Business\'')
-            return cleaned_data
-"""
-
-"""msg = u"You mus enter a business name."
-                self._errors["business_name"] = self.error_class([msg])"""
-"""
-help_texts = {
-            'is_client': _('Select to convert to a Client.')
+class ClientCallLogForm(forms.ModelForm):
+    class Meta:
+        model = ClientCallLog
+        exclude = ['client_id']
+        widgets = {
+            'call_date': BootstrapDateInput,
+            'next_contact': BootstrapDateInput,
         }
-"""
+        labels = {
+            'call_date': _('Date of Call'),
+            'call_time': _('Time of Call'),
+        }
+
+
+class SalesProspectCallLogForm(forms.ModelForm):
+    class Meta:
+        model = SalesProspectCallLog
+        exclude = ['sales_id']
+        widgets = {
+            'call_date': BootstrapDateInput,
+            'next_contact': BootstrapDateInput,
+        }
+        labels = {
+            'call_date': _('Date of Call'),
+            'call_time': _('Time of Call'),
+        }
+
+#endregion

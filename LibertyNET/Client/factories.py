@@ -1,6 +1,6 @@
 import factory
 import factory.fuzzy
-from models import Client, SalesProspect
+from models import Client, ClientCallLog, SalesProspect, SalesProspectCallLog
 from Common.factories import *
 from Employee.factories import *
 
@@ -85,5 +85,35 @@ class SalesProspectBusinessFactory(factory.DjangoModelFactory):
     comments = 'Met at local dinner.'
     sp_address = factory.SubFactory(AddressFactory)
     sp_contact = factory.SubFactory(ContactFactory)
+
+#endregion
+
+#region CallListFactories
+
+
+class ClientCallLogFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = ClientCallLog
+    id = factory.fuzzy.FuzzyInteger(19, 50)
+    client_id = factory.SubFactory(ClientFactoryBusiness)
+    caller = factory.SubFactory(EmployeeDjangoFactory)
+    call_date = '2014-02-16'
+    call_time = '13:13'
+    purpose = 'ClientCallLog purpose'
+    notes = 'ClientCallLog notes'
+    next_contact = '2014-04-16'
+
+
+class SalesProspectCallLogFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = SalesProspectCallLog
+    id = factory.fuzzy.FuzzyInteger(19, 50)
+    sales_id = factory.SubFactory(SalesProspectResidentialFactory)
+    caller = factory.SubFactory(EmployeeFactory)
+    call_date = '2014-02-16'
+    call_time = '13:13'
+    purpose = 'ClientCallLog purpose'
+    notes = 'ClientCallLog notes'
+    next_contact = '2014-04-16'
+
+
 
 #endregion

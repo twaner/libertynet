@@ -20,8 +20,11 @@
         </a>&nbsp;/&nbsp;
         <a href="{{ site_detail.get_absolute_url }}">
             Site Details
-        </a>
+        </a>&nbsp;/&nbsp;
     {% endif %}
+    <a href="{{ client_detail.get_absolute_url_calllog }}">
+        Add Client Call Log
+    </a>
 
  {% comment %}
         {% if client_detail or business_client %}

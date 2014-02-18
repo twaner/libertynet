@@ -1,5 +1,4 @@
-from models import Client, SalesProspect
-from Common.models import Address, Billing, Contact
+from models import Client, SalesProspect, SalesProspectCallLog, ClientCallLog
 from Common.helpermethods import boolean_helper
 from Employee.models import Employee
 from Site.models import Site
@@ -145,3 +144,32 @@ def update_sales_prospect_helper(request, sp, address, contact):
                            'sp_contact', 'comments', 'is_client'])
     return sp
 
+#endregion
+
+#region CallLogs
+
+
+def create_calllog_helper(request, obj):
+    caller = request.POST.get('caller')
+    call_date = request.POST.get('call_date')
+    call_time = request.POST.get('call_time')
+    purpose = request.POST.get('purpose')
+    notes = request.POST.get('notes')
+    next_contact = request.POST.get('next_contact')
+
+    if isinstance(obj, Client):
+        client_id = obj
+        calllog = ClientCallLog.objects.create_client_calllog(client_id=client_id, caller=caller, call_date=call_date,
+                                                              call_time=call_time, purpose=purpose, notes=notes,
+                                                              next_contact=next_contact)
+        return calllog
+    elif isinstance(obj, SalesProspect):
+        sales_id = obj
+        calllog = SalesProspectCallLog.objects.create_sales_calllog(sales_id=sales_id, caller=caller,
+                                                                    call_date=call_date, call_time=call_time,
+                                                                    purpose=purpose, notes=notes,
+                                                                    next_contact=next_contact)
+        return calllog
+
+
+#endregion

@@ -152,7 +152,10 @@ class Employee(Person):
         Displays first and last of Employee
         @return: Employee first and last name.
         """
-        return u'%s %s %s' % (self.first_name, self.middle_initial, self.last_name)
+        if self.middle_initial is not None or self.middle_initial != '':
+            return u'%s %s %s' % (self.first_name, self.middle_initial, self.last_name)
+        else:
+            return u'%s %s' % (self.first_name, self.last_name)
 
     @property
     def worker_is(self):

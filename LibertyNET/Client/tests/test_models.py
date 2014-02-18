@@ -1,5 +1,6 @@
 from django.test import TestCase
-from Client.models import Client, SalesProspect
+from datetime import date, timedelta
+from Client.models import Client, SalesProspect, ClientCallLog
 from Client.factories import *
 from Employee.factories import EmployeeFactory
 from Common.models import Address, Contact, Card, Billing
@@ -13,6 +14,9 @@ add = {'street': '44 Broadway', 'unit': '4B', 'city': 'Kingston', 'state': 'New 
 
 con = {'phone': '8453334444', 'cell': '8456667777', 'office_phone': '9998883333', 'office_phone_extension': '4545',
        'email': 'test@test.com', 'work_email': 'work@work.com'}
+
+date1 = (date.today() + timedelta(days=10)).strftime("%Y-%m-%d")
+date2 = (date.today() + timedelta(days=100)).strftime("%Y-%m-%d")
 
 #endregion
 
@@ -57,6 +61,20 @@ class FactoryTests(TestCase):
         self.assertEqual(sales_prospect.sp_business_name, 'Salesprospectbusiness', 'SP business name is incorrect')
         self.assertEqual(sales_prospect.is_business, True, 'SP.is_business !True')
 
+    def test_client_call_log_factory(self):
+        call_log = ClientCallLogFactory()
+        self.assertIsInstance(call_log, ClientCallLog)
+        str_exp = 'Client: %s Call Date: %s' % (call_log.client_id.__str__(), call_log.call_date)
+        chm.assert_equals_worker(self, str_exp, call_log.__str__())
+        chm.assert_equals_worker(self, call_log.next_call, call_log.next_call)
+
+    def test_sales_call_log_factory(self):
+        call_log = SalesProspectCallLogFactory()
+        self.assertIsInstance(call_log, SalesProspectCallLog)
+        str_exp = 'Prospect: %s Call Date: %s' % (call_log.sales_id.__str__(), call_log.call_date)
+        chm.assert_equals_worker(self, str_exp, call_log.__str__())
+        chm.assert_equals_worker(self, call_log.next_call, call_log.next_call)
+
 
 #endregion
 
@@ -85,6 +103,16 @@ class ClientTest(TestCase):
         self.assertEqual(client.is_business, False, 'Client.is_business is wrong.')
         self.assertEqual(client.is_a_business(), False, 'Client is not a business.')
 
+        # CallLog
+        emp = EmployeeFactory()
+        calllog = ClientCallLog.objects.create_client_calllog(client, emp, '2014-02-13', '13:13',
+                                                              'purpose', 'notes', date1)
+        calllog2 = ClientCallLog.objects.create_client_calllog(client, emp, '2014-02-17', '13:13',
+                                                               'purpose2', 'notes2', date2)
+
+        calllog_modelmanager = ClientCallLog.objects.get_next_contact_date(client)
+        chm.assert_equals_worker(self, date1, calllog_modelmanager.next_call)
+
 
 class SalesProspectTest(TestCase):
     def setUp(self):
@@ -108,8 +136,17 @@ class SalesProspectTest(TestCase):
                                                          sp_liberty_contact=lib_emp, sales_type='New',
                                                          sales_probability='Medium', initial_contact_date='2014-3-22',
                                                          comments='None', sp_address=a, sp_contact=c)
-                                                         #is_business=False, is_client=False, sp_business_name='')
+        #is_business=False, is_client=False, sp_business_name='')
         self.assertTrue(isinstance(sp, SalesProspect), 'sp is not SalesProspect.')
         self.assertEqual(sp.__str__(), 'Annie T Bass', '__str__ not matching.')
         self.assertEqual(sp.is_business, False, 'Client.is_business is wrong.')
+
+        # CallLog
+        emp = EmployeeFactory()
+        calllog = SalesProspectCallLog.objects.create_sales_calllog(sp, emp, '2014-02-13', '13:13',
+                                                                    'purpose', 'notes', date1)
+        calllog2 = SalesProspectCallLog.objects.create_sales_calllog(sp, emp, '2014-02-17', '13:13',
+                                                                     'purpose2', 'notes2', date2)
+        calllog_modelmanager = SalesProspectCallLog.objects.get_next_contact_date(sp)
+        chm.assert_equals_worker(self, date1, calllog_modelmanager.next_call)
 

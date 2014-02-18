@@ -6,7 +6,7 @@ from models import Address, Contact, Card, Billing, Installer, Genre, CallList
 
 class AddressFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Address
-    id = factory.Sequence(lambda n: '999%d' % n)
+    id = factory.Sequence(lambda n: '91%d' % n)
     street = factory.Sequence(lambda n: '%02d Test St' % n)
     unit = factory.Sequence(lambda n: '%dB' % n)
     city = factory.fuzzy.FuzzyText(length=4, prefix='Testcity')
@@ -18,7 +18,6 @@ class ContactEmployeeFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Contact
     id = factory.Sequence(lambda n: '889%d' % n)
     phone = factory.Sequence(lambda n: '845678%04d' % n)
-    #phone = '8769091212'
     cell = factory.Sequence(lambda n: '97811122%02d' % n)
     office_phone = factory.Sequence(lambda n: '97811144%02d' % n)
     office_phone_extension = factory.Sequence(lambda n: '34%d' % n)
@@ -28,11 +27,16 @@ class ContactEmployeeFactory(factory.DjangoModelFactory):
 
 class ContactFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Contact
-    id = factory.Sequence(lambda n: '889%d' % n)
-    phone = factory.Sequence(lambda n: '845444%04d' % n)
+    id = factory.Sequence(lambda n: '%03d' % n)
+    # phone = '1234567891'
+    # phone_extension = factory.Sequence(lambda n: '%03d' % n)
+    # cell = '1234567891'
+    # office_phone = '1234567891'
+    # office_phone_extension = factory.Sequence(lambda n: '34%d' % n)
+    phone = factory.Sequence(lambda n: '%10d' % n)
     phone_extension = factory.Sequence(lambda n: '%03d' % n)
-    cell = factory.Sequence(lambda n: '97811122%02d' % n)
-    office_phone = factory.Sequence(lambda n: '97811144%02d' % n)
+    cell = factory.Sequence(lambda n: '%0d' % n)
+    office_phone = factory.Sequence(lambda n: '%10d' % n)
     office_phone_extension = factory.Sequence(lambda n: '34%d' % n)
     email = 'contactfull@contactfull.com'
     work_email = 'work.contact@workcontact.com'

@@ -1,12 +1,21 @@
 from django.test import TestCase
+from datetime import date, timedelta
 from Client.models import Client, SalesProspect
 from Client.factories import *
-from Client.forms import ClientForm, SalesProspectForm, SalesProspectEditForm
+from Client.forms import ClientForm, SalesProspectForm, SalesProspectEditForm, \
+    SalesProspectCallLogForm, ClientCallLogForm
 from Common.forms import AddressForm, ContactForm
 from Client.factories import SalesProspectResidentialFactory
 from Common.models import Address, Contact, Card, Billing
 from Common.factories import *
 import Common.helpermethods as chm
+
+#region Globals
+
+date1 = (date.today() + timedelta(days=10)).strftime("%Y-%m-%d")
+date2 = (date.today() + timedelta(days=100)).strftime("%Y-%m-%d")
+
+#endregion
 
 #region ClientTest Form
 
@@ -101,16 +110,42 @@ class ClientTest(TestCase):
 
 #endregion
 
-#region SalesProspectFactory Test
+#region CallLogFormTest
 
 
+class TestCallLogForms(TestCase):
+    def setUp(self):
+        client = ClientFactory()
+        sales = SalesProspectBusinessFactory()
+        employee = EmployeeFactory()
 
+    def test_client_calllog_form(self):
+        client = Client.objects.get(client_number=8989)
+        employee = Employee.objects.filter(last_name='Smith').first()
+        call_data = {}
+        form = ClientCallLogForm()
+        chm.form_assert_false_worker(self, form)
+        call_data = {
+            'caller': employee.employee_id, 'call_date': date1, 'call_time': '13:13',
+            'purpose': 'call purpose', 'notes': 'call notes', 'next_contact': date2
+        }
+        form = ClientCallLogForm(data=call_data)
+        chm.form_errors_printer(form)
+        chm.form_assert_true_worker(self, form)
 
-#endregion
-
-#region SalesProspectTest
-
-
+    def test_sales_calllog_form(self):
+        sales = SalesProspect.objects.get(sales_prospect_id = 9901)
+        employee = Employee.objects.filter(last_name='Smith').first()
+        call_data = {}
+        form = SalesProspectCallLogForm()
+        chm.form_assert_false_worker(self, form)
+        call_data = {
+            'caller': employee.employee_id, 'call_date': date1, 'call_time': '13:13',
+            'purpose': 'call purpose', 'notes': 'call notes', 'next_contact': date2
+        }
+        chm.form_errors_printer(form)
+        form = SalesProspectCallLogForm(data=call_data)
+        chm.form_assert_true_worker(self, form)
 
 
 #endregion
