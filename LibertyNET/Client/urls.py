@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from Client.views import ClientListView, ClientDetailView, ClientView, editclient, SalesProspectListView, \
-    SalesProspectDetailView, SalesProspectView, editsalesprospect, convert_to_client, addclientcalllog
+    SalesProspectDetailView, SalesProspectView, editsalesprospect, convert_to_client, addclientcalllog, \
+    CallLogDetailView, ClientCallLogIndex
 from Common.views import addclientbilling, editclientbilling, addcalllist, updatecalllist, \
     CallListDetails
 from Site.views import SiteDetailView
@@ -20,6 +21,11 @@ urlpatterns = patterns('',
                        url(r'calllistdetails/(?P<pk>[\d-]+)/$', CallListDetails.as_view(), name='calllistdetails'),
                        url(r'editclientcalllist/(?P<pk>[\d-]+)/$', updatecalllist, name='editclientcalllist'),
                        url(r'addclientcalllog/(?P<pk>[\d-]+)/$', addclientcalllog, name='addclientcalllog'),
+                       url(r'clientcalllogdetails/(?P<pk>[\d-]+)/$', CallLogDetailView.as_view(),
+                           name='clientcalllogdetails'),
+                       url(r'clientcalllogindex/(?P<pk>[\d-]+)/$', ClientCallLogIndex.as_view(),
+                           name='clientcalllogindex'),
+
                        # SalesProspect
                        url(r'^salesprospectindex/$', SalesProspectListView.as_view(), name='salesprospectindex'),
                        url(r'^salesprospectdetails/(?P<pk>\d+)/$', SalesProspectDetailView.as_view(),

@@ -5,8 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
-from datetime import date
-from models import Client, SalesProspect
+from datetime import date, datetime
+from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
 from helpermethods import create_client_helper, create_sales_prospect_helper, update_client_helper, \
     update_sales_prospect_helper, create_calllog_helper
 from forms import ClientForm, SalesProspectForm, SalesProspectEditForm, SalesProspectCallLogForm, ClientCallLogForm
@@ -233,7 +233,6 @@ def convert_to_client(request, pk):
     }
     # Create client for use with dictionary
     client = Client()
-    print('%$%$', sp.is_business)
     client_dict = {
         'first_name': sp.first_name, 'middle_initial': sp.middle_initial,
         'last_name': sp.last_name, 'client_number': '',
@@ -315,21 +314,49 @@ def editclient(request, pk):
 
 
 def addclientcalllog(request, pk):
-    tempalte_name = 'client/addclientcalllog.html'
+    template_name = 'client/addclientcalllog.html'
     form_list = form_generator(1)
-    form_list[0] = ClientCallLogForm
+    form_list[0] = ClientCallLogForm(request.POST)
     client = Client.objects.get(pk=pk)
+    calllog_dict = {
+        'client_id': client.client_id, 'call_date': date.today().strftime("%Y-%m-%d"),
+        'call_time': datetime.now().time().strftime("%H:%M"),
+    }
 
     if request.method == 'POST':
         if validation_helper(form_list):
             calllog = create_calllog_helper(request, client)
             return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.client_id}))
         else:
-            return render(request, tempalte_name, dict_generator(form_list))
+            form_list[0] = ClientCallLogForm(calllog_dict)
+            return render(request, template_name, dict_generator(form_list))
     else:
-        form_list[0] = ClientCallLogForm()
-        return render(request, tempalte_name, dict_generator(form_list))
+        form_list[0] = ClientCallLogForm(calllog_dict)
+        return render(request, template_name, dict_generator(form_list))
 
 
+class CallLogDetailView(DetailView):
+    model = ClientCallLog
+    client_id = 'pk'
+    template_name = 'client/clientcalllogdetails.html'
+    context_object_name = 'calllog'
+
+    def get_context_data(self, **kwargs):
+        context = super(CallLogDetailView, self).get_context_data(**kwargs)
+        return context
+
+
+class ClientCallLogIndex(DetailView):
+    model = Client
+    client_id = 'pk'
+    template_name = 'client/clientcalllogindex.html'
+    context_object_name = 'client'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientCallLogIndex, self).get_context_data(**kwargs)
+        client = self.get_object()
+        context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id)\
+            .order_by('call_date', 'call_time')
+        return context
 
 #endregion

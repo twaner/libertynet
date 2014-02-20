@@ -1,5 +1,6 @@
 from models import Address, Contact, Card, Billing, CallList, Genre
 from django.db import models
+import types
 
 #region Address Helpers
 
@@ -396,17 +397,29 @@ def assert_equals_worker(self, expected, got):
     @param got: Received value.
     @return:
     """
-
     return self.assertEquals(got, expected,
-                          '%s not equal. Expected %s got %s' %
-                          (str(got), expected, got))
+                             '%s not equal. Expected %s got %s' %
+                             (str(got), expected, got))
+
+
+def assert_equals_worker_long(self, expected, got, name):
+    """
+    Performs an assert and gives clean message on failure.
+    @param s: Self.
+    @param expected: Expected value.
+    @param got: Received value.
+    @return:
+    """
+    return self.assertEquals(got, expected,
+                             '%s %s not equal. Expected %s got %s' %
+                             (name.upper(), str(got), expected, got))
 
 
 def assert_true_worker(self, exp, got):
     """
     Performs an assert and gives clean message on failure.
-    @param s: Self.
-    @param ex: Expected value.
+    @param self: Self.
+    @param exp: Expected value.
     @param got: Received value.
     @return:
     """
@@ -445,4 +458,4 @@ def model_to_dict(instance):
             data[field.name] = field.rel.to.objects.get(pk=data[field.name])
     return data
 
-#endregion
+    #endregion

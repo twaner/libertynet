@@ -61,10 +61,14 @@ class SalesProspectEditForm(forms.ModelForm):
 class ClientCallLogForm(forms.ModelForm):
     class Meta:
         model = ClientCallLog
-        exclude = ['client_id']
+        fields = ['client_id', 'caller', 'call_date', 'call_time',
+                  'purpose', 'notes', 'next_contact']
+        #exclude = ['client_id']
         widgets = {
             'call_date': BootstrapDateInput,
             'next_contact': BootstrapDateInput,
+            'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3}),
+            'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10}),
         }
         labels = {
             'call_date': _('Date of Call'),
@@ -75,10 +79,14 @@ class ClientCallLogForm(forms.ModelForm):
 class SalesProspectCallLogForm(forms.ModelForm):
     class Meta:
         model = SalesProspectCallLog
+        fields = ['sales_id', 'caller', 'call_date', 'call_time',
+                  'purpose', 'notes', 'next_contact']
         exclude = ['sales_id']
         widgets = {
             'call_date': BootstrapDateInput,
             'next_contact': BootstrapDateInput,
+            'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3}),
+            'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10}),
         }
         labels = {
             'call_date': _('Date of Call'),

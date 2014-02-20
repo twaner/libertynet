@@ -150,7 +150,7 @@ def update_sales_prospect_helper(request, sp, address, contact):
 
 
 def create_calllog_helper(request, obj):
-    caller = request.POST.get('caller')
+    caller = Employee.objects.get(pk=request.POST.get('caller'))
     call_date = request.POST.get('call_date')
     call_time = request.POST.get('call_time')
     purpose = request.POST.get('purpose')

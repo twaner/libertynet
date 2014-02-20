@@ -99,11 +99,24 @@ class ClientTest(TestCase):
                                               client_number=9191, client_address=a, client_contact=c,
                                               client_date='2013-12-29')
         self.assertTrue(isinstance(client, Client), 'client is not Client.')
-        self.assertEqual(client.__str__(), 'Al Q Alston', '__str__ not matching.')
+        #self.assertEqual(client.__str__(), 'Al Q Alston', '__str__ not matching.')
+        chm.assert_equals_worker(self, 'Al Q Alston', client.__str__())
         self.assertEqual(client.is_business, False, 'Client.is_business is wrong.')
-        self.assertEqual(client.is_a_business(), False, 'Client is not a business.')
+        chm.assert_equals_worker(self, False, client.is_business)
+        #self.assertEqual(client.is_a_business(), False, 'Client is not a business.')
+        chm.assert_equals_worker(self, False, client.is_a_business())
 
-        # CallLog
+        # get_absolute_url
+        url = '/client/%s/' % client.client_id
+        url_edit = '/client/editclient/%s/' % client.client_id
+        url_calllog = '/client/addclientcalllog/%s/' % client.client_id
+        url_calllog_index = '/client/clientcalllogindex/%s/' % client.client_id
+        chm.assert_equals_worker(self, url, client.get_absolute_url())
+        chm.assert_equals_worker(self, url_edit, client.get_absolute_url_edit())
+        chm.assert_equals_worker(self, url_calllog, client.get_absolute_url_calllog())
+        chm.assert_equals_worker(self, url_calllog_index, client.get_absolute_url_calllog_index())
+
+        # CallLog Tests
         emp = EmployeeFactory()
         calllog = ClientCallLog.objects.create_client_calllog(client, emp, '2014-02-13', '13:13',
                                                               'purpose', 'notes', date1)
@@ -112,6 +125,16 @@ class ClientTest(TestCase):
 
         calllog_modelmanager = ClientCallLog.objects.get_next_contact_date(client)
         chm.assert_equals_worker(self, date1, calllog_modelmanager.next_call)
+        exp = '/client/clientcalllogdetails/%s/' % calllog.id
+        chm.assert_equals_worker(self, exp, calllog.get_absolute_url())
+        full_details = 'Client: %s Call Date: %s Time: %s' % (calllog.client_id, calllog.call_date, calllog.call_time)
+        chm.assert_equals_worker(self, full_details, calllog.full_details)
+        url_client = '/client/%s/' % calllog.client_id.client_id
+        chm.assert_equals_worker(self, url_client, calllog.get_absolute_url_client())
+        url_index = '/client/clientcalllogindex/%s/' % calllog.client_id.client_id
+        chm.assert_equals_worker(self, url_index, calllog.get_absolute_url_index())
+        url_abs = '/client/clientcalllogdetails/%se/' % calllog.id
+        chm.assert_equals_worker_long(self, url_abs, calllog.get_absolute_url(), calllog.get_absolute_url.__name__)
 
 
 class SalesProspectTest(TestCase):
@@ -136,7 +159,7 @@ class SalesProspectTest(TestCase):
                                                          sp_liberty_contact=lib_emp, sales_type='New',
                                                          sales_probability='Medium', initial_contact_date='2014-3-22',
                                                          comments='None', sp_address=a, sp_contact=c)
-        #is_business=False, is_client=False, sp_business_name='')
+
         self.assertTrue(isinstance(sp, SalesProspect), 'sp is not SalesProspect.')
         self.assertEqual(sp.__str__(), 'Annie T Bass', '__str__ not matching.')
         self.assertEqual(sp.is_business, False, 'Client.is_business is wrong.')

@@ -226,16 +226,35 @@ class Client(Person):
     business = BusinessManager()
 
     def get_absolute_url(self):
+        """
+        Gets details view url.
+        @return: details view url.
+        """
         return reverse('Client:details', kwargs={'pk': self.client_id})
 
     def get_absolute_url_edit(self):
+        """
+        Gets edit view url.
+        @return: edit view url.
+        """
         return reverse('Client:editclient', kwargs={'pk': self.client_id})
         #@models.permalink
         #def get_absolute_url(self):
         #   return 'ClientDetailView', [str(self.client_id)] #{'pk': self.client_id}
 
     def get_absolute_url_calllog(self):
+        """
+        Gets client call log view url.
+        @return: client call log view url.
+        """
         return reverse('Client:addclientcalllog', kwargs={'pk': self.client_id})
+
+    def get_absolute_url_calllog_index(self):
+        """
+        Gets client call log index view url.
+        @return: client call log index view url.
+        """
+        return reverse('Client:clientcalllogindex', kwargs={'pk': self.client_id})
 
     def clean(self):
         """
@@ -338,6 +357,9 @@ class SalesProspect(Person):
 
 
 class ClientCallLog(CallLog):
+    """
+    CallLog object with fields for a Client.
+    """
     id = models.AutoField(primary_key=True)
     client_id = models.ForeignKey('Client.Client')
 
@@ -347,9 +369,29 @@ class ClientCallLog(CallLog):
         return 'Client: %s Call Date: %s' % (self.client_id, self.call_date)
 
     @property
+    def full_details(self):
+        """
+        Gets client, call date and time.
+        @return: client, call date and time.
+        """
+        return 'Client: %s Call Date: %s Time: %s' % (self.client_id, self.call_date, self.call_time)
+
+    @property
     def next_call(self):
+        """
+        Gets next contact time for client.
+        @return: next contact time for client.
+        """
         return '%s' % self.next_contact
 
+    def get_absolute_url(self):
+        return reverse('Client:clientcalllogdetails', kwargs={'pk': self.id})
+
+    def get_absolute_url_client(self):
+        return reverse('Client:details', kwargs={'pk': self.client_id.client_id})
+
+    def get_absolute_url_index(self):
+        return reverse('Client:clientcalllogindex', kwargs={'pk': self.client_id.client_id})
 
 class SalesProspectCallLog(CallLog):
     id = models.AutoField(primary_key=True)
