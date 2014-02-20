@@ -357,6 +357,58 @@ class ClientCallLogIndex(DetailView):
         client = self.get_object()
         context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id)\
             .order_by('call_date', 'call_time')
+        context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
+
         return context
+
+
+def addsalescalllog(request, pk):
+    template_name = 'client/addsalescalllog.html'
+    form_list = form_generator(1)
+    form_list[0] = SalesProspectCallLogForm(request.POST)
+    sales = sales.objects.get(pk=pk)
+    calllog_dict = {
+        'sales_id': sales.sales_id, 'call_date': date.today().strftime("%Y-%m-%d"),
+        'call_time': datetime.now().time().strftime("%H:%M"),
+    }
+
+    if request.method == 'POST':
+        if validation_helper(form_list):
+            calllog = create_calllog_helper(request, client)
+            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.client_id}))
+        else:
+            form_list[0] = ClientCallLogForm(calllog_dict)
+            return render(request, template_name, dict_generator(form_list))
+    else:
+        form_list[0] = ClientCallLogForm(calllog_dict)
+        return render(request, template_name, dict_generator(form_list))
+
+
+class SalesCallLogDetailView(DetailView):
+    model = SalesProspectCallLog
+    client_id = 'pk'
+    template_name = 'client/salescalllogdetails.html'
+    context_object_name = 'calllog'
+
+    def get_context_data(self, **kwargs):
+        context = super(SalesCallLogDetailView, self).get_context_data(**kwargs)
+        return context
+
+
+class SalesCallLogIndex(DetailView):
+    model = SalesProspectCallLog
+    client_id = 'pk'
+    template_name = 'client/salescalllogindex.html'
+    context_object_name = 'sales'
+
+    def get_context_data(self, **kwargs):
+        context = super(SalesCallLogIndex, self).get_context_data(**kwargs)
+        sales = self.get_object()
+        context['calllog_list'] = SalesProspectCallLog.objects.filter(sales_id=sales.sales_id)\
+            .order_by('call_date', 'call_time')
+        context['next_contact'] = SalesProspectCallLog.objects.get_next_contact_date(sales)
+
+        return context
+
 
 #endregion

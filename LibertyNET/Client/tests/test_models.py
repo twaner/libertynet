@@ -125,15 +125,22 @@ class ClientTest(TestCase):
 
         calllog_modelmanager = ClientCallLog.objects.get_next_contact_date(client)
         chm.assert_equals_worker(self, date1, calllog_modelmanager.next_call)
-        exp = '/client/clientcalllogdetails/%s/' % calllog.id
-        chm.assert_equals_worker(self, exp, calllog.get_absolute_url())
+
+        #property tests
         full_details = 'Client: %s Call Date: %s Time: %s' % (calllog.client_id, calllog.call_date, calllog.call_time)
         chm.assert_equals_worker(self, full_details, calllog.full_details)
+        complete_details = 'Client: %s Purpose: %s Call Date: %s Time: %s' % (calllog.client_id, calllog.purpose,
+                                                                              calllog.call_date, calllog.call_time)
+        chm.assert_equals_worker(self, complete_details, calllog.complete_details)
+
+        # get_absolute_url
+        exp = '/client/clientcalllogdetails/%s/' % calllog.id
+        chm.assert_equals_worker(self, exp, calllog.get_absolute_url())
         url_client = '/client/%s/' % calllog.client_id.client_id
         chm.assert_equals_worker(self, url_client, calllog.get_absolute_url_client())
         url_index = '/client/clientcalllogindex/%s/' % calllog.client_id.client_id
         chm.assert_equals_worker(self, url_index, calllog.get_absolute_url_index())
-        url_abs = '/client/clientcalllogdetails/%se/' % calllog.id
+        url_abs = '/client/clientcalllogdetails/%s/' % calllog.id
         chm.assert_equals_worker_long(self, url_abs, calllog.get_absolute_url(), calllog.get_absolute_url.__name__)
 
 

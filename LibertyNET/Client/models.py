@@ -204,7 +204,6 @@ class SalesProspectCallLogManager(models.Manager):
         call = SalesProspectCallLog.objects.filter(sales_id=sales).\
             filter(next_contact__gte=date.today().strftime("%Y-%m-%d")).first()
         return call
-        return call
 
 #endregion
 
@@ -212,6 +211,10 @@ class SalesProspectCallLogManager(models.Manager):
 
 
 class Client(Person):
+
+    """
+    Client object. An object that contains attributes that a LS Client would have.
+    """
     client_id = models.AutoField(primary_key=True)
     client_number = models.IntegerField(max_length=10)
     business_name = models.CharField(max_length=50, blank=True, null=True)
@@ -377,6 +380,11 @@ class ClientCallLog(CallLog):
         return 'Client: %s Call Date: %s Time: %s' % (self.client_id, self.call_date, self.call_time)
 
     @property
+    def complete_details(self):
+        return 'Client: %s Purpose: %s Call Date: %s Time: %s' % (self.client_id, self.purpose,
+                                                                  self.call_date, self.call_time)
+
+    @property
     def next_call(self):
         """
         Gets next contact time for client.
@@ -393,6 +401,7 @@ class ClientCallLog(CallLog):
     def get_absolute_url_index(self):
         return reverse('Client:clientcalllogindex', kwargs={'pk': self.client_id.client_id})
 
+
 class SalesProspectCallLog(CallLog):
     id = models.AutoField(primary_key=True)
     sales_id = models.ForeignKey('Client.SalesProspect')
@@ -401,6 +410,15 @@ class SalesProspectCallLog(CallLog):
 
     def __str__(self):
         return 'Prospect: %s Call Date: %s' % (self.sales_id, self.call_date)
+
+    def get_absolute_url(self):
+        return reverse('Client:salescalllogdetails', kwargs={'pk': self.id})
+
+    def get_absolute_url_client(self):
+        return reverse('Client:salesprospectdetails', kwargs={'pk': self.sales_id.sales_id})
+
+    def get_absolute_url_index(self):
+        return reverse('Client:salescalllogindex', kwargs={'pk': self.sales_id.sales_id})
 
     @property
     def next_call(self):

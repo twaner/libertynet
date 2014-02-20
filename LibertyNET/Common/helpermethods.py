@@ -389,6 +389,10 @@ def boolean_helper(*args):
     return worker
 
 
+def get_function_name(func):
+    return func.__name__.upper()
+
+
 def assert_equals_worker(self, expected, got):
     """
     Performs an assert and gives clean message on failure.
@@ -458,4 +462,4 @@ def model_to_dict(instance):
             data[field.name] = field.rel.to.objects.get(pk=data[field.name])
     return data
 
-    #endregion
+#endregion
