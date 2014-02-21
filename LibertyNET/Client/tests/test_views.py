@@ -139,7 +139,6 @@ class TestSalesProspectView(TestCase):
         assert_equals_worker(self, 200, resp.status_code)
         assert_in_worker(self, scl.call_time, resp.content)
 
-
     def test_sales_call_log_index(self):
         sp = SalesProspect.objects.get(first_name='Sally')
         scl = SalesProspectCallLog.objects.get(sales_id=sp.sales_prospect_id)

@@ -329,11 +329,23 @@ class SalesProspect(Person):
 
     def get_absolute_url(self):
         return reverse('Client:salesprospectdetails', kwargs={'pk': self.sales_prospect_id})
-        #args=[str(self.sales_prospect_id)])
-        #kwargs={'pk': self.sales_prospect_id}) Client:salesprospectdetails
 
     def get_absolute_url_edit(self):
         return reverse('Client:editsalesprospect', kwargs={'pk': self.sales_prospect_id})
+
+    def get_absolute_url_calllog(self):
+        """
+        Gets client call log view url.
+        @return: client call log view url.
+        """
+        return reverse('Client:addsalescalllog', kwargs={'pk': self.sales_prospect_id})
+
+    def get_absolute_url_calllog_index(self):
+        """
+        Gets client call log index view url.
+        @return: client call log index view url.
+        """
+        return reverse('Client:salescalllogindex', kwargs={'pk': self.sales_prospect_id})
 
     def clean(self):
         super(SalesProspect, self).clean()
@@ -414,14 +426,27 @@ class SalesProspectCallLog(CallLog):
     def get_absolute_url(self):
         return reverse('Client:salescalllogdetails', kwargs={'pk': self.id})
 
-    def get_absolute_url_client(self):
-        return reverse('Client:salesprospectdetails', kwargs={'pk': self.sales_id.sales_id})
+    def get_absolute_url_sales(self):
+        return reverse('Client:salesprospectdetails', kwargs={'pk': self.sales_id.sales_prospect_id})
 
     def get_absolute_url_index(self):
-        return reverse('Client:salescalllogindex', kwargs={'pk': self.sales_id.sales_id})
+        return reverse('Client:salescalllogindex', kwargs={'pk': self.sales_id.sales_prospect_id})
 
     @property
     def next_call(self):
         return '%s' % self.next_contact
+
+    @property
+    def full_details(self):
+        """
+        Gets client, call date and time.
+        @return: client, call date and time.
+        """
+        return 'Client: %s Call Date: %s Time: %s' % (self.sales_id, self.call_date, self.call_time)
+
+    @property
+    def complete_details(self):
+        return 'Client: %s Purpose: %s Call Date: %s Time: %s' % (self.sales_id, self.purpose,
+                                                                  self.call_date, self.call_time)
 
         #endregion

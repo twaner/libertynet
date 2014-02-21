@@ -1,9 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
 
-</body>
-</html>
+{% block content %}
+<a href="{% url 'Client:salesprospectindex' %}">
+    Sales Home
+</a> &nbsp;/&nbsp;
+{% if calllog %}
+     <a href="{{ calllog.get_absolute_url_sales }}">
+        Sales Details
+    </a> &nbsp;/&nbsp;
+    <a href="={{ calllog.get_absolute_url_index }}">
+        Call Log Index
+    </a>
+        {% comment %}
+        {% if client_detail or business_client %}
+            <a href="{% url 'site_info:details' client_detail.client_id %}">
+         Client Site Information
+            </a>
+        {% endif %}
+        {% endcomment %}
+    <ul>
+        <li>
+            Call Log Details
+        </li>
+        {% if calllog %}
+        <li>
+            Client: {{ calllog.sales_id }}
+        </li>
+        <li>
+            Call Date: {{ calllog.call_date }} {{ calllog.call_time }}
+        </li>
+        <li>
+            Next Call Date: {{ calllog.next_contact }}
+        </li>
+        <li>
+            Caller: {{ calllog.caller }}
+        </li>
+        <li>
+            Purpose: {{ calllog.purpose }}
+        </li>
+        <li>
+            Notes: {{ calllog.notes }}
+        </li>
+        {% endif %}
+    </ul>
+{% else %}
+        <p>No Sales Calls are available.</p>
+{% endif %}
+
+{% endblock %}

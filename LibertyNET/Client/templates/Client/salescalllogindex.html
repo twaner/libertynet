@@ -1,9 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block content %}
+    <p>Welcome to the Liberty Security Services Client Management site.</p>
+    {% if calllog_list %}
 
-</body>
-</html>
+    <p>Next Scheduled Call: {{ next_contact.next_call }}</p>
+    <p>Select a Call from list to view call details.</p>
+        <ul>
+            {% for e in calllog_list %}
+            <li>
+                <a href="{{ e.get_absolute_url }}">
+                    {{ e.complete_details }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <p>No Sales calls are available.</p>
+{% endblock %}
+
+{% comment %}
+         <a href="{% url 'Client:salesprospectdetails' e.sales_id %}">
+                {{e.first_name}} {{e.last_name}}
+         </a>
+{% endcomment %}

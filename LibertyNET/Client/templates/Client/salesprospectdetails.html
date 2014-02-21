@@ -2,10 +2,20 @@
 {% load bootstrap_toolkit %}
 
 {% block content %}
+<a href="{% url 'Client:salesprospectindex' %}">
+    Sales Home
+</a> &nbsp;/&nbsp;
 {% if sales_prospect_detail %}
     <a href="{{ sales_prospect_detail.get_absolute_url_edit }}">
         Edit Prospect Information
+    </a> &nbsp;/&nbsp;
+    <a href="{{ sales_prospect_detail.get_absolute_url_calllog_index }}">
+        Call Log Index
+    </a> &nbsp;/&nbsp;
+    <a href="{{ sales_prospect_detail.get_absolute_url_calllog }}">
+        Add Call Log
     </a>
+
     <ul>
         <li>
             Sales Prospect Information Info
