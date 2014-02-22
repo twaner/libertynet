@@ -71,6 +71,14 @@ class ClientViewTest(TestCase):
         resp = self.client.get(url)
         assert_equals_worker(self, resp.status_code, 200)
 
+    def test_sales_call_home_view(self):
+        cl = Client.objects.get(first_name='Stephen')
+        calllog = ClientCallLog.objects.get(client_id=cl.client_id)
+        url = reverse('Client:callloghome')
+        resp = self.client.get(url)
+        assert_equals_worker(self, 200, resp.status_code)
+        assert_in_worker(self, calllog.call_time, resp.content)
+
 #endregion
 
 #region SalesProspectViewTest
@@ -146,3 +154,11 @@ class TestSalesProspectView(TestCase):
         resp = self.client.get(url)
         assert_equals_worker(self, 200, resp.status_code)
         assert_in_worker(self, scl.call_time, resp.content)
+
+    def test_sales_call_home_view(self):
+        sp = SalesProspect.objects.get(first_name='Sally')
+        cl = SalesProspectCallLog.objects.get(sales_id=sp.sales_prospect_id)
+        url = reverse('Client:salescallloghome')
+        resp = self.client.get(url)
+        assert_equals_worker(self, 200, resp.status_code)
+        assert_in_worker(self, cl.call_time, resp.content)

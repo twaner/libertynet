@@ -148,5 +148,4 @@ class TestCallLogForms(TestCase):
         form = SalesProspectCallLogForm(data=call_data)
         chm.form_assert_true_worker(self, form)
 
-
 #endregion

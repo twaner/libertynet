@@ -30,6 +30,26 @@ class SalesProspectListView(ListView):
     context_object_name = 'all_sales_prospect_list'
     template_name = 'client/salesprospectindex.html'
 
+
+class ClientCallLogHome(ListView):
+    model = ClientCallLog
+    template_name = 'client/callloghome.html'
+    context_object_name = 'calllog'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(ClientCallLogHome, self).get_context_data(self, **kwargs)
+    #     return context
+
+
+class SalesCallLogHome(ListView):
+    model = SalesProspectCallLog
+    template_name = 'client/salescallloghome.html'
+    context_object_name = 'calllog'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(SalesProspectCallLog, self).get_context_data(self, **kwargs)
+    #     return context
+
 #region DetailViews
 
 
@@ -413,6 +433,5 @@ class SalesCallLogIndex(DetailView):
         context['next_contact'] = SalesProspectCallLog.objects.get_next_contact_date(sales)
 
         return context
-
 
 #endregion

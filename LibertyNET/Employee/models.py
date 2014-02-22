@@ -27,6 +27,8 @@ class EmployeeManager(models.Manager):
         @return:
         """
 
+        if middle_initial is None:
+            middle_initial = ''
         employee = self.create(first_name=first_name, last_name=last_name, middle_initial=middle_initial.upper(),
                                emp_number=emp_number, emp_title=emp_title, emp_address=emp_address,
                                emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
@@ -57,6 +59,8 @@ class EmployeeManager(models.Manager):
         @param termination_reason: employee termination reason (None).
         @return:
         """
+        if middle_initial is None:
+            middle_initial = ''
         employee = self.create(first_name=first_name, last_name=last_name, middle_initial=middle_initial.upper(),
                                emp_number=emp_number, emp_title=emp_title, emp_address=emp_address,
                                emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
@@ -131,9 +135,17 @@ class Employee(Person):
     objects = EmployeeManager()
 
     def get_absolute_url(self):
+        """
+        Gets URL for detail Employee view.
+        @return: URL for detail Employee view.
+        """
         return reverse('Employee:details', kwargs={'pk': self.employee_id})
 
     def get_absolute_url_edit(self):
+        """
+        Gets URL for edit Employee view.
+        @return: URL for edit Employee view.
+        """
         return reverse('Employee:editemployee', kwargs={'pk': self.employee_id})
 
     def clean(self):

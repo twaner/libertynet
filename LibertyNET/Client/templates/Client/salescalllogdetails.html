@@ -37,11 +37,17 @@
             Caller: {{ calllog.caller }}
         </li>
         <li>
-            Purpose: {{ calllog.purpose }}
+            Purpose:
         </li>
+         <textarea name="purpose" rows="3" cols="160" readonly>
+            {{ calllog.purpose }}
+        </textarea>
         <li>
-            Notes: {{ calllog.notes }}
+            Notes:
         </li>
+        <textarea name="notes" rows="10" cols="160" readonly>
+            {{ calllog.notes }}
+        </textarea>
         {% endif %}
     </ul>
 {% else %}
