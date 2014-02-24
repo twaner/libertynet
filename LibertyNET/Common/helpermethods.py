@@ -444,6 +444,10 @@ def time_diff(start, end):
         return timedelta(hours=0, minutes=0)
 
 
+def time_delta_to_str(td):
+        return ':'.join(str(timedelta(hours=td)).split(':')[:2])
+
+
 def assert_equals_worker(self, expected, got):
     """
     Performs an assert and gives clean message on failure.

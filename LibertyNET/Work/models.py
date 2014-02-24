@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, date
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from Common.models import NUMBER_CHOICES
-from Common.helpermethods import time_diff, seconds_to_hours
+from Common.helpermethods import time_diff, seconds_to_hours, time_delta_to_str
 
 #region ModelManagers
 
@@ -174,13 +174,12 @@ class Wage(models.Model):
             raise ValidationError('Lunch start time cannot be later than lunch end.')
         if self.end_time <= self.start_time:
             raise ValidationError('Work start time cannot be later than end time.')
-        if self.start_time and self.end_time and self.lunch_start and \
-                        self.lunch_end == '' or self.lunch_end is None:
+        if self.start_time and self.end_time and self.lunch_start and self.lunch_end == '' or self.lunch_end is None:
             raise ValidationError('Please enter end of lunch time.')
 
     @property
     def time_worked(self):
-        pass
+        return time_delta_to_str(self.total_hours)
 
     @property
     def took_lunch(self):

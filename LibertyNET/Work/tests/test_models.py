@@ -29,7 +29,7 @@ qq = dt2 - dt1
 day = chm.time_worker(time2) - chm.time_worker(time1)
 lunch = chm.time_diff(lun1, lun2) #chm.time_worker(lun2) - chm.time_worker(lun1)
 #print('TYPES', type(day), type(lunch))
-#print('adding two timedelta', qq, type(qq), str(qq), '.SECONDS: ', qq.seconds)
+print('adding two timedelta', qq, type(qq), str(qq), '.SECONDS: ', qq.seconds)
 ff = datetime.combine(date.today(), time1)
 #print('datetime.combine', ff, type(ff))
 
@@ -143,6 +143,14 @@ class WorkTests(TestCase):
         chm.assert_equals_worker(self, 5.0, wage.total_hours)
         chm.assert_true_non_instance_worker(self, wage.took_lunch)
         chm.assert_equals_worker(self, lunch1, wage.lunch_time)
+        chm.assert_equals_worker(self, '5:00', wage.time_worked)
+
+        # #tt = datetime.strptime(str(wage.time_worked), '%H:%M')
+        # r = timedelta(seconds=wage.time_worked*3600)
+        # zz = timedelta(hours=wage.time_worked)
+        # tt = chm.time_delta_to_str(zz)
+        # #':'.join(str(zz).split(':')[:2])
+        # print('RRR', str(r), type(r), zz, str(zz), tt, type(tt))
 
         #print('test_wages: gross wage/hours/pay', wage.gross_wage, wage.total_hours, wage.hourly_rate)
 
