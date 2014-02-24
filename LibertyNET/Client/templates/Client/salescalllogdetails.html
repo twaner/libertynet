@@ -6,11 +6,14 @@
     Sales Home
 </a> &nbsp;/&nbsp;
 {% if calllog %}
-     <a href="{{ calllog.get_absolute_url_sales }}">
-        Sales Details
+    <a href="{% url 'Client:salescallloghome' %}">
+        Sales Call Log Home
+    </a> &nbsp;/&nbsp;
+    <a href="{{ calllog.get_absolute_url_sales }}">
+        Sales Prospect Details
     </a> &nbsp;/&nbsp;
     <a href="={{ calllog.get_absolute_url_index }}">
-        Call Log Index
+        Sales Prospect Call Log Index
     </a>
         {% comment %}
         {% if client_detail or business_client %}

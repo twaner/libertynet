@@ -22,6 +22,7 @@ def create_employee_helper(request, *args):
     pay_type = request.POST.get('pay_type')
     pay_rate = request.POST.get('pay_rate')
     emp_title = request.POST.getlist('emp_title')
+    print('EMP_HELPER create', type(hire_date), hire_date)
     #handle how *args are ordered
     if type(args[0]) == Address:
         emp_address = args[0]
@@ -78,6 +79,7 @@ def create_employee_worker(request, *args):
     @return: Employee object.
     """
     first_name = request.POST.get('first_name')
+    middle_initial = request.POST.get('middle_initial')
     last_name = request.POST.get('last_name')
     emp_number = request.POST.get('emp_number')
     #emp_address = request.POST.get('emp_address')
@@ -86,6 +88,7 @@ def create_employee_worker(request, *args):
     pay_type = request.POST.get('pay_type')
     pay_rate = request.POST.get('pay_rate')
     #emp_title = request.POST.getlist('emp_title')
+    print('EMP_HELPER create', type(hire_date), hire_date)
     if type(args[0]) == Address:
         emp_address = args[0]
         emp_contact = args[1]

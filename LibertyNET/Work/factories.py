@@ -12,8 +12,8 @@ import Site.factories
 
 class JobFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Job
-    job_id = 2323
-    job_name = 'Job name'
+    id = 2323
+    name = 'Job name'
     building_owner = 456712
     job_client = factory.SubFactory(ClientFactory)
     job_address = factory.SubFactory(AddressFactory)
@@ -31,33 +31,33 @@ class JobFactory(factory.DjangoModelFactory):
 
 class TaskFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Task
-    task_id = 4747
-    task_ticket_id = factory.SubFactory('Work.factories.TicketFactory')
-    task_name = 'Task name'
-    task_created_date = '2013-12-21'
-    task_creator = factory.SubFactory(EmployeeFactory)
-    task_order = '3'
+    id = 4747
+    task_ticket = factory.SubFactory('Work.factories.TicketFactory')
+    name = 'Task name'
+    created_date = '2013-12-21'
+    creator = factory.SubFactory(EmployeeFactory)
+    order = '3'
     is_task_completed = False
-    task_completed_by = None
-    task_completed_date = None
-    task_notes = 'Going Well'
+    task_employee = None
+    completed_date = None
+    notes = 'Going Well'
 
 
 class TicketFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Ticket
-    ticket_id = 5454
+    id = 5454
     scheduled_date = '2014-01-21'
     scheduled_time = '12:11'
     ticket_job = factory.SubFactory(JobFactory)
     ticket_system = factory.SubFactory(Site.factories.SystemFactory)
     description_work = 'Ticked description'
-    technician_note = 'Technician notes'
+    notes = 'Technician notes'
     start_date = '2014-01-26'
     start_time = '14:21'
     end_date = None
     end_time = None
-    task_site_contact = factory.SubFactory(ContactFactory)
-    ticket_site_signature = None
+    ticket_contact = factory.SubFactory(ContactFactory)
+    signature = None
     is_ticket_completed = False
 
     @factory.post_generation
@@ -73,15 +73,15 @@ class TicketFactory(factory.DjangoModelFactory):
 
 class WageFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Wage
-    wages_id = 4949
-    wages_employee_id = factory.SubFactory(EmployeeFactory)
-    wages_date = '2014-01-23'
-    wages_start_time = '01:21'
-    wages_lunch_start = '04:29'
-    wages_lunch_end = '05:00'
-    wages_end_time = '05:53'
+    id = 4949
+    wages_employee = factory.SubFactory(EmployeeFactory)
+    wage_date = '2014-01-23'
+    start_time = '01:21'
+    lunch_start = '04:29'
+    lunch_end = '05:00'
+    end_time = '05:53'
     hourly_rate = 10.99
     gross_wage = 89.69
-    wages_total_hours = 8.4
+    total_hours = 8.4
 
 #endregion

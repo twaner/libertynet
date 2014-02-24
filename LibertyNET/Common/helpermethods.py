@@ -1,5 +1,6 @@
 from models import Address, Contact, Card, Billing, CallList, Genre
 from django.db import models
+from datetime import datetime, timedelta
 import types
 
 #region Address Helpers
@@ -390,7 +391,57 @@ def boolean_helper(*args):
 
 
 def get_function_name(func):
+    """
+    Gets a functions name as string.
+    @param func: function.
+    @return: function name as string.
+    """
     return func.__name__.upper()
+
+
+def time_str_to_time(time_str):
+    """
+    Converts a string representation of time into a datetime.time object.
+    @param time_str: Times as a string.
+    @return: formatted datetime.time.
+    """
+    fmt ='%H:%M'
+    return datetime.strptime(time_str, fmt).time()
+
+
+def time_worker(time1):
+    """
+    Takes a type datetime.time object and creates a datetime.timedelta object.
+    Checks if time1 is a string and changes to datetime.time if it is.
+    @param time1: time.
+    @return: datetime.timedelta of time1.
+    """
+    if isinstance(time1, str):
+        time1 = time_str_to_time(time1)
+    return timedelta(hours=time1.hour, minutes=time1.minute)
+
+
+def seconds_to_hours(time_obj):
+    """
+    Takes a datetime.timedelta object and divides by 3600 (seconds * minutes)
+    to get hours worked as float.
+    @param time_obj: datetime.timedelta of time worked.
+    @return: Hours worked.
+    """
+    return float(time_obj.seconds) / 3600
+
+
+def time_diff(start, end):
+    """
+    Gets difference of two
+    @param start:
+    @param end:
+    @return:
+    """
+    if start and end:
+        return time_worker(end) - time_worker(start)
+    else:
+        return timedelta(hours=0, minutes=0)
 
 
 def assert_equals_worker(self, expected, got):
@@ -409,7 +460,7 @@ def assert_equals_worker(self, expected, got):
 def assert_equals_worker_long(self, expected, got, name):
     """
     Performs an assert and gives clean message on failure.
-    @param s: Self.
+    @param self: Self.
     @param expected: Expected value.
     @param got: Received value.
     @return:
@@ -417,6 +468,14 @@ def assert_equals_worker_long(self, expected, got, name):
     return self.assertEquals(got, expected,
                              '%s %s not equal. Expected %s got %s' %
                              (name.upper(), str(got), expected, got))
+
+
+def assert_true_non_instance_worker(self, got):
+    return self.assertTrue(got, '%s is not True' % str(got).upper())
+
+
+def assert_false_non_instance_worker(self, got):
+    return self.assertFalse(got, '%s is not False' % str(got).upper())
 
 
 def assert_true_worker(self, exp, got):
