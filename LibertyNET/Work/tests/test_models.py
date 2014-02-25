@@ -145,15 +145,6 @@ class WorkTests(TestCase):
         chm.assert_equals_worker(self, lunch1, wage.lunch_time)
         chm.assert_equals_worker(self, '5:00', wage.time_worked)
 
-        # #tt = datetime.strptime(str(wage.time_worked), '%H:%M')
-        # r = timedelta(seconds=wage.time_worked*3600)
-        # zz = timedelta(hours=wage.time_worked)
-        # tt = chm.time_delta_to_str(zz)
-        # #':'.join(str(zz).split(':')[:2])
-        # print('RRR', str(r), type(r), zz, str(zz), tt, type(tt))
-
-        #print('test_wages: gross wage/hours/pay', wage.gross_wage, wage.total_hours, wage.hourly_rate)
-
     def test_wages_no_lunch(self):
         employee = Employee.objects.get(employee_id=9887)
         time11 = '09:00'
@@ -201,4 +192,18 @@ class WorkTests(TestCase):
         chm.assert_equals_worker(self, None, wage.total_hours)
         chm.assert_equals_worker(self, lunch1, wage.lunch_time)
         #print('test_wages_no_end_time: gross wage/hours/pay', wage.gross_wage, wage.total_hours, wage.hourly_rate)
+#endregion
+
+#region SpareCode
+
+
+# #tt = datetime.strptime(str(wage.time_worked), '%H:%M')
+# r = timedelta(seconds=wage.time_worked*3600)
+# zz = timedelta(hours=wage.time_worked)
+# tt = chm.time_delta_to_str(zz)
+# #':'.join(str(zz).split(':')[:2])
+# print('RRR', str(r), type(r), zz, str(zz), tt, type(tt))
+
+#print('test_wages: gross wage/hours/pay', wage.gross_wage, wage.total_hours, wage.hourly_rate)
+
 #endregion

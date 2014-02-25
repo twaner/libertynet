@@ -46,12 +46,18 @@ class TicketForm(forms.ModelForm):
 class WageForm(forms.ModelForm):
     class Meta:
         model = Wage
+        exclude = ['gross_wage']
         widgets = {
             'wages_date': BootstrapDateInput,
             'wages_start_time': forms.TimeInput,
             'wages_end_time': forms.TimeInput,
             'wages_lunch_start': forms.TimeInput,
             'wages_lunch_end': forms.TimeInput
+        }
+        labels = {
+            'wages_employee': _('Employee Name'),
+            'wage_date': _('Date'),
+
         }
 
 #endregiond
