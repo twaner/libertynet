@@ -71,7 +71,7 @@ DATABASES = {
         'NAME': 'LibertyNET11',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'root',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
@@ -102,12 +102,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 #Directory string
-DIRECTORY_STRING ='/Users/taiowawaner/Documents/LibertyNET/LibertyNetProject/LibertyNET/'
+DIRECTORY_STRING ='C:\Users\Office\Documents\LibertyNet\LibertyNetProject\LibertyNET\/'
 
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-#MEDIA_ROOT = '/Users/taiowawaner/Documents/LibertyNET/Django Projects/LibertySecurity/liberty/static/media/'
 MEDIA_ROOT = DIRECTORY_STRING + 'static/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -128,13 +127,11 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    #'/Users/taiowawaner/Documents/LibertyNET/Django Projects/LibertySecurity/liberty/static/',
     DIRECTORY_STRING + 'static',
     #os.path.join(PROJECT_DIR), 'static',
 )
 
 TEMPLATE_DIRS = (
-    #'/Users/taiowawaner/Documents/LibertyNET/Django Projects/LibertySecurity/liberty/templates/'
     DIRECTORY_STRING + 'templates/'
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
