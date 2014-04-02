@@ -63,11 +63,18 @@
                         <li><a href="{% url 'Client:addsalesprospect' %}">Add Sales Prospect</a></li>
                     </ul>
                 </li>
-                 <li class="dropdown">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Site<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Site Home</a></li>
                         <li><a href="#%}">Add Site Info</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Work<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'Work:jobindex' %}">Work Home</a></li>
+                        <li><a href="{% url 'Work:addjob' %}">Add Work</a></li>
                     </ul>
                 </li>
                 <li><a href="{% url 'admin:index' %}">Admin</a></li>
@@ -76,11 +83,8 @@
     </div>
 </div>
 <div class="container">
-
     {% bootstrap_messages %}
-
     {% block content %}Empty page{% endblock %}
-
     <p><hr></p>
 
     <footer class="row">
@@ -100,8 +104,6 @@
             </p>
         </div>
     </footer>
-
 </div> <!-- container -->
-
 </body>
 </html>

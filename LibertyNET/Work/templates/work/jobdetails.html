@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+
+{% block content %}
+{% if job_detail %}
+
+    <ul>
+        <li>
+            Job Info
+        </li>
+        <li>
+                {{ job_detail.name }}
+        </li>
+        <li>
+                {{ job_detail.building_owner }}
+        </li>
+        <li>
+                {{ job_detail.job_client }}
+        </li>
+        <li>
+                {{ job_detail.job_address }}
+        </li>
+    {% if job_employee %}
+        <li>
+                Job Employees
+        </li>
+        <li>
+        </li>
+    {% endif %}
+    </ul>
+{% else %}
+        <p>No Jobs are available.</p>
+{% endif %}
+{% comment %}
+        <a href="{% url 'Employee:editemployee' employee_detail.employee_id %}">
+        Edit Employee Information
+        </a>
+{% endcomment %}
+{% endblock %}

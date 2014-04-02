@@ -25,14 +25,15 @@ class ClientManager(models.Manager):
         @param client_date: date client opened account with company.
         @return: client object
         """
-        client = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
+        client = self.create(first_name=first_name.capitalize(), middle_initial=middle_initial.upper(),
+                             last_name=last_name.capitalize(),
                              client_number=client_number, business_name=business_name,
                              is_business=is_business, client_address=client_address,
                              client_contact=client_contact, client_date=client_date)
         client.save()
         return client
 
-    def create_client(self, first_name, middle_initial, last_name, client_number,
+    def create_client2(self, first_name, middle_initial, last_name, client_number,
                       client_address, client_contact, client_date):
         """
         Base create for a client with NO business attributes
@@ -45,7 +46,8 @@ class ClientManager(models.Manager):
         @param client_date: date client opened account with company.
         @return: client object
         """
-        client = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
+        client = self.create(first_name=first_name.capitalize(), middle_initial=middle_initial.upper(),
+                             last_name=last_name.capitalize(),
                              client_number=client_number, client_address=client_address,
                              client_contact=client_contact, client_date=client_date)
         client.save()
@@ -92,7 +94,7 @@ class PersonalManager(models.Manager):
 class SalesProspectManager(models.Manager):
     def create_sales_prospect(self, first_name, middle_initial, last_name, sp_business_name,
                               is_business, sp_liberty_contact, sales_type, sales_probability,
-                              initial_contact_date, comments, sp_address, sp_contact, is_client):
+                              initial_contact_date, comments, sp_address, sp_contact):
         """
         Creates and returns a sales prospect.
         @param first_name: sales prospect's first name.
@@ -110,17 +112,18 @@ class SalesProspectManager(models.Manager):
         @param sp_contact: sales prospect's contact info.
         @return: Sales Prospect.
         """
-        sales_prospect = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
+        sales_prospect = self.create(first_name=first_name.capitalize(), middle_initial=middle_initial.upper(),
+                                     last_name=last_name.capitalize(),
                                      sp_business_name=sp_business_name, is_business=is_business,
                                      sp_liberty_contact=sp_liberty_contact,
                                      sales_type=sales_type, initial_contact_date=initial_contact_date,
-                                     comments=comments, sp_address=sp_address, is_client=is_client,
+                                     comments=comments, sp_address=sp_address, is_client=False,
                                      sales_probability=sales_probability,
                                      sp_contact=sp_contact)
         sales_prospect.save()
         return sales_prospect
 
-    def create_sales_prospect(self, first_name, middle_initial, last_name,
+    def create_sales_prospect2(self, first_name, middle_initial, last_name,
                               sp_liberty_contact, sales_type, sales_probability,
                               initial_contact_date, comments, sp_address, sp_contact):
         """
@@ -137,7 +140,8 @@ class SalesProspectManager(models.Manager):
         @param sp_contact: sales prospect's contact info.
         @return: Sales Prospect.
         """
-        sales_prospect = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
+        sales_prospect = self.create(first_name=first_name.capitalize(), middle_initial=middle_initial.upper(),
+                                     last_name=last_name.capitalize(),
                                      sp_liberty_contact=sp_liberty_contact,
                                      sales_type=sales_type, initial_contact_date=initial_contact_date,
                                      comments=comments, sp_address=sp_address,

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block body_block %}
+    <body onload="initialize()">
+{% endblock %}
+    {% load bootstrap_toolkit %}
+{% block content %}
+        <form action="" method="post">
+        {% csrf_token %}
+        <p>Job Information:</p>
+        {{ form0 }}
+        <p>Address Information:</p>
+        <div id="locationField">
+            <input id="autocomplete" placeholder="Enter address"
+            onFocus="geolocate()" type="text" />
+        </div>
+        {{ form1 }}
+        <div class="form-actions">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </form>
+{% endblock %}

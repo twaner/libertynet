@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext as _
 from bootstrap_toolkit.widgets import BootstrapDateInput
 from models import Job, Task, Ticket, Wage
 
@@ -8,7 +9,10 @@ from models import Job, Task, Ticket, Wage
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = '__all__'
+        exclude = ['job_address']
+        labels = {
+            'name': _('Job Name')
+        }
 
 
 class TaskForm(forms.ModelForm):
@@ -39,25 +43,26 @@ class TicketForm(forms.ModelForm):
             'start_date': BootstrapDateInput,
             'end_time': forms.TimeInput,
             'end_date': BootstrapDateInput,
-            'is_ticket_completed': forms.CheckboxInput
+            #'is_ticket_completed': forms.CheckboxInput
         }
 
 
 class WageForm(forms.ModelForm):
     class Meta:
         model = Wage
-        exclude = ['gross_wage']
-        widgets = {
-            'wages_date': BootstrapDateInput,
-            'wages_start_time': forms.TimeInput,
-            'wages_end_time': forms.TimeInput,
-            'wages_lunch_start': forms.TimeInput,
-            'wages_lunch_end': forms.TimeInput
-        }
+        exclude = ['gross_wage', 'total_hours']
         labels = {
             'wages_employee': _('Employee Name'),
             'wage_date': _('Date'),
 
         }
+        widgets = {
+            'wages_date': BootstrapDateInput,
+            'wages_start_time': forms.TimeInput,
+            'wages_end_time': forms.TimeInput,
+            'wages_lunch_start': forms.TimeInput,
+            'wages_lunch_end': forms.TimeInput,
+        }
+
 
 #endregiond

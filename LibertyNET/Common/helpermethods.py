@@ -6,35 +6,36 @@ import types
 #region Address Helpers
 
 
-def create_address_helper(request):
+def create_address_helper(form):
     """
     creates an address object based on request data.
-    @param request: request data.
+    @param form: Form.
     @return: address object.
     """
-    street = request.POST.get('street')
-    unit = request.POST.get('unit')
-    city = request.POST.get('city')
-    state = request.POST.get('state')
-    zip_code = request.POST.get('zip_code')
-    address = Address.objects.create(street=street, unit=unit, city=city, state=state, zip_code=zip_code)
+    print('TYPE', form, type(form))
+    street = form.cleaned_data.get('street')
+    unit = form.cleaned_data.get('unit')
+    city = form.cleaned_data.get('city')
+    state = form.cleaned_data.get('state')
+    zip_code = form.cleaned_data.get('zip_code')
+    address = Address.objects.create_address(street, unit, city, state, zip_code)
     return address
 
 
-def update_address_helper(request, address):
+def update_address_helper(form, address):
     """
     Updates an address object.
-    @param request: request.
+    @param form: Form.
     @param address: address object.
     @return: address.
     """
-    address.street = request.POST.get('street')
-    address.unit = request.POST.get('unit')
-    address.city = request.POST.get('city')
-    address.state = request.POST.get('state')
-    address.zip_code = request.POST.get('zip_code')
+    address.street = form.cleaned_data.get('street')
+    address.unit = form.cleaned_data.get('unit')
+    address.city = form.cleaned_data.get('city')
+    address.state = form.cleaned_data.get('state')
+    address.zip_code = form.cleaned_data.get('zip_code')
     address.save(update_fields=['street', 'unit', 'city', 'state', 'zip_code'])
-    return address
+    #return address
 
 
 #endregion
@@ -42,118 +43,118 @@ def update_address_helper(request, address):
 #region Contact Helpers
 
 
-def create_employee_contact_helper(request):
+def create_employee_contact_helper(form):
     """
     Creates employee based contact object based on request info.
-    @param request: request.
+    @param form: Form.
     @return: contact object.
     """
-    phone = request.POST.get('phone')
-    cell = request.POST.get('cell')
-    email = request.POST.get('email')
-    work_email = request.POST.get('work_email')
-    office = request.POST.get('office_phone')
-    office_ext = request.POST.get('office_phone_extension')
-    contact = Contact.objects.create(phone=phone, cell=cell, office_phone=office,
-                                     office_phone_extension=office_ext,
-                                     email=email, work_email=work_email)
+    phone = form.cleaned_data.get('phone')
+    cell = form.cleaned_data.get('cell')
+    email = form.cleaned_data.get('email')
+    work_email = form.cleaned_data.get('work_email')
+    office = form.cleaned_data.get('office_phone')
+    office_ext = form.cleaned_data.get('office_phone_extension')
+    contact = Contact.objects.create_employee_contact(phone=phone, cell=cell, office_phone=office,
+                                                      office_phone_extension=office_ext,
+                                                      email=email, work_email=work_email)
     return contact
 
 
-def update_contact_employee_helper(request, contact):
+def update_contact_employee_helper(form, contact):
     """
     Updates a contact object for an Employee.
-    @param request: request.
+    @param form: Form.
     @param contact: Contact object.
     @return: Contact object.
     """
-    contact.phone = request.POST.get('phone')
-    contact.cell = request.POST.get('cell')
-    contact.email = request.POST.get('email')
-    contact.work_email = request.POST.get('work_email')
-    contact.office_phone = request.POST.get('office_phone')
-    contact.office_phone_extension = request.POST.get('office_phone_extension')
+    contact.phone = form.cleaned_data.get('phone')
+    contact.cell = form.cleaned_data.get('cell')
+    contact.email = form.cleaned_data.get('email')
+    contact.work_email = form.cleaned_data.get('work_email')
+    contact.office_phone = form.cleaned_data.get('office_phone')
+    contact.office_phone_extension = form.cleaned_data.get('office_phone_extension')
     contact.save(update_fields=['phone', 'cell', 'office_phone',
                                 'office_phone_extension', 'email', 'work_email'])
     return contact
 
 
-def create_contact_helper(request):
+def create_contact_helper(form):
     """
     Creates employee based contact object based on request info.
-    @param request: request.
+    @param form: Form.
     @return: contact object.
     """
-    phone = request.POST.get('phone')
-    phone_extension = request.POST.get('phone_extension')
-    cell = request.POST.get('cell')
-    email = request.POST.get('email')
-    work_email = request.POST.get('work_email')
-    office = request.POST.get('office_phone')
-    office_ext = request.POST.get('office_phone_extension')
-    website = request.POST.get('website')
-    contact = Contact.objects.create(phone=phone, phone_extension=phone_extension,
-                                     cell=cell, office_phone=office,
-                                     office_phone_extension=office_ext,
-                                     email=email, work_email=work_email,
-                                     website=website)
+    phone = form.cleaned_data.get('phone')
+    phone_extension = form.cleaned_data.get('phone_extension')
+    cell = form.cleaned_data.get('cell')
+    office = form.cleaned_data.get('office_phone')
+    office_ext = form.cleaned_data.get('office_phone_extension')
+    email = form.cleaned_data.get('email')
+    work_email = form.cleaned_data.get('work_email')
+    website = form.cleaned_data.get('website')
+    contact = Contact.objects.create_contact(phone=phone, phone_extension=phone_extension,
+                                             cell=cell, office_phone=office,
+                                             office_phone_extension=office_ext,
+                                             email=email, work_email=work_email,
+                                             website=website)
     contact.save()
     return contact
 
 
-def updated_contact_helper(request, contact):
+def updated_contact_helper(form, contact):
     """
     Updates a contact object.
-    @param request: request.
+    @param form: Form.
     @param contact: Contact object.
     @return: Contact object.
     """
-    contact.phone = request.POST.get('phone')
-    contact.phone_extension = request.POST.get('phone_extension')
-    contact.cell = request.POST.get('cell')
-    contact.email = request.POST.get('email')
-    contact.work_email = request.POST.get('work_email')
-    contact.office = request.POST.get('office_phone')
-    contact.office_ext = request.POST.get('office_phone_extension')
-    contact.website = request.POST.get('website')
+    contact.phone = form.cleaned_data.get('phone')
+    contact.phone_extension = form.cleaned_data.get('phone_extension')
+    contact.cell = form.cleaned_data.get('cell')
+    contact.email = form.cleaned_data.get('email')
+    contact.work_email = form.cleaned_data.get('work_email')
+    contact.office = form.cleaned_data.get('office_phone')
+    contact.office_ext = form.cleaned_data.get('office_phone_extension')
+    contact.website = form.cleaned_data.get('website')
     contact.save(update_fields=['phone', 'phone_extension', 'cell', 'office_phone'
                                                                     'office_phone_extension', 'website' 'email',
                                 'work_email'])
     return contact
 
 
-def update_contact_helper(request, contact):
+def update_contact_helper(form, contact):
     """
     Updates a full contact object.
-    @param request: request.
+    @param form: Form.
     @param contact: Contact object.
     @return: Contact.
     """
-    contact.phone = request.POST.get('phone')
-    contact.phone_extension = request.POST.get('phone_extension')
-    contact.cell = request.POST.get('cell')
-    contact.email = request.POST.get('email')
-    contact.work_email = request.POST.get('work_email')
-    contact.website = request.POST.get('website')
-    contact.office_phone = request.POST.get('office_phone')
-    contact.office_phone_extension = request.POST.get('office_phone_extension')
+    contact.phone = form.cleaned_data.get('phone')
+    contact.phone_extension = form.cleaned_data.get('phone_extension')
+    contact.cell = form.cleaned_data.get('cell')
+    contact.email = form.cleaned_data.get('email')
+    contact.work_email = form.cleaned_data.get('work_email')
+    contact.website = form.cleaned_data.get('website')
+    contact.office_phone = form.cleaned_data.get('office_phone')
+    contact.office_phone_extension = form.cleaned_data.get('office_phone_extension')
     contact.save(update_fields=['phone', 'phone_extension', 'cell', 'office_phone',
                                 'office_phone_extension', 'email', 'work_email', 'website'])
     return contact
 
 
-def create_calllist_contact_helper(request):
-    phone = request.POST.get('phone')
-    phone_extension = request.POST.get('phone_extension')
+def create_calllist_contact_helper(form):
+    phone = form.cleaned_data.get('phone')
+    phone_extension = form.cleaned_data.get('phone_extension')
 
     contact = Contact.objects.create(phone=phone, phone_extension=phone_extension)
     contact.save()
     return contact
 
 
-def update_calllist_contact(request, contact):
-    contact.phone = request.POST.get('phone')
-    contact.phone_extension = request.POST.get('phone_extension')
+def update_calllist_contact(form, contact):
+    contact.phone = form.cleaned_data.get('phone')
+    contact.phone_extension = form.cleaned_data.get('phone_extension')
 
     contact.save(update_fields=['phone', 'phone_extension'])
     return contact
@@ -164,16 +165,16 @@ def update_calllist_contact(request, contact):
 #region Billing Helper Methods
 
 
-def create_billing_helper(request, address, card):
+def create_billing_helper(form, address, card):
     """
     Creates a new Billing object.
     @param address: Address object.
     @param card: Card object.
-    @param request: request.
+    @param form: Form.
     @return: Billing.
     """
-    profile_name = request.POST.get('profile_name')
-    method = request.POST.get('method')
+    profile_name = form.cleaned_data.get('profile_name')
+    method = form.cleaned_data.get('method')
     billing_address = address
     card = card
 
@@ -183,9 +184,9 @@ def create_billing_helper(request, address, card):
     return billing
 
 
-def update_billing_helper(request, billing, address, card):
-    billing.profile_name = request.POST.get('profile_name')
-    billing.method = request.POST.get('method')
+def update_billing_helper(form, billing, address, card):
+    billing.profile_name = form.cleaned_data.get('profile_name')
+    billing.method = form.cleaned_data.get('method')
     billing.billing_address = address
     billing.card = card
 
@@ -199,21 +200,21 @@ def update_billing_helper(request, billing, address, card):
 #region CallList
 
 
-def create_call_list_helper(request, contact, site):
+def create_call_list_helper(form, contact, site):
     """
     Creates a Call List.
-    @param request: request.
+    @param form: Form.
     @param contact: Contact.
     @param site: Site.
     @return: Call List.
     """
-    first_name = request.POST.get('first_name')
-    middle_initial = request.POST.get('middle_initial')
-    last_name = request.POST.get('last_name')
+    first_name = form.cleaned_data.get('first_name')
+    middle_initial = form.cleaned_data.get('middle_initial')
+    last_name = form.cleaned_data.get('last_name')
     cl_contact = contact
-    cl_order = request.POST.get('cl_order')
-    cl_is_enabled = boolean_helper(request.POST.get('cl_is_enabled'))
-    cl_genre = Genre.objects.get(pk=request.POST.get('cl_genre'))
+    cl_order = form.cleaned_data.get('cl_order')
+    cl_is_enabled = boolean_helper(form.cleaned_data.get('cl_is_enabled'))
+    cl_genre = Genre.objects.get(pk=form.cleaned_data.get('cl_genre'))
 
     print('type', type(cl_genre))
     call_list = CallList.objects.create_call_list(first_name=first_name, last_name=last_name,
@@ -225,21 +226,21 @@ def create_call_list_helper(request, contact, site):
     return call_list
 
 
-def update_call_list_helper(request, calllist, contact):
+def update_call_list_helper(form, calllist, contact):
     """
     Updates a Call List
-    @param request: request.
+    @param form: Form.
     @param calllist: Call List.
     @param contact: Contact.
     @return: Call List.
     """
-    calllist.first_name = request.POST.get('first_name')
-    calllist.middle_initial = request.POST.get('middle_initial')
-    calllist.last_name = request.POST.get('last_name')
+    calllist.first_name = form.cleaned_data.get('first_name')
+    calllist.middle_initial = form.cleaned_data.get('middle_initial')
+    calllist.last_name = form.cleaned_data.get('last_name')
     calllist.cl_contact = contact
-    calllist.cl_order = request.POST.get('cl_order')
-    calllist.cl_is_enabled = boolean_helper(request.POST.get('cl_is_enabled'))
-    calllist.cl_genre = Genre.objects.get(pk=request.POST.get('cl_genre'))
+    calllist.cl_order = form.cleaned_data.get('cl_order')
+    calllist.cl_is_enabled = boolean_helper(form.cleaned_data.get('cl_is_enabled'))
+    calllist.cl_genre = Genre.objects.get(pk=form.cleaned_data.get('cl_genre'))
 
     calllist.save(update_fields=['first_name', 'last_name',
                                  'middle_initial', 'cl_contact',
@@ -254,19 +255,19 @@ def update_call_list_helper(request, calllist, contact):
 #region Card Helper Methods
 
 
-def create_card_helper(request):
+def create_card_helper(form):
     """
     Creates a Credit Card.
-    @param request: request.
+    @param form: Form.
     @return: Credit Card.
     """
-    first_name = request.POST.get('first_name')
-    middle_initial = request.POST.get('middle_initial')
-    last_name = request.POST.get('last_name')
-    card_number = request.POST.get('card_number')
-    card_code = request.POST.get('card_code')
-    card_type = request.POST.get('card_type')
-    card_expiration = request.POST.get('card_expiration')
+    first_name = form.cleaned_data.get('first_name')
+    middle_initial = form.cleaned_data.get('middle_initial')
+    last_name = form.cleaned_data.get('last_name')
+    card_number = form.cleaned_data.get('card_number')
+    card_code = form.cleaned_data.get('card_code')
+    card_type = form.cleaned_data.get('card_type')
+    card_expiration = form.cleaned_data.get('card_expiration')
 
     card = Card.objects.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
                                card_number=card_number, card_code=card_code, card_type=card_type,
@@ -275,20 +276,20 @@ def create_card_helper(request):
     return card
 
 
-def update_card_helper(request, card):
+def update_card_helper(form, card):
     """
     Updates a Credit Card.
-    @param request: request.
+    @param form: Form.
     @param card: Card.
     @return: Card
     """
-    card.first_name = request.POST.get('first_name')
-    card.middle_initial = request.POST.get('middle_initial')
-    card.last_name = request.POST.get('last_name')
-    card.card_number = request.POST.get('card_number')
-    card.card_code = request.POST.get('card_code')
-    card.card_type = request.POST.get('card_type')
-    card.card_expiration = request.POST.get('card_expiration')
+    card.first_name = form.cleaned_data.get('first_name')
+    card.middle_initial = form.cleaned_data.get('middle_initial')
+    card.last_name = form.cleaned_data.get('last_name')
+    card.card_number = form.cleaned_data.get('card_number')
+    card.card_code = form.cleaned_data.get('card_code')
+    card.card_type = form.cleaned_data.get('card_type')
+    card.card_expiration = form.cleaned_data.get('card_expiration')
 
     card.save(update_fields=['first_name', 'middle_initial', 'last_name',
                              'card_number', 'card_code', 'card_type',
@@ -302,6 +303,21 @@ def update_card_helper(request, card):
 #region General Helpers
 
 
+def none_to_str(text):
+    """
+    Checks if text is None, if None returns empty string.
+    @param text: text.
+    @return: empty string.
+    """
+    if text is None:
+        text = ''
+    return text
+
+
+def str_to_cap(text):
+    return text.capitalize()
+
+
 def get_model_fields(model):
     return model._meta.fields
 
@@ -312,15 +328,33 @@ def validation_helper(form_list):
     @param form_list: list of forms.
     @return: Boolean based on validation.
     """
+    q = 0
     for i in form_list:
+        print('TYPE i', type(i))
+        i.is_valid()
+        print('Called is_valid()', i.__class__.__name__)
         if not i.is_valid():
-            print('VALIDATION_HELPER ==> %s |||| %s' % ((i.errors), len(i.errors)))
-            return False
-        else:
-            return True
-    """
-    q = [False if not i.is_valid() else True for i in form_list]
-    """
+            q += 1
+    if q > 0:
+        return False
+    else:
+        return True
+
+# def validation_helper2(form_list):
+#     """
+#     Handles a list of request and runs is_valid() on them.
+#     @param form_list: list of forms.
+#     @return: Boolean based on validation.
+#     """
+#     for i in form_list:
+#         i.is_valid()
+#         print('Called is_valid()', i.__class__.__name__)
+#         if not i.is_valid():
+#             #print('VALIDATION_HELPER: FORM: %s Errors: %s # Errors %s' %
+#             #(i.__class__.__name__, i.errors, len(i.errors)))
+#             return False
+#         else:
+#             return True
 
 
 def form_generator(n):
@@ -335,14 +369,19 @@ def form_generator(n):
 
 
 def form_errors_printer(form_list):
-    q = 0
-    if isinstance(form_list, list):
+    """
+    Test helper method to list form and print errors.
+    @param form_list: forms.
+    """
+    if type(form_list) == list:
         for i in form_list:
             if not i.is_valid():
-                print("Form[", q, "] not valid =>", i.errors)
-            q += 1
+                print('FORM ERRORS: FORM: %s Errors: %s # Errors %s' %
+                      (i.__class__.__name__, i.errors, len(i.errors)))
     else:
-        print(form_list.errors)
+        if not form_list.is_valid():
+            print('FORM ERRORS: FORM: %s Errors: %s # Errors %s' %
+                  (form_list.__class__.__name__, form_list.errors, len(form_list.errors)))
 
 
 def dict_generator(form_list):
@@ -360,7 +399,7 @@ def dict_generator(form_list):
 
 def form_worker(form_list, request, *args):
     """
-    Takes form list and either runs a request.POST or generate unbound forms.
+    Takes form list and either runs a form.cleaned_data or generate unbound forms.
     @param request: Boolean for whether to run request routine
     @param form_list: form list.
     @param args: ModelForms
@@ -368,7 +407,7 @@ def form_worker(form_list, request, *args):
     """
     if request:
         for i in range(len(form_list)):
-            form_list[i] = args[i](request.POST)
+            form_list[i] = args[i](form.cleaned_data)
     else:
         for i in range(len(form_list)):
             form_list[i] = args[i]
@@ -383,10 +422,8 @@ def boolean_helper(*args):
     @return: boolean updated to reflect selection
     """
     worker = True
-    print('before boolean_helper', args[0])
     if args[0] is None or args[0] == 'None' or args[0] == '':
         worker = False
-    print('After boolean_helper', worker)
     return worker
 
 
@@ -405,7 +442,7 @@ def time_str_to_time(time_str):
     @param time_str: Times as a string.
     @return: formatted datetime.time.
     """
-    fmt ='%H:%M'
+    fmt = '%H:%M'
     return datetime.strptime(time_str, fmt).time()
 
 
@@ -445,7 +482,7 @@ def time_diff(start, end):
 
 
 def time_delta_to_str(td):
-        return ':'.join(str(timedelta(hours=td)).split(':')[:2])
+    return ':'.join(str(timedelta(hours=td)).split(':')[:2])
 
 
 def assert_equals_worker(self, expected, got):
@@ -525,4 +562,10 @@ def model_to_dict(instance):
             data[field.name] = field.rel.to.objects.get(pk=data[field.name])
     return data
 
-#endregion
+
+def m2m_to_pk_list(obj, obj_class, key):
+    #print('m2m_to_pk_list', obj, obj_class, key)
+    the_list = list(obj_class.objects.values_list(key, flat=True))
+    #print('m2m_to_pk_list===>>>', the_list)
+    return the_list
+    #endregion

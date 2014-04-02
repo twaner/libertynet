@@ -6,7 +6,7 @@
             <p>Call List Details:</p>
             <p>{{ calllist_detail.cl_genre }}</p>
             <p>{{ calllist_detail.calllist_contact_name }}</p>
-            <p>{{ calllist_detail.calllist_order }}</p>
+            <p>{{ calllist_detail.get_cl_order_display }}</p>
             <p>{{ calllist_detail.is_active }}</p>
         {% endif %}
         {% if contact_detail %}

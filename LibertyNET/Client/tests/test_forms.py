@@ -2,6 +2,7 @@ from django.test import TestCase
 from datetime import date, timedelta
 from Client.models import Client, SalesProspect
 from Client.factories import *
+from Client.helpermethods import *
 from Client.forms import ClientForm, SalesProspectForm, SalesProspectEditForm, \
     SalesProspectCallLogForm, ClientCallLogForm
 from Common.forms import AddressForm, ContactForm
@@ -37,7 +38,7 @@ class ClientTest(TestCase):
         c = Contact.objects.get(pk=2222)
         client = Client.objects.create_client(first_name='Al', middle_initial='Q', last_name='Alston',
                                               client_number=9191, client_address=a, client_contact=c,
-                                              client_date='2013-12-29')
+                                              client_date='2013-12-29', is_business='', business_name='')
         chm.assert_true_worker(self, Client, client)
         client_data = {
             'first_name': client.first_name, 'middle_initial': client.middle_initial, 'last_name': client.last_name,
@@ -45,6 +46,10 @@ class ClientTest(TestCase):
         }
         form = ClientForm(data=client_data)
         chm.form_assert_true_worker(self, form)
+
+        if form.is_valid():
+            created_client = create_client_helper(form, a, c)
+            chm.assert_true_worker(self, Client, created_client)
 
     def test_invalid_client_form(self):
         client = Client()
@@ -55,6 +60,24 @@ class ClientTest(TestCase):
         form = ClientForm(data=client_data)
         chm.form_assert_false_worker(self, form)
 
+    def test_udpate_client_helper(self):
+        a = Address.objects.get(pk=1111)
+        c = Contact.objects.get(pk=2222)
+        client = Client.objects.create_client(first_name='Al', middle_initial='Q', last_name='Alston',
+                                              client_number=9191, client_address=a, client_contact=c,
+                                              client_date='2013-12-29', business_name='', is_business=False)
+        chm.assert_true_worker(self, Client, client)
+        client_data = {
+            'first_name': client.first_name, 'middle_initial': client.middle_initial, 'last_name': client.last_name,
+            'client_number': client.client_number, 'client_date': client.client_date
+        }
+        form = ClientForm(data=client_data)
+        chm.form_assert_true_worker(self, form)
+
+        if form.is_valid():
+            created_client = update_client_helper(form, client, a, c)
+            chm.assert_true_worker(self, Client, created_client)
+
     def test_create_sales_prospect_residential(self):
         a = Address.objects.get(pk=1111)
         self.assertTrue(isinstance(a, Address), 'address != Address')
@@ -62,13 +85,10 @@ class ClientTest(TestCase):
         self.assertTrue(isinstance(c, Contact), 'contact != Contact')
         liberty_contact = EmployeeFactory()
         # Sales Prospect
-        sp = SalesProspect.objects.create_sales_prospect(first_name='Ken', middle_initial='L',
-                                                         last_name='Salesprospect',
-                                                         sp_liberty_contact=liberty_contact,
-                                                         sales_type='New', sales_probability='L',
-                                                         initial_contact_date='2014-1-15', comments='new lead.',
-                                                         sp_address=a, sp_contact=c)
-        self.assertTrue(isinstance(sp, SalesProspect), 'salesprospect != SalesProspect')
+        sp = SalesProspect.objects.create_sales_prospect('Jay', 'J', 'Kin', '', False, Employee(), 'Takeover',
+                                                         'H', '2014-2-24', 'Comments', a, c)
+
+        chm.assert_true_worker(self, SalesProspect, sp)
         # Form work
         sales_prospect_data = {
             'first_name': sp.first_name, 'middle_initial': sp.middle_initial, 'last_name': sp.last_name,
@@ -76,24 +96,33 @@ class ClientTest(TestCase):
             'sales_probability': sp.sales_probability, 'initial_contact_date': sp.initial_contact_date,
             'comments': sp.comments
         }
-        # form work
-        form_list = chm.form_generator(1)
-        form_list[0] = SalesProspectForm(data=sales_prospect_data)
+
+        form = SalesProspectForm(data=sales_prospect_data)
         # For debugging
-        chm.form_errors_printer(form_list)
+        chm.form_errors_printer(form)
         # Verify forms are valid
-        self.assertTrue(form_list[0].is_valid())
+        chm.form_assert_true_worker(self, form)
+        if form.is_valid():
+            sales_p = create_sales_prospect_helper(form, a, c)
+            self.assertTrue(isinstance(sales_p, SalesProspect))
+            # print('TYPE', type(sales_p))
+            # chm.assert_true_worker(self, SalesProspect, sales_p)
 
     def test_edit_salesprospect_form(self):
         sp = SalesProspectResidentialFactory()
         sales_prospect_data = {
             'first_name': sp.first_name, 'middle_initial': sp.middle_initial, 'last_name': sp.last_name,
-            'sp_liberty_contact': sp.sp_liberty_contact_id, 'sales_type': sp.sales_type,
+            'sp_liberty_contact': sp.sp_liberty_contact.employee_id, 'sales_type': sp.sales_type,
             'sales_probability': sp.sales_probability, 'initial_contact_date': sp.initial_contact_date,
             'comments': sp.comments
         }
         form = SalesProspectEditForm(data=sales_prospect_data)
-        self.assertTrue(form.is_valid(), 'SalesProspectEditForm is not valid!')
+        chm.form_assert_true_worker(self, form)
+
+        if form.is_valid():
+            sales_p = update_sales_prospect_helper(form, sp, sp.sp_address, sp.sp_contact)
+            self.assertTrue(isinstance(sales_p, SalesProspect))
+            #chm.assert_true_worker(self, SalesProspect, sales_p)
 
     def test_invald_salesprospect_forms(self):
         sp = SalesProspect()
@@ -133,12 +162,15 @@ class TestCallLogForms(TestCase):
         form = ClientCallLogForm(data=call_data)
         chm.form_errors_printer(form)
         chm.form_assert_true_worker(self, form)
+        if form.is_valid():
+            calllog = create_calllog_helper(form, client)
+            chm.assert_true_worker(self, ClientCallLog, calllog)
 
     def test_sales_calllog_form(self):
-        sales = SalesProspect.objects.get(sales_prospect_id = 9901)
+        sales = SalesProspect.objects.get(sales_prospect_id=9901)
         employee = Employee.objects.filter(last_name='Smith').first()
         call_data = {}
-        form = SalesProspectCallLogForm()
+        form = SalesProspectCallLogForm(data=call_data)
         chm.form_assert_false_worker(self, form)
         call_data = {
             'caller': employee.employee_id, 'call_date': date1, 'call_time': '13:13',
@@ -147,5 +179,8 @@ class TestCallLogForms(TestCase):
         chm.form_errors_printer(form)
         form = SalesProspectCallLogForm(data=call_data)
         chm.form_assert_true_worker(self, form)
+        if form.is_valid():
+            calllog = create_calllog_helper(form, sales)
+            chm.assert_true_worker(self, SalesProspectCallLog, calllog)
 
 #endregion

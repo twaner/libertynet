@@ -117,9 +117,9 @@ class SalesProspectView(View):
 
         validation = validation_helper(form_list)
         if validation:
-            address = create_address_helper(request)
-            contact = create_contact_helper(request)
-            sales_prospect = create_sales_prospect_helper(request, address=address, contact=contact)
+            address = create_address_helper(form_list[1])
+            contact = create_contact_helper(form_list[2])
+            sales_prospect = create_sales_prospect_helper(form_list[0], address=address, contact=contact)
             return HttpResponseRedirect(reverse('Client:salesprospectdetails',
                                                 kwargs={'pk': sales_prospect.sales_prospect_id}))
         else:
@@ -145,9 +145,9 @@ class ClientView(View):
 
         validation = validation_helper(form_list)
         if validation:
-            address = create_address_helper(request)
-            contact = create_contact_helper(request)
-            client = create_client_helper(request, address, contact)
+            address = create_address_helper(form_list[1])
+            contact = create_contact_helper(form_list[2])
+            client = create_client_helper(form_list[0], address, contact)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': client.client_id}))
         else:
@@ -207,10 +207,10 @@ def editsalesprospect(request, pk):
 
         validation = validation_helper(form_list)
         if validation:
-            address_up = update_address_helper(request, address)
-            contact_up = update_contact_helper(request, contact)
+            update_address_helper(form_list[1], address)
+            contact_up = update_contact_helper(form_list[2], contact)
 
-            sales_up = update_sales_prospect_helper(request, sales, address_up, contact_up)
+            sales_up = update_sales_prospect_helper(form_list[0], sales, address_up, contact_up)
 
             sp_to_client = boolean_helper(sales_up.is_client)
             if sp_to_client:
@@ -271,9 +271,9 @@ def convert_to_client(request, pk):
         validation = validation_helper(form_list)
 
         if validation:
-            a = update_address_helper(request, address)
-            c = update_contact_helper(request, contact)
-            cl = update_client_helper(request, client, a, c)
+            update_address_helper(form_list[1], address)
+            c = update_contact_helper(form_list[2], contact)
+            cl = update_client_helper(form_list[0], client, a, c)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': cl.client_id}))
         else:
@@ -318,9 +318,9 @@ def editclient(request, pk):
         validation = validation_helper(form_list)
 
         if validation:
-            a = update_address_helper(request, address)
-            c = update_contact_helper(request, contact)
-            cl = update_client_helper(request, client, a, c)
+            update_address_helper(form_list[1], address)
+            c = update_contact_helper(form_list[2], contact)
+            cl = update_client_helper(form_list[0], client, a, c)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': cl.client_id}))
 
@@ -349,7 +349,7 @@ def addclientcalllog(request, pk):
 
     if request.method == 'POST':
         if validation_helper(form_list):
-            calllog = create_calllog_helper(request, client)
+            calllog = create_calllog_helper(form_list[0], client)
             return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.client_id}))
         else:
             form_list[0] = ClientCallLogForm(calllog_dict)
@@ -398,7 +398,7 @@ def addsalescalllog(request, pk):
 
     if request.method == 'POST':
         if validation_helper(form_list):
-            calllog = create_calllog_helper(request, sales)
+            calllog = create_calllog_helper(form_list[0], sales)
             return HttpResponseRedirect(reverse('Client:salesprospectdetails', kwargs={'pk': sales.sales_prospect_id}))
         else:
             form_list[0] = SalesProspectCallLogForm(calllog_dict)

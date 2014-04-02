@@ -11,11 +11,14 @@ class ClientForm(forms.ModelForm):
         model = Client
         exclude = ['client_address', 'client_contact', 'client_billing']
         help_texts = {
-            'business_name': _('Optional.'),
+            'business_name': _('Client'' Business Name.'),
             'is_business': _('Select for commercial accounts.'),
         }
         widgets = {
             'client_date': BootstrapDateInput,
+        }
+        labels = {
+            'client_date': 'Became Client On',
         }
 
 #endregion
@@ -29,6 +32,7 @@ class SalesProspectForm(forms.ModelForm):
         exclude = ['sp_address', 'sp_contact', 'is_client']
         widgets = {
             'initial_contact_date': BootstrapDateInput,
+            'comments': forms.Textarea(attrs={'cols': 160, 'rows': 10}),
         }
         help_texts = {
             'is_business': _('Select for commercial accounts.'),
@@ -44,6 +48,7 @@ class SalesProspectEditForm(forms.ModelForm):
         exclude = ['sp_address', 'sp_contact']
         widgets = {
             'initial_contact_date': BootstrapDateInput,
+            'comments': forms.Textarea(attrs={'cols': 160, 'rows': 10}),
         }
         help_texts = {
             'is_business': _('Select for commercial accounts.'),
@@ -92,5 +97,8 @@ class SalesProspectCallLogForm(forms.ModelForm):
             'call_date': _('Date of Call'),
             'call_time': _('Time of Call'),
         }
-
+        help_texts = {
+            'is_business': _('Select for commercial accounts.'),
+            'is_client': _('Select to convert to Client.'),
+        }
 #endregion

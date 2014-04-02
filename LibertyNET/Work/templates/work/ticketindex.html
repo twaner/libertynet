@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block content %}
+<p>Welcome to the Liberty Security Services Client Management site.</p>
+<p>Please select an option from the following choices or go back to the home page.</p>
+{% if all_client_list %}
+        <ul>
+            {% for e in ticket_list %}
+            <li>
+                <a href="{{ e.get_absolute_url }}">
+                    {{ e }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+     <p>No Tickets are available.</p>
+{% endif %}
+{% endblock %}

@@ -10,7 +10,7 @@
         {% for e in all_employees_list %}
         <li>
             <a href="{% url 'Employee:details' e.employee_id %}">
-            {{e.employee_id}} {{e.first_name}} {{e.last_name}}
+            {{ e.emp_number}} {{ e }}
             </a>
         </li>
         {% endfor %}

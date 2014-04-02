@@ -4,8 +4,10 @@ from Employee.helpermethods import *
 import Employee.factories as ef
 import Common.helpermethods as chm
 from Common.factories import AddressFactory, ContactEmployeeFactory
-from Common.helpermethods import form_assert_false_worker, form_assert_true_worker
+from Common.helpermethods import form_assert_false_worker, form_assert_true_worker, assert_true_worker, \
+    assert_equals_worker, form_errors_printer
 from Common.forms import AddressForm, EmployeeContactForm
+from Common.models import Contact
 
 #region FORM TESTS
 
@@ -20,6 +22,7 @@ class EmployeeFormTest(TestCase):
         self.assertTrue(isinstance(e, Employee), "Is not Employee ==> test_form")
 
         e_title = titles_to_pk_list(e)
+        print('e_title', e_title)
         employee_data = {
             'first_name': e.first_name, 'last_name': e.last_name, 'emp_number': e.emp_number,
             'emp_title': e_title,
@@ -28,7 +31,12 @@ class EmployeeFormTest(TestCase):
         }
 
         form = AddEmployeeForm(data=employee_data)
+        form_errors_printer(form)
         form_assert_true_worker(self, form)
+
+        if form.is_valid():
+            employee = create_employee_worker(form, AddressFactory(), ContactEmployeeFactory())
+            assert_true_worker(self, Employee, employee)
 
     def test_form(self):
         print('Starting test_form...')
@@ -71,11 +79,16 @@ class EmployeeFormTest(TestCase):
         self.assertTrue(form_list[1].is_valid())
         self.assertTrue(form_list[2].is_valid())
 
+        if form_list[2].is_valid():
+            employee = create_employee_worker(form_list[2], a, c)
+            assert_true_worker(self, Employee, employee)
+
     def test_employee_form(self):
         title = ef.TitleFactory()
         title2 = ef.TitleFactory.create(title_id=3, title="O")
-        e = ef.EmployeeFactory.create(emp_title=(title, title2))
+        e = ef.EmployeeFactory.create(first_name='John', emp_title=(title, title2))
         self.assertTrue(isinstance(e, Employee), "Is not Employee ==> test_form")
+        assert_equals_worker(self, False, e.is_terminated)
 
         e_title = titles_to_pk_list(e)
         employee_data = {}
@@ -89,12 +102,15 @@ class EmployeeFormTest(TestCase):
             'pay_type': e.pay_type, 'pay_rate': e.pay_rate,
         }
 
-        form = AddEmployeeForm(data=employee_data)
+        form = EmployeeForm(data=employee_data)
+        #form_errors_printer(form)
         form_assert_true_worker(self, form)
+        if form.is_valid():
+            update_employee(form, e, AddressFactory(), ContactEmployeeFactory())
+            assert_true_worker(self, Employee, e)
+            assert_equals_worker(self, True, e.is_terminated)
 
-        # employee_data['is_terminated'] = False
-        # form = AddEmployeeForm(data=employee_data)
-        # form_assert_false_worker(self, form)
+
 
 
 #endregion

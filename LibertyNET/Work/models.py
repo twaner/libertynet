@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime, timedelta, date
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+from decimal import Decimal
 from Common.models import NUMBER_CHOICES
 from Common.helpermethods import time_diff, seconds_to_hours, time_delta_to_str
 
@@ -71,10 +72,8 @@ class WageManager(models.Manager):
             else:
                 # No lunch
                 total = work_day
-            total_hours = seconds_to_hours(total)
-            gross_wage = total_hours * hourly_rate
-            wage.total_hours = total_hours
-            wage.gross_wage = gross_wage
+            wage.total_hours = seconds_to_hours(total)
+            wage.gross_wage = round(Decimal(wage.total_hours), 2) * round(Decimal(wage.hourly_rate), 2)
 
         wage.save()
         assert isinstance(wage, Wage)
@@ -98,7 +97,10 @@ class Job(models.Model):
     objects = JobManager()
 
     def __str__(self):
-        return '%s' % self.name
+        return 'Job: %s Client: %s' % (self.name, self.job_client)
+
+    def get_absolute_url(self):
+        return reverse('Work:jobdetails', kwargs={'pk': self.id})
 
 
 class Task(models.Model):
@@ -121,6 +123,9 @@ class Task(models.Model):
 
     def __str__(self):
         return '%s' % self.name
+
+    def get_absolute_url(self):
+        return reverse('Work:taskdetails', kwargs={'pk': self.id})
 
 
 class Ticket(models.Model):
@@ -146,6 +151,9 @@ class Ticket(models.Model):
     def __str__(self):
         return '%s' % self.description_work
 
+    def get_absolute_url(self):
+        return reverse('Work:ticketdetails', kwargs={'pk': self.id})
+
 
 class Wage(models.Model):
     id = models.AutoField(primary_key=True)
@@ -164,16 +172,38 @@ class Wage(models.Model):
     def __str__(self):
         return '%s' % self.wages_employee.first_name
 
+    def get_absolute_url(self):
+        return reverse('Work:wagedetails', kwargs={'pk': self.id})
+
     def clean(self):
         # Cannot have an end time without a start time
-        if self.end_time != '' or self.end_time is None and self.start_time == '' or self.start_time is None:
+        """
+        Validation rules for Wage time.
+        1: If there is an end time there must be a start time.
+        2: If there is an end time for lunch there must be a lunch start time.
+        3: Lunch end cannot be earlier than start.
+        4: Day end cannot be earlier than day start.
+        5: Full day info with no lunch end time.
+        @raise ValidationError:
+        """
+        # print('IN clean()', self.start_time, self.end_time, self.lunch_start, self.lunch_end)
+        # print('Clean()', (self.end_time != '' or self.end_time is not None) and (self.start_time == '' or self.start_time is None))
+        #if self.end_time != '' or self.end_time is None and self.start_time == '' or self.start_time is None:
+
+        if (self.end_time != '' or self.end_time is not None) and (self.start_time == '' or self.start_time is None):
             raise ValidationError('Cannot have an work ending time without a starting time.')
-        if self.lunch_end != '' or self.lunch_end is None and self.lunch_start == '' or self.lunch_start is None:
+        #if self.lunch_end != '' or self.lunch_end is None and self.lunch_start == '' or self.lunch_start is None:
+
+        if (self.lunch_end != '' or self.lunch_end is not None) and (
+                        self.lunch_start == '' or self.lunch_start is None):
             raise ValidationError('Cannot have an lunch ending time without a starting time.')
+
         if self.lunch_end <= self.lunch_start:
             raise ValidationError('Lunch start time cannot be later than lunch end.')
+
         if self.end_time <= self.start_time:
             raise ValidationError('Work start time cannot be later than end time.')
+
         if self.start_time and self.end_time and self.lunch_start and self.lunch_end == '' or self.lunch_end is None:
             raise ValidationError('Please enter end of lunch time.')
 

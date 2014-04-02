@@ -2,6 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from Common.models import Person
+from Common.helpermethods import none_to_str, str_to_cap
 
 #region ModelManagers
 
@@ -26,22 +27,22 @@ class EmployeeManager(models.Manager):
         @param termination_reason: employee termination reason (None).
         @return:
         """
-
-        if middle_initial is None:
-            middle_initial = ''
-        employee = self.create(first_name=first_name, last_name=last_name, middle_initial=middle_initial.upper(),
-                               emp_number=emp_number, emp_title=emp_title, emp_address=emp_address,
+        middle_initial = none_to_str(middle_initial)
+        employee = self.create(first_name=str_to_cap(first_name), last_name=str_to_cap(last_name),
+                               middle_initial=middle_initial, emp_number=emp_number,
+                               emp_address=emp_address,
                                emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
                                pay_rate=pay_rate,
-                               is_terminated=False, termination_date=None, termination_reason=None)
-        print("EMP_TITLE==>", type(emp_title))
-        employee.save(commit=False)
+                               is_terminated=False, termination_date=None, termination_reason='')
+
+        #employee.save(commit=False)
         [employee.emp_title.add(et) for et in emp_title]
         employee.save()
         return employee
 
-    def create_employee(self, first_name, middle_initial, last_name, emp_number, emp_title, emp_address, emp_contact,
-                        hire_date, pay_type, pay_rate):
+    def create_employee_short(self, first_name, middle_initial, last_name, emp_number, emp_title, emp_address,
+                              emp_contact, hire_date, pay_type, pay_rate):
+
         """
         Creates a new employee. Terminated attributes are False and None by default.
         @param first_name: employee's first name
@@ -54,20 +55,20 @@ class EmployeeManager(models.Manager):
         @param hire_date: employee's hire date.
         @param pay_type: employee's pay type.
         @param pay_rate: employee's pay rate.
-        @param is_terminated: is employee terminated (False).
-        @param termination_date: employee termination date (None).
-        @param termination_reason: employee termination reason (None).
         @return:
         """
-        if middle_initial is None:
-            middle_initial = ''
-        employee = self.create(first_name=first_name, last_name=last_name, middle_initial=middle_initial.upper(),
-                               emp_number=emp_number, emp_title=emp_title, emp_address=emp_address,
-                               emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
+        # if middle_initial is None:
+        #     middle_initial = ''
+        middle_initial = none_to_str(middle_initial)
+        employee = self.create(first_name=str_to_cap(first_name), last_name=str_to_cap(last_name),
+                               middle_initial=middle_initial, emp_number=emp_number,
+                               emp_address=emp_address, emp_contact=emp_contact,
+                               hire_date=hire_date, pay_type=pay_type,
                                pay_rate=pay_rate)
+                               # is_terminated=False, termination_date=None, termination_reason='')
 
-        print("EMP_TITLE==>", type(emp_title))
-        employee.save(commit=False)
+        #print("EMP_TITLE==>", type(emp_title))
+        #employee.save(commit=False)
         [employee.emp_title.add(et) for et in emp_title]
         employee.save()
         return employee
@@ -153,10 +154,15 @@ class Employee(Person):
         # print('is term /// term reason // term date', self.is_terminated,
         #       self.termination_reason, self.termination_date)
         #if self.is_terminated or self.termination_reason is not None or self.termination_date is not None:
-        if self.is_terminated and self.termination_reason is not None and self.termination_date is not None or \
-                self.is_terminated is False and self.termination_reason is None and self.termination_date is None:
+        if self.is_terminated is False and self.termination_date is None and self.termination_reason is None:
             pass
-        else:
+        elif self.is_terminated and \
+                (self.termination_reason is u'' or self.termination_date is None):
+            print('1 (self.termination_reason is u'' or self.termination_date is None):')
+            raise ValidationError('Please fill out all termination fields.')
+        elif self.is_terminated is False and \
+                (self.termination_reason is not u'' or self.termination_date is not None):
+            print('2 (self.termination_reason is not u'' or self.termination_date is not None):')
             raise ValidationError('Please fill out all termination fields.')
 
     def __str__(self):
@@ -164,7 +170,8 @@ class Employee(Person):
         Displays first and last of Employee
         @return: Employee first and last name.
         """
-        if self.middle_initial is not None or self.middle_initial != '':
+        #print('Employee __STR__', self.middle_initial, (self.middle_initial is not None or self.middle_initial != ''))
+        if self.middle_initial is not None:
             return u'%s %s %s' % (self.first_name, self.middle_initial, self.last_name)
         else:
             return u'%s %s' % (self.first_name, self.last_name)

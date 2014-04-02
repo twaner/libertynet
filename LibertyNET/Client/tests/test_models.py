@@ -97,7 +97,7 @@ class ClientTest(TestCase):
         self.assertTrue(isinstance(c, Contact), 'contact != Contact')
         client = Client.objects.create_client(first_name='Al', middle_initial='Q', last_name='Alston',
                                               client_number=9191, client_address=a, client_contact=c,
-                                              client_date='2013-12-29')
+                                              client_date='2013-12-29', is_business=False, business_name='')
         self.assertTrue(isinstance(client, Client), 'client is not Client.')
         #self.assertEqual(client.__str__(), 'Al Q Alston', '__str__ not matching.')
         chm.assert_equals_worker(self, 'Al Q Alston', client.__str__())
@@ -165,7 +165,8 @@ class SalesProspectTest(TestCase):
         sp = SalesProspect.objects.create_sales_prospect(first_name="Annie", middle_initial='T', last_name='Bass',
                                                          sp_liberty_contact=lib_emp, sales_type='New',
                                                          sales_probability='Medium', initial_contact_date='2014-3-22',
-                                                         comments='None', sp_address=a, sp_contact=c)
+                                                         comments='None', sp_address=a, sp_contact=c, is_business=False,
+                                                         sp_business_name='')
 
         self.assertTrue(isinstance(sp, SalesProspect), 'sp is not SalesProspect.')
         self.assertEqual(sp.__str__(), 'Annie T Bass', '__str__ not matching.')
