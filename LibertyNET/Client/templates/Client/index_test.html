@@ -1,8 +1,27 @@
-{% extends 'base.html' %}
-{% load bootstrap_toolkit %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
+
+  <!-- Always force latest IE rendering engine or request Chrome Frame -->
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800">
+
 {% load static %}
         <link href="/static/css/application.css" type="text/css" media="screen" rel="stylesheet" />
         <script type="text/javascript" src="/static/js/application.js" />
+     <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <title>LibertyNET</title>
+</head>
+{% block body_block %}
+<body>
+{% endblock %}
 {% block content %}
 <p>Welcome to the Liberty Security Services Client Management site.</p>
 <p>Please select an option from the following choices or go back to the home page.</p>
@@ -22,6 +41,7 @@
             <tr>
               <th><div>Client ID</div></th>
               <th><div>Client Name</div></th>
+              <th><div>Action</div></th>
             </tr>
             </thead>
             <tbody role="alert" aria-live="polite" aria-relavent="all">
@@ -59,6 +79,8 @@
      <p>10 Clients that need follow up</p>
 
 {% endblock %}
+</body>
+</html>
 
 {% comment %}
          <a href="{% url 'Client:details' e.client_id %}">
