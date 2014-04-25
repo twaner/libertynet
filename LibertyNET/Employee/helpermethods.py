@@ -1,5 +1,6 @@
 from models import Employee
 from Common.models import Address, Contact
+from Common.helpermethods import boolean_helper
 
 #region Employee Helper Methods
 
@@ -51,11 +52,12 @@ def update_employee(request, employee, address, contact):
     employee.pay_type = request.POST.get('pay_type')
     employee.pay_rate = request.POST.get('pay_rate')
     emp_title = request.POST.getlist('emp_title')
-    employee.is_terminated = request.POST.get('is_terminated')
-    if employee.is_terminated is None:
-        employee.is_terminated = False
+    # Termination Work
+    employee.is_terminated = boolean_helper(request.POST.get('is_terminated'))
+    # if employee.is_terminated is None:
+    #     employee.is_terminated = False
     employee.termination_date = request.POST.get('termination_date')
-    if employee.termination_date == '' or employee.termination_date is None:
+    if employee.termination_date is None:
         employee.termination_date = None
     employee.termination_reason = request.POST.get('termination_reason')
 

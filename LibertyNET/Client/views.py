@@ -22,7 +22,7 @@ from Site.models import Site
 class ClientListView(ListView):
     model = Client
     context_object_name = 'all_client_list'
-    template_name = 'client/index.html'
+    template_name = 'client/index_test.html'
 
 
 class SalesProspectListView(ListView):
@@ -51,6 +51,18 @@ class SalesCallLogHome(ListView):
     #     return context
 
 #region DetailViews
+
+
+# class ClientDetailIndexView(ListView):
+#     model = Client
+#     context_object_name = 'all_client_list'
+#     template_name = 'client/index.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(ClientDetailIndexView, self).get_context_data(**kwargs)
+#         client = self.get_object()
+#         context['most_recent'] = client.objects.order_by('client_date')[3]
+#         return context
 
 
 class ClientDetailView(DetailView):

@@ -1,0 +1,89 @@
+@media (max-width: 480px) {
+  /* line 4, ../sass/responsive480.scss */
+  .area-top .num-stats li {
+    width: auto;
+  }
+
+  /* line 8, ../sass/responsive480.scss */
+  .navbar .nav.pull-right {
+    float: none;
+    *zoom: 1;
+  }
+  /* line 24, ../sass/mixin_helpers.scss */
+  .navbar .nav.pull-right:before, .navbar .nav.pull-right:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  /* line 30, ../sass/mixin_helpers.scss */
+  .navbar .nav.pull-right:after {
+    clear: both;
+  }
+
+  /* line 13, ../sass/responsive480.scss */
+  .navbar-inner {
+    text-align: center;
+  }
+  /* line 16, ../sass/responsive480.scss */
+  .navbar-inner a {
+    margin-right: 0;
+  }
+
+  /* line 21, ../sass/responsive480.scss */
+  .navbar-brand + .nav {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  /* line 27, ../sass/responsive480.scss */
+  .navbar-inverse .nav > li > a {
+    margin-right: 0;
+  }
+  /* line 32, ../sass/responsive480.scss */
+  .navbar-inverse .navbar-brand + .nav > li > a {
+    margin-right: 10px;
+  }
+  /* line 36, ../sass/responsive480.scss */
+  .navbar-inverse .navbar-brand + .nav > li:last-child a {
+    margin-right: 0;
+  }
+
+  /* line 42, ../sass/responsive480.scss */
+  .area-top {
+    height: auto;
+    text-align: center;
+  }
+  /* line 46, ../sass/responsive480.scss */
+  .area-top .num-stats {
+    float: none;
+    display: inline-block;
+  }
+  /* line 50, ../sass/responsive480.scss */
+  .area-top .num-stats li {
+    padding: 5px;
+  }
+
+  /* line 57, ../sass/responsive480.scss */
+  .chat-box.timeline .arrow-box-left {
+    margin-left: 0;
+  }
+  /* line 60, ../sass/responsive480.scss */
+  .chat-box.timeline .arrow-box-left:after, .chat-box.timeline .arrow-box-left:before {
+    content: none;
+  }
+  /* line 64, ../sass/responsive480.scss */
+  .chat-box.timeline .arrow-box-left .avatar {
+    left: 10px;
+    top: 5px;
+  }
+  /* line 69, ../sass/responsive480.scss */
+  .chat-box.timeline .arrow-box-left .name {
+    float: left;
+    margin-left: 45px;
+  }
+
+  /* line 76, ../sass/responsive480.scss */
+  .chat-box.timeline + .closable-chat-box {
+    margin-left: 0;
+  }
+}

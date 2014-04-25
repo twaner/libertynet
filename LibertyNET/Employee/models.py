@@ -150,14 +150,23 @@ class Employee(Person):
 
     def clean(self):
         super(Employee, self).clean()
-        # print('is term /// term reason // term date', self.is_terminated,
-        #       self.termination_reason, self.termination_date)
-        #if self.is_terminated or self.termination_reason is not None or self.termination_date is not None:
-        if self.is_terminated and self.termination_reason is not None and self.termination_date is not None or \
-                self.is_terminated is False and self.termination_reason is None and self.termination_date is None:
+        print('Update Employee, isTerm: %s || termDate: %s || termReason : %s' % (self.is_terminated,
+                                                                                  self.termination_date,
+                                                                                  self.termination_reason))
+        # Happy Path True, Not None, Not None => All other options fail!
+        helper_str = ''
+        if self.is_terminated and self.termination_date is not None and self.termination_reason != '':
+            pass
+        elif not self.is_terminated and self.termination_date is None and self.termination_reason == '':
             pass
         else:
-            raise ValidationError('Please fill out all termination fields.')
+            if not self.is_terminated:
+                helper_str += 'Please Select Terminate Checkbox.'
+            elif self.termination_reason == '':
+                helper_str += ' Add Termination Reason'
+            elif self.termination_date is None:
+                helper_str += ' Add Termination Date'
+            raise ValidationError(helper_str)#('Please fill out all termination fields.')
 
     def __str__(self):
         """

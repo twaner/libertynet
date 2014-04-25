@@ -20,6 +20,9 @@ class EmployeeForm(forms.ModelForm):
             'termination_date': BootstrapDateInput,
             'termination_reason': forms.Textarea(attrs={'cols': 160, 'rows': 10})
         }
+        labels = {
+            'is_terminated': _('Terminate Employee'),
+        }
 
 
 class AddEmployeeForm(forms.ModelForm):

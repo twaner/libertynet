@@ -9,6 +9,7 @@ from Site.views import SiteDetailView
 
 urlpatterns = patterns('',
                        url(r'^index/$', ClientListView.as_view(), name='index'),
+                       #url(r'^index/$', ClientDetailIndexView.as_view(), name='index'),
                        url(r'^(?P<pk>[\d-]+)/$', ClientDetailView.as_view(), name='details'),
                        url(r'^addclient/$', ClientView.as_view(), name='addclient'),
                        url(r'editclient/(?P<pk>\d+)/$', editclient, name='editclient'),

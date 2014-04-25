@@ -72,7 +72,9 @@ def editemployee(request, pk):
         'first_name': employee.first_name, 'middle_initial': employee.middle_initial,
         'last_name': employee.last_name, 'emp_number': employee.emp_number,
         'emp_title': title_details, 'hire_date': employee.hire_date,
-        'pay_type': employee.pay_type, 'pay_rate': employee.pay_rate
+        'pay_type': employee.pay_type, 'pay_rate': employee.pay_rate,
+        'is_terminated': employee.is_terminated, 'termination_date': employee.termination_date,
+        'termination_reason': employee.termination_reason,
     }
     address_dict = {
         'street': address.street, 'unit': address.unit, 'city': address.city,
