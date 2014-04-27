@@ -54,11 +54,11 @@ def update_employee(request, employee, address, contact):
     emp_title = request.POST.getlist('emp_title')
     # Termination Work
     employee.is_terminated = boolean_helper(request.POST.get('is_terminated'))
-    # if employee.is_terminated is None:
-    #     employee.is_terminated = False
-    employee.termination_date = request.POST.get('termination_date')
-    if employee.termination_date is None:
+    tmp_date = request.POST.get('termination_date')
+    if tmp_date is None or tmp_date == '':
         employee.termination_date = None
+    else:
+        employee.termination_date = request.POST.get('termination_date')
     employee.termination_reason = request.POST.get('termination_reason')
 
     # Handle titles

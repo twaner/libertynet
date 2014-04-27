@@ -8,6 +8,7 @@
   <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 {% load static %}
         <link href="/static/css/application.css" type="text/css" media="screen" rel="stylesheet" />
@@ -52,11 +53,11 @@
               <td>
               <div class="btn-group">
                     <button class="btn btn-xs btn-default dropdown-toggle"
-                            data-toggle="dropdown"><i class="icon-cog"></i></button>
+                            data-toggle="dropdown"><i class="fa fa-cog"></i></button>
                     <ul class="dropdown-menu">
-                      <li><a href="#">Client Info</a></li>
-                      <li><a href="#">Site Details</a></li>
-                      <li><a href="#">Call Log</a></li>
+                      <li><a href="{{ e.get_absolute_url }}">Client Info</a></li>
+                      <li><a href="{{ site_detail.get_absolute_url }}">Site Details</a></li>
+                      <li><a href="{{ client_detail.get_absolute_url_calllog }}>Call Log</a></li>
                       <li class="divider"></li>
                       <li><a href="#">Separated link</a></li>
                     </ul>

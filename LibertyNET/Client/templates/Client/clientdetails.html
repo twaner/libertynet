@@ -1,0 +1,204 @@
+{% extends 'wrap_base.html' %}
+{% block content %}
+<div class="main-content">
+  <div class="container">
+    <div class="row">
+      <div class="area-top clearfix">
+        <div class="pull-left header">
+          <h3 class="title">
+            <i class="icon-th-large"></i>
+            Client Work Order
+          </h3>
+          <h5>
+            <span>
+              Detailed Information for Work Order
+            </span>
+          </h5>
+        </div>
+        <ul class="list-inline pull-right sparkline-box">
+          <li class="sparkline-row">
+            <h4 class="blue"><span>Date Opened</span> 4-24-2014</h4>
+          </li>
+          <li class="sparkline-row">
+            <h4 class="blue"><span>Days Open</span> 2</h4>
+          </li>
+          <li class="sparkline-row">
+            <h4 class="red"><span>Hours Spent</span> 16</h4>
+          </li>
+          <li class="sparkline-row">
+            <h4 class="green"><span>Hours Remain</span> 4.5</h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <div class="container padded">
+    <div class="row">
+      <!-- Breadcrumb line -->
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+            <div class="breadcrumb-button">
+              <span class="breadcrumb-label">
+                <i class="icon-truck"></i> Work Order Home
+              </span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-list-alt"></i> Work Order Details
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+      {% comment %}
+  <div class="row">
+      <div class="col-md-12">
+        <div class="box">
+          <div class="box-header">
+            <span class="title"><i class="icon-th-list"></i> col-md-12</span>
+          </div>
+          <div class="box-content padded">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+      </div>
+  </div>
+{% endcomment %}
+    <div class="row">
+      <div class="col-md-6">
+        <div class="box">
+          <div class="box-header">
+            <span class="title"><i class="icon-group"></i> Client Information</span>
+          </div>
+          <div class="box-content padded">
+            <li>
+                Client Info
+            </li>
+            {% if client_detail %}
+            <li>
+                {{ client_detail.first_name }} {{ client_detail.last_name }}
+            </li>
+            {% endif %}
+            {% if business_client %}
+            <li>
+                {{ business_client.business_name }}
+            </li>
+            <li>
+                {{ business_client.first_name }} {{ business_client.last_name }}
+            </li>
+            {% endif %}
+            <li>
+                Client Address:
+            </li>
+            {% if address_detail %}
+            <li>
+                {{ address_detail }}
+            </li>
+            {% else %}
+            <li>
+                No address info.
+            </li>
+            {% endif %}
+              <li>
+                Client Contact:
+            </li>
+            {% if contact_detail %}
+            <li>
+                {{ contact_detail }}
+            </li>
+            {% else %}
+            <li>
+                No contact information
+            </li>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="box">
+          <div class="box-header">
+            <span class="title"><i class="icon-th-list"></i> System</span>
+          </div>
+          <div class="box-content padded">
+            System Info Goes Here
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+         <div class="col-md-8">
+            <div class="box">
+              <div class="box-header">
+                <span class="title"><i class="icon-th-list"></i> Work Order</span>
+              </div>
+              <div class="box-content padded">
+                Work Order Info Goes Here
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="box">
+              <div class="box-header">
+                <span class="title"><i class="icon-th-list"></i> Buttons</span>
+              </div>
+             <div class="box-content padded">
+            <p>
+            <button class="btn btn-gray"><i class="icon-home"></i> Client Signature</button>
+            </p>
+            <p>
+            <button class="btn btn-gray"><i class="icon-cog"></i> Report Hours</button>
+            </p>
+            <p>
+            <button class="btn btn-gray"><i class="icon-bar-chart"></i> Equipment Used</button>
+            <p>
+            <button class="btn btn-gray"><i class="icon-bar-chart"></i> Equipment Needed</button>
+            </p>
+            {% comment %}
+            <div class="btn-group">
+              <button class="btn btn-default"><i class="icon-wrench"></i> Actions</button>
+              <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </div>
+            {% endcomment %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="box">
+          <div class="box-header">
+            <span class="title"><i class="icon-th-list"></i> Technician Notes</span>
+          </div>
+          <div class="box-content padded">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="box">
+          <div class="box-header">
+            <span class="title"><i class="icon-th-list"></i> TODO</span>
+          </div>
+          <div class="box-content padded">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+
+{% endblock %}

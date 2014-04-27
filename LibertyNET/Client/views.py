@@ -15,6 +15,7 @@ from Common.models import Address, Contact, Billing
 from Common.helpermethods import create_address_helper, form_generator, create_contact_helper, \
     validation_helper, dict_generator, update_address_helper, update_contact_helper, boolean_helper
 from Site.models import Site
+import operator
 
 #region ListViews
 
@@ -22,7 +23,19 @@ from Site.models import Site
 class ClientListView(ListView):
     model = Client
     context_object_name = 'all_client_list'
-    template_name = 'client/index_test.html'
+    template_name = 'client/index_tester.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientListView, self).get_context_data(**kwargs)
+
+        sorted_list = sorted(context['object_list'], key=lambda client: client.client_date)
+
+        if len(sorted_list) <= 5:
+            q = len(sorted_list)
+        else:
+            q = len(sorted_list) - 4
+        context['most_recent'] = sorted_list[q:]
+        return context
 
 
 class SalesProspectListView(ListView):
@@ -69,7 +82,7 @@ class ClientDetailView(DetailView):
     model = Client
     client_id = 'pk'
     context_object_name = 'client_detail'
-    template_name = 'client/details.html'
+    template_name = 'client/clientdetails.html'
 
     def get_context_data(self, **kwargs):
         context = super(ClientDetailView, self).get_context_data(**kwargs)
