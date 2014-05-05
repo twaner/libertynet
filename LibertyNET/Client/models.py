@@ -279,7 +279,7 @@ class Client(Person):
         if self.is_business:
             return self.business_name
         else:
-            return u'%s %s %s' % (self.first_name, self.middle_initial, self.last_name)
+            return '%s' % self.get_full_name()
 
     def is_a_business(self):
         """
@@ -290,6 +290,12 @@ class Client(Person):
             return True
         else:
             return False
+
+    def get_full_name(self):
+        if self.middle_initial != '':
+            return u'%s %s %s' % (self.first_name, self.middle_initial, self.last_name)
+        else:
+            return u'%s %s' % (self.first_name, self.last_name)
 
 
 #endregion

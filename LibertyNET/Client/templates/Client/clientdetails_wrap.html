@@ -1,0 +1,316 @@
+{% extends 'wrap_base.html' %}
+{% block content %}
+<!-- Header for container -->
+<div class="main-content">
+  <div class="container">
+    <div class="row">
+      <div class="area-top clearfix">
+        <div class="pull-left header">
+          <h3 class="title">
+            <i class="icon-group"></i>
+            Client Details
+          </h3>
+          <h5>
+            <span>
+              Detailed Client Information
+            </span>
+          </h5>
+        </div>
+        {% comment %}
+        <ul class="list-inline pull-right sparkline-box">
+          <li class="sparkline-row">
+            <h4 class="blue"><span>Clients</span> {{ all_client_list|length }} </h4>
+            <div class="sparkline big" data-color="blue"><!--1,2,3,1--></div>
+          </li>
+          <li class="sparkline-row">
+            <h4 class="green"><span>New Clients</span> {{ most_recent|length }}</h4>
+            <div class="sparkline big" data-color="green"><!--1,2,1,0--></div>
+          </li>
+          <li class="sparkline-row">
+            <h4 class="red"><span>New Leads</span> 7</h4>
+            <div class="sparkline big"><!--3,19,3,9,7--></div>
+          </li>
+        </ul>
+        {% endcomment %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb line -->
+  <div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+            <div class="breadcrumb-button">
+              <span class="breadcrumb-label">
+                <i class="fa fa-group"></i> Client Home
+              </span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+                <span class="breadcrumb-label">
+                    <i class="icon-th-large"></i>
+                    Client Details
+                </span>
+            </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="container">
+      <!-- 1st row -->
+      <div class="row">
+          <div class="col-md-6">
+              <div class="box">
+                  <div class="box-header">
+                    <span class="title"><i class="icon-th-list"></i>
+                        Client Information
+                    </span>
+                  </div>
+                  <div class="box-content padded" style="height: 300px;">
+
+                          <strong>Client Name</strong>
+                          <li>
+                              {{ client_detail.get_full_name }}
+                          </li>
+                          <strong>Client Address</strong>
+                          <li>
+                              {{ address_detail.street }}
+                          </li>
+                          {% if address_detail.unit %}
+                          <li>
+                              {{ address_detail.unit }}
+                          </li>
+                          {% endif %}
+                          <li>
+                              {{ address_detail.city }}
+                          </li>
+                          <li>
+                              {{ address_detail.state }}
+                          </li>
+                          <li>
+                              {{ address_detail.zip_code }}
+                          </li>
+                          <strong>Contact Information</strong>
+                          {% if contact_detail.phone %}
+                          <li>
+                              [h]: {{ contact_detail.phone_extension_helper }}
+                          </li>
+                          {% endif %}
+                          {% if contact_detail.office_phone %}
+                          <li>
+                              [o]: {{ contact_detail.office_phone_extension_helper }}
+                          </li>
+                          {% endif %}
+                          {% if contact_detail.cell %}
+                          <li>
+                              [c]: {{ contact_detail.cell_helper }}
+                          </li>
+                          {% endif %}
+                          <li>
+                              [h]: {{ contact_detail.email }}
+                          </li>
+
+                  </div>
+              </div>
+          </div>
+          <!-- second column -->
+          <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="box">
+                          <div class="box-header">
+                              <span class="box-header">
+                                  <i class="icon-th-list"></i>
+                                  Table of Alarm/Camera Systems
+                              </span>
+                          </div>
+                          <div class="box-content scrollable" style="height: 80px; overflow-y: auto">
+                              <div class="box-content">
+                                  <table class="table table-normal">
+                                      <tbody>
+                                          <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                         <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                         <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                         <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="box">
+                          <div class="box-header">
+                              <span class="box-header">
+                                  <i class="icon-th-list"></i>
+                                  Table of Camera Systems
+                              </span>
+                          </div>
+                          <div class="box-content scrollable" style="height: 80px; overflow-y: auto">
+                              <div class="box-content">
+                                  <table class="table table-normal">
+                                      <tbody>
+                                          <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                          <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="box">
+                          <div class="box-header">
+                              <span class="box-header">
+                                  <i class="icon-th-list"></i>
+                                  Table Sites
+                              </span>
+                          </div>
+                          <div class="box-content scrollable" style="height: 80px; overflow-y: auto">
+                              <div class="box-content">
+                                  <table class="table table-normal">
+                                      <tbody>
+                                          {% if site_detail %}
+                                          {% for s in site_detail %}
+                                          <tr>
+                                              <td>
+                                                  {{ s.site_client }}
+                                              </td>
+                                              <td>
+                                                 {{ s.get_top_calllist_name }}
+                                              </td>
+                                              <td>
+                                                  {{ s.top_calllist }}
+                                              </td>
+                                          </tr>
+                                          {% endfor %}
+                                          {% endif %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- 2nd row -->
+      <div class="row">
+          <div class="col-md-6">
+            <div class="box">
+                <div class="box-header">
+                    <span class="title">
+                        Call Log
+                    </span>
+                    <!-- number of calls of some importance total calls for now-->
+                    <ul class="box-toolbar">
+                        <li>
+                            {% if calllog_list %}
+                            <span class="label label-green">{{ calllog_list|length }}</span>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-content scrollable" style="height: 240px; overflow-y: auto">
+                    <!-- loop through calls -->
+                    {% if calllog_list %}
+                    {% for c in calllog_list %}
+                    <div class="box-section news with-icons">
+                        <div class="avatar blue">
+                            <!-- icon based on call status -->
+                            <i class="icon-ok icon-2x"></i>
+                        </div>
+                        <div class="news-time">
+                            <p>{{ c.call_date }}</p>
+                            <p>{{ c.call_time }}</p>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-title">
+                                <a href="{{ c.get_absolute_url }}">{{ c.purpose }}</a>
+                            </div>
+                            <div class="news-text">
+                               {{ c.notes }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+          </div>
+      </div>
+      <!-- 3rd row -->
+      <div class="row">
+
+      </div>
+  </div>
+
+{% endblock %}

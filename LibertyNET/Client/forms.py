@@ -15,7 +15,7 @@ class ClientForm(forms.ModelForm):
             'is_business': _('Select for commercial accounts.'),
         }
         widgets = {
-            'client_date': BootstrapDateInput,
+            'client_date': forms.DateInput(attrs={'class': 'date picker fill-up'})
         }
 
 #endregion

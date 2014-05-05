@@ -365,6 +365,13 @@ class Contact(models.Model):
         """
         return '%s%s%s-%s%s%s-%s%s%s%s' % tuple(self.phone)
 
+    def cell_helper(self):
+        """
+        Display for contact.
+        @return: Formatted phone number.
+        """
+        return '%s%s%s-%s%s%s-%s%s%s%s' % tuple(self.cell)
+
     def phone_extension_helper(self):
         """
         Helps create a readable phone number and extension.
@@ -375,6 +382,17 @@ class Contact(models.Model):
         else:
             phone = "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone)
             return '%s ext. %s' % (phone, self.phone_extension)
+
+    def office_phone_extension_helper(self):
+        """
+        Helps create a readable phone number and extension.
+        @return: a phone and extension if it exists.
+        """
+        if self.office_phone_extension is None or self.office_phone_extension == '':
+            return "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.office_phone)
+        else:
+            phone = "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.office_phone)
+            return '%s ext. %s' % (self.office_phone, self.office_phone_extension)
 
 
 class CallList(Person):
@@ -414,13 +432,6 @@ class CallList(Person):
     def get_absolute_url(self):
         return reverse('Common.views.CallListDetails', args=[str(self.call_list_id)])
 
-    def __unicode__(self):
-        return "%s %s" % (self.cl_genre, self.cl_is_enabled)
-
-    @property
-    def order(self):
-        return self.get_cl_order_display
-
     @property
     def is_active(self):
         if self.cl_is_enabled:
@@ -428,8 +439,17 @@ class CallList(Person):
         else:
             return "Inactive"
 
+    def __str__(self):
+        return "%s %s" % (self.cl_genre, self.is_active)
+
+    @property
+    def order(self):
+        return self.get_cl_order_display
+
     @property
     def calllist_contact_name(self):
+        name = self.cl_contact
+        print('NAME', name, type(name))
         return "%s %s %s" % (self.first_name, self.middle_initial, self.last_name)
 
     @property

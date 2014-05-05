@@ -82,10 +82,61 @@ class ClientDetailView(DetailView):
     model = Client
     client_id = 'pk'
     context_object_name = 'client_detail'
-    template_name = 'client/clientdetails.html'
+    template_name = 'client/details.html'
 
     def get_context_data(self, **kwargs):
         context = super(ClientDetailView, self).get_context_data(**kwargs)
+        client = self.get_object()
+        context['address_detail'] = Address.objects.get(pk=client.client_address_id)
+        context['contact_detail'] = Contact.objects.get(pk=client.client_contact_id)
+        #if client.client_billing_id is not None:
+        try:
+            context['billing_detail'] = Billing.objects.get(pk=client.client_billing_id)
+        except ObjectDoesNotExist:
+            pass
+        try:
+            context['site_detail'] = Site.objects.filter(site_client_id=client.client_id)
+        except ObjectDoesNotExist:
+            pass
+        return context
+
+
+class ClientDetailViewWrap(DetailView):
+    model = Client
+    client_id = 'pk'
+    context_object_name = 'client_detail'
+    template_name = 'client/clientdetails_wrap.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientDetailViewWrap, self).get_context_data(**kwargs)
+        client = self.get_object()
+        context['address_detail'] = Address.objects.get(pk=client.client_address_id)
+        context['contact_detail'] = Contact.objects.get(pk=client.client_contact_id)
+        #if client.client_billing_id is not None:
+        try:
+            context['billing_detail'] = Billing.objects.get(pk=client.client_billing_id)
+        except ObjectDoesNotExist:
+            pass
+        try:
+            context['site_detail'] = Site.objects.filter(site_client_id=client.client_id)
+        except ObjectDoesNotExist:
+            pass
+        try:
+            context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id).order_by('-call_date', 'call_time')
+            context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
+        except ObjectDoesNotExist:
+            pass
+        return context
+
+
+class ClientDetailViewWO(DetailView):
+    model = Client
+    client_id = 'pk'
+    context_object_name = 'client_detail'
+    template_name = 'client/clientdetails.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientDetailViewWO, self).get_context_data(**kwargs)
         client = self.get_object()
         context['address_detail'] = Address.objects.get(pk=client.client_address_id)
         context['contact_detail'] = Contact.objects.get(pk=client.client_contact_id)

@@ -113,6 +113,13 @@ class Site(models.Model):
     def __str__(self):
         return '%s' % self.site_client
 
+    def get_top_calllist_name(self):
+        return '%s' % self.site_call_list.all()[0].calllist_contact_name
+
+    def top_calllist(self):
+        print('top_calllist', self.site_call_list.all()[0].__str__())
+        return '%s' % self.site_call_list.all()[0].__str__()
+
     def get_absolute_url_add_calllist(self):
         return reverse('Client:addclientcalllist', kwargs={'pk': self.site_id})
 
