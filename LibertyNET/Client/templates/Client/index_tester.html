@@ -102,28 +102,28 @@
                           <th><div>Action</div></th>
                         </tr>
                         </thead>
-                        <tbody role="alert" aria-live="polite" aria-relavent="all">
-                        {% for e in all_client_list %}
-                        <tr>
-                          <td class="sorting_1">{{e.client_number}}</td>
-                          <td>{{e.first_name}} {{e.last_name}}</td>
-                          <td>
-                          <div class="btn-group">
-                                <button class="btn btn-xs btn-default dropdown-toggle"
-                                        data-toggle="dropdown"><i class="fa fa-cog"></i></button>
-                                <ul class="dropdown-menu">
-                                  <li><a href="{{ e.get_absolute_url }}">Client Details</a></li>
-                                  <li><a href="{{ billing_detail.get_absolute_url_edit }}">Billing Info</a></li>
-                                  <li><a href="{{ site_detail.get_absolute_url }}">Site Details</a></li>
-                                  <li><a href="{{ client_detail.get_absolute_url_calllog }}">Call Log</a></li>
-                                  <li class="divider"></li>
-                                  <li><a href="#">Separated link</a></li>
-                                </ul>
-                              </div>
-                          </td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
+                            <tbody role="alert" aria-live="polite" aria-relavent="all">
+                            {% for e in all_client_list %}
+                                <tr>
+                                  <td class="sorting_1">{{e.client_number}}</td>
+                                  <td>{{e.first_name}} {{e.last_name}}</td>
+                                  <td>
+                                      <div class="btn-group">
+                                        <button class="btn btn-xs btn-default dropdown-toggle"
+                                                data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                                        <ul class="dropdown-menu">
+                                          <li><a href="{{ e.get_absolute_url }}">Client Details</a></li>
+                                          <li><a href="{{ billing_detail.get_absolute_url_edit }}">Billing Info</a></li>
+                                          <li><a href="{{ site_detail.get_absolute_url }}">Site Details</a></li>
+                                          <li><a href="{{ client_detail.get_absolute_url_calllog }}">Call Log</a></li>
+                                          <li class="divider"></li>
+                                          <li><a href="#">Separated link</a></li>
+                                        </ul>
+                                      </div>
+                                  </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
                         </table>
                         </div>
                   </div>
@@ -158,6 +158,8 @@
                           <td class="sorting_1">{{e.client_number}}</td>
                           <td>{{e.first_name}} {{e.last_name}}</td>
                           <td>
+                              <ul>
+                                  <li>
                           <div class="btn-group">
                                 <button class="btn btn-xs btn-default dropdown-toggle"
                                         data-toggle="dropdown"><i class="fa fa-cog"></i></button>
@@ -170,6 +172,8 @@
                                   <li><a href="#">Separated link</a></li>
                                 </ul>
                               </div>
+                                  </li>
+                                  </ul>
                           </td>
                         </tr>
                         {% endfor %}

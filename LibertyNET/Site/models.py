@@ -117,7 +117,6 @@ class Site(models.Model):
         return '%s' % self.site_call_list.all()[0].calllist_contact_name
 
     def top_calllist(self):
-        print('top_calllist', self.site_call_list.all()[0].__str__())
         return '%s' % self.site_call_list.all()[0].__str__()
 
     def get_absolute_url_add_calllist(self):

@@ -46,7 +46,8 @@
         </div>
             <div class="breadcrumb-button">
               <span class="breadcrumb-label">
-                <i class="fa fa-group"></i> Client Home
+                <i class="fa fa-group"></i>
+                  <a href="/client/index/">Client Home</a>
               </span>
               <span class="breadcrumb-arrow"><span></span></span>
             </div>
@@ -59,6 +60,7 @@
       </div>
     </div>
   </div>
+
   <!-- Main content -->
   <div class="container">
       <!-- 1st row -->
@@ -66,67 +68,93 @@
           <div class="col-md-6">
               <div class="box">
                   <div class="box-header">
-                    <span class="title"><i class="icon-th-list"></i>
+                    <span class="title"><i class="fa fa-group"></i>
                         Client Information
                     </span>
+                    <ul class="box-toolbar">
+                        <li>
+                          <div class="btn-group">
+                            <button class="btn btn-xs btn-default dropdown-toggle"
+                                    data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                            <ul class="dropdown-menu">
+                              <li><a href="{{ e.get_absolute_url_edit }}">Edit Details</a></li>
+                            </ul>
+                          </div>
+                        </li>
+                    </ul>
                   </div>
-                  <div class="box-content padded" style="height: 300px;">
-
+                  <div class="box-content scrollable" style="height: 360px; overflow-y: auto">
+                      <div class="box-content padded" >
+                          <strong>Client Number</strong>
+                              <li>
+                                  {{ client_detail.client_number }}
+                              </li>
                           <strong>Client Name</strong>
-                          <li>
-                              {{ client_detail.get_full_name }}
-                          </li>
+                              <li>
+                                  {{ client_detail.get_full_name }}
+                              </li>
                           <strong>Client Address</strong>
-                          <li>
-                              {{ address_detail.street }}
-                          </li>
-                          {% if address_detail.unit %}
-                          <li>
-                              {{ address_detail.unit }}
-                          </li>
-                          {% endif %}
-                          <li>
-                              {{ address_detail.city }}
-                          </li>
-                          <li>
-                              {{ address_detail.state }}
-                          </li>
-                          <li>
-                              {{ address_detail.zip_code }}
-                          </li>
+                              <address>
+                                  {{ address_detail.street }}
+                                  <br />
+                                  {% if address_detail.unit %}
+                                      {{ address_detail.unit }}
+                                  {% endif %}
+                                  <br/>
+                                  {{ address_detail.city }},
+                                  {{ address_detail.state }}
+                                  <br />
+                                  {{ address_detail.zip_code }}
+                              </address>
                           <strong>Contact Information</strong>
-                          {% if contact_detail.phone %}
-                          <li>
-                              [h]: {{ contact_detail.phone_extension_helper }}
-                          </li>
-                          {% endif %}
-                          {% if contact_detail.office_phone %}
-                          <li>
-                              [o]: {{ contact_detail.office_phone_extension_helper }}
-                          </li>
-                          {% endif %}
-                          {% if contact_detail.cell %}
-                          <li>
-                              [c]: {{ contact_detail.cell_helper }}
-                          </li>
-                          {% endif %}
-                          <li>
-                              [h]: {{ contact_detail.email }}
-                          </li>
-
+                              {% if contact_detail.phone %}
+                              <li>
+                                  <abbr title="phone">[h]</abbr> {{ contact_detail.phone_extension_helper }}
+                              </li>
+                              {% endif %}
+                              {% if contact_detail.office_phone %}
+                              <li>
+                                  <abbr title="phone">[o]</abbr> {{ contact_detail.office_phone_extension_helper }}
+                              </li>
+                              {% endif %}
+                              {% if contact_detail.cell %}
+                              <li>
+                                  <abbr title="phone">[m]</abbr> {{ contact_detail.cell_helper }}
+                              </li>
+                              {% endif %}
+                              <li>
+                                  [e] <a href="mailto:#">{{ contact_detail.email }}</a>
+                              </li>
+                          <strong>Client Since</strong>
+                              <li>
+                                  {{ client_detail.client_date }}
+                              </li>
+                      </div>
                   </div>
               </div>
           </div>
+
           <!-- second column -->
           <div class="col-md-6">
               <div class="row">
                   <div class="col-md-12">
                       <div class="box">
                           <div class="box-header">
-                              <span class="box-header">
-                                  <i class="icon-th-list"></i>
-                                  Table of Alarm/Camera Systems
+                              <span class="title">
+                                  <i class="fa fa-sitemap"></i>
+                                  Alarm/Camera Systems
                               </span>
+                              <ul class="box-toolbar">
+                                <li>
+                                  <div class="btn-group">
+                                    <button class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="{{ e.get_absolute_url_edit }}">Add System</a></li>
+                                    </ul>
+                                  </div>
+                                </li>
+                              </ul>
                           </div>
                           <div class="box-content scrollable" style="height: 80px; overflow-y: auto">
                               <div class="box-content">
@@ -176,10 +204,21 @@
                   <div class="col-md-12">
                       <div class="box">
                           <div class="box-header">
-                              <span class="box-header">
-                                  <i class="icon-th-list"></i>
-                                  Table of Camera Systems
+                              <span class="title">
+                                  <i class="fa fa-video-camera"></i>
+                                  Camera Systems
                               </span>
+                              <ul class="box-toolbar">
+                                <li>
+                                  <div class="btn-group">
+                                    <button class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="{{ e.get_absolute_url_edit }}">Add Camera</a></li>
+                                    </ul>
+                                  </div>
+                                </li>
+                              </ul>
                           </div>
                           <div class="box-content scrollable" style="height: 80px; overflow-y: auto">
                               <div class="box-content">
@@ -229,29 +268,40 @@
                   <div class="col-md-12">
                       <div class="box">
                           <div class="box-header">
-                              <span class="box-header">
-                                  <i class="icon-th-list"></i>
-                                  Table Sites
+                              <span class="title">
+                                  <i class="fa fa-compass"></i>
+                                  Sites
                               </span>
+                              <ul class="box-toolbar">
+                                <li>
+                                  <div class="btn-group">
+                                    <button class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="{{ e.get_absolute_url_edit }}">Add Site</a></li>
+                                    </ul>
+                                  </div>
+                                </li>
+                              </ul>
                           </div>
                           <div class="box-content scrollable" style="height: 80px; overflow-y: auto">
                               <div class="box-content">
                                   <table class="table table-normal">
                                       <tbody>
                                           {% if site_detail %}
-                                          {% for s in site_detail %}
-                                          <tr>
-                                              <td>
-                                                  {{ s.site_client }}
-                                              </td>
-                                              <td>
-                                                 {{ s.get_top_calllist_name }}
-                                              </td>
-                                              <td>
-                                                  {{ s.top_calllist }}
-                                              </td>
-                                          </tr>
-                                          {% endfor %}
+                                              {% for s in site_detail %}
+                                              <tr>
+                                                  <td>
+                                                      {{ s.site_client }}
+                                                  </td>
+                                                  <td>
+                                                     {{ s.get_top_calllist_name }}
+                                                  </td>
+                                                  <td>
+                                                      {{ s.top_calllist }}
+                                                  </td>
+                                              </tr>
+                                              {% endfor %}
                                           {% endif %}
                                       </tbody>
                                   </table>
@@ -262,6 +312,7 @@
               </div>
           </div>
       </div>
+
       <!-- 2nd row -->
       <div class="row">
           <div class="col-md-6">
@@ -273,43 +324,171 @@
                     <!-- number of calls of some importance total calls for now-->
                     <ul class="box-toolbar">
                         <li>
+                            <a href="#" class="tip" title data-original-title="Total Calls">
                             {% if calllog_list %}
-                            <span class="label label-green">{{ calllog_list|length }}</span>
+                                <span class="label label-green">
+                                    {{ calllog_list|length }}
+                                </span>
                             {% endif %}
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="box-toolbar">
+                        <li>
+                          <div class="btn-group">
+                            <button class="btn btn-xs btn-default dropdown-toggle"
+                                    data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                            <ul class="dropdown-menu">
+                              <li>
+                                  <a href="{{ e.get_absolute_url_edit }}">
+                                      Add Call Log
+                                  </a>
+                              </li>
+                            </ul>
+                          </div>
                         </li>
                     </ul>
                 </div>
-                <div class="box-content scrollable" style="height: 240px; overflow-y: auto">
+                <div class="box-content scrollable" style="height: 280px; overflow-y: auto">
                     <!-- loop through calls -->
                     {% if calllog_list %}
-                    {% for c in calllog_list %}
-                    <div class="box-section news with-icons">
-                        <div class="avatar blue">
-                            <!-- icon based on call status -->
-                            <i class="icon-ok icon-2x"></i>
-                        </div>
-                        <div class="news-time">
-                            <p>{{ c.call_date }}</p>
-                            <p>{{ c.call_time }}</p>
-                        </div>
-                        <div class="news-content">
-                            <div class="news-title">
-                                <a href="{{ c.get_absolute_url }}">{{ c.purpose }}</a>
+                        {% for c in calllog_list %}
+                            <div class="box-section news with-icons">
+                                <div class="avatar blue">
+                                    <!-- icon based on call status -->
+                                    <i class="icon-ok icon-2x"></i>
+                                </div>
+                                <div class="news-time">
+                                    <p>{{ c.call_date }}</p>
+                                    <p>{{ c.call_time }}</p>
+                                </div>
+                                <div class="news-content">
+                                    <div class="news-title">
+                                        <a href="{{ c.get_absolute_url }}">{{ c.purpose }}</a>
+                                    </div>
+                                    <div class="news-text">
+                                       {{ c.notes }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="news-text">
-                               {{ c.notes }}
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>
           </div>
+          <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="box">
+                          <div class="box-header">
+                              <span class="title">
+                                  <i class="fa fa-file"></i>
+                                  Invoices
+                              </span>
+                              <ul class="box-toolbar">
+                                <li>
+                                  <div class="btn-group">
+                                    <button class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="{{ e.get_absolute_url_edit }}">Add Invoice</a></li>
+                                    </ul>
+                                  </div>
+                                </li>
+                              </ul>
+                          </div>
+                          <div class="box-content scrollable" style="height: 110px; overflow-y: auto">
+                              <div class="box-content">
+                                  <table class="table table-normal">
+                                      <tbody>
+                                          <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                         <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                         <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                         <tr>
+                                              <td>
+                                                  camera name
+                                              </td>
+                                              <td>
+                                                  camera type
+                                              </td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="box">
+                          <div class="box-header">
+                              <span class="title">
+                                  <i class="fa fa-credit-card"></i>
+                                  Billing Profiles
+                              </span>
+                              <ul class="box-toolbar">
+                                <li>
+                                  <div class="btn-group">
+                                    <button class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="{{ e.get_absolute_url_edit }}">Add Billing Profile</a></li>
+                                    </ul>
+                                  </div>
+                                </li>
+                              </ul>
+                          </div>
+                          <div class="box-content scrollable" style="height: 110px; overflow-y: auto">
+                              <div class="box-content">
+                                  <table class="table table-normal">
+                                      <tbody>
+
+                                            {% for b in billing_detail %}
+                                                <tr>
+                                                    <td>
+                                                        Name:
+                                                    </td>
+                                                    <td>
+                                                        <a href="b.get_absolute_url_edit">
+                                                            {{ b }}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
       </div>
       <!-- 3rd row -->
       <div class="row">
-
       </div>
   </div>
 

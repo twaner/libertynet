@@ -560,6 +560,12 @@ class CallLog(models.Model):
     purpose = models.CharField(max_length=150)
     notes = models.CharField(max_length=500)
     next_contact = models.DateField()
+    ## 5/5/2014 - Added
+    # follow_up = models.BooleanField(blank=True, null=True)
+    # followed_up = models.BooleanField(default=False, blank=True, null=True)
+
+    def clean(self):
+        pass
 
     class Meta:
         abstract = True

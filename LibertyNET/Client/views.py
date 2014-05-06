@@ -114,7 +114,7 @@ class ClientDetailViewWrap(DetailView):
         context['contact_detail'] = Contact.objects.get(pk=client.client_contact_id)
         #if client.client_billing_id is not None:
         try:
-            context['billing_detail'] = Billing.objects.get(pk=client.client_billing_id)
+            context['billing_detail'] = Billing.objects.filter(pk=client.client_billing_id)
         except ObjectDoesNotExist:
             pass
         try:
@@ -175,6 +175,32 @@ class SalesProspectDetailView(DetailView):
         except SalesProspectCallLog.DoesNotExist:
             pass
         return context
+
+
+class SalesProspectDetailViewWrap(DetailView):
+    model = SalesProspect
+    sales_prospect_id = 'pk'
+    template_name = 'client/salesdetails_wrap.html'
+    context_object_name = 'sales_prospect_detail'
+
+    def get_context_data(self, **kwargs):
+        context = super(SalesProspectDetailViewWrap, self).get_context_data(**kwargs)
+        sales = self.get_object()
+        try:
+            context['address_detail'] = Address.objects.get(pk=sales.sp_address_id)
+        except Address.DoesNotExist:
+            pass
+        try:
+            context['contact_detail'] = Contact.objects.get(pk=sales.sp_contact_id)
+        except Contact.DoesNotExist:
+            pass
+        try:
+            context['call_detail'] = SalesProspectCallLog.objects.\
+                filter(sales_id=sales.sales_prospect_id)
+        except SalesProspectCallLog.DoesNotExist:
+            pass
+        return context
+
 
 #endregion
 
