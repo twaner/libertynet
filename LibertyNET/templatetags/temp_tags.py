@@ -1,7 +1,14 @@
 from django import template
+register = template.Library()
+
+# @register.filter(name='addcssplaceholder')
+# def addcssplaceholder(field, css):
+#     if field.name == "first_name":
 #
-# @register.inclusion_tag('mainheader_nograph.html')
-# def title_bar(title, subtitle):
-#     return {
-#         'title': title, 'subtitle': subtitle
-#     }
+#
+#     "middle_initial"
+#     "last_name"
+#     "client_number"
+#     "business_name"
+#     "is_business"
+#     "client_date"

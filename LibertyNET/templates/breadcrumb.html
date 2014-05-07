@@ -1,0 +1,38 @@
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+          {% if label_list|length > 2 %}
+            {% for l in label_list %}
+              {% if forloop.counter0 != label_list|length %}
+            <div class="breadcrumb-button">
+              <span class="breadcrumb-label">
+                <i class="{{ icon_list[forloop.counter] }}"></i>
+                  <a href="/client/index/">{{ label_list[forloop.counter }}</a>
+              </span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+              {% endif %}
+              {% else %}
+            <div class="breadcrumb-button">
+                <span class="breadcrumb-label">
+                    <i class="{{ icon_list[forloop.counter] }}"></i>
+                    {{ label_list[forloop.counter] }}
+                </span>
+            </div>
+             {% endelse %}
+          {% endif %}
+           {% else %}
+            <div class="breadcrumb-button">
+                <span class="breadcrumb-label">
+                    <i class="{{ icon[0] }}"></i>
+                    {{ label_list[0] }}
+                </span>
+            </div>
+           {% endelse %}
+      </div>
+    </div>
+  </div>
