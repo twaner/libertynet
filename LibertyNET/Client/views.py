@@ -91,11 +91,16 @@ class ClientDetailView(DetailView):
         context['contact_detail'] = Contact.objects.get(pk=client.client_contact_id)
         #if client.client_billing_id is not None:
         try:
-            context['billing_detail'] = Billing.objects.get(pk=client.client_billing_id)
+            context['billing_detail'] = Billing.objects.filter(pk=client.client_billing_id)
         except ObjectDoesNotExist:
             pass
         try:
             context['site_detail'] = Site.objects.filter(site_client_id=client.client_id)
+        except ObjectDoesNotExist:
+            pass
+        try:
+            context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id).order_by('-call_date', 'call_time')
+            context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
         except ObjectDoesNotExist:
             pass
         return context
@@ -459,6 +464,7 @@ def editclient(request, pk):
         form_list[2] = ContactForm(contact_dict)
     form_dict = dict_generator(form_list)
     return render(request, template_name, form_dict)
+
 
 #endregion
 

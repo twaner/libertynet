@@ -1,22 +1,25 @@
-<div class="box-content scrollable" style="height: {% block height %}{% endblock %}; overflow-y: auto">
-                              <div class="box-content">
-                                  <table class="table table-normal">
-                                      <tbody>
+<div class="box-content scrollable" style="height: {{ height }}; overflow-y: auto">
+    <div class="box-content">
+      <table class="table table-normal">
+          <tbody>
+            {{ body_work }}
+          </tbody>
+      </table>
+    </div>
+</div>
 
-                                            {% for b in billing_detail %}
-                                                <tr>
-                                                    <td>
-                                                        Name:
-                                                    </td>
-                                                    <td>
-                                                        <a href="b.get_absolute_url_edit">
-                                                            {{ b }}
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
+{% comment %}
 
-                                      </tbody>
-                                  </table>
-                              </div>
-                          </div>
+        {% for b in billing_detail %}
+                    <tr>
+                        <td>
+                            Name:
+                        </td>
+                        <td>
+                            <a href="b.get_absolute_url_edit">
+                                {{ b }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+{% endcomment %}

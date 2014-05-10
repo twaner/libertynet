@@ -2,7 +2,8 @@ from django.conf.urls import patterns, url
 from Client.views import ClientListView, ClientDetailView, ClientView, editclient, SalesProspectListView, \
     SalesProspectDetailView, SalesProspectView, editsalesprospect, convert_to_client, addclientcalllog, \
     CallLogDetailView, ClientCallLogIndex, addsalescalllog, SalesCallLogDetailView, SalesCallLogIndex, \
-    ClientCallLogHome, SalesCallLogHome, ClientDetailViewWO, ClientDetailViewWrap, SalesProspectDetailViewWrap, ClientViewWrap
+    ClientCallLogHome, SalesCallLogHome, ClientDetailViewWO, ClientDetailViewWrap, SalesProspectDetailViewWrap, \
+    ClientViewWrap
 from Common.views import addclientbilling, editclientbilling, addcalllist, updatecalllist, \
     CallListDetails
 from Site.views import SiteDetailView

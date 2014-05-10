@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'south',
     'bootstrap3',
     'bootstrap_toolkit',
+    'LibertyNET',
 )
 
 MIDDLEWARE_CLASSES = (

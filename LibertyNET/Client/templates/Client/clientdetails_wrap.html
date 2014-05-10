@@ -97,10 +97,10 @@
                               <address>
                                   {{ address_detail.street }}
                                   <br />
-                                  {% if address_detail.unit %}
+                                  {% if address_detail.unit|length  != 0 %}
                                       {{ address_detail.unit }}
-                                  {% endif %}
                                   <br/>
+                                  {% endif %}
                                   {{ address_detail.city }},
                                   {{ address_detail.state }}
                                   <br />
@@ -489,7 +489,6 @@
                                                     </td>
                                                 </tr>
                                             {% endfor %}
-
                                       </tbody>
                                   </table>
                               </div>

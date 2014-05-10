@@ -235,6 +235,13 @@ class Client(Person):
         """
         return reverse('Client:details', kwargs={'pk': self.client_id})
 
+    def get_absolute_url_wrap(self):
+        """
+        Gets details view url.
+        @return: details view url.
+        """
+        return reverse('Client:clientdetails_wrap', kwargs={'pk': self.client_id})
+
     def get_absolute_url_edit(self):
         """
         Gets edit view url.
@@ -244,6 +251,13 @@ class Client(Person):
         #@models.permalink
         #def get_absolute_url(self):
         #   return 'ClientDetailView', [str(self.client_id)] #{'pk': self.client_id}
+
+    def get_absolute_url_edit_wrap(self):
+        """
+        Gets edit view url.
+        @return: edit view url.
+        """
+        return reverse('Client:editclient_wrap', kwargs={'pk': self.client_id})
 
     def get_absolute_url_calllog(self):
         """
