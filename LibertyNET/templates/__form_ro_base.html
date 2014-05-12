@@ -1,0 +1,35 @@
+{% extends 'basewrap.html' %}
+{% load mytags %}
+
+{% block body_block %}
+<body onload="initialize()" xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+{% block base_header %}
+    {% block form_header %}
+    {% endblock %}
+{% endblock %}
+
+{% block base_content %}
+    {% block base_breadcrumb %}
+        {% block form_breadcrumb %}
+        {% endblock form_breadcrumb %}
+    {% endblock base_breadcrumb %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">​
+                        <span class="title">
+                            {% block h4_block %}{% endblock h4_block %}
+                        </span>
+                        {% block cog_block %}{% endblock cog_block %}
+                    </div> <!-- box-header -->
+                    <div class="box-content">
+                        {% block form_content %}
+                        {% endblock form_content %}
+                    </div> <!-- box content -->
+                </div> <!-- box -->
+            </div> <!-- col-md-12 -->
+        </div> <!-- row -->
+    </div> <!-- container -->
+{% endblock base_content%}

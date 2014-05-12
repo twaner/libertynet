@@ -268,33 +268,6 @@ class ClientView(View):
         return render(request, self.template_name, form_dict)
 
 
-class ClientViewWrap(View):
-    form_class = Client
-    template_name = 'client/addclient_wrap.html'
-    form_list = form_generator(3)
-
-    def post(self, request, form_list=form_list, *args, **kwargs):
-        form_list[0] = ClientForm(request.POST)
-        form_list[1] = AddressForm(request.POST)
-        form_list[2] = ContactForm(request.POST)
-
-        validation = validation_helper(form_list)
-        if validation:
-            address = create_address_helper(request)
-            contact = create_contact_helper(request)
-            client = create_client_helper(request, address, contact)
-            return HttpResponseRedirect(reverse('Client:details',
-                                                kwargs={'pk': client.client_id}))
-        else:
-            return render(request, self.template_name, dict_generator(form_list))
-
-    def get(self, request, form_list=form_list, *args, **kwargs):
-        form_list[0] = ClientForm()
-        form_list[1] = AddressForm()
-        form_list[2] = ContactForm()
-        form_dict = dict_generator(form_list)
-        return render(request, self.template_name, form_dict)
-
 #endregion
 
 #region EditViews
@@ -471,8 +444,37 @@ def editclient(request, pk):
 
 #region CallLogs
 
+class ClientCallLogView(View):
+    """
+    Creates a Client Call Log for any Client.
+    @return: http response.
+    """
+    form_class = ClientCallLog
+    template_name = 'client/addclientcalllog.html'
+    form_list = form_generator(1)
+
+    def post(self, request, form_list=form_list, *args, **kwargs):
+        form_list[0] = ClientCallLogForm(request.POST)
+
+        validation = validation_helper(form_list)
+        if validation_helper(form_list):
+            calllog = create_calllog_helper(request, client)
+            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.client_id}))
+        else:
+            return render(request, self.template_name, dict_generator(form_list))
+
+    def get(self, request, form_list=form_list, *args, **kwargs):
+        form_list[0] = ClientCallLogForm()
+        return render(request, template_name, dict_generator(form_list))
+
 
 def addclientcalllog(request, pk):
+    """
+    Creates a Call Log for a Client based on pk that is passed in.
+    @param request: request.
+    @param pk: pk for Client.
+    @return: http response.
+    """
     template_name = 'client/addclientcalllog.html'
     form_list = form_generator(1)
     form_list[0] = ClientCallLogForm(request.POST)

@@ -9,11 +9,11 @@
 {% block body_block %}
 <body onload="initialize()" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
-{% block header %}
+{% block base_header %}
 {% include "mainheader_nograph.html" with icon="fa fa-group" title="Add Client" subtitle="Add Client Information" %}
 {% endblock %}
 
-{% block content %}
+{% block base_content %}
 <!-- breadcrumb -->
 <div class="container padded">
     <div class="row">

@@ -65,8 +65,8 @@ class ClientCallLogForm(forms.ModelForm):
                   'purpose', 'notes', 'next_contact']
         #exclude = ['client_id']
         widgets = {
-            'call_date': BootstrapDateInput,
-            'next_contact': BootstrapDateInput,
+            'call_date'
+            'next_contact'
             'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3}),
             'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10}),
         }

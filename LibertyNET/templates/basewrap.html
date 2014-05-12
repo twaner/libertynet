@@ -91,7 +91,7 @@
         </nav>
     <div class="sidebar-background">
       <div class="primary-sidebar-background"></div>
-    </div>
+    </div> <!-- sidebar-background -->
     <div class="primary-sidebar">
       <!-- Main nav -->
       <ul class="nav navbar-collapse collapse navbar-collapse-primary">
@@ -232,11 +232,11 @@
             <li class="dark-nav ">
               <span class="glow"></span>
               <a class="accordion-toggle collapsed " data-toggle="collapse" href="#QU6D6nx48d">
-                  <i class="icon-wrench icon-2x"></i>
-                    <span>
-                      Work
-                      <i class="icon-caret-down"></i>
-                    </span>
+                <i class="icon-wrench icon-2x"></i>
+                <span>
+                  Work
+                  <i class="icon-caret-down"></i>
+                </span>
               </a>
               <ul id="QU6D6nx48d" class="collapse ">
                     <li class="">
@@ -257,33 +257,14 @@
               </ul>
             </li>
       </ul>
-    </div>
+    </div> <!-- primary-sidebar -->
     <div class="main-content">
-        {% comment %}
-        <div class="container">
-            <div class="row">
-              <div class="area-top clearfix">
-                <div class="pull-left header">
-                  <h3 class="title">
-                    <i class="{% block icon %} {% endblock icon%}"></i>
-                       {% block navtitle %}{% endblock navtitle %}
-                  </h3>
-                  <h5>
-                    <span>
-                       {% block navsubtitle %}{% endblock navsubtitle %}
-                    </span>
-                  </h5>
-                </div>
-              </div>
-            </div>
-        </div>
-        {% endcomment %}
-        {% block header %}
+        {% block base_header %}
         {% endblock %}
+        {% block base_content %}
 
-    {% block content %}
-    Empty Page
-    {% endblock %}
-    </div>
+            Empty Page
+        {% endblock %}
+    </div> <!-- main-content -->
     </body>
 </html>

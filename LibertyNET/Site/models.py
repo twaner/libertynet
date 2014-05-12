@@ -107,17 +107,28 @@ class Site(models.Model):
     site_id = models.AutoField(primary_key=True)
     site_client = models.ForeignKey('Client.Client')
     site_call_list = models.ManyToManyField('Common.CallList', blank=True, null=True)
+    # TODO - Add Site Alias
 
     objects = SiteManager()
 
     def __str__(self):
         return '%s' % self.site_client
 
+    def get_calllist_len(self):
+        print('get_calllist_len ', len(self.site_call_list.all()))
+        return len(self.site_call_list.all())
+
     def get_top_calllist_name(self):
-        return '%s' % self.site_call_list.all()[0].calllist_contact_name
+        if self.get_calllist_len() >= 1:
+            return '%s' % self.site_call_list.all()[0].calllist_contact_name
+        else:
+            return 'Please Add Site'
 
     def top_calllist(self):
-        return '%s' % self.site_call_list.all()[0].__str__()
+        if self.get_calllist_len() >= 1:
+            return '%s' % self.site_call_list.all()[0].__str__()
+        else:
+            return 'Please Add Site'
 
     def get_absolute_url_add_calllist(self):
         return reverse('Client:addclientcalllist', kwargs={'pk': self.site_id})

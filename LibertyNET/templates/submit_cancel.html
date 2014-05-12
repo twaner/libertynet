@@ -1,5 +1,20 @@
-<div class="form-actions">
-    <div class="btn-group">
+<div class="form-actions" xmlns="http://www.w3.org/1999/html">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <input type="submit" type="button" value="Submit"
+                       class="btn btn-md btn-blue"/>
+            </div>
+            <div class="col-md-6">
+                <input action="action" type="button" class="btn btn-md btn-red"
+                       value="Back" onclick="history.go(-1);" />
+            </div>
+        </div>
+    </div>
+</div> <!-- form-actions -->
+
+{% comment %}
+        <div class="btn-group">
         <ul class="padded separate-sections">
             <li class="input">
                 <input type="submit" type="button" value="Submit"
@@ -10,5 +25,5 @@
                        value="Back" onclick="history.go(-1);" />
             </li>
         </ul>
-    </div>
-</div>
+    </div> <!-- btn-group -->
+{% endcomment %}

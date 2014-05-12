@@ -59,6 +59,18 @@ for (var i = 0; i < state_worker.options.length; i++) {
     }
 }
 
+function stateWorker(){
+    var state_worker = document.getElementById("id_state");
+    for (var i = 0; i < state_worker.options.length; i++) {
+    if (state_worker.options[i].value == g_Addy[3]) {
+        state_worker.selectedIndex = i;
+        state_worker.onChange();
+        window.alert(state_worker.selectedIndex);
+        }
+    }
+}
+
+
 // [END region_fillform]
 // [START region_geolocation]
 // Bias the autocomplete object to the user's geographical location,

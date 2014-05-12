@@ -1,57 +1,91 @@
-{% extends 'base.html' %}
-{% load bootstrap_toolkit %}
-
-{% block content %}
-<a href="{% url 'Client:index' %}">
-    Client Home
-</a> &nbsp;/&nbsp;
-{% if calllog %}
-     <a href="{{ calllog.get_absolute_url_client }}">
-        Client Details
-    </a> &nbsp;/&nbsp;
-    <a href="={{ calllog.get_absolute_url_index }}">
-        Call Log Index
-    </a>
-        {% comment %}
-        {% if client_detail or business_client %}
-            <a href="{% url 'site_info:details' client_detail.client_id %}">
-         Client Site Information
-            </a>
-        {% endif %}
-        {% endcomment %}
-    <ul>
-        <li>
-            Call Log Details
-        </li>
-        {% if calllog %}
-        <li>
-            Client: {{ calllog.client_id }}
-        </li>
-        <li>
-            Call Date: {{ calllog.call_date }} {{ calllog.call_time }}
-        </li>
-        <li>
-            Next Call Date: {{ calllog.next_contact }}
-        </li>
-        <li>
-            Caller: {{ calllog.caller }}
-        </li>
-        <li>
-            Purpose:
-        </li>
-         <textarea name="purpose" rows="3" cols="160" readonly>
-            {{ calllog.purpose }}
-        </textarea>
-        <li>
-            Notes:
-        </li>
-        <textarea name="notes" rows="10" cols="160" readonly>
-            {{ calllog.notes }}
-        </textarea>
-        {% endif %}
-    </ul>
-{% else %}
-        <p>No Clients are available.</p>
-{% endif %}
-
+{% extends '__form_ro_base.html' %}
+{% load mytags %}
+{% block body_block %}
+<body onload="initialize()" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
+{% block form_header %}
+{% include "mainheader_nograph.html" with icon="fa fa-phone" title="Call Details" subtitle="Detailed Car Information" %}
+{% endblock %}
+
+{% block form_breadcrumb %}
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="/client/index/">Client Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="fa fa-phone"></i>
+                Call Details
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+{% endblock form_breadcrumb %}
+{% block h4_block %}Call Details{% endblock h4_block %}
+
+{% block cog_block %}
+ <ul class="box-toolbar">
+    <li>
+      <div class="btn-group">
+        <button class="btn btn-xs btn-default dropdown-toggle"
+                data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+        <ul class="dropdown-menu">
+          <li><a href="{{ client_detail.get_absolute_url_edit }}">Edit Call Details</a></li>
+        </ul>
+      </div>
+    </li>
+</ul>
+{% endblock cog_block %}
+
+{% block form_content %}
+    <form class="fill-up" action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-8">
+                <ul class="padded separate-sections">
+                    {% if calllog %}
+                    <li>
+                        <label>Client</label>: {{ calllog.client_id }}
+                    </li>
+                    <li>
+                        <label>Call Date</label>:
+                        {{ calllog.call_date }} {{ calllog.call_time }}
+                    </li>
+                    <li>
+                       <label>Next Call Date</label>: {{ calllog.next_contact }}
+                    </li>
+                    <li>
+                        <label>Caller</label>: {{ calllog.caller }}
+                    </li>
+                    <li>
+                        <label>Purpose</label>
+                    </li>
+                     <textarea name="purpose" rows="3" cols="160" readonly>
+                        {{ calllog.purpose }}
+                    </textarea>
+                    <li>
+                        <label>Notes</label>
+                    </li>
+                    <textarea name="notes" rows="10" cols="160" readonly>
+                        {{ calllog.notes }}
+                    </textarea>
+                    {% else %}
+                        <p>No Call Details Available.</p>
+                    {% endif %}
+                </ul>
+            </div> <!-- col-lg-6 -->
+        </div> <!-- row -->
+    </form>
+{% endblock %}
+
