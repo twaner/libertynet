@@ -8,7 +8,7 @@ from django.views.generic.base import View
 from datetime import date, datetime
 from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
 from helpermethods import create_client_helper, create_sales_prospect_helper, update_client_helper, \
-    update_sales_prospect_helper, create_calllog_helper
+    update_sales_prospect_helper, create_calllog_helper, create_client_calllog_helper, create_sales_calllog_helper
 from forms import ClientForm, SalesProspectForm, SalesProspectEditForm, SalesProspectCallLogForm, ClientCallLogForm
 from Common.forms import AddressForm, ContactForm
 from Common.models import Address, Contact, Billing
@@ -45,13 +45,17 @@ class SalesProspectListView(ListView):
 
 
 class ClientCallLogHome(ListView):
+    """
+    View for list of all Client Calls
+    """
     model = ClientCallLog
-    template_name = 'client/callloghome.html'
+    template_name = 'client/callloghome_wrap.html'
     context_object_name = 'calllog'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(ClientCallLogHome, self).get_context_data(self, **kwargs)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(ClientCallLogHome, self).get_context_data(self, **kwargs)
+        context['calllog_list'] = ClientCallLog.objects.all().order_by('-call_date', 'call_time')
+        return context
 
 
 class SalesCallLogHome(ListView):
@@ -241,6 +245,9 @@ class SalesProspectView(View):
 
 
 class ClientView(View):
+    """
+    View to create a new Client
+    """
     form_class = Client
     template_name = 'client/addclient.html'
     form_list = form_generator(3)
@@ -274,6 +281,12 @@ class ClientView(View):
 
 
 def editsalesprospect(request, pk):
+    """
+    View to Edit a Sales Prospect
+    @param request: request.
+    @param pk: pk of Sales obj.
+    @return: http.
+    """
     template_name = 'client/editsalesprospect.html'
     form_list = form_generator(3)
     sales = SalesProspect.objects.get(pk=pk)
@@ -337,6 +350,12 @@ def editsalesprospect(request, pk):
 
 
 def convert_to_client(request, pk):
+    """
+    View to convert a SalesProspect to a Client.
+    @param request: request.
+    @param pk: Sales PK.
+    @return: http.
+    """
     pass
     template_name = 'client/salestoclient.html'
     form_list = form_generator(3)
@@ -394,6 +413,12 @@ def convert_to_client(request, pk):
 
 
 def editclient(request, pk):
+    """
+    View to edit a Client.
+    @param request: request.
+    @param pk: Client PK.
+    @return: http.
+    """
     template_name = 'client/editclient.html'
     form_list = form_generator(3)
     client = Client.objects.get(pk=pk)
@@ -450,22 +475,26 @@ class ClientCallLogView(View):
     @return: http response.
     """
     form_class = ClientCallLog
-    template_name = 'client/addclientcalllog.html'
+    template_name = 'client/addcalllog.html'
     form_list = form_generator(1)
+    calllog_dict = {
+        'call_date': date.today().strftime("%Y-%m-%d"),
+        'call_time': datetime.now().time().strftime("%H:%M"),
+    }
 
-    def post(self, request, form_list=form_list, *args, **kwargs):
+    def post(self, request, form_list=form_list, calllog_dict=calllog_dict, *args, **kwargs):
         form_list[0] = ClientCallLogForm(request.POST)
 
-        validation = validation_helper(form_list)
         if validation_helper(form_list):
-            calllog = create_calllog_helper(request, client)
-            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.client_id}))
+            calllog = create_client_calllog_helper(form_list[0])
+            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': calllog.client_id.client_id}))
         else:
+            form_list[0] = ClientCallLogForm(calllog_dict)
             return render(request, self.template_name, dict_generator(form_list))
 
-    def get(self, request, form_list=form_list, *args, **kwargs):
-        form_list[0] = ClientCallLogForm()
-        return render(request, template_name, dict_generator(form_list))
+    def get(self, request, form_list=form_list, calllog_dict=calllog_dict, *args, **kwargs):
+        form_list[0] = ClientCallLogForm(calllog_dict)
+        return render(request, self.template_name, dict_generator(form_list))
 
 
 def addclientcalllog(request, pk):
@@ -497,6 +526,9 @@ def addclientcalllog(request, pk):
 
 
 class CallLogDetailView(DetailView):
+    """
+    Client Call Log Detail View.
+    """
     model = ClientCallLog
     client_id = 'pk'
     template_name = 'client/clientcalllogdetails.html'
@@ -508,6 +540,9 @@ class CallLogDetailView(DetailView):
 
 
 class ClientCallLogIndex(DetailView):
+    """
+    CallLog index view for Client.
+    """
     model = Client
     client_id = 'pk'
     template_name = 'client/clientcalllogindex.html'
@@ -524,6 +559,12 @@ class ClientCallLogIndex(DetailView):
 
 
 def addsalescalllog(request, pk):
+    """
+    View to add a SalesProspect CallLog.
+    @param request: request.
+    @param pk: Sales PK.
+    @return: http.
+    """
     template_name = 'client/addsalescalllog.html'
     form_list = form_generator(1)
     form_list[0] = SalesProspectCallLogForm(request.POST)
@@ -546,6 +587,9 @@ def addsalescalllog(request, pk):
 
 
 class SalesCallLogDetailView(DetailView):
+    """
+    SalesProspect CallLog detail view.
+    """
     model = SalesProspectCallLog
     client_id = 'pk'
     template_name = 'client/salescalllogdetails.html'
@@ -557,6 +601,9 @@ class SalesCallLogDetailView(DetailView):
 
 
 class SalesCallLogIndex(DetailView):
+    """
+    SalesProspect CallLog index view.
+    """
     model = SalesProspect
     sales_id = 'pk'
     template_name = 'client/salescalllogindex.html'

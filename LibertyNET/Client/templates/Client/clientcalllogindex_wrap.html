@@ -1,0 +1,90 @@
+{% extends '__form_base.html' %}
+{% load mytags %}
+{% block body_block %}
+    <body onload="initialize()">
+{% endblock %}
+{% block form_header %}
+{% include "mainheader_nograph.html" with icon="fa fa-group" title="Client Call Log Details" subtitle="Call Log Index" %}
+{% endblock %}
+{% block h4_block %}Add Call{% endblock h4_block %}
+{% block form_breadcrumb %}
+<!-- breadcrumb -->
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="/client/index/">Client Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="fa fa-phone"></i>
+                Add Call Log
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+{% endblock form_breadcrumb %}
+{% block form_content %}
+<div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                10 Most Recent
+              </a>
+            </div>
+            <div id="collapseTwo" class="accordion-body collapse">
+              <div class="accordion-inner padded">
+                <div class="box">
+              <div class="box-header"><span class="title">Clients</span></div>
+                  <div class="box-content">
+                        <div id="dataTables">
+                        <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
+                        <thead>
+                        <tr>
+                          <th><div>Client ID</div></th>
+                          <th><div>Client Name</div></th>
+                          <th><div>Action</div></th>
+                        </tr>
+                        </thead>
+                        <tbody role="alert" aria-live="polite" aria-relavent="all">
+                        {% for e in most_recent %}
+                        <tr>
+                          <td class="sorting_1">{{e.client_number}}</td>
+                          <td>{{e.first_name}} {{e.last_name}}</td>
+                          <td>
+                              <ul>
+                                  <li>
+                          <div class="btn-group">
+                                <button class="btn btn-xs btn-default dropdown-toggle"
+                                        data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="{{ e.get_absolute_url }}">Client Details</a></li>
+                                  <li><a href="{{ billing_detail.get_absolute_url_edit }}">Billing Info</a></li>
+                                  <li><a href="{{ site_detail.get_absolute_url }}">Site Details</a></li>
+                                  <li><a href="{{ client_detail.get_absolute_url_calllog }}">Call Log</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="#">Separated link</a></li>
+                                </ul>
+                              </div>
+                                  </li>
+                                  </ul>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                        </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+{% endblock %}
