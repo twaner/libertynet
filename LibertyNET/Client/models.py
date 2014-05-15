@@ -416,14 +416,6 @@ class ClientCallLog(CallLog):
         return 'Client: %s Purpose: %s Call Date: %s Time: %s' % (self.client_id, self.purpose,
                                                                   self.call_date, self.call_time)
 
-    @property
-    def next_call(self):
-        """
-        Gets next contact time for client.
-        @return: next contact time for client.
-        """
-        return '%s' % self.next_contact
-
     def get_absolute_url(self):
         return reverse('Client:clientcalllogdetails', kwargs={'pk': self.id})
 
@@ -436,6 +428,7 @@ class ClientCallLog(CallLog):
     # TODO Create views
     # def get_absolute_url_edit(self):
     #     return reverse('Client:editclientcalllogdetails', kwargs={'pk': self.id})
+
 
 class SalesProspectCallLog(CallLog):
     id = models.AutoField(primary_key=True)
@@ -454,10 +447,6 @@ class SalesProspectCallLog(CallLog):
 
     def get_absolute_url_index(self):
         return reverse('Client:salescalllogindex', kwargs={'pk': self.sales_id.sales_prospect_id})
-
-    @property
-    def next_call(self):
-        return '%s' % self.next_contact
 
     @property
     def full_details(self):

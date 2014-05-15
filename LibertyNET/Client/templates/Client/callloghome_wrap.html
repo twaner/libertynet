@@ -17,57 +17,60 @@
       <div class="accordion-group">
         <div class="accordion-heading">
           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-            All Clients
+            Client Call Log
           </a>
         </div>
         <div id="collapseOne" class="accordion-body collapse in">
           <div class="accordion-inner padded">
             <div class="box">
-              <div class="box-header"><span class="title">Clients</span></div>
-                  <div class="box-content">
-                        <div id="dataTables">
-                        <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
-                        <thead>
-                        <tr>
-                          <th><div>Client Name</div></th>
-                          <th><div>Call Date</div></th>
-                          <th><div>Caller</div></th>
-                          <th><div>Actions</div></th>
-                        </tr>
-                        </thead>
-                            <tbody role="alert" aria-live="polite" aria-relavent="all">
-                            {% if calllog %}
-                              {% for e in calllog %}
-                                <tr>
-                                  <td class="sorting_1">{{e.client_id}}</td>
-                                  <td>{{ e.call_date }}</td>
-                                  <td>{{ e.caller }}</td>
-                                  <td>
-                                      <div class="btn-group">
-                                        <button class="btn btn-xs btn-default dropdown-toggle"
-                                                data-toggle="dropdown"><i class="fa fa-cog"></i></button>
-                                        <ul class="dropdown-menu">
-                                          <li><a href="{{ e.get_absolute_url }}">Call Details</a></li>
-                                          <li><a href="{{ billing_detail.get_absolute_url_edit }}">Edit Call</a></li>
-                                          <li><a href="{{ billing_detail.get_absolute_url_client }}">View Client</a></li>
-                                        </ul>
-                                      </div>
-                                  </td>
-                                </tr>
-                              {% endfor %}
-                              {% else %}
-                              <tr>
-                                  <td>
-                                      No Calls Available
-                                  </td>
-                              </tr>
-                            {% endif %}
-                            </tbody>
-                        </table>
-                        </div>
-                  </div>
+              <div class="box-header">
+                  <span class="title">Calls</span>
               </div>
-            </div>
+                  <div class="box-content">
+                    <div id="dataTables">
+                    <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
+                        <thead>
+                            <tr>
+                              <th><div>Client Name</div></th>
+                              <th><div>Call Date</div></th>
+                              <th><div>Caller</div></th>
+                              <th><div></div></th>
+                            </tr>
+                        </thead>
+                        <tbody role="alert" aria-live="polite" aria-relavent="all">
+                        {% if calllog %}
+                          {% for e in calllog %}
+                            <tr>
+                              <td class="sorting_1">{{e.client_id}}</td>
+                              <td>{{ e.call_date_time }}</td>
+                              <td>{{ e.caller }}</td>
+                              <td>
+                                  <div class="btn-group">
+                                    <button class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="{{ e.get_absolute_url }}">Call Details</a></li>
+                                      <li><a href="{{ billing_detail.get_absolute_url_edit }}">Edit Call</a></li>
+                                      <li><a href="{{ billing_detail.get_absolute_url_client }}">View Client</a></li>
+                                    </ul>
+                                  </div>
+                              </td>
+                            </tr>
+                          {% endfor %}
+                          {% else %}
+                          <tr>
+                              <td>
+                                  No Calls Available
+                              </td>
+                          </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                    </div> <!-- dataTables -->
+                  </div> <!-- box-contents -->
+                  </div> <!-- box -->
+              </div> <!-- accordian-inner-padded -->
+            </div> <!-- collapse-one -->
         </div> <!-- accordion-body collapse in -->
       </div> <!-- accordion-group -->
     </div> <!-- accordion -->

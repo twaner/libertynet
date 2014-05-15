@@ -21,6 +21,9 @@ import operator
 
 
 class ClientListView(ListView):
+    """
+    View of all Clients, Clients sorted by client_date.
+    """
     model = Client
     context_object_name = 'all_client_list'
     template_name = 'client/index_tester.html'
@@ -39,6 +42,9 @@ class ClientListView(ListView):
 
 
 class SalesProspectListView(ListView):
+    """
+    List all Sales Prospects
+    """
     model = SalesProspect
     context_object_name = 'all_sales_prospect_list'
     template_name = 'client/salesprospectindex.html'
@@ -53,12 +59,15 @@ class ClientCallLogHome(ListView):
     context_object_name = 'calllog'
 
     def get_context_data(self, **kwargs):
-        context = super(ClientCallLogHome, self).get_context_data(self, **kwargs)
+        context = super(ClientCallLogHome, self).get_context_data(**kwargs)
         context['calllog_list'] = ClientCallLog.objects.all().order_by('-call_date', 'call_time')
         return context
 
 
 class SalesCallLogHome(ListView):
+    """
+    View for Sales Prospect Call Logs
+    """
     model = SalesProspectCallLog
     template_name = 'client/salescallloghome.html'
     context_object_name = 'calllog'
@@ -83,6 +92,9 @@ class SalesCallLogHome(ListView):
 
 
 class ClientDetailView(DetailView):
+    """
+    View for Client Details.
+    """
     model = Client
     client_id = 'pk'
     context_object_name = 'client_detail'
@@ -111,6 +123,9 @@ class ClientDetailView(DetailView):
 
 
 class ClientDetailViewWrap(DetailView):
+    """
+    View for Client Details.
+    """
     model = Client
     client_id = 'pk'
     context_object_name = 'client_detail'
@@ -139,6 +154,9 @@ class ClientDetailViewWrap(DetailView):
 
 
 class ClientDetailViewWO(DetailView):
+    """
+    View for Client Details.
+    """
     model = Client
     client_id = 'pk'
     context_object_name = 'client_detail'
@@ -162,6 +180,9 @@ class ClientDetailViewWO(DetailView):
 
 
 class SalesProspectDetailView(DetailView):
+    """
+    View for Sales Prospect Details.
+    """
     model = SalesProspect
     sales_prospect_id = 'pk'
     template_name = 'client/salesprospectdetails.html'
@@ -187,6 +208,9 @@ class SalesProspectDetailView(DetailView):
 
 
 class SalesProspectDetailViewWrap(DetailView):
+    """
+    View for Sales Prospect Details.
+    """
     model = SalesProspect
     sales_prospect_id = 'pk'
     template_name = 'client/salesdetails_wrap.html'
@@ -217,6 +241,9 @@ class SalesProspectDetailViewWrap(DetailView):
 
 
 class SalesProspectView(View):
+    """
+    View to add Sales Prospect.
+    """
     form_class = SalesProspect
     template_name = 'client/addsalessprospect.html'
     form_list = form_generator(3)
@@ -246,7 +273,7 @@ class SalesProspectView(View):
 
 class ClientView(View):
     """
-    View to create a new Client
+    View to create a new Client.
     """
     form_class = Client
     template_name = 'client/addclient.html'

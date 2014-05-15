@@ -1,3 +1,4 @@
+from __builtin__ import property
 from django.db import models
 from django.utils.encoding import force_bytes
 from django.core.exceptions import ValidationError
@@ -569,5 +570,17 @@ class CallLog(models.Model):
 
     class Meta:
         abstract = True
+
+    @property
+    def next_call(self):
+        """
+        Gets next contact time for client.
+        @return: next contact time for client.
+        """
+        return '%s' % self.next_contact
+
+    @property
+    def call_date_time(self):
+        return '%s %s' % (self.call_date, self.call_time)
 
 #endregion
