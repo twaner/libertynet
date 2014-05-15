@@ -1,6 +1,6 @@
 {% extends 'wrap_base.html' %}
 {% block content %}
-<div class="main-content">
+<div class="main-content"> <!-- Surrounds whole page -->
   <div class="container">
     <div class="row">
       <div class="area-top clearfix">
@@ -29,9 +29,9 @@
             <div class="sparkline big"><!--3,19,3,9,7--></div>
           </li>
         </ul>
-      </div>
-    </div>
-  </div> <!-- Header -->
+      </div> <!-- area-top clearfix -->
+    </div> <!-- row -->
+  </div> <!-- container -->
 
   <!-- Breadcrumb line -->
   <div class="container padded">
@@ -70,7 +70,7 @@
           <span class="triangle-button red"><i class="icon-plus"></i></span>
       </div>
       <div class="col-sm-2 action-nav-button">
-       <a href="#" title="Messages">
+       <a href="{% url 'Client:callloghome' %}" title="Messages">
         <i class="icon-comments-alt"></i>
         <span>Client Calls</span>
        </a>
