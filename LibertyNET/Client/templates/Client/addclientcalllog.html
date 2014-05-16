@@ -39,6 +39,8 @@
             <label>{{ i.label|title|cut:"_" }}</label>
             {% if i.name == "client_id" or i.name == "caller"%}
                 {{ i|addcss:"form-control" }}
+            {% elif i.name == 'next_contact' %}
+               {{ i }}
             {% else %}
                 {{ i }}
             {% endif %}

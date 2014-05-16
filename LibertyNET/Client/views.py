@@ -55,7 +55,7 @@ class ClientCallLogHome(ListView):
     View for list of all Client Calls
     """
     model = ClientCallLog
-    template_name = 'client/callloghome_wrap.html'
+    template_name = 'client/callloghome.html'
     context_object_name = 'calllog'
 
     def get_context_data(self, **kwargs):
@@ -579,7 +579,7 @@ class ClientCallLogIndex(DetailView):
         context = super(ClientCallLogIndex, self).get_context_data(**kwargs)
         client = self.get_object()
         context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id)\
-            .order_by('call_date', 'call_time')
+            .order_by('-call_date', 'call_time')
         context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
 
         return context
