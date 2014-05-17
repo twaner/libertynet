@@ -2,6 +2,7 @@ from models import Client, SalesProspect, SalesProspectCallLog, ClientCallLog
 from Common.helpermethods import boolean_helper
 from Employee.models import Employee
 from Site.models import Site
+from datetime import date, datetime
 
 #region Client
 

@@ -40,7 +40,8 @@
         this.language = this.language in dates ? this.language : "en";
         this.isRTL = dates[this.language].rtl || false;
         this.formatType = options.formatType || this.element.data('format-type') || 'standard';
-        this.format = DPGlobal.parseFormat(options.format || this.element.data('date-format') || DPGlobal.getDefaultFormat(this.formatType, 'input'), this.formatType);
+        // this.format = DPGlobal.parseFormat(options.format || this.element.data('date-format') || DPGlobal.getDefaultFormat(this.formatType, 'input'), this.formatType);
+        this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'yyyy-dd-mm');
         this.isInline = false;
         this.isVisible = false;
         this.isInput = this.element.is('input');

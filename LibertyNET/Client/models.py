@@ -2,7 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from Common.models import Person, CallLog
-from datetime import date
+from datetime import date, datetime
 
 
 #region ModelManagers
@@ -160,6 +160,8 @@ class ClientCallLogManager(models.Manager):
         @param next_contact: Next date to contact.
         @return: ClientCallLog.
         """
+        call_date = date.strftime(call_date, "%Y-%m-%d")
+        next_contact = date.strftime(next_contact, "%Y-%m-%d")
         calllog = self.create(client_id=client_id, caller=caller, call_date=call_date, call_time=call_time,
                               purpose=purpose, notes=notes, next_contact=next_contact)
         calllog.save()
