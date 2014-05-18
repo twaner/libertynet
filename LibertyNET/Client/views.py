@@ -17,7 +17,7 @@ from Common.helpermethods import create_address_helper, form_generator, create_c
 from Site.models import Site
 import operator
 
-#region ListViews
+#region ListViews - Index Views of All of an Object
 
 
 class ClientListView(ListView):
@@ -76,19 +76,7 @@ class SalesCallLogHome(ListView):
     #     context = super(SalesProspectCallLog, self).get_context_data(self, **kwargs)
     #     return context
 
-#region DetailViews
-
-
-# class ClientDetailIndexView(ListView):
-#     model = Client
-#     context_object_name = 'all_client_list'
-#     template_name = 'client/index.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(ClientDetailIndexView, self).get_context_data(**kwargs)
-#         client = self.get_object()
-#         context['most_recent'] = client.objects.order_by('client_date')[3]
-#         return context
+#region DetailViews - Details for an Object.
 
 
 class ClientDetailView(DetailView):
@@ -241,7 +229,7 @@ class SalesProspectDetailViewWrap(DetailView):
 
 #endregion
 
-#region AddViews
+#region AddViews - Views for creating an Object.
 
 
 class SalesProspectView(View):

@@ -7,7 +7,7 @@ from Client.views import ClientListView, ClientDetailView, ClientView, editclien
 
 from Common.views import addclientbilling, editclientbilling, addcalllist, updatecalllist, \
     CallListDetails
-from Site.views import SiteDetailView
+from Site.views import SiteDetailView, addclientsite
 
 urlpatterns = patterns('',
                        url(r'^index/$', ClientListView.as_view(), name='index'),
@@ -38,6 +38,9 @@ urlpatterns = patterns('',
                        url(r'clientcalllogindex/(?P<pk>[\d-]+)/$', ClientCallLogIndex.as_view(),
                            name='clientcalllogindex'),
                        url(r'^callloghome/$', ClientCallLogHome.as_view(), name='callloghome'),
+                       # Site
+                       url(r'addclientsite/(?P<pk>[\d-]+)/$', addclientsite,
+                           name='addclientsite'),
 
                        # SalesProspect
                        url(r'^salesprospectindex/$', SalesProspectListView.as_view(), name='salesprospectindex'),

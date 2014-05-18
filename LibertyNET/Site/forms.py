@@ -26,7 +26,7 @@ class MonitoringForm(forms.ModelForm):
 class SiteForm(forms.ModelForm):
     class Meta:
         model = Site
-        fields = '__all__'
+        exclude = ['site_address', 'site_call_list']
 
 
 class ZoneForm(forms.ModelForm):

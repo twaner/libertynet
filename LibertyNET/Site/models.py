@@ -8,14 +8,14 @@ from django.core.exceptions import ValidationError
 
 class SiteManager(models.Manager):
 
-    def create_client_site(self, site_client, site_name):
+    def create_client_site(self, site_client, site_address, site_name):
         """
         Creates a site with only a client.
         @rtype : Site
         @param site_client: Client related to site.
         @return: Site.
         """
-        site = self.create(site_client=site_client, site_name=site_name)
+        site = self.create(site_client=site_client, site_address=site_address, site_name=site_name)
         site.save()
         return site
 
@@ -111,7 +111,14 @@ class Site(models.Model):
     #ALTER TABLE `libertynet11`.`Site_site` ADD COLUMN `site_name` VARCHAR(45) NOT NULL  AFTER `site_client_id` ;
     site_name = models.CharField(max_length=45)
     # TODO - Add Site Address
-    #site_address = models.ForeignKey('Common.Address')
+    site_address = models.ForeignKey('Common.Address')
+    # ALTER TABLE `libertynet11`.`Site_site` ADD COLUMN `site_address_id` INT(11) NOT NULL COMMENT 'Site\'s Address'  AFTER `site_name` ,
+    #   ADD CONSTRAINT `site_address_id`
+    #   FOREIGN KEY (`site_address_id` )
+    #   REFERENCES `libertynet11`.`Common_address` (`id` )
+    #   ON DELETE NO ACTION
+    #   ON UPDATE NO ACTION
+    # , ADD INDEX `site_address_id_idx` (`site_address_id` ASC) ;
 
     objects = SiteManager()
 

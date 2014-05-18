@@ -1,0 +1,72 @@
+{% extends '__form_base.html' %}
+{% load mytags %}
+{% block body_block %}
+    <body onload="initialize()">
+{% endblock %}
+{% block form_header %}
+{% include "mainheader_nograph.html" with icon="fa fa-group" title="Add Client Site" subtitle="Create Client Site" %}
+{% endblock %}
+{% block h4_block %}Add Site Information{% endblock h4_block %}
+{% block form_breadcrumb %}
+<!-- breadcrumb -->
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="/client/index/">Client Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="fa fa-phone"></i>
+                Add Client Site
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+{% endblock form_breadcrumb %}
+{% block form_content %}
+    {% for i in form0 %}
+        <li>
+            <label>{{ i.label|title|cut:"_" }}</label>
+            {% if i.name == "state" %}
+                {{ i }}
+            {% else %}
+                {{ i }}
+            {% endif %}
+        </li>
+    {% endfor %}
+    <label>Address Information:</label>
+    <div id="locationField">
+        <input id="autocomplete" placeholder="Enter address"
+        onFocus="geolocate()" type="text" />
+    </div>
+    {% for i in form1 %}
+    <li>
+        <label>{{ i.label|title|cut:"_" }}</label>
+        {% if i.name == "state" %}
+            {{ i|addcss:"form-control" }}
+        {% else %}
+            {{ i }}
+        {% endif %}
+    </li>
+    {% endfor %}
+    {% for i in form2 %}
+        <li>
+            <label>{{ i.label|title|cut:"_" }}</label>
+            {% if i.name == "state" %}
+                {{ i }}
+            {% else %}
+                {{ i }}
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endblock %}
