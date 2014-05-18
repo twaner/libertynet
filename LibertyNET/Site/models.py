@@ -8,14 +8,14 @@ from django.core.exceptions import ValidationError
 
 class SiteManager(models.Manager):
 
-    def create_client_site(self, site_client):
+    def create_client_site(self, site_client, site_name):
         """
         Creates a site with only a client.
         @rtype : Site
         @param site_client: Client related to site.
         @return: Site.
         """
-        site = self.create(site_client=site_client)
+        site = self.create(site_client=site_client, site_name=site_name)
         site.save()
         return site
 
@@ -108,6 +108,10 @@ class Site(models.Model):
     site_client = models.ForeignKey('Client.Client')
     site_call_list = models.ManyToManyField('Common.CallList', blank=True, null=True)
     # TODO - Add Site Alias
+    #ALTER TABLE `libertynet11`.`Site_site` ADD COLUMN `site_name` VARCHAR(45) NOT NULL  AFTER `site_client_id` ;
+    site_name = models.CharField(max_length=45)
+    # TODO - Add Site Address
+    #site_address = models.ForeignKey('Common.Address')
 
     objects = SiteManager()
 
@@ -136,6 +140,9 @@ class Site(models.Model):
     def get_absolute_url(self):
         return reverse('Client:sitedetails', kwargs={'pk': self.site_id})
 
+    @property
+    def get_site_name(self):
+        return '%s' % self.site_name
 
 class System(models.Model):
     system_id = models.AutoField(primary_key=True)

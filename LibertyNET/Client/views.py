@@ -60,7 +60,7 @@ class ClientCallLogHome(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ClientCallLogHome, self).get_context_data(**kwargs)
-        context['calllog_list'] = ClientCallLog.objects.all().order_by('-call_date', 'call_time')
+        context['calllog_list'] = ClientCallLog.objects.all().order_by('-call_date', '-call_time')
         return context
 
 
@@ -115,7 +115,10 @@ class ClientDetailView(DetailView):
         except ObjectDoesNotExist:
             pass
         try:
-            context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id).order_by('-call_date', 'call_time')
+            context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id).\
+                order_by('-call_date', '-call_time')
+            context['calllog_follow'] = ClientCallLog.objects.filter(client_id=client.client_id).\
+                filter(follow_up=True)
             context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
         except ObjectDoesNotExist:
             pass
@@ -146,7 +149,8 @@ class ClientDetailViewWrap(DetailView):
         except ObjectDoesNotExist:
             pass
         try:
-            context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id).order_by('-call_date', 'call_time')
+            context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id).\
+                order_by('-call_date', '-call_time')
             context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
         except ObjectDoesNotExist:
             pass
@@ -640,7 +644,7 @@ class SalesCallLogIndex(DetailView):
         context = super(SalesCallLogIndex, self).get_context_data(**kwargs)
         sales = self.get_object()
         context['calllog_list'] = SalesProspectCallLog.objects.filter(sales_id=sales.sales_prospect_id)\
-            .order_by('call_date', 'call_time')
+            .order_by('-call_date', '-call_time')
         context['next_contact'] = SalesProspectCallLog.objects.get_next_contact_date(sales)
 
         return context

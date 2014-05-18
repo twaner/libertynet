@@ -1,6 +1,6 @@
 from models import Address, Contact, Card, Billing, CallList, Genre
 from django.db import models
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import types
 
 #region Address Helpers
@@ -399,6 +399,8 @@ def get_function_name(func):
     return func.__name__.upper()
 
 
+#region Date and Time Helpers
+
 def time_str_to_time(time_str):
     """
     Converts a string representation of time into a datetime.time object.
@@ -446,6 +448,17 @@ def time_diff(start, end):
 
 def time_delta_to_str(td):
         return ':'.join(str(timedelta(hours=td)).split(':')[:2])
+
+
+def date_change(num):
+    """
+    Adds num to today's Date.
+    @param num: number of days to add.
+    @return: future date.
+    """
+    return (date.today() + timedelta(days=num)).strftime("%Y-%m-%d")
+
+#region Assert Helpers
 
 
 def assert_equals_worker(self, expected, got):

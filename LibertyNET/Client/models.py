@@ -2,7 +2,8 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from Common.models import Person, CallLog
-from datetime import date, datetime
+from Common.helpermethods import boolean_helper
+from datetime import date
 
 
 #region ModelManagers
@@ -148,7 +149,7 @@ class SalesProspectManager(models.Manager):
 
 
 class ClientCallLogManager(models.Manager):
-    def create_client_calllog(self, client_id, caller, call_date, call_time, purpose, notes, next_contact):
+    def create_client_calllog(self, client_id, caller, call_date, call_time, purpose, notes, next_contact, follow_up):
         """
         Creates a ClientCallLog.
         @param client_id: Client Id.
@@ -162,8 +163,9 @@ class ClientCallLogManager(models.Manager):
         """
         call_date = date.strftime(call_date, "%Y-%m-%d")
         next_contact = date.strftime(next_contact, "%Y-%m-%d")
+        follow_up = boolean_helper(follow_up)
         calllog = self.create(client_id=client_id, caller=caller, call_date=call_date, call_time=call_time,
-                              purpose=purpose, notes=notes, next_contact=next_contact)
+                              purpose=purpose, notes=notes, next_contact=next_contact, follow_up=follow_up)
         calllog.save()
         return calllog
 
@@ -180,7 +182,7 @@ class ClientCallLogManager(models.Manager):
 
 
 class SalesProspectCallLogManager(models.Manager):
-    def create_sales_calllog(self, sales_id, caller, call_date, call_time, purpose, notes, next_contact):
+    def create_sales_calllog(self, sales_id, caller, call_date, call_time, purpose, notes, next_contact, follow_up):
         """
         Creates a SalesProspectCallLog.
         @param sales_id: SalesProspect Id.
@@ -192,8 +194,11 @@ class SalesProspectCallLogManager(models.Manager):
         @param next_contact: Next date to contact.
         @return: SalesProspectCallLog.
         """
+        call_date = date.strftime(call_date, "%Y-%m-%d")
+        next_contact = date.strftime(next_contact, "%Y-%m-%d")
+        follow_up = boolean_helper(follow_up)
         calllog = self.create(sales_id=sales_id, caller=caller, call_date=call_date, call_time=call_time,
-                              purpose=purpose, notes=notes, next_contact=next_contact)
+                              purpose=purpose, notes=notes, next_contact=next_contact, follow_up=follow_up)
         calllog.save()
         return calllog
 

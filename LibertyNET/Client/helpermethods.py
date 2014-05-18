@@ -163,19 +163,20 @@ def create_calllog_helper(request, obj):
     purpose = request.POST.get('purpose')
     notes = request.POST.get('notes')
     next_contact = request.POST.get('next_contact')
+    follow_up = request.POST.get('follow_up')
 
     if isinstance(obj, Client):
         client_id = obj
         calllog = ClientCallLog.objects.create_client_calllog(client_id=client_id, caller=caller, call_date=call_date,
                                                               call_time=call_time, purpose=purpose, notes=notes,
-                                                              next_contact=next_contact)
+                                                              next_contact=next_contact, follow_up=follow_up)
         return calllog
     elif isinstance(obj, SalesProspect):
         sales_id = obj
         calllog = SalesProspectCallLog.objects.create_sales_calllog(sales_id=sales_id, caller=caller,
                                                                     call_date=call_date, call_time=call_time,
                                                                     purpose=purpose, notes=notes,
-                                                                    next_contact=next_contact)
+                                                                    next_contact=next_contact, follow_up=follow_up)
         return calllog
 
 
@@ -193,10 +194,11 @@ def create_client_calllog_helper(form):
     purpose = form.cleaned_data['purpose']
     notes = form.cleaned_data['notes']
     next_contact = form.cleaned_data['next_contact']
+    follow_up = form.cleaned_data['follow_up']
 
     calllog = ClientCallLog.objects.create_client_calllog(client_id=client_id, caller=caller, call_date=call_date,
                                                           call_time=call_time, purpose=purpose, notes=notes,
-                                                          next_contact=next_contact)
+                                                          next_contact=next_contact, follow_up=follow_up)
     return calllog
 
 
@@ -214,11 +216,12 @@ def create_sales_calllog_helper(form):
     purpose = form.cleaned_data['purpose']
     notes = form.cleaned_data['notes']
     next_contact = form.cleaned_data['next_contact']
+    follow_up = form.cleaned_data['follow_up']
 
     calllog = SalesProspectCallLog.objects.create_sales_calllog(sales_id=sales_id, caller=caller,
                                                                 call_date=call_date, call_time=call_time,
                                                                 purpose=purpose, notes=notes,
-                                                                next_contact=next_contact)
+                                                                next_contact=next_contact, follow_up=follow_up)
     return calllog
 
 #endregion

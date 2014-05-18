@@ -61,10 +61,11 @@ class SalesProspectEditForm(forms.ModelForm):
 class ClientCallLogForm(forms.ModelForm):
     class Meta:
         model = ClientCallLog
-        fields = ['client_id', 'caller', 'call_date', 'call_time',
+        fields = ['client_id', 'caller', 'call_date', 'call_time', 'follow_up',
                   'purpose', 'notes', 'next_contact']
         #exclude = ['client_id']
         widgets = {
+            'call_date': forms.DateInput(attrs={'class': 'datepicker'}),
             'next_contact': forms.DateInput(attrs={'class': 'datepicker'}),
             'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3}),
             'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10}),
@@ -73,24 +74,26 @@ class ClientCallLogForm(forms.ModelForm):
         labels = {
             'call_date': _('Date of Call'),
             'call_time': _('Time of Call'),
+            'follow_up': _('Follow Up Required'),
         }
 
 
 class SalesProspectCallLogForm(forms.ModelForm):
     class Meta:
         model = SalesProspectCallLog
-        fields = ['sales_id', 'caller', 'call_date', 'call_time',
+        fields = ['sales_id', 'caller', 'call_date', 'call_time', 'follow_up',
                   'purpose', 'notes', 'next_contact']
         exclude = ['sales_id']
         widgets = {
-            'call_date': BootstrapDateInput,
-            'next_contact': BootstrapDateInput,
+            'call_date': forms.DateInput(attrs={'class': 'datepicker'}),
+            'next_contact': forms.DateInput(attrs={'class': 'datepicker'}),
             'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3}),
             'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10}),
         }
         labels = {
             'call_date': _('Date of Call'),
             'call_time': _('Time of Call'),
+            'follow_up': _('Follow Up Required'),
         }
 
 #endregion

@@ -16,22 +16,17 @@
             </span>
           </h5>
         </div>
-        {% comment %}
         <ul class="list-inline pull-right sparkline-box">
           <li class="sparkline-row">
-            <h4 class="blue"><span>Clients</span> {{ all_client_list|length }} </h4>
-            <div class="sparkline big" data-color="blue"><!--1,2,3,1--></div>
+            <h4 class="blue"><span>Systems</span> 1 </h4>
           </li>
           <li class="sparkline-row">
-            <h4 class="green"><span>New Clients</span> {{ most_recent|length }}</h4>
-            <div class="sparkline big" data-color="green"><!--1,2,1,0--></div>
+            <h4 class="green"><span>Sites</span> 1</h4>
           </li>
           <li class="sparkline-row">
-            <h4 class="red"><span>New Leads</span> 7</h4>
-            <div class="sparkline big"><!--3,19,3,9,7--></div>
+            <h4 class="red"><span>Invoices</span> 7</h4>
           </li>
         </ul>
-        {% endcomment %}
       </div>
     </div>
   </div>
@@ -93,6 +88,14 @@
                               <li>
                                   {{ client_detail.get_full_name }}
                               </li>
+                          {% if client_detail.is_a_business == True %}
+                              <strong>
+                                  Business Name
+                              </strong>
+                              <li>
+                                  {{ client_detail.business_name }}
+                              </li>
+                          {% endif %}
                           <strong>Client Address</strong>
                               <address>
                                   {{ address_detail.street }}
@@ -329,7 +332,7 @@
                             <a href="#" class="tip" title data-original-title="Calls requiring follow up">
                             {% if calllog_list %}
                                 <span class="label label-red">
-                                    {{ calllog_list|length }}
+                                    {{ calllog_follow|length }}
                                 </span>
                             {% endif %}
                             </a>
@@ -359,16 +362,23 @@
                           </div>
                         </li>
                     </ul>
-                </div>
+                </div> <!-- box-header -->
                 <div class="box-content scrollable" style="height: 280px; overflow-y: auto">
                     <!-- loop through calls -->
                     {% if calllog_list %}
                         {% for c in calllog_list %}
                             <div class="box-section news with-icons">
-                                <div class="avatar blue">
-                                    <!-- icon based on call status -->
-                                    <i class="icon-ok icon-2x"></i>
-                                </div>
+                                {% if c.requires_follow_up == False %}
+                                    <div class="avatar green">
+                                        <!-- icon based on call status -->
+                                        <i class="icon-ok icon-2x"></i>
+                                    </div>
+                                {% else %}
+                                    <div class="avatar cyan">
+                                        <!-- icon based on call status -->
+                                        <i class="icon-mobile-phone icon-2x"></i>
+                                    </div>
+                                {% endif %}
                                 <div class="news-time">
                                     <p>{{ c.call_date }}</p>
                                     <p>{{ c.call_time }}</p>
@@ -384,7 +394,7 @@
                             </div>
                         {% endfor %}
                     {% endif %}
-                </div>
+                </div> <!-- box-content scrollable -->
             </div>
           </div>
           <!-- Right Column 2nd Row -->

@@ -3,6 +3,8 @@ import factory.fuzzy
 from models import Client, ClientCallLog, SalesProspect, SalesProspectCallLog
 from Common.factories import *
 from Employee.factories import *
+from Common.helpermethods import date_change
+
 
 #region Client Factories
 
@@ -96,11 +98,12 @@ class ClientCallLogFactory(factory.DjangoModelFactory):
     id = factory.fuzzy.FuzzyInteger(19, 50)
     client_id = factory.SubFactory(ClientFactoryBusiness)
     caller = factory.SubFactory(EmployeeDjangoFactory)
-    call_date = '2014-02-16'
+    call_date = date_change(-4)
     call_time = '13:13'
     purpose = 'ClientCallLog purpose'
     notes = 'ClientCallLog notes'
-    next_contact = '2014-04-16'
+    next_contact = date_change(20)
+    follow_up = False
 
 
 class SalesProspectCallLogFactory(factory.DjangoModelFactory):
@@ -108,12 +111,36 @@ class SalesProspectCallLogFactory(factory.DjangoModelFactory):
     id = factory.fuzzy.FuzzyInteger(19, 50)
     sales_id = factory.SubFactory(SalesProspectResidentialFactory)
     caller = factory.SubFactory(EmployeeFactory)
-    call_date = '2014-02-16'
+    call_date = date_change(-4)
     call_time = '13:13'
     purpose = 'ClientCallLog purpose'
     notes = 'ClientCallLog notes'
-    next_contact = '2014-04-16'
+    next_contact = date_change(20)
+    follow_up = False
 
 
+class ClientCallLogFollowFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = ClientCallLog
+    id = factory.fuzzy.FuzzyInteger(19, 50)
+    client_id = factory.SubFactory(ClientFactoryBusiness)
+    caller = factory.SubFactory(EmployeeDjangoFactory)
+    call_date = date_change(-4)
+    call_time = '13:13'
+    purpose = 'ClientCallLog purpose'
+    notes = 'ClientCallLog notes'
+    next_contact = date_change(20)
+    follow_up = True
 
+
+class SalesProspectCallLogFollowFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = SalesProspectCallLog
+    id = factory.fuzzy.FuzzyInteger(19, 50)
+    sales_id = factory.SubFactory(SalesProspectResidentialFactory)
+    caller = factory.SubFactory(EmployeeFactory)
+    call_date = date_change(-4)
+    call_time = '13:13'
+    purpose = 'ClientCallLog purpose'
+    notes = 'ClientCallLog notes'
+    next_contact = date_change(20)
+    follow_up = True
 #endregion

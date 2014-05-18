@@ -4,6 +4,7 @@ from django.utils.encoding import force_bytes
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from datetime import date
+#from Common.helpermethods import boolean_helper
 
 
 #region Choices
@@ -562,8 +563,9 @@ class CallLog(models.Model):
     notes = models.CharField(max_length=500)
     next_contact = models.DateField()
     ## 5/5/2014 - Added
-    # follow_up = models.BooleanField(blank=True, null=True)
-    # followed_up = models.BooleanField(default=False, blank=True, null=True)
+    follow_up = models.BooleanField(default=False)
+    #ALTER TABLE `libertynet11`.`Client_clientcalllog` ADD COLUMN `follow_up` TINYINT(1) NOT NULL  AFTER `client_id_id` ;
+    #ALTER TABLE `libertynet11`.`Client_salesprospectcalllog` ADD COLUMN `follow_up` TINYINT(1) NOT NULL  AFTER `sales_id_id` ;
 
     def clean(self):
         pass
@@ -582,5 +584,14 @@ class CallLog(models.Model):
     @property
     def call_date_time(self):
         return '%s %s' % (self.call_date, self.call_time)
+
+    @property
+    def requires_follow_up(self):
+        """
+        Is a follow_up required. Uses boolean_helper to handle.
+        @return: boolean.
+        """
+        return self.follow_up
+
 
 #endregion
