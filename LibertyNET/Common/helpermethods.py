@@ -384,7 +384,9 @@ def boolean_helper(*args):
     """
     worker = True
     print('before boolean_helper', args[0])
-    if args[0] is None or args[0] == 'None' or args[0] == '':
+    if not args[0]:
+        worker = False
+    elif args[0] is None or args[0] == 'None' or args[0] == '':
         worker = False
     print('After boolean_helper', worker)
     return worker

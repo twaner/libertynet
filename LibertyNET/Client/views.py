@@ -117,9 +117,9 @@ class ClientDetailView(DetailView):
         try:
             context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id).\
                 order_by('-call_date', '-call_time')
-            context['calllog_follow'] = ClientCallLog.objects.filter(client_id=client.client_id).\
-                filter(follow_up=True)
-            context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
+            # context['calllog_follow'] = ClientCallLog.objects.filter(client_id=client.client_id).\
+            #     filter(follow_up=True)
+            # context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
         except ObjectDoesNotExist:
             pass
         return context
