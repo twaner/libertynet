@@ -43,7 +43,7 @@ class ClientListView(ListView):
 
 class SalesProspectListView(ListView):
     """
-    List all Sales Prospects
+    View to List all Sales Prospects
     """
     model = SalesProspect
     context_object_name = 'all_sales_prospect_list'
@@ -52,7 +52,7 @@ class SalesProspectListView(ListView):
 
 class ClientCallLogHome(ListView):
     """
-    View for list of all Client Calls
+    View to list all Client Calls
     """
     model = ClientCallLog
     template_name = 'client/callloghome.html'
@@ -246,7 +246,7 @@ class SalesProspectDetailViewWrap(DetailView):
 
 class SalesProspectView(View):
     """
-    View to add Sales Prospect.
+    View to Add Sales Prospect.
     """
     form_class = SalesProspect
     template_name = 'client/addsalessprospect.html'
@@ -277,7 +277,7 @@ class SalesProspectView(View):
 
 class ClientView(View):
     """
-    View to create a new Client.
+    View to Add a new Client.
     """
     form_class = Client
     template_name = 'client/addclient.html'
@@ -292,11 +292,11 @@ class ClientView(View):
         if validation:
             address = create_address_helper(request)
             contact = create_contact_helper(request)
-            client = create_client_helper(request, address, contact)
+            client = create_client_helper(form_list[0], address, contact)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': client.client_id}))
         else:
-            return render(request, self.template_name, dict_generator(form_list))
+            return render(form_list[0], self.template_name, dict_generator(form_list))
 
     def get(self, request, form_list=form_list, *args, **kwargs):
         form_list[0] = ClientForm()
@@ -430,11 +430,11 @@ def convert_to_client(request, pk):
         if validation:
             a = update_address_helper(request, address)
             c = update_contact_helper(request, contact)
-            cl = update_client_helper(request, client, a, c)
+            cl = update_client_helper(form_list[0], client, a, c)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': cl.client_id}))
         else:
-            return render(request, template_name, dict_generator(form_list))
+            return render(form_list[0], template_name, dict_generator(form_list))
     else:
         form_list[0] = ClientForm(client_dict)
         form_list[1] = AddressForm(address_dict)
@@ -483,7 +483,7 @@ def editclient(request, pk):
         if validation:
             a = update_address_helper(request, address)
             c = update_contact_helper(request, contact)
-            cl = update_client_helper(request, client, a, c)
+            cl = update_client_helper(form_list[0], client, a, c)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': cl.client_id}))
 
