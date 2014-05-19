@@ -34,7 +34,7 @@ class EmployeeManager(models.Manager):
                                emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
                                pay_rate=pay_rate,
                                is_terminated=False, termination_date=None, termination_reason=None)
-        print("EMP_TITLE==>", type(emp_title))
+        print("create_employee - EMP_TITLE %s" % type(emp_title))
         employee.save(commit=False)
         [employee.emp_title.add(et) for et in emp_title]
         employee.save()
@@ -66,7 +66,7 @@ class EmployeeManager(models.Manager):
                                emp_contact=emp_contact, hire_date=hire_date, pay_type=pay_type,
                                pay_rate=pay_rate)
 
-        print("EMP_TITLE==>", type(emp_title))
+        print("create_employee - EMP_TITLE %s" % type(emp_title))
         employee.save(commit=False)
         [employee.emp_title.add(et) for et in emp_title]
         employee.save()

@@ -34,14 +34,11 @@
 </div> <!-- container padded -->
 {% endblock form_breadcrumb %}
 {% block form_content %}
+    <label>Site Information:</label>
     {% for i in form0 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
-            {% if i.name == "state" %}
-                {{ i }}
-            {% else %}
-                {{ i }}
-            {% endif %}
+            {{ i }}
         </li>
     {% endfor %}
     <label>Address Information:</label>
@@ -59,14 +56,22 @@
         {% endif %}
     </li>
     {% endfor %}
+    <label>Call List Information:</label>
     {% for i in form2 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
-            {% if i.name == "state" %}
-                {{ i }}
+            {% if i.name == "cl_order" or i.name == 'cl_genre' %}
+                 {{ i|addcss:"form-control" }}
             {% else %}
                 {{ i }}
             {% endif %}
+        </li>
+    {% endfor %}
+    <label>Site Contact Information:</label>
+    {% for i in form3 %}
+        <li>
+            <label>{{ i.label|title|cut:"_" }}</label>
+                {{ i }}
         </li>
     {% endfor %}
 {% endblock %}

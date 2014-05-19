@@ -28,6 +28,13 @@ class SiteForm(forms.ModelForm):
         model = Site
         exclude = ['site_address', 'site_call_list']
 
+        # 'disabled': 'true',
+        widgets = {
+            'site_client': forms.Select(attrs={
+                                               'onfocus': 'this.defaultIndex=this.selectedIndex;',
+                                               'onchange': 'this.selectedIndex=this.defaultIndex;'}),
+        }
+
 
 class ZoneForm(forms.ModelForm):
     class Meta:

@@ -33,6 +33,8 @@ class SiteFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Site
     site_id = factory.Sequence(lambda n: '%04d' % n, type=int)
     site_client = factory.SubFactory(cf.ClientFactory)
+    site_name = 'Home'
+    site_address = factory.SubFactory(comf.AddressFactory)
 
     @factory.post_generation
     def add_call_list(self, create, extracted, **kwargs):

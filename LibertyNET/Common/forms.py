@@ -55,8 +55,7 @@ class EmployeeContactForm(forms.ModelForm):
 class CallListContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        exclude = ['cell', 'office_phone', 'office_phone_extension',
-                   'website', 'email', 'work_email']
+        exclude = ['cell', 'website', 'email', 'work_email']
         labels = {
             'phone': _('Phone'),
             'phone_extension': _('Phone Ext.'),
@@ -105,6 +104,7 @@ class InstallerForm(forms.ModelForm):
 #endregion
 
 #region CallListForms
+
 
 class CallListForm(forms.ModelForm):
     class Meta:

@@ -18,10 +18,13 @@
         </div>
         <ul class="list-inline pull-right sparkline-box">
           <li class="sparkline-row">
+            <h4 class="blue"><span>Follow Ups</span> {{ calllog_follow|length }} </h4>
+          </li>
+          <li class="sparkline-row">
             <h4 class="blue"><span>Systems</span> 1 </h4>
           </li>
           <li class="sparkline-row">
-            <h4 class="green"><span>Sites</span> 1</h4>
+            <h4 class="green"><span>Sites</span> {{ site_detail|length }} </h4>
           </li>
           <li class="sparkline-row">
             <h4 class="red"><span>Invoices</span> 7</h4>
@@ -283,7 +286,7 @@
                                     <button class="btn btn-xs btn-default dropdown-toggle"
                                             data-toggle="dropdown"><i class="fa fa-cog"></i></button>
                                     <ul class="dropdown-menu">
-                                      <li><a href="{{ e.get_absolute_url_edit }}">Add Site</a></li>
+                                      <li><a href="{{ client_detail.get_absolute_url_add_site }}">Add Client Site</a></li>
                                     </ul>
                                   </div>
                                 </li>
@@ -300,7 +303,9 @@
                                                       {{ s.site_client }}
                                                   </td>
                                                   <td>
-                                                     {{ s.get_site_name }}
+                                                      <a href="{{ s.get_absolute_url }}">
+                                                        {{ s.get_site_name }}
+                                                      </a>
                                                   </td>
                                                   <td>
                                                       {{ s.top_calllist }}

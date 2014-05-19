@@ -189,7 +189,7 @@ def create_calllog_helper(form, obj):
     @param obj: Client or Sales Object.
     @return: CallLog.
     """
-    caller = Employee.objects.get(pk=form.cleaned_data['caller'])
+    caller = Employee.objects.get(pk=form.cleaned_data['caller'].employee_id)
     call_date = form.cleaned_data['call_date']
     call_time = form.cleaned_data['call_time']
     purpose = form.cleaned_data['purpose']

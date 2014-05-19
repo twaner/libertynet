@@ -6,18 +6,18 @@ import types
 #region Address Helpers
 
 
-def create_address_helper(request):
+def create_address_helper(form):
     """
     creates an address object based on request data.
     @param request: request data.
     @return: address object.
     """
-    street = request.POST.get('street')
-    unit = request.POST.get('unit')
-    city = request.POST.get('city')
-    state = request.POST.get('state')
-    zip_code = request.POST.get('zip_code')
-    address = Address.objects.create(street=street, unit=unit, city=city, state=state, zip_code=zip_code)
+    street = form.cleaned_data['street']
+    unit = form.cleaned_data['unit']
+    city = form.cleaned_data['city']
+    state = form.cleaned_data['state']
+    zip_code = form.cleaned_data['zip_code']
+    address = Address.objects.create_address(street=street, unit=unit, city=city, state=state, zip_code=zip_code)
     return address
 
 
@@ -78,25 +78,41 @@ def update_contact_employee_helper(request, contact):
     return contact
 
 
-def create_contact_helper(request):
+def create_contact_helper(form):
     """
     Creates employee based contact object based on request info.
     @param request: request.
     @return: contact object.
     """
-    phone = request.POST.get('phone')
-    phone_extension = request.POST.get('phone_extension')
-    cell = request.POST.get('cell')
-    email = request.POST.get('email')
-    work_email = request.POST.get('work_email')
-    office = request.POST.get('office_phone')
-    office_ext = request.POST.get('office_phone_extension')
-    website = request.POST.get('website')
+    phone = form.cleaned_data['phone']
+    phone_extension = form.cleaned_data['phone_extension']
+    cell = form.cleaned_data['cell']
+    email = form.cleaned_data['email']
+    work_email = form.cleaned_data['work_email']
+    office = form.cleaned_data['office_phone']
+    office_ext = form.cleaned_data['office_phone_extension']
+    website = form.cleaned_data['website']
     contact = Contact.objects.create(phone=phone, phone_extension=phone_extension,
                                      cell=cell, office_phone=office,
                                      office_phone_extension=office_ext,
                                      email=email, work_email=work_email,
                                      website=website)
+    contact.save()
+    return contact
+
+
+def create_contact_client_calllog_helper(form):
+    """
+    Creates employee based contact object based on request info.
+    @param request: request.
+    @return: contact object.
+    """
+    phone = form.cleaned_data['phone']
+    phone_extension = form.cleaned_data['phone_extension']
+    office = form.cleaned_data['office_phone']
+    office_ext = form.cleaned_data['office_phone_extension']
+    contact = Contact.objects.create(phone=phone, phone_extension=phone_extension,
+                                     office_phone=office, office_phone_extension=office_ext)
     contact.save()
     return contact
 
@@ -199,29 +215,28 @@ def update_billing_helper(request, billing, address, card):
 #region CallList
 
 
-def create_call_list_helper(request, contact, site):
+def create_call_list_helper(form, contact):
     """
     Creates a Call List.
-    @param request: request.
+    @param form: request.
     @param contact: Contact.
-    @param site: Site.
     @return: Call List.
     """
-    first_name = request.POST.get('first_name')
-    middle_initial = request.POST.get('middle_initial')
-    last_name = request.POST.get('last_name')
+    first_name = form.cleaned_data['first_name']
+    middle_initial = form.cleaned_data['middle_initial']
+    last_name = form.cleaned_data['last_name']
     cl_contact = contact
-    cl_order = request.POST.get('cl_order')
-    cl_is_enabled = boolean_helper(request.POST.get('cl_is_enabled'))
-    cl_genre = Genre.objects.get(pk=request.POST.get('cl_genre'))
+    cl_order = form.cleaned_data['cl_order']
+    cl_is_enabled = boolean_helper(form.cleaned_data['cl_is_enabled'])
+    cl_genre = Genre.objects.get(pk=form.cleaned_data['cl_genre'].genre_id)
 
-    print('type', type(cl_genre))
     call_list = CallList.objects.create_call_list(first_name=first_name, last_name=last_name,
                                                   middle_initial=middle_initial, cl_contact=cl_contact,
                                                   cl_order=cl_order, cl_is_enabled=cl_is_enabled,
                                                   cl_genre=cl_genre)
     call_list.save()
-    site.site_call_list.add(call_list)
+    # TODO uncomment?
+    #site.site_call_list.add(call_list)
     return call_list
 
 
@@ -312,15 +327,21 @@ def validation_helper(form_list):
     @param form_list: list of forms.
     @return: Boolean based on validation.
     """
+    invalid = 0
     for i in form_list:
         if not i.is_valid():
-            print('VALIDATION_HELPER ==> %s |||| %s' % ((i.errors), len(i.errors)))
-            return False
+            invalid += 1
+            print('VALIDATION_HELPER ==> Errors: %s | Num Errors: %s /n ' % (i.errors, len(i.errors)))
+            # for q in i:
+            #     print('validation_helper: %s' % q.name_of_field.errors)
         else:
-            return True
-    """
-    q = [False if not i.is_valid() else True for i in form_list]
-    """
+            i.is_valid()
+            print('VALIDATION_HELPER ==> %s ' % i.is_valid())
+    print('validation_helper invalid=%s' % invalid)
+    if invalid >= 1:
+        return False
+    else:
+        return True
 
 
 def form_generator(n):

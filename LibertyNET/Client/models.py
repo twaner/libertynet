@@ -242,13 +242,6 @@ class Client(Person):
         """
         return reverse('Client:details', kwargs={'pk': self.client_id})
 
-    def get_absolute_url_wrap(self):
-        """
-        Gets details view url.
-        @return: details view url.
-        """
-        return reverse('Client:clientdetails_wrap', kwargs={'pk': self.client_id})
-
     def get_absolute_url_edit(self):
         """
         Gets edit view url.
@@ -279,6 +272,13 @@ class Client(Person):
         @return: client call log index view url.
         """
         return reverse('Client:clientcalllogindex', kwargs={'pk': self.client_id})
+
+    def get_absolute_url_add_site(self):
+        """
+        Gets link to add Site for a specific client.
+        @return:
+        """
+        return reverse('Client:addclientsite', kwargs={'pk': self.client_id})
 
     def clean(self):
         """

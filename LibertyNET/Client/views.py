@@ -105,9 +105,9 @@ class ClientDetailView(DetailView):
         try:
             context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id).\
                 order_by('-call_date', '-call_time')
-            # context['calllog_follow'] = ClientCallLog.objects.filter(client_id=client.client_id).\
-            #     filter(follow_up=True)
-            # context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
+            context['calllog_follow'] = ClientCallLog.objects.filter(client_id=client.client_id).\
+                filter(follow_up=True)
+            context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
         except ObjectDoesNotExist:
             pass
         return context
@@ -247,8 +247,8 @@ class SalesProspectView(View):
 
         validation = validation_helper(form_list)
         if validation:
-            address = create_address_helper(request)
-            contact = create_contact_helper(request)
+            address = create_address_helper(form_list[1])
+            contact = create_contact_helper(form_list[2])
             sales_prospect = create_sales_prospect_helper(request, address=address, contact=contact)
             return HttpResponseRedirect(reverse('Client:salesprospectdetails',
                                                 kwargs={'pk': sales_prospect.sales_prospect_id}))
@@ -278,13 +278,13 @@ class ClientView(View):
 
         validation = validation_helper(form_list)
         if validation:
-            address = create_address_helper(request)
-            contact = create_contact_helper(request)
+            address = create_address_helper(form_list[1])
+            contact = create_contact_helper(form_list[2])
             client = create_client_helper(form_list[0], address, contact)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': client.client_id}))
         else:
-            return render(form_list[0], self.template_name, dict_generator(form_list))
+            return render(request, self.template_name, dict_generator(form_list))
 
     def get(self, request, form_list=form_list, *args, **kwargs):
         form_list[0] = ClientForm()
@@ -534,7 +534,7 @@ def addclientcalllog(request, pk):
 
     if request.method == 'POST':
         if validation_helper(form_list):
-            calllog = create_calllog_helper(request, client)
+            calllog = create_calllog_helper(form_list[0], client)
             return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.client_id}))
         else:
             form_list[0] = ClientCallLogForm(calllog_dict)

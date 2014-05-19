@@ -48,7 +48,7 @@ def addemployee(request):
 
         validation = validation_helper(form_list)
         if validation:
-            address = create_address_helper(request)
+            address = create_address_helper(form_list[1])
             contact = create_employee_contact_helper(request)
             employee = create_employee_worker(request, address, contact)
             return HttpResponseRedirect(reverse('Employee:index'))

@@ -394,7 +394,7 @@ class Contact(models.Model):
             return "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.office_phone)
         else:
             phone = "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.office_phone)
-            return '%s ext. %s' % (self.office_phone, self.office_phone_extension)
+            return '%s ext. %s' % (phone, self.office_phone_extension)
 
 
 class CallList(Person):
@@ -423,7 +423,7 @@ class CallList(Person):
     call_list_id = models.AutoField(primary_key=True)
     cl_contact = models.ForeignKey('Common.Contact')
     #2-16 ==> INTEGER => CHAR FIELD
-    cl_order = models.CharField(choices=NUMBER_CHOICES2, max_length=11)
+    cl_order = models.IntegerField(choices=NUMBER_CHOICES2, max_length=11)
     cl_is_enabled = models.BooleanField(default=True)
     cl_genre = models.ForeignKey('Common.Genre')
 
@@ -432,7 +432,8 @@ class CallList(Person):
     objects = CallListManager()
 
     def get_absolute_url(self):
-        return reverse('Common.views.CallListDetails', args=[str(self.call_list_id)])
+        return reverse('Common.views.CallListDetails', kwargs={'pk': self.call_list_id})
+        #args=[str(self.call_list_id)])
 
     @property
     def is_active(self):

@@ -67,9 +67,9 @@
                     <li>
                         <label>{{ i.name|title|cut:"_" }}</label>
                         {% if i.name == "state" %}
-                        {{ i }}
+                            {{ i|addcss:"form-control" }}
                         {% else %}
-                        {{ i }}
+                            {{ i }}
                         {% endif %}
                     </li>
                     {% endfor %}

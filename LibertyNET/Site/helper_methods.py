@@ -19,7 +19,6 @@ def create_site_helper(form, client, address, calllist):
 
     site = Site.objects.create_client_site(site_client=site_client,
                                            site_address=site_address, site_name=site_name)
-    site.save(commit=False)
     site.site_call_list.add(site_call_list)
     site.save()
     return site

@@ -36,7 +36,7 @@ def addclientbilling(request, pk):
 
         validation = validation_helper(form_list)
         if validation:
-            address = create_address_helper(request)
+            address = create_address_helper(form_list[1])
             card = create_card_helper(request)
             billing = create_billing_helper(request, address=address, card=card)
             client_updated = update_client_billing_helper(client, billing)
