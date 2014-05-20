@@ -22,3 +22,11 @@ def create_site_helper(form, client, address, calllist):
     site.site_call_list.add(site_call_list)
     site.save()
     return site
+
+
+def update_site_helper(form, address, site):
+    site_address = address
+    site_name = form.cleaned_data['site_name']
+
+    site.save(update_fields=['site_address', 'site_name'])
+    return  site

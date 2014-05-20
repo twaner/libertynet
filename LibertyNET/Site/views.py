@@ -11,8 +11,8 @@ from Common.helpermethods import create_address_helper, form_generator, \
 from Client.models import Client
 from Site.models import Site
 from Site.forms import SiteForm
-from Site.helper_methods import create_site_helper
-from Common.models import Address, CallList
+from Site.helper_methods import create_site_helper, update_site_helper
+from Common.models import Address, CallList, Contact
 from Common.forms import AddressForm, CallListForm, CallListContactForm
 
 #region ClientSite
@@ -96,5 +96,39 @@ def addclientsite(request, pk):
 
         return render(request, template_name, dict_generator(form_list))
 
+
+def editclientsite(request, pk):
+    """
+    View to edit Site Details
+    @param request: request.
+    @param pk: Site PK.
+    @return: HttpResponse.
+    """
+    template_name = 'client/editclientsite.html'
+    form_list = form_generator(4)
+    site = Site.objects.get(pk=pk)
+    address = Address.objects.get(pk=site.site_address)
+    call_list = CallList.objects.filter(site_id=site.site_id)
+    # Dictionaries to bind forms
+    site_dict = {
+        'site_name': site.site_name, 'site_client': site.site_client,
+    }
+    address_dict = {
+        'street': address.street, 'unit': address.unit, 'city': address.city,
+        'state': address.state, 'zip_code': address.zip_code
+    }
+
+    # POST
+    if request.method == 'POST':
+        form_list[0] = SiteForm(request.POST)
+        form_list[1] = AddressForm(request.POST)
+
+        if validation_helper(form_list):
+            a = update_address_helper(request, address)
+            site = update_site_helper(form_list[0], a, site)
+    else:
+        form_list[0] = SiteForm(site_dict)
+        form_list[1] = AddressForm(address_dict)
+        form_list[2] = CallListForm(call_list_dict)
 
 #endregion

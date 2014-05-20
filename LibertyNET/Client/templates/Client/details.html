@@ -300,7 +300,9 @@
                                               {% for s in site_detail %}
                                               <tr>
                                                   <td>
-                                                      {{ s.site_client }}
+                                                      <a href="{{ s.get_absolute_url }}">
+                                                        {{ s.site_client }}
+                                                      </a>
                                                   </td>
                                                   <td>
                                                       <a href="{{ s.get_absolute_url }}">

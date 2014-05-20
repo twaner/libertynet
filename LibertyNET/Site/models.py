@@ -107,11 +107,9 @@ class Site(models.Model):
     site_id = models.AutoField(primary_key=True)
     site_client = models.ForeignKey('Client.Client')
     site_call_list = models.ManyToManyField('Common.CallList', blank=True, null=True)
-    # TODO - Add Site Alias
-    #ALTER TABLE `libertynet11`.`Site_site` ADD COLUMN `site_name` VARCHAR(45) NOT NULL  AFTER `site_client_id` ;
     site_name = models.CharField(max_length=45)
-    # TODO - Add Site Address
     site_address = models.ForeignKey('Common.Address')
+    #ALTER TABLE `libertynet11`.`Site_site` ADD COLUMN `site_name` VARCHAR(45) NOT NULL  AFTER `site_client_id` ;
     # ALTER TABLE `libertynet11`.`Site_site` ADD COLUMN `site_address_id` INT(11) NOT NULL COMMENT 'Site\'s Address'  AFTER `site_name` ,
     #   ADD CONSTRAINT `site_address_id`
     #   FOREIGN KEY (`site_address_id` )
