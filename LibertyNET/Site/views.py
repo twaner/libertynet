@@ -52,6 +52,7 @@ class SiteDetailView(DetailView):
         context['client_detail'] = Client.objects.get(pk=client.client_id)
         context['address_detail'] = Address.objects.get(pk=client.client_address_id)
         context['calllist_detail'] = site.site_call_list.all().order_by('cl_order')
+        context['calllist_active'] = site.site_call_list.filter(cl_is_enabled=True)
 
         return context
 
@@ -107,8 +108,8 @@ def editclientsite(request, pk):
     template_name = 'client/editclientsite.html'
     form_list = form_generator(4)
     site = Site.objects.get(pk=pk)
-    address = Address.objects.get(pk=site.site_address)
-    call_list = CallList.objects.filter(site_id=site.site_id)
+    address = Address.objects.get(pk=site.site_address.id)
+    call_list = CallList.objects.filter(site=site.site_id)
     # Dictionaries to bind forms
     site_dict = {
         'site_name': site.site_name, 'site_client': site.site_client,
@@ -126,9 +127,15 @@ def editclientsite(request, pk):
         if validation_helper(form_list):
             a = update_address_helper(request, address)
             site = update_site_helper(form_list[0], a, site)
+            return HttpResponseRedirect(reverse('Client:sitedetails',
+                                        kwargs={'pk': site.site_id}))
+        else:
+            return render(request, template_name, dict_generator(form_list))
+
     else:
         form_list[0] = SiteForm(site_dict)
         form_list[1] = AddressForm(address_dict)
-        form_list[2] = CallListForm(call_list_dict)
+        #form_list[2] = CallListForm(call_list)
+        return render(request, template_name, dict_generator(form_list))
 
 #endregion

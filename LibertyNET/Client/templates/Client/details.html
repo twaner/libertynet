@@ -153,6 +153,15 @@
                               </span>
                               <ul class="box-toolbar">
                                 <li>
+                                    <a href="#" class="tip" title data-original-title="Total Alarms">
+                                    {% if calllog_list %}
+                                        <span class="label label-blue">
+                                            2
+                                        </span>
+                                    {% endif %}
+                                    </a>
+                                </li>
+                                <li>
                                   <div class="btn-group">
                                     <button class="btn btn-xs btn-default dropdown-toggle"
                                             data-toggle="dropdown"><i class="fa fa-cog"></i></button>
@@ -216,6 +225,15 @@
                                   Camera Systems
                               </span>
                               <ul class="box-toolbar">
+                                <li>
+                                    <a href="#" class="tip" title data-original-title="Total Cameras">
+                                    {% if calllog_list %}
+                                        <span class="label label-blue">
+                                            3
+                                        </span>
+                                    {% endif %}
+                                    </a>
+                                </li>
                                 <li>
                                   <div class="btn-group">
                                     <button class="btn btn-xs btn-default dropdown-toggle"
@@ -282,6 +300,15 @@
                               </span>
                               <ul class="box-toolbar">
                                 <li>
+                                    <a href="#" class="tip" title data-original-title="Total Sites">
+                                    {% if calllog_list %}
+                                        <span class="label label-blue">
+                                            {{ site_detail|length }}
+                                        </span>
+                                    {% endif %}
+                                    </a>
+                                </li>
+                                <li>
                                   <div class="btn-group">
                                     <button class="btn btn-xs btn-default dropdown-toggle"
                                             data-toggle="dropdown"><i class="fa fa-cog"></i></button>
@@ -333,7 +360,7 @@
                     <span class="title">
                         Call Log
                     </span>
-                    <!-- number of calls of some importance total calls for now-->
+                    <!-- detail boxes for hearder -->
                     <ul class="box-toolbar">
                         <li>
                             <a href="#" class="tip" title data-original-title="Calls requiring follow up">
@@ -353,8 +380,6 @@
                             {% endif %}
                             </a>
                         </li>
-                    </ul>
-                    <ul class="box-toolbar">
                         <li>
                           <div class="btn-group">
                             <button class="btn btn-xs btn-default dropdown-toggle"
@@ -414,7 +439,26 @@
                                   <i class="fa fa-file"></i>
                                   Invoices
                               </span>
+                              <!-- detail boxes for hearder -->
                               <ul class="box-toolbar">
+                                <li>
+                                    <a href="#" class="tip" title data-original-title="Total Invoices">
+                                    {% if calllog_list %}
+                                        <span class="label label-blue">
+                                            2
+                                        </span>
+                                    {% endif %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="tip" title data-original-title="Past Due Invoices">
+                                    {% if calllog_list %}
+                                        <span class="label label-red">
+                                            2
+                                        </span>
+                                    {% endif %}
+                                    </a>
+                                </li>
                                 <li>
                                   <div class="btn-group">
                                     <button class="btn btn-xs btn-default dropdown-toggle"

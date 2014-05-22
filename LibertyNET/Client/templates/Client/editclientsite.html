@@ -4,7 +4,7 @@
     <body onload="initialize()">
 {% endblock %}
 {% block form_header %}
-{% include "mainheader_nograph.html" with icon="fa fa-group" title="Edit Client Site" subtitle="Edit Client Site" %}
+{% include "mainheader_nograph.html" with icon="fa fa-group" title="Edit Client Site" subtitle="Edit Client Site Details and Address" %}
 {% endblock %}
 {% block h4_block %}Edit Site Information{% endblock h4_block %}
 {% block form_breadcrumb %}
@@ -20,6 +20,13 @@
           <span class="breadcrumb-label">
             <i class="fa fa-group"></i>
               <a href="/client/index/">Client Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="#">Client Details</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
@@ -55,16 +62,5 @@
             {{ i }}
         {% endif %}
     </li>
-    {% endfor %}
-    <label>Call List Information:</label>
-    {% for i in form2 %}
-        <li>
-            <label>{{ i.label|title|cut:"_" }}</label>
-            {% if i.name == "cl_order" or i.name == 'cl_genre' %}
-                 {{ i|addcss:"form-control" }}
-            {% else %}
-                {{ i }}
-            {% endif %}
-        </li>
     {% endfor %}
 {% endblock %}

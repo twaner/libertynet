@@ -25,7 +25,7 @@
         <div class="breadcrumb-button">
           <span class="breadcrumb-label">
             <i class="fa fa-group"></i>
-              <a href="/client/index/">Client Details - Add URL</a>
+              <a href="{{ client_detail.get_absolute_url }}">Client Details</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
@@ -112,6 +112,24 @@
                     <!-- number of calls of some importance total calls for now-->
                     <ul class="box-toolbar">
                         <li>
+                            <a href="#" class="tip" title data-original-title="Active Call Lists">
+                            {% if calllist_detail %}
+                                <span class="label label-blue">
+                                    {{ calllist_active|length }}
+                                </span>
+                            {% endif %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="tip" title data-original-title="Inactive Call Lists">
+                            {% if calllist_detail %}
+                                <span class="label label-blue">
+                                    {{ calllist_detail|length|add:"-calllist_active|length" }}
+                                </span>
+                            {% endif %}
+                            </a>
+                        </li>
+                        <li>
                             <a href="#" class="tip" title data-original-title="Total Site Call Lists">
                             {% if calllist_detail %}
                                 <span class="label label-blue">
@@ -120,7 +138,7 @@
                             {% endif %}
                             </a>
                         </li>
-                    <ul class="box-toolbar">
+
                         <li>
                           <div class="btn-group">
                             <button class="btn btn-xs btn-default dropdown-toggle"
