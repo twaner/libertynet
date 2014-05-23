@@ -432,8 +432,11 @@ class CallList(Person):
     objects = CallListManager()
 
     def get_absolute_url(self):
-        return reverse('Common.views.CallListDetails', kwargs={'pk': self.call_list_id})
-        #args=[str(self.call_list_id)])
+        return reverse('Client:calllistdetails', kwargs={'pk': self.call_list_id})
+
+    def get_absolute_url_edit(self):
+        return reverse('Client:editclientcalllist', kwargs={'pk': self.call_list_id})
+
 
     @property
     def is_active(self):

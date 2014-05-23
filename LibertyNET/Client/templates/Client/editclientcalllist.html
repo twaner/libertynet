@@ -1,18 +1,62 @@
-{% extends 'base.html' %}
+{% extends '__form_base.html' %}
+{% load mytags %}
 {% block body_block %}
     <body onload="initialize()">
 {% endblock %}
-    {% load bootstrap_toolkit %}
-{% block content %}
-        <form action="" method="post">
-        {% csrf_token %}
-        <p>Edit Call List Information</p>
-        <p>Call List Information:</p>
-        {{ form0 }}
-        <p>Contact Information:</p>
-        {{ form1 }}
-        <div class="form-actions">
-            <input type="submit" value="Submit" class="btn btn-primary" />
+{% block form_header %}
+{% include "mainheader_nograph.html" with icon="fa fa-group" title="Edit Call List" subtitle="Edit Call List Details" %}
+{% endblock %}
+{% block h4_block %}Edit Site Information{% endblock h4_block %}
+{% block form_breadcrumb %}
+<!-- breadcrumb -->
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
         </div>
-    </form>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="/client/index/">Client Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="#">Client Details</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="fa fa-phone"></i>
+                Edit Call List Site
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+{% endblock form_breadcrumb %}
+{% block form_content %}
+    <label>Call List Information:</label>
+    {% for i in form0 %}
+        <li>
+            <label>{{ i.label|title|cut:"_" }}</label>
+            {{ i }}
+        </li>
+    {% endfor %}
+    <label>Contact Information:</label>
+    {% for i in form1 %}
+        <li>
+        <label>{{ i.label|title|cut:"_" }}</label>
+        {% if i.name == "state" %}
+            {{ i|addcss:"form-control" }}
+        {% else %}
+            {{ i }}
+        {% endif %}
+        </li>
+    {% endfor %}
 {% endblock %}

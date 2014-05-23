@@ -1,12 +1,91 @@
-{% extends 'base.html' %}
-{% load bootstrap_toolkit %}
+{% extends '__form_ro_base.html' %}
+{% load mytags %}
+{% load humanize %}
+{% block body_block %}
+<body onload="initialize()" xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+{% block form_header %}
+{% include "mainheader_nograph.html" with icon="fa fa-phone" title="Call List Details" subtitle="Detailed Call List Information" %}
+{% endblock %}
 
+{% block form_breadcrumb %}
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="/client/index/">Client Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="{{ client_detail.get_absolute_url }}">Client Details</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="fa fa-phone"></i>
+                Call List Details
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+{% endblock form_breadcrumb %}
+{% block h4_block %}Call List and Contact Details{% endblock h4_block %}
+
+{% block cog_block %}
+ <ul class="box-toolbar">
+    <li>
+      <div class="btn-group">
+        <button class="btn btn-xs btn-default dropdown-toggle"
+                data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+        <ul class="dropdown-menu">
+          <li><a href="{{ calllist_detail.get_absolute_url_edit }}">Edit Call List Details</a></li>
+        </ul>
+      </div>
+    </li>
+</ul>
+{% endblock cog_block %}
+
+{% block form_content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="box-content padded">
+            {% if calllist_detail %}
+                <label>Call List Details:</label>
+                <p>{{ calllist_detail.cl_genre }}</p>
+                <label>Contact Name:</label>
+                <p>{{ calllist_detail.calllist_contact_name }}</p>
+                <label>Call List Order:</label>
+                <p>{{ calllist_detail.calllist_order|ordinal }}</p>
+                <label>Call List Enabled:</label>
+                <p>{{ calllist_detail.is_active }}</p>
+            {% endif %}
+            {% if contact_detail %}
+                <label>Phone:</label>
+                <p>{{ contact_detail.phone_extension_helper }}</p>
+            {% endif %}
+        </div> <!-- box-content padded -->
+    </div>
+</div>
+{% endblock %}
+
+{% comment %}
 {% block content %}
         {% if calllist_detail %}
             <p>Call List Details:</p>
             <p>{{ calllist_detail.cl_genre }}</p>
             <p>{{ calllist_detail.calllist_contact_name }}</p>
-            <p>{{ calllist_detail.calllist_order }}</p>
+            <p>{{ calllist_detail.calllist_order|ordinal }}</p>
             <p>{{ calllist_detail.is_active }}</p>
         {% endif %}
         {% if contact_detail %}
@@ -14,3 +93,16 @@
             <p>{{ contact_detail.phone_extension_helper }}</p>
         {% endif %}
 {% endblock %}
+
+<table class="table-bordered table-striped responsive">
+                <tbody>
+                    <tr>
+                        <td width=​"40%">​Simple text field​</td>​
+                        <td width="60%">{{ calllist_detail.cl_genre }}</td>
+                    </tr>
+                    <td width="40%">40</td>
+                        <td width="60%">60</td>
+                    </tr>
+                </tbody>
+            </table>
+{% endcomment %}

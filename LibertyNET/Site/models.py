@@ -149,6 +149,7 @@ class Site(models.Model):
     def get_site_name(self):
         return '%s' % self.site_name
 
+
 class System(models.Model):
     system_id = models.AutoField(primary_key=True)
     # System must be at a Site

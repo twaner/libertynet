@@ -171,12 +171,18 @@
                                     </div>
                                 {% endif %}
                                 <div class="news-time">
-                                    <p>Order: {{ c.get_cl_order_display }}</p>
+                                    <p>
+                                        <a href="{{ c.get_absolute_url }}">
+                                            Order: {{ c.get_cl_order_display }}
+                                        </a>
+                                    </p>
                                     <p>{{ c.is_active }}</p>
                                 </div>
                                 <div class="news-content">
                                     <div class="news-title">
-                                        <a href="#">{{ c.cl_genre }}</a>
+                                        <a href="{{ c.get_absolute_url }}">
+                                            {{ c.cl_genre }}
+                                        </a>
                                     </div>
                                     <div class="news-text">
                                        {{ c.cl_contact }}
@@ -188,7 +194,6 @@
                 </div> <!-- box-content scrollable -->
             </div> <!-- box -->
         </div> <!-- row -->
-    </form>
 {% endblock %}
 
 
