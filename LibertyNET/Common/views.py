@@ -108,7 +108,7 @@ class CallListDetails(DetailView):
         context = super(CallListDetails, self).get_context_data(**kwargs)
         calllist = self.get_object()
         context['contact_detail'] = Contact.objects.get(pk=calllist.cl_contact_id)
-        #context['site'] = Site.objects.get(=calllist.call_list_id)
+        context['site'] = Site.objects.get(site_call_list=calllist.call_list_id)
         return context
 
 

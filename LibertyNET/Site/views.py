@@ -106,7 +106,7 @@ def editclientsite(request, pk):
     @return: HttpResponse.
     """
     template_name = 'client/editclientsite.html'
-    form_list = form_generator(4)
+    form_list = form_generator(2)
     site = Site.objects.get(pk=pk)
     address = Address.objects.get(pk=site.site_address.id)
     call_list = CallList.objects.filter(site=site.site_id)

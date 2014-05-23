@@ -1,5 +1,6 @@
 {% extends '__form_ro_base.html' %}
 {% load mytags %}
+{% load humanize %}
 {% block body_block %}
 <body onload="initialize()" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
@@ -48,7 +49,7 @@
         <button class="btn btn-xs btn-default dropdown-toggle"
                 data-toggle="dropdown"><i class="fa fa-cog"></i></button>
         <ul class="dropdown-menu">
-          <li><a href="{{ client_detail.get_absolute_url_edit }}">Edit Site Details</a></li>
+          <li><a href="{{ site_detail.get_absolute_url_edit }}">Edit Site Details</a></li>
         </ul>
       </div>
     </li>
@@ -107,7 +108,7 @@
             <div class="box">
                 <div class="box-header">
                     <span class="title">
-                        Site Call Lists
+                        Site Call List{{calllist_detail|length|pluralize }}
                     </span>
                     <!-- number of calls of some importance total calls for now-->
                     <ul class="box-toolbar">
@@ -173,7 +174,7 @@
                                 <div class="news-time">
                                     <p>
                                         <a href="{{ c.get_absolute_url }}">
-                                            Order: {{ c.get_cl_order_display }}
+                                            Order: {{ c.get_cl_order_display|ordinal }}
                                         </a>
                                     </p>
                                     <p>{{ c.is_active }}</p>

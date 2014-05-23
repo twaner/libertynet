@@ -1,4 +1,5 @@
 {% extends 'wrap_base.html' %}
+{% load humanize %}
 {% block content %}
 <!-- Header for container -->
 <div class="main-content">
@@ -133,8 +134,10 @@
                               </li>
                           <strong>Client Since</strong>
                               <li>
-                                  {{ client_detail.client_date }}
+                                  {{ client_detail.client_date|naturalday }}
                               </li>
+                          <strong>Time as Client</strong>
+                                  {{ client_detail.client_date|date:"d M Y"|naturalday }}
                       </div>
                   </div> <!-- box-content scrollable -->
               </div>

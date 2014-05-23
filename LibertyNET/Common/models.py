@@ -1,10 +1,11 @@
+from StdSuites.AppleScript_Suite import return_
 from __builtin__ import property
 from django.db import models
 from django.utils.encoding import force_bytes
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from datetime import date
-#from Common.helpermethods import boolean_helper
+from Site.models import Site
 
 
 #region Choices
@@ -432,14 +433,30 @@ class CallList(Person):
     objects = CallListManager()
 
     def get_absolute_url(self):
+        """
+        Gets absolute url for Call List details view.
+        @return: absolute url.
+        """
         return reverse('Client:calllistdetails', kwargs={'pk': self.call_list_id})
 
     def get_absolute_url_edit(self):
+        """
+        Gets absolute url for Call List edit view.
+        @return: absolute url.
+        """
         return reverse('Client:editclientcalllist', kwargs={'pk': self.call_list_id})
 
+    # def get_calllist_site(self):
+    #     cl = self
+    #     site = Site.objects.get(Site.site_call_list=cl.call_list_id)
+    #     return site.get_absolute_url()
 
     @property
     def is_active(self):
+        """
+        Gets Call List active status.
+        @return: Active status.
+        """
         if self.cl_is_enabled:
             return "Active"
         else:
@@ -566,7 +583,6 @@ class CallLog(models.Model):
     purpose = models.CharField(max_length=150)
     notes = models.CharField(max_length=500)
     next_contact = models.DateField()
-    ## 5/5/2014 - Added
     follow_up = models.BooleanField(default=False)
     #ALTER TABLE `libertynet11`.`Client_clientcalllog` ADD COLUMN `follow_up` TINYINT(1) NOT NULL  AFTER `client_id_id` ;
     #ALTER TABLE `libertynet11`.`Client_salesprospectcalllog` ADD COLUMN `follow_up` TINYINT(1) NOT NULL  AFTER `sales_id_id` ;

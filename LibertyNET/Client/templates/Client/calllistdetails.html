@@ -2,7 +2,7 @@
 {% load mytags %}
 {% load humanize %}
 {% block body_block %}
-<body onload="initialize()" xmlns="http://www.w3.org/1999/html">
+    <body onload="initialize()" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 {% block form_header %}
 {% include "mainheader_nograph.html" with icon="fa fa-phone" title="Call List Details" subtitle="Detailed Call List Information" %}
@@ -26,7 +26,14 @@
         <div class="breadcrumb-button">
           <span class="breadcrumb-label">
             <i class="fa fa-group"></i>
-              <a href="{{ client_detail.get_absolute_url }}">Client Details</a>
+              <a href="{{ site.site_client.get_absolute_url }}">Client Details</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="{{ site.get_absolute_url }}">Site Details</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>

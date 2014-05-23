@@ -1,6 +1,5 @@
 from django.core.urlresolvers import reverse
 from django.db import models
-from Common.models import CallList
 from django.core.exceptions import ValidationError
 
 #region ModelManagers
@@ -144,6 +143,9 @@ class Site(models.Model):
 
     def get_absolute_url(self):
         return reverse('Client:sitedetails', kwargs={'pk': self.site_id})
+
+    def get_absolute_url_edit(self):
+        return reverse('Client:editclientsite', kwargs={'pk': self.site_id})
 
     @property
     def get_site_name(self):
