@@ -8,7 +8,8 @@ from django.views.generic.base import View
 from datetime import date, datetime
 from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
 from helpermethods import create_client_helper, create_sales_prospect_helper, update_client_helper, \
-    update_sales_prospect_helper, create_calllog_helper, create_client_calllog_helper, create_sales_calllog_helper
+    update_sales_prospect_helper, create_calllog_helper, create_client_calllog_helper, create_sales_calllog_helper, \
+    update_call_log_helper
 from forms import ClientForm, SalesProspectForm, SalesProspectEditForm, SalesProspectCallLogForm, ClientCallLogForm
 from Common.forms import AddressForm, ContactForm
 from Common.models import Address, Contact, Billing
@@ -536,6 +537,32 @@ def addclientcalllog(request, pk):
         if validation_helper(form_list):
             calllog = create_calllog_helper(form_list[0], client)
             return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.client_id}))
+        else:
+            form_list[0] = ClientCallLogForm(calllog_dict)
+            return render(request, template_name, dict_generator(form_list))
+    else:
+        form_list[0] = ClientCallLogForm(calllog_dict)
+        return render(request, template_name, dict_generator(form_list))
+
+
+def editclientcall(request, pk):
+    template_name = 'client/editclientcall.html'
+    form_list = form_generator(1)
+    calllog = ClientCallLog.objects.get(pk=pk)
+
+    calllog_dict = {
+        'caller': calllog.caller, 'call_date': calllog.call_date.strftime("%Y-%m-%d"),
+        'call_time': calllog.call_time.strftime("%H:%M"), 'purpose': calllog.purpose,
+        'notes': calllog.notes, 'next_contact': calllog.next_contact,
+        'follow_up': calllog.follow_up, 'client_id': calllog.client_id,
+    }
+
+    if request.method == 'POST':
+        form_list[0] = ClientCallLogForm(request.POST)
+        if validation_helper(form_list):
+            calllog = update_call_log_helper(form_list[0], calllog)
+            return HttpResponseRedirect(reverse('Client:clientcalllogdetails',
+                                                kwargs={'pk': calllog.id}))
         else:
             form_list[0] = ClientCallLogForm(calllog_dict)
             return render(request, template_name, dict_generator(form_list))

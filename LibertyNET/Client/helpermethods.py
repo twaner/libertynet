@@ -1,3 +1,4 @@
+from mock import call
 from models import Client, SalesProspect, SalesProspectCallLog, ClientCallLog
 from Common.helpermethods import boolean_helper
 from Employee.models import Employee
@@ -231,6 +232,34 @@ def create_client_calllog_helper(form):
     calllog = ClientCallLog.objects.create_client_calllog(client_id=client_id, caller=caller, call_date=call_date,
                                                           call_time=call_time, purpose=purpose, notes=notes,
                                                           next_contact=next_contact, follow_up=follow_up)
+    return calllog
+
+
+def update_call_log_helper(form, calllog):
+    """
+    Updates a Client Call Log.
+    @param form: form.
+    @param calllog: CallLog object.
+    @return: CallLog.
+    """
+    calllog.client_id = form.cleaned_data['client_id']
+    calllog.caller = form.cleaned_data['caller']
+    calllog.call_date = form.cleaned_data['call_date']
+    calllog.call_time = form.cleaned_data['call_time']
+    calllog.purpose = form.cleaned_data['purpose']
+    calllog.follow_up = form.cleaned_data['follow_up']
+    calllog.next_contact = form.cleaned_data['next_contact']
+    # Notes are appended with date and 'edit'
+    #notes = calllog.notes + 'Edit - [' + date.today().strftime("%Y-%m-%d") + ']'
+    notes_len = str(calllog.notes).__len__()
+    notes = str(form.cleaned_data['notes'])
+    calllog.notes = notes[0:notes_len] + \
+                    '- Edit - [' + date.today().strftime("%Y-%m-%d") + ']' + \
+        notes[notes_len:-1]
+    #print('update_call_log_helper note %s || newtext %s' % notes_len, calllog.notes)
+    calllog.save(update_fields=['client_id', 'caller', 'call_date',
+                                'call_time', 'purpose', 'follow_up',
+                                'next_contact', 'notes'])
     return calllog
 
 

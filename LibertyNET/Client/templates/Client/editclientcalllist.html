@@ -45,18 +45,18 @@
     {% for i in form0 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
-            {{ i }}
+             {% if i.name == "cl_order" or i.name == 'cl_genre' %}
+                {{ i|addcss:"form-control" }}
+             {% else %}
+                    {{ i }}
+             {% endif %}
         </li>
     {% endfor %}
     <label>Contact Information:</label>
     {% for i in form1 %}
         <li>
         <label>{{ i.label|title|cut:"_" }}</label>
-        {% if i.name == "state" %}
-            {{ i|addcss:"form-control" }}
-        {% else %}
             {{ i }}
-        {% endif %}
         </li>
     {% endfor %}
 {% endblock %}

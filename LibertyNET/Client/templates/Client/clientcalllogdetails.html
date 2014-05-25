@@ -41,7 +41,7 @@
         <button class="btn btn-xs btn-default dropdown-toggle"
                 data-toggle="dropdown"><i class="fa fa-cog"></i></button>
         <ul class="dropdown-menu">
-          <li><a href="{{ client_detail.get_absolute_url_edit }}">Edit Call Details</a></li>
+          <li><a href="{{ calllog.get_absolute_url_edit }}">Edit Call Details</a></li>
         </ul>
       </div>
     </li>
@@ -60,13 +60,21 @@
                     </li>
                     <li>
                         <label>Call Date</label>:
-                        {{ calllog.call_date }} {{ calllog.call_date_time }}
+                        {{ calllog.call_date|date:"D d M Y" }}
+                    </li>
+                    <li>
+                        <label>Call Time</label>:
+                        {{ calllog.get_call_time }}
                     </li>
                     <li>
                        <label>Next Call Date</label>: {{ calllog.next_contact }}
                     </li>
                     <li>
                         <label>Caller</label>: {{ calllog.caller }}
+                    </li>
+                    <li>
+                        <label>Follow Up Required</label>:
+                        <b>{{ calllog.follow_up|yesno:"YES,NO,MAYBE" }}</b>
                     </li>
                     <li>
                         <label>Purpose</label>

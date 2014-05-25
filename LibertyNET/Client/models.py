@@ -432,9 +432,8 @@ class ClientCallLog(CallLog):
     def get_absolute_url_index(self):
         return reverse('Client:clientcalllogindex', kwargs={'pk': self.client_id.client_id})
 
-    # TODO Create views
-    # def get_absolute_url_edit(self):
-    #     return reverse('Client:editclientcalllogdetails', kwargs={'pk': self.id})
+    def get_absolute_url_edit(self):
+        return reverse('Client:editclientcall', kwargs={'pk': self.id})
 
 
 class SalesProspectCallLog(CallLog):

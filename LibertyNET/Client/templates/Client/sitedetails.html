@@ -49,7 +49,11 @@
         <button class="btn btn-xs btn-default dropdown-toggle"
                 data-toggle="dropdown"><i class="fa fa-cog"></i></button>
         <ul class="dropdown-menu">
-          <li><a href="{{ site_detail.get_absolute_url_edit }}">Edit Site Details</a></li>
+          <li>
+              <a href="{{ site_detail.get_absolute_url_edit }}">
+                  Edit Site Details
+              </a>
+          </li>
         </ul>
       </div>
     </li>
@@ -115,21 +119,23 @@
                         <li>
                             <a href="#" class="tip" title data-original-title="Active Call Lists">
                             {% if calllist_detail %}
-                                <span class="label label-blue">
+                                <span class="label label-green">
                                     {{ calllist_active|length }}
                                 </span>
                             {% endif %}
                             </a>
                         </li>
+                        {% comment %}
                         <li>
                             <a href="#" class="tip" title data-original-title="Inactive Call Lists">
                             {% if calllist_detail %}
                                 <span class="label label-blue">
-                                    {{ calllist_detail|length|add:"-calllist_active|length" }}
+                                    {{ calllist_detail|length - calllist_active|length }}
                                 </span>
                             {% endif %}
                             </a>
                         </li>
+                        {% endcomment %}
                         <li>
                             <a href="#" class="tip" title data-original-title="Total Site Call Lists">
                             {% if calllist_detail %}
@@ -160,15 +166,15 @@
                     {% if calllist_detail %}
                         {% for c in calllist_detail %}
                             <div class="box-section news with-icons">
-                                {% if c.is_active %}
+                                {% if c.is_active == 'Active' %}
                                     <div class="avatar green">
                                         <!-- icon based on call status -->
-                                        <i class="icon-ok icon-2x"></i>
+                                        <i class="icon-mobile-phone icon-2x"></i>
                                     </div>
                                 {% else %}
-                                    <div class="avatar red">
+                                    <div class="avatar blue">
                                         <!-- icon based on call status -->
-                                        <i class="icon-mobile-phone icon-2x"></i>
+                                        <i class="icon-ban-circle icon-2x"></i>
                                     </div>
                                 {% endif %}
                                 <div class="news-time">

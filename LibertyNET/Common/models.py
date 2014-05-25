@@ -593,6 +593,9 @@ class CallLog(models.Model):
     class Meta:
         abstract = True
 
+    # def get_maxlength(self, field):
+    #     return self._meta.get_field(field).max_length
+
     @property
     def next_call(self):
         """
@@ -602,8 +605,12 @@ class CallLog(models.Model):
         return '%s' % self.next_contact
 
     @property
-    def call_date_time(self):
+    def get_call_date_time(self):
         return '%s %s' % (self.call_date, self.call_time)
+
+    @property
+    def get_call_time(self):
+        return '%s' % self.call_time
 
     @property
     def requires_follow_up(self):

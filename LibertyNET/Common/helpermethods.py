@@ -331,7 +331,7 @@ def validation_helper(form_list):
     for i in form_list:
         if not i.is_valid():
             invalid += 1
-            print('VALIDATION_HELPER ==> Errors: %s | Num Errors: %s /n ' % (i.errors, len(i.errors)))
+            print('VALIDATION_HELPER ==> Errors: %s | Num Errors: %s \n Form: %s ' % (i.errors, len(i.errors), i))
             # for q in i:
             #     print('validation_helper: %s' % q.name_of_field.errors)
         else:

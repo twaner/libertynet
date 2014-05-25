@@ -30,7 +30,7 @@ class SiteForm(forms.ModelForm):
 
         # 'disabled': 'true',
         widgets = {
-            'site_client': forms.Select(attrs={
+            'site_client': forms.Select(attrs={'class': 'form-control',
                                                'onfocus': 'this.defaultIndex=this.selectedIndex;',
                                                'onchange': 'this.selectedIndex=this.defaultIndex;'}),
         }

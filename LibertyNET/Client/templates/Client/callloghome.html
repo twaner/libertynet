@@ -66,7 +66,7 @@
                           {% for e in calllog_list %}
                             <tr>
                               <td>{{e.client_id}}</td>
-                              <td class="sorting_1">{{ e.call_date_time }}</td>
+                              <td class="sorting_1">{{ e.get_call_date_time }}</td>
                               <td>{{ e.caller }}</td>
                               <td>
                                   <div class="btn-group">

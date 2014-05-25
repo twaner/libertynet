@@ -15,7 +15,7 @@ class ClientForm(forms.ModelForm):
             'is_business': _('Select for commercial accounts.'),
         }
         widgets = {
-            'client_date': forms.DateInput(attrs={'class': 'date picker fill-up'})
+            'client_date': forms.DateInput(attrs={'class': 'datepicker fill-up'})
         }
 
 #endregion
@@ -67,8 +67,16 @@ class ClientCallLogForm(forms.ModelForm):
         widgets = {
             'call_date': forms.DateInput(attrs={'class': 'datepicker'}),
             'next_contact': forms.DateInput(attrs={'class': 'datepicker'}),
-            'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3}),
-            'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10}),
+            'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3,
+                                             'maxlength': ClientCallLog._meta.get_field('purpose').max_length,
+                                             'onkeyup': "charRemaining('id_purpose', 'purpose_span')",
+                                             # 'onload': "initialChar('id_purpose', 'purpose_span')",
+                                             }),
+            'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10,
+                                           'maxlength': ClientCallLog._meta.get_field('notes').max_length,
+                                           'onkeyup': "charRemaining('id_notes', 'notes_span')",
+                                           # 'onload': "initialChar('id_notes', 'notes_span')",
+                                           }),
 
         }
         labels = {
