@@ -571,7 +571,7 @@ def editclientcall(request, pk):
     else:
         form_list[0] = ClientCallLogForm(calllog_dict)
         form_dict = dict_generator(form_list)
-        form_dict['call'] = calllog.id
+        form_dict['call'] = calllog
         return render(request, template_name, form_dict)
 
 

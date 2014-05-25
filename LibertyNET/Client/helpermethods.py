@@ -249,13 +249,13 @@ def update_call_log_helper(form, calllog):
     calllog.purpose = form.cleaned_data['purpose']
     calllog.follow_up = form.cleaned_data['follow_up']
     calllog.next_contact = form.cleaned_data['next_contact']
-    # Notes are appended with date and 'edit' 
+    # Notes are appended with date and 'edit'
     # Length of original notes
     old_notes_len = str(calllog.notes).__len__()
     # notes from update.
     new_notes = str(form.cleaned_data['notes'])
     # If new notes is longer add edit
-    if old_notes_len > new_notes.__len__():
+    if old_notes_len != new_notes.__len__():
         calllog.notes = new_notes[0:old_notes_len] + \
                     '- Edit - [' + date.today().strftime("%Y-%m-%d") + ']' + \
                     new_notes[old_notes_len:-1]

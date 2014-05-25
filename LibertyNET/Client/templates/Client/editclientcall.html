@@ -28,14 +28,21 @@
         <div class="breadcrumb-button">
           <span class="breadcrumb-label">
             <i class="fa fa-group"></i>
-              <a href="/client/clientcalllogdetails/{{ call }}">Client Call Details</a>
+              <a href="{{ call.client_id.get_absolute_url }}">Client Details</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="{{ call.get_absolute_url }}">Call Details</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
         <div class="breadcrumb-button">
             <span class="breadcrumb-label">
                 <i class="fa fa-phone"></i>
-                Add Call Log
+                Edit Call
             </span>
         </div>
       </div>
