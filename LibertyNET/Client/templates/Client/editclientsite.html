@@ -26,7 +26,7 @@
         <div class="breadcrumb-button">
           <span class="breadcrumb-label">
             <i class="fa fa-group"></i>
-              <a href="#">Client Details</a>
+              <a href="{{ client.get_absolute_url }}">Client Details</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
@@ -41,6 +41,7 @@
 </div> <!-- container padded -->
 {% endblock form_breadcrumb %}
 {% block form_content %}
+    asfd {{ client }}
     <label>Site Information:</label>
     {% for i in form0 %}
         <li>

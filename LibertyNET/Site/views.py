@@ -18,25 +18,26 @@ from Common.forms import AddressForm, CallListForm, CallListContactForm
 #region ClientSite
 
 
-def editclientsite(request, pk):
-    """
-    Edits a Client's Site.
-    @param request: request.
-    @param pk: primary key.
-    @return: html redirect.
-    """
-    template_name = 'client/editclientsite.html'
-    site = Site.objects.get(site_id=pk)
-    form_list = form_generator(1)
-    if request.method == 'POST':
-        validation = validation_helper(form_list)
-        if validation:
-            return HttpResponseRedirect(reverse('Client:index'))
-        else:
-            return HttpResponseRedirect(reverse('Client:editclientsite'))
-    else:
-
-        return render(request, template_name, dict_generator(form_list))
+# def editclientsite(request, pk):
+#     """
+#     Edits a Client's Site.
+#     @param request: request.
+#     @param pk: primary key.
+#     @return: html redirect.
+#     """
+#     template_name = 'client/editclientsite.html'
+#     site = Site.objects.get(site_id=pk)
+#     form_list = form_generator(3)
+#     if request.method == 'POST':
+#         validation = validation_helper(form_list)
+#         if validation:
+#             return HttpResponseRedirect(reverse('Client:index'))
+#         else:
+#             return HttpResponseRedirect(reverse('Client:editclientsite'))
+#     else:
+#         fd = dict_generator(form_list)
+#         fd['client'] = site.site_address
+#         return render(request, template_name, fd)
 
 
 class SiteDetailView(DetailView):
@@ -135,7 +136,8 @@ def editclientsite(request, pk):
     else:
         form_list[0] = SiteForm(site_dict)
         form_list[1] = AddressForm(address_dict)
-        #form_list[2] = CallListForm(call_list)
-        return render(request, template_name, dict_generator(form_list))
+        fd = dict_generator(form_list)
+        fd['client'] = site.site_client
+        return render(request, template_name, fd)
 
 #endregion
