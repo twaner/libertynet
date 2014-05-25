@@ -542,7 +542,9 @@ def addclientcalllog(request, pk):
             return render(request, template_name, dict_generator(form_list))
     else:
         form_list[0] = ClientCallLogForm(calllog_dict)
-        return render(request, template_name, dict_generator(form_list))
+        fd = dict_generator(form_list)
+        fd['client'] = client
+        return render(request, template_name, fd)
 
 
 def editclientcall(request, pk):

@@ -105,23 +105,31 @@ class ClientTest(TestCase):
         chm.assert_equals_worker(self, False, client.is_business)
         #self.assertEqual(client.is_a_business(), False, 'Client is not a business.')
         chm.assert_equals_worker(self, False, client.is_a_business())
+        chm.assert_true_worker(self, 'Al Q Alston', client.get_full_name())
 
-        # get_absolute_url
+
+class GetURLTest(TestCase):
+        client = ClientFactoryBusiness()
+
         url = '/client/%s/' % client.client_id
         url_edit = '/client/editclient/%s/' % client.client_id
         url_calllog = '/client/addclientcalllog/%s/' % client.client_id
         url_calllog_index = '/client/clientcalllogindex/%s/' % client.client_id
+        url_add_site = 'client/addclientsite/%s/' % client.client_id
         chm.assert_equals_worker(self, url, client.get_absolute_url())
         chm.assert_equals_worker(self, url_edit, client.get_absolute_url_edit())
         chm.assert_equals_worker(self, url_calllog, client.get_absolute_url_calllog())
         chm.assert_equals_worker(self, url_calllog_index, client.get_absolute_url_calllog_index())
+        chm.assert_equals_worker(self, url_add_site, client.get_absolute_url_add_site())
 
-        # CallLog Tests
+
+class CallLogTest(TestCase):
+        client = ClientFactory(client_id=121)
         emp = EmployeeFactory()
         calllog = ClientCallLog.objects.create_client_calllog(client, emp, '2014-02-13', '13:13',
-                                                              'purpose', 'notes', date1)
+                                                              'purpose', 'notes', date1, True)
         calllog2 = ClientCallLog.objects.create_client_calllog(client, emp, '2014-02-17', '13:13',
-                                                               'purpose2', 'notes2', date2)
+                                                               'purpose2', 'notes2', date2, False)
 
         calllog_modelmanager = ClientCallLog.objects.get_next_contact_date(client)
         chm.assert_equals_worker(self, date1, calllog_modelmanager.next_call)
@@ -132,6 +140,13 @@ class ClientTest(TestCase):
         complete_details = 'Client: %s Purpose: %s Call Date: %s Time: %s' % (calllog.client_id, calllog.purpose,
                                                                               calllog.call_date, calllog.call_time)
         chm.assert_equals_worker(self, complete_details, calllog.complete_details)
+
+        # Methods and Properties Tests
+        chm.assert_true_worker(self, True, calllog.requires_follow_up)
+        chm.assert_true_worker(self, False, calllog2.requires_follow_up)
+        chm.assert_equals_worker(self, '2014-02-13 13:13', calllog.get_call_date_time)
+        chm.assert_equals_worker(self, '13:13', calllog.get_call_time)
+        chm.assert_equals_worker(self, date1, calllog.next_call)
 
         # get_absolute_url
         exp = '/client/clientcalllogdetails/%s/' % calllog.id
@@ -174,9 +189,9 @@ class SalesProspectTest(TestCase):
         # CallLog
         emp = EmployeeFactory()
         calllog = SalesProspectCallLog.objects.create_sales_calllog(sp, emp, '2014-02-13', '13:13',
-                                                                    'purpose', 'notes', date1)
+                                                                    'purpose', 'notes', date1, True)
         calllog2 = SalesProspectCallLog.objects.create_sales_calllog(sp, emp, '2014-02-17', '13:13',
-                                                                     'purpose2', 'notes2', date2)
+                                                                     'purpose2', 'notes2', date2, False)
         calllog_modelmanager = SalesProspectCallLog.objects.get_next_contact_date(sp)
         chm.assert_equals_worker(self, date1, calllog_modelmanager.next_call)
 

@@ -18,28 +18,6 @@ from Common.forms import AddressForm, CallListForm, CallListContactForm
 #region ClientSite
 
 
-# def editclientsite(request, pk):
-#     """
-#     Edits a Client's Site.
-#     @param request: request.
-#     @param pk: primary key.
-#     @return: html redirect.
-#     """
-#     template_name = 'client/editclientsite.html'
-#     site = Site.objects.get(site_id=pk)
-#     form_list = form_generator(3)
-#     if request.method == 'POST':
-#         validation = validation_helper(form_list)
-#         if validation:
-#             return HttpResponseRedirect(reverse('Client:index'))
-#         else:
-#             return HttpResponseRedirect(reverse('Client:editclientsite'))
-#     else:
-#         fd = dict_generator(form_list)
-#         fd['client'] = site.site_address
-#         return render(request, template_name, fd)
-
-
 class SiteDetailView(DetailView):
     model = Site
     site_id = 'pk'
@@ -138,7 +116,7 @@ def editclientsite(request, pk):
         form_list[1] = AddressForm(address_dict)
         fd = dict_generator(form_list)
         fd['client'] = site.site_client
-        fd['client'] = site
+        fd['site'] = site
         return render(request, template_name, fd)
 
 #endregion

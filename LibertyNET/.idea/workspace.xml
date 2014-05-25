@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8959466-4394-41a0-a1ac-cc0945cfaa97" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html" afterPath="$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/templates/Client/editclientsite.html" afterPath="$PROJECT_DIR$/Client/templates/Client/editclientsite.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Site/helper_methods.py" afterPath="$PROJECT_DIR$/Site/helper_methods.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/tests/test_forms.py" afterPath="$PROJECT_DIR$/Client/tests/test_forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/tests/test_models.py" afterPath="$PROJECT_DIR$/Client/tests/test_models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/views.py" afterPath="$PROJECT_DIR$/Client/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Site/views.py" afterPath="$PROJECT_DIR$/Site/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="LibertyNET.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,28 +33,10 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Client/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="571" column="38" selection-start="21882" selection-end="21882" vertical-scroll-proportion="0.0" vertical-offset="7975" max-vertical-offset="10125">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="addcalllog.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/templates/Client/addcalllog.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="46" column="106" selection-start="1532" selection-end="1797" vertical-scroll-proportion="0.0" vertical-offset="79" max-vertical-offset="870">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="addclientcalllog.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="44" column="20" selection-start="1642" selection-end="1642" vertical-scroll-proportion="0.0" vertical-offset="79" max-vertical-offset="870">
+                <state line="545" column="29" selection-start="20717" selection-end="20717" vertical-scroll-proportion="0.6152882" vertical-offset="7414" max-vertical-offset="9885">
                   <folding />
                 </state>
               </provider>
@@ -65,40 +51,28 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="editclientsite.html" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Client/templates/Client/editclientsite.html">
+          <file leaf-file-name="addclientsite.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Client/templates/Client/addclientsite.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="33" column="36" selection-start="1332" selection-end="1332" vertical-scroll-proportion="0.5145386" vertical-offset="88" max-vertical-offset="1170">
+                <state line="67" column="13" selection-start="2201" selection-end="2201" vertical-scroll-proportion="-23.583334" vertical-offset="439" max-vertical-offset="1230">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="editclient.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/templates/Client/editclient.html">
+          <file leaf-file-name="factories.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Client/factories.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="71" column="28" selection-start="2775" selection-end="2775" vertical-scroll-proportion="0.0" vertical-offset="1065" max-vertical-offset="1365">
+                <state line="132" column="0" selection-start="4134" selection-end="4134" vertical-scroll-proportion="0.0" vertical-offset="1360" max-vertical-offset="2190">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="char-remaining.js" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/static/js/char-remaining.js">
+          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Site/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="29" column="1" selection-start="863" selection-end="863" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="525">
-                  <folding>
-                    <marker date="1400979769000" expanded="true" signature="41:457" placeholder="{...}" />
-                    <marker date="1400979769000" expanded="true" signature="302:429" placeholder="{...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="forms.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/forms.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="73" column="45" selection-start="2446" selection-end="2446" vertical-scroll-proportion="0.0" vertical-offset="1095" max-vertical-offset="1695">
+                <state line="143" column="24" selection-start="6065" selection-end="6081" vertical-scroll-proportion="0.0" vertical-offset="1605" max-vertical-offset="3615">
                   <folding />
                 </state>
               </provider>
@@ -107,7 +81,16 @@
           <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="163" column="46" selection-start="7645" selection-end="7645" vertical-scroll-proportion="0.0" vertical-offset="2445" max-vertical-offset="7125">
+                <state line="275" column="33" selection-start="11833" selection-end="11858" vertical-scroll-proportion="0.0" vertical-offset="5920" max-vertical-offset="7050">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Common/models.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="582" column="46" selection-start="18090" selection-end="18090" vertical-scroll-proportion="0.0" vertical-offset="1623" max-vertical-offset="9330">
                   <folding />
                 </state>
               </provider>
@@ -120,10 +103,8 @@
           <file leaf-file-name="helpermethods.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/helpermethods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="254" column="4" selection-start="10183" selection-end="10183" vertical-scroll-proportion="0.0" vertical-offset="3438" max-vertical-offset="4395">
-                  <folding>
-                    <marker date="1400963436000" expanded="true" signature="9496:10672" placeholder="..." />
-                  </folding>
+                <state line="254" column="4" selection-start="10183" selection-end="10183" vertical-scroll-proportion="0.0" vertical-offset="3505" max-vertical-offset="4320">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -137,73 +118,28 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="clientcalllogdetails.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html">
+          <file leaf-file-name="addclientcalllog.html" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="43" column="33" selection-start="1531" selection-end="1531" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="1575">
+                <state line="28" column="32" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.26875" vertical-offset="205" max-vertical-offset="1005">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="sitedetails.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/templates/Client/sitedetails.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="176" column="50" selection-start="7507" selection-end="7507" vertical-scroll-proportion="0.0" vertical-offset="2640" max-vertical-offset="3195">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="helper_methods.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Site/helper_methods.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="28" column="18" selection-start="783" selection-end="783" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Common/models.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="597" column="0" selection-start="18555" selection-end="18646" vertical-scroll-proportion="0.0" vertical-offset="8955" max-vertical-offset="9435">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="editclientcalllist.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/templates/Client/editclientcalllist.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="48" column="28" selection-start="1754" selection-end="1768" vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="1020">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="helpermethods.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Common/helpermethods.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="368" column="18" selection-start="12314" selection-end="12328" vertical-scroll-proportion="0.0" vertical-offset="5520" max-vertical-offset="8535">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Site/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="140" column="27" selection-start="5318" selection-end="5318" vertical-scroll-proportion="0.83229816" vertical-offset="1205" max-vertical-offset="2025">
+                <state line="19" column="0" selection-start="916" selection-end="916" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1695">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="editclientcall.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/templates/Client/editclientcall.html">
+          <file leaf-file-name="factories.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Employee/factories.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="30" column="51" selection-start="1104" selection-end="1124" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="1095">
+                <state line="64" column="55" selection-start="2017" selection-end="2017" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1710">
                   <folding />
                 </state>
               </provider>
@@ -229,8 +165,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/static/js/span_helper.js" />
-        <option value="$PROJECT_DIR$/static/js/address_autocomplete.js" />
         <option value="$PROJECT_DIR$/templates/breadcrumb.html" />
         <option value="$PROJECT_DIR$/templates/basewrap.html" />
         <option value="$PROJECT_DIR$/templates/submit_cancel.html" />
@@ -243,7 +177,6 @@
         <option value="$PROJECT_DIR$/Client/templates/Client/clientcalllogindex.html" />
         <option value="$PROJECT_DIR$/static/js/bootstrap-datepicker2.js" />
         <option value="$PROJECT_DIR$/static/js/vendor/bootstrap-datepicker.js" />
-        <option value="$PROJECT_DIR$/Client/factories.py" />
         <option value="$PROJECT_DIR$/Client/templates/Client/index_tester.html" />
         <option value="$PROJECT_DIR$/Site/templates/details.html" />
         <option value="$PROJECT_DIR$/Site/urls.py" />
@@ -272,22 +205,25 @@
         <option value="$PROJECT_DIR$/static/js/remaining-char.js" />
         <option value="$PROJECT_DIR$/templates/__basewrap.html" />
         <option value="$PROJECT_DIR$/Client/templates/Client/addcalllog.html" />
-        <option value="$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html" />
         <option value="$PROJECT_DIR$/Client/forms.py" />
         <option value="$PROJECT_DIR$/static/js/char-remaining.js" />
         <option value="$PROJECT_DIR$/Client/templates/Client/editclientcall.html" />
-        <option value="$PROJECT_DIR$/Client/views.py" />
         <option value="$PROJECT_DIR$/Site/helper_methods.py" />
-        <option value="$PROJECT_DIR$/Site/views.py" />
         <option value="$PROJECT_DIR$/Client/templates/Client/editclientsite.html" />
+        <option value="$PROJECT_DIR$/Client/factories.py" />
+        <option value="$PROJECT_DIR$/Client/tests/test_forms.py" />
+        <option value="$PROJECT_DIR$/Client/tests/test_models.py" />
+        <option value="$PROJECT_DIR$/Site/views.py" />
+        <option value="$PROJECT_DIR$/Client/views.py" />
+        <option value="$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1886" />
-    <option name="y" value="72" />
-    <option name="width" value="1780" />
-    <option name="height" value="995" />
+    <option name="x" value="-1888" />
+    <option name="y" value="56" />
+    <option name="width" value="1787" />
+    <option name="height" value="1004" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -334,7 +270,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -377,7 +312,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="Work" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -391,11 +326,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="Work" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
+              <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -469,6 +404,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Employee" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LibertyNET" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LibertyNET" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Common" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -519,6 +472,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LibertyNET" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LibertyNET" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -529,6 +500,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -660,9 +632,6 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
-      <method />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -684,6 +653,9 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -776,7 +748,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1886" y="72" width="1780" height="995" extended-state="0" />
+    <frame x="-1888" y="56" width="1787" height="1004" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277311" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -784,7 +756,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16097023" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13348676" sideWeight="0.67058825" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13409743" sideWeight="0.67058825" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -792,11 +764,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3183432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -813,9 +785,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12916666" sideWeight="0.67058825" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -837,21 +809,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/js/vendor/bootstrap/dropdown.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.0339196" vertical-offset="1619" max-vertical-offset="2415" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/calendar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.39678615" vertical-offset="321" max-vertical-offset="1155" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/clientcalllogindex.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="32" selection-start="2989" selection-end="2989" vertical-scroll-proportion="0.0" vertical-offset="486" max-vertical-offset="1260" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/bootstrap-datepicker2.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="387" column="56" selection-start="11420" selection-end="11420" vertical-scroll-proportion="0.47606727" vertical-offset="5437" max-vertical-offset="7185" />
@@ -860,16 +817,6 @@
     <entry file="file://$PROJECT_DIR$/Common/factories.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="75" selection-start="135" selection-end="140" vertical-scroll-proportion="0.057397958" vertical-offset="0" max-vertical-offset="1680" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/tests/test_models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="644" selection-end="708" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2820" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/factories.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="31" selection-start="3094" selection-end="3094" vertical-scroll-proportion="0.0" vertical-offset="1481" max-vertical-offset="2265" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/vendor/bootstrap-datepicker.js">
@@ -907,11 +854,6 @@
         <state line="77" column="10" selection-start="1974" selection-end="1974" vertical-scroll-proportion="0.0" vertical-offset="1026" max-vertical-offset="1905" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Employee/factories.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="18" selection-start="781" selection-end="832" vertical-scroll-proportion="0.49122807" vertical-offset="0" max-vertical-offset="1755" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Site/factories.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="42" selection-start="1216" selection-end="1216" vertical-scroll-proportion="0.62211984" vertical-offset="0" max-vertical-offset="1680" />
@@ -947,11 +889,6 @@
         <state line="36" column="28" selection-start="975" selection-end="975" vertical-scroll-proportion="0.2082777" vertical-offset="384" max-vertical-offset="2280" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/addclientsite.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="16" selection-start="1873" selection-end="2411" vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="1230" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/templates/Client/calllistdetails.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="31" selection-start="1089" selection-end="1089" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="1800" />
@@ -960,13 +897,6 @@
     <entry file="file://$PROJECT_DIR$/Client/templates/Client/details.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="78" column="34" selection-start="2693" selection-end="2693" vertical-scroll-proportion="-15.625" vertical-offset="795" max-vertical-offset="8640" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Site/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="147" column="45" selection-start="6246" selection-end="6246" vertical-scroll-proportion="0.019788919" vertical-offset="2160" max-vertical-offset="3615">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/templates/Client/editclient.html">
@@ -982,11 +912,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/address_autocomplete.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="19" selection-start="2719" selection-end="2719" vertical-scroll-proportion="-19.37037" vertical-offset="632" max-vertical-offset="1410" />
-      </provider>
       <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="19" selection-start="2719" selection-end="2719" vertical-scroll-proportion="-19.37037" vertical-offset="632" max-vertical-offset="1410" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/remaining-char.js">
@@ -999,13 +929,6 @@
         <state line="18" column="53" selection-start="1176" selection-end="1176" vertical-scroll-proportion="-11.25" vertical-offset="0" max-vertical-offset="4155" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="20" selection-start="1642" selection-end="1642" vertical-scroll-proportion="0.0" vertical-offset="79" max-vertical-offset="870">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/templates/Client/addcalllog.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="46" column="106" selection-start="1532" selection-end="1797" vertical-scroll-proportion="0.0" vertical-offset="79" max-vertical-offset="870">
@@ -1013,33 +936,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="45" selection-start="2446" selection-end="2446" vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1650">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/char-remaining.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="1" selection-start="863" selection-end="863" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
-          <folding>
-            <marker date="1400979769000" expanded="true" signature="41:457" placeholder="{...}" />
-            <marker date="1400979769000" expanded="true" signature="302:429" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/__form_base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="61" selection-start="774" selection-end="774" vertical-scroll-proportion="0.4477612" vertical-offset="0" max-vertical-offset="804" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="163" column="46" selection-start="7645" selection-end="7645" vertical-scroll-proportion="0.0" vertical-offset="1589" max-vertical-offset="7050">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Site/urls.py">
@@ -1051,22 +950,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="44" column="43" selection-start="3199" selection-end="3213" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1080">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="571" column="38" selection-start="21882" selection-end="21882" vertical-scroll-proportion="0.0" vertical-offset="7975" max-vertical-offset="10125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/helpermethods.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="254" column="4" selection-start="10183" selection-end="10183" vertical-scroll-proportion="0.0" vertical-offset="3438" max-vertical-offset="4395">
-          <folding>
-            <marker date="1400963436000" expanded="true" signature="9496:10672" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1087,13 +970,6 @@
     <entry file="file://$PROJECT_DIR$/Client/templates/Client/sitedetails.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="176" column="50" selection-start="7507" selection-end="7507" vertical-scroll-proportion="0.0" vertical-offset="2640" max-vertical-offset="3195">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Common/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="597" column="0" selection-start="18555" selection-end="18646" vertical-scroll-proportion="0.0" vertical-offset="8572" max-vertical-offset="9330">
           <folding />
         </state>
       </provider>
@@ -1126,16 +1002,127 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Site/views.py">
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/editclientsite.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="140" column="27" selection-start="5318" selection-end="5318" vertical-scroll-proportion="0.83229816" vertical-offset="1205" max-vertical-offset="2025">
+        <state line="50" column="0" selection-start="1851" selection-end="1851" vertical-scroll-proportion="-15.458333" vertical-offset="379" max-vertical-offset="1170">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/editclientsite.html">
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/addclientsite.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="36" selection-start="1332" selection-end="1332" vertical-scroll-proportion="0.5145386" vertical-offset="88" max-vertical-offset="1170">
+        <state line="67" column="13" selection-start="2201" selection-end="2201" vertical-scroll-proportion="-23.583334" vertical-offset="439" max-vertical-offset="1230">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/char-remaining.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="1" selection-start="863" selection-end="863" vertical-scroll-proportion="0.5253623" vertical-offset="0" max-vertical-offset="828">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="45" selection-start="2446" selection-end="2446" vertical-scroll-proportion="0.2638037" vertical-offset="835" max-vertical-offset="1650">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Site/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="143" column="24" selection-start="6065" selection-end="6081" vertical-scroll-proportion="0.0" vertical-offset="1605" max-vertical-offset="3615">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/factories.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="132" column="0" selection-start="4134" selection-end="4134" vertical-scroll-proportion="0.0" vertical-offset="1360" max-vertical-offset="2190">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="275" column="33" selection-start="11833" selection-end="11858" vertical-scroll-proportion="0.0" vertical-offset="5920" max-vertical-offset="7050">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/helpermethods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="254" column="4" selection-start="10183" selection-end="10183" vertical-scroll-proportion="0.0" vertical-offset="3505" max-vertical-offset="4320">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="582" column="46" selection-start="18090" selection-end="18090" vertical-scroll-proportion="0.0" vertical-offset="1623" max-vertical-offset="9330">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Employee/factories.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="55" selection-start="2017" selection-end="2017" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1710">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/tests/test_models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="44" selection-start="6741" selection-end="6741" vertical-scroll-proportion="-0.41717792" vertical-offset="2125" max-vertical-offset="2940">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/tests/test_forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="145" column="29" selection-start="6921" selection-end="6921" vertical-scroll-proportion="2.6687117" vertical-offset="0" max-vertical-offset="2370">
+          <folding>
+            <element signature="e#0#32#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Employee/tests/test_models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1065">
+          <folding>
+            <element signature="e#0#32#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Work/tests/test_models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.50970876" vertical-offset="420" max-vertical-offset="3210">
+          <folding>
+            <element signature="e#0#32#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Site/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="916" selection-end="916" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1695">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="545" column="29" selection-start="20717" selection-end="20717" vertical-scroll-proportion="0.6152882" vertical-offset="7414" max-vertical-offset="9885">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="32" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.26875" vertical-offset="205" max-vertical-offset="1005">
           <folding />
         </state>
       </provider>

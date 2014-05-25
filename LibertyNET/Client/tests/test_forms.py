@@ -128,7 +128,7 @@ class TestCallLogForms(TestCase):
         call_data = {
             'client_id': client.client_id, 'caller': employee.employee_id, 'call_date': date1,
             'call_time': '13:13', 'purpose': 'call purpose', 'notes': 'call notes',
-            'next_contact': date2
+            'next_contact': date2, 'follow_up': True
         }
         form = ClientCallLogForm(data=call_data)
         chm.form_errors_printer(form)
@@ -142,7 +142,8 @@ class TestCallLogForms(TestCase):
         chm.form_assert_false_worker(self, form)
         call_data = {
             'caller': employee.employee_id, 'call_date': date1, 'call_time': '13:13',
-            'purpose': 'call purpose', 'notes': 'call notes', 'next_contact': date2
+            'purpose': 'call purpose', 'notes': 'call notes', 'next_contact': date2,
+            'follow_up': True
         }
         chm.form_errors_printer(form)
         form = SalesProspectCallLogForm(data=call_data)
