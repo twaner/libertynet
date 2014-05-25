@@ -138,6 +138,7 @@ def editclientsite(request, pk):
         form_list[1] = AddressForm(address_dict)
         fd = dict_generator(form_list)
         fd['client'] = site.site_client
+        fd['client'] = site
         return render(request, template_name, fd)
 
 #endregion

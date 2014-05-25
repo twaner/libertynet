@@ -31,6 +31,13 @@
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
         <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="{{ site.get_absolute_url }}">Client Details</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
             <span class="breadcrumb-label">
                 <i class="fa fa-phone"></i>
                 Edit Client Site
@@ -41,7 +48,6 @@
 </div> <!-- container padded -->
 {% endblock form_breadcrumb %}
 {% block form_content %}
-    asfd {{ client }}
     <label>Site Information:</label>
     {% for i in form0 %}
         <li>

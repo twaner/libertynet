@@ -25,8 +25,8 @@ def create_site_helper(form, client, address, calllist):
 
 
 def update_site_helper(form, address, site):
-    site_address = address
-    site_name = form.cleaned_data['site_name']
+    site.site_address = address
+    site.site_name = form.cleaned_data['site_name']
 
     site.save(update_fields=['site_address', 'site_name'])
     return  site
