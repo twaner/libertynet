@@ -102,7 +102,7 @@
       <file leaf-file-name="index_tester.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/templates/Client/index_tester.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="71" selection-start="2718" selection-end="2718" vertical-scroll-proportion="0.5742972" vertical-offset="794" max-vertical-offset="3240">
+            <state line="164" column="0" selection-start="7285" selection-end="7285" vertical-scroll-proportion="0.2128514" vertical-offset="2354" max-vertical-offset="3210">
               <folding />
             </state>
           </provider>
@@ -1088,7 +1088,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/templates/Client/index_tester.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="71" selection-start="2718" selection-end="2718" vertical-scroll-proportion="0.5742972" vertical-offset="794" max-vertical-offset="3240">
+        <state line="164" column="0" selection-start="7285" selection-end="7285" vertical-scroll-proportion="0.2128514" vertical-offset="2354" max-vertical-offset="3210">
           <folding />
         </state>
       </provider>
