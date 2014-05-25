@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8959466-4394-41a0-a1ac-cc0945cfaa97" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html" afterPath="$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/templates/Client/editclientsite.html" afterPath="$PROJECT_DIR$/Client/templates/Client/editclientsite.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/tests/test_forms.py" afterPath="$PROJECT_DIR$/Client/tests/test_forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/tests/test_models.py" afterPath="$PROJECT_DIR$/Client/tests/test_models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/views.py" afterPath="$PROJECT_DIR$/Client/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Site/views.py" afterPath="$PROJECT_DIR$/Site/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html" afterPath="$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html" />
     </list>
     <ignored path="LibertyNET.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,7 +30,7 @@
           <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Client/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="545" column="29" selection-start="20717" selection-end="20717" vertical-scroll-proportion="0.6152882" vertical-offset="7414" max-vertical-offset="9885">
+                <state line="587" column="75" selection-start="22330" selection-end="22330" vertical-scroll-proportion="0.63408524" vertical-offset="8029" max-vertical-offset="9885">
                   <folding />
                 </state>
               </provider>
@@ -118,10 +112,19 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="addclientcalllog.html" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="clientcalllogdetails.html" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="27" column="60" selection-start="1084" selection-end="1084" vertical-scroll-proportion="0.28125" vertical-offset="180" max-vertical-offset="1680">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="addclientcalllog.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="28" column="32" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.26875" vertical-offset="205" max-vertical-offset="1005">
+                <state line="28" column="32" selection-start="1086" selection-end="1086" vertical-scroll-proportion="-8.958333" vertical-offset="205" max-vertical-offset="1005">
                   <folding />
                 </state>
               </provider>
@@ -195,7 +198,6 @@
         <option value="$PROJECT_DIR$/Client/templates/Client/details.html" />
         <option value="$PROJECT_DIR$/Client/urls.py" />
         <option value="$PROJECT_DIR$/Client/models.py" />
-        <option value="$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html" />
         <option value="$PROJECT_DIR$/Common/helpermethods.py" />
         <option value="$PROJECT_DIR$/Client/templates/Client/editclientcalllist.html" />
         <option value="$PROJECT_DIR$/Client/helpermethods.py" />
@@ -216,6 +218,7 @@
         <option value="$PROJECT_DIR$/Site/views.py" />
         <option value="$PROJECT_DIR$/Client/views.py" />
         <option value="$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html" />
+        <option value="$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html" />
       </list>
     </option>
   </component>
@@ -960,13 +963,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="33" selection-start="1531" selection-end="1531" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="1575">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/templates/Client/sitedetails.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="176" column="50" selection-start="7507" selection-end="7507" vertical-scroll-proportion="0.0" vertical-offset="2640" max-vertical-offset="3195">
@@ -1113,16 +1109,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/views.py">
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="545" column="29" selection-start="20717" selection-end="20717" vertical-scroll-proportion="0.6152882" vertical-offset="7414" max-vertical-offset="9885">
+        <state line="28" column="32" selection-start="1086" selection-end="1086" vertical-scroll-proportion="-8.958333" vertical-offset="205" max-vertical-offset="1005">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/addclientcalllog.html">
+    <entry file="file://$PROJECT_DIR$/Client/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="32" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.26875" vertical-offset="205" max-vertical-offset="1005">
+        <state line="587" column="75" selection-start="22330" selection-end="22330" vertical-scroll-proportion="0.63408524" vertical-offset="8029" max-vertical-offset="9885">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="60" selection-start="1084" selection-end="1084" vertical-scroll-proportion="0.28125" vertical-offset="180" max-vertical-offset="1680">
           <folding />
         </state>
       </provider>
