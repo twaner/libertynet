@@ -215,7 +215,7 @@ def update_billing_helper(request, billing, address, card):
 #region CallList
 
 
-def create_call_list_helper(form, contact):
+def create_call_list_helper(form, contact, site):
     """
     Creates a Call List.
     @param form: request.
@@ -235,9 +235,33 @@ def create_call_list_helper(form, contact):
                                                   cl_order=cl_order, cl_is_enabled=cl_is_enabled,
                                                   cl_genre=cl_genre)
     call_list.save()
-    # TODO uncomment?
-    #site.site_call_list.add(call_list)
+    # Add to site
+    site.site_call_list.add(call_list)
     return call_list
+
+
+def create_call_list_helper_not_site(form, contact):
+    """
+    Creates a Call List and does NOT add it to a Site.
+    @param form: request.
+    @param contact: Contact.
+    @return: Call List.
+    """
+    first_name = form.cleaned_data['first_name']
+    middle_initial = form.cleaned_data['middle_initial']
+    last_name = form.cleaned_data['last_name']
+    cl_contact = contact
+    cl_order = form.cleaned_data['cl_order']
+    cl_is_enabled = boolean_helper(form.cleaned_data['cl_is_enabled'])
+    cl_genre = Genre.objects.get(pk=form.cleaned_data['cl_genre'].genre_id)
+
+    call_list = CallList.objects.create_call_list(first_name=first_name, last_name=last_name,
+                                                  middle_initial=middle_initial, cl_contact=cl_contact,
+                                                  cl_order=cl_order, cl_is_enabled=cl_is_enabled,
+                                                  cl_genre=cl_genre)
+    call_list.save()
+    return call_list
+
 
 
 def update_call_list_helper(request, calllist, contact):

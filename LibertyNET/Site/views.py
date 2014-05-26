@@ -7,7 +7,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 from Common.helpermethods import create_address_helper, form_generator, \
     validation_helper, dict_generator, update_address_helper, update_contact_helper, \
-    create_contact_client_calllog_helper, create_call_list_helper
+    create_contact_client_calllog_helper, create_call_list_helper, create_call_list_helper_not_site
 from Client.models import Client
 from Site.models import Site
 from Site.forms import SiteForm
@@ -62,7 +62,7 @@ def addclientsite(request, pk):
         if validation_helper(form_list):
             address = create_address_helper(form_list[1])
             contact = create_contact_client_calllog_helper(form_list[3])
-            calllist = create_call_list_helper(form_list[2], contact)
+            calllist = create_call_list_helper_not_site(form_list[2], contact)
             site = create_site_helper(form_list[0], client, address, calllist)
             return HttpResponseRedirect(reverse('Client:sitedetails',
                                         kwargs={'pk': site.site_id}))

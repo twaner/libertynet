@@ -130,7 +130,7 @@ class Site(models.Model):
         if self.get_calllist_len() >= 1:
             return '%s' % self.site_call_list.all()[0].calllist_contact_name
         else:
-            return 'Please Add Site'
+            return 'Please Add Call List'
 
     def top_calllist(self):
         if self.get_calllist_len() >= 1:

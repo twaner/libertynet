@@ -122,13 +122,13 @@ def addcalllist(request, pk):
     template_name = 'client/addclientcalllist.html'
     site = Site.objects.get(pk=pk)
     form_list = form_generator(2)
-    form_list[0] = CallListContactForm(request.POST)
-    form_list[1] = ContactForm(request.POST)
 
     if request.method == 'POST':
+        form_list[0] = CallListForm(request.POST)
+        form_list[1] = CallListContactForm(request.POST)
         if validation_helper(form_list):
             contact = create_calllist_contact_helper(request)
-            call_list = create_call_list_helper(request, contact, site)
+            call_list = create_call_list_helper(form_list[0], contact, site)
             # Assumption a site must have a client
             related_client = Client.objects.get(pk=site.site_client_id)
             return HttpResponseRedirect(reverse('Client:details',
