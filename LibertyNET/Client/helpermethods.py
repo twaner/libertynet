@@ -34,7 +34,7 @@ def create_client_helper(form, *args):
         site_name = business_name
     else:
         site_name = 'Home'
-    site = Site.objects.create_client_site(client, site_name)
+    site = Site.objects.create_client_site(client, args[0], site_name)
 
     return client
 

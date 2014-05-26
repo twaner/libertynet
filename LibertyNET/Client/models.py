@@ -33,24 +33,24 @@ class ClientManager(models.Manager):
         client.save()
         return client
 
-    def create_client(self, first_name, middle_initial, last_name, client_number,
-                      client_address, client_contact, client_date):
-        """
-        Base create for a client with NO business attributes
-        @param first_name: client's first name.
-        @param middle_initial: client's middle initial.
-        @param last_name: client's last name.
-        @param client_number: the client's number.
-        @param client_address: client's address.
-        @param client_contact: client's contact info.
-        @param client_date: date client opened account with company.
-        @return: client object
-        """
-        client = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
-                             client_number=client_number, client_address=client_address,
-                             client_contact=client_contact, client_date=client_date)
-        client.save()
-        return client
+    # def create_client(self, first_name, middle_initial, last_name, client_number,
+    #                   client_address, client_contact, client_date):
+    #     """
+    #     Base create for a client with NO business attributes
+    #     @param first_name: client's first name.
+    #     @param middle_initial: client's middle initial.
+    #     @param last_name: client's last name.
+    #     @param client_number: the client's number.
+    #     @param client_address: client's address.
+    #     @param client_contact: client's contact info.
+    #     @param client_date: date client opened account with company.
+    #     @return: client object
+    #     """
+    #     client = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
+    #                          client_number=client_number, client_address=client_address,
+    #                          client_contact=client_contact, client_date=client_date)
+    #     client.save()
+    #     return client
 
     def _get_residential(self):
         """

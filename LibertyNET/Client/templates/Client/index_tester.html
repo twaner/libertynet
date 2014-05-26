@@ -159,7 +159,11 @@
                         {% for e in most_recent %}
                         <tr>
                           <td class="sorting_1">{{e.client_number}}</td>
-                          <td>{{e.first_name}} {{e.last_name}}</td>
+                          <td>
+                               <a href="{{ e.get_absolute_url }}">
+                                      {{e.first_name}} {{e.last_name}}
+                               </a>
+                          </td>
                           <td>
                               <ul>
                               <div class="btn-group">

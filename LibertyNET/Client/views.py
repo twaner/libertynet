@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView
 from django.views.generic.base import View
 from datetime import date, datetime
 from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
@@ -573,6 +573,12 @@ def editclientcall(request, pk):
         form_dict = dict_generator(form_list)
         form_dict['call'] = calllog
         return render(request, template_name, form_dict)
+
+
+class EditClientCall(UpdateView):
+    model = ClientCallLog
+    fields = ['caller', 'purpose', 'notes', 'follow_up']
+    template_name_suffix = '_update_form'
 
 
 class CallLogDetailView(DetailView):

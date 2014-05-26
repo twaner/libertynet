@@ -25,6 +25,12 @@ add_client_billing = 'client/addclientbilling.html'
 
 
 def addclientbilling(request, pk):
+    """
+    View to add Client Billing.
+    @param request: request.
+    @param pk: Client pk.
+    @return: Http.
+    """
     template_name = 'client/addclientbilling.html'
     form_list = form_generator(3)
     client = Client.objects.get(client_id=pk)
@@ -132,7 +138,9 @@ def addcalllist(request, pk):
     else:
         form_list[0] = CallListForm()
         form_list[1] = CallListContactForm()
-        return render(request, template_name, dict_generator(form_list))
+        fd = dict_generator(form_list)
+        fd['site'] = site
+        return render(request, template_name, fd)
 
 
 def updatecalllist(request, pk):

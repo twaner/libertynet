@@ -3,7 +3,7 @@ from Client.views import ClientListView, ClientDetailView, ClientView, editclien
     SalesProspectDetailView, SalesProspectView, editsalesprospect, convert_to_client, addclientcalllog, \
     CallLogDetailView, ClientCallLogIndex, addsalescalllog, SalesCallLogDetailView, SalesCallLogIndex, \
     ClientCallLogHome, SalesCallLogHome, ClientDetailViewWO, ClientDetailViewWrap, SalesProspectDetailViewWrap, \
-    ClientCallLogView, editclientcall
+    ClientCallLogView, editclientcall, EditClientCall
 
 from Common.views import addclientbilling, editclientbilling, addcalllist, updatecalllist, \
     CallListDetails
@@ -33,6 +33,7 @@ urlpatterns = patterns('',
                        # CallLog
                        url(r'addclientcalllog/(?P<pk>[\d-]+)/$', addclientcalllog, name='addclientcalllog'),
                        url(r'editclientcall/(?P<pk>[\d-]+)/$', editclientcall, name='editclientcall'),
+                       url(r'clientcalllog_update_form/(?P<pk>[\d-]+)/$', EditClientCall.as_view(), name='clientcalllog_update_form'),
                        url(r'addcalllog/$', ClientCallLogView.as_view(), name='addcalllog'),
                        url(r'clientcalllogdetails/(?P<pk>[\d-]+)/$', CallLogDetailView.as_view(),
                            name='clientcalllogdetails'),

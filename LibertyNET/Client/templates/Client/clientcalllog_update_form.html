@@ -1,12 +1,14 @@
-{% extends '__form_base.html' %}
+ {% extends '__form_base.html' %}
 {% load mytags %}
 {% block body_block %}
-    <body onload="initialize()">
+    <script>
+        initialize();
+    </script>
 {% endblock %}
 {% block form_header %}
-{% include "mainheader_nograph.html" with icon="fa fa-group" title="Add Call Log" subtitle="Created Call Record" %}
+{% include "mainheader_nograph.html" with icon="fa fa-group" title="Edit Call Details" subtitle="Edit Call Record" %}
 {% endblock %}
-{% block h4_block %}Add Call{% endblock h4_block %}
+{% block h4_block %}Edit Call{% endblock h4_block %}
 {% block form_breadcrumb %}
 <!-- breadcrumb -->
 <div class="container padded">
@@ -26,21 +28,21 @@
         <div class="breadcrumb-button">
           <span class="breadcrumb-label">
             <i class="fa fa-group"></i>
-              <a href="{{ client.get_absolute_url }}">Client Details</a>
+              <a href="{{ call.client_id.get_absolute_url }}">Client Details</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
         <div class="breadcrumb-button">
           <span class="breadcrumb-label">
             <i class="fa fa-group"></i>
-              <a href="{{ site.get_absolute_url }}">Site Details</a>
+              <a href="{{ call.get_absolute_url }}">Call Details</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
         <div class="breadcrumb-button">
             <span class="breadcrumb-label">
                 <i class="fa fa-phone"></i>
-                Add Call Log
+                Edit Call
             </span>
         </div>
       </div>
@@ -51,19 +53,23 @@
     {% for i in form0 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
-            {% if i.name == "cl_order" %}
+            {% if i.name == "client_id" or i.name == "caller"%}
                 {{ i|addcss:"form-control" }}
-            {% elif i.name = 'cl_genre' %}
-                {{ i|addcss:"form-control" }}
+            {% elif i.name = 'notes' %}
+                {{ i }}
+                <span>Characters Remaining: </span>
+                <span id="notes_span">
+                    <script>document.write(get_remaining_char('id_notes'))</script>
+                </span>
+            {% elif i.name = 'purpose' %}
+                {{ i }}
+                <span>Characters Remaining: </span>
+                <span id="purpose_span">
+                    <script>document.write(get_remaining_char('id_purpose'))</script>
+                </span>
             {% else %}
                 {{ i }}
             {% endif %}
-        </li>
-    {% endfor %}
-    {% for i in form1 %}
-        <li>
-            <label>{{ i.label|title|cut:"_" }}</label>
-            {{ i }}
         </li>
     {% endfor %}
 {% endblock %}
