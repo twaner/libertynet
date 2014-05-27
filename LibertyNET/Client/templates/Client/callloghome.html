@@ -35,6 +35,51 @@
         </div>
       </div> <!-- container padded -->
     {% endblock form_breadcrumb %}
+{% comment %}
+
+
+  <div class="box">
+  <div class="box-header"><span class="title">Gauges</span></div>
+  <div class="box-content padded" style="text-align: center">
+      <div class="row">
+          <div class="col-md-4">
+      <div  id="eATME" style="width:200px; height:160px"></div>
+      <script>
+          var g = new JustGage({
+            id: "eATME",
+            value: 400,
+            min: 350,
+            max: 980,
+            title: "Lone Ranger",
+            label: "miles traveled"
+          });
+      </script>
+              </div>
+          <div class="col-md-4">
+      <div  id="eATME2" style="width:200px; height:160px"></div>
+      <script>
+          var g = new JustGage({
+            id: "eATME2",
+            value: 400,
+            min: 350,
+            max: 980,
+            title: "Lone Ranger",
+            label: "miles traveled"
+          });
+      </script>
+              </div>
+          <div class="col-md-4">
+              <div class="spark-pie" style="width:160px; height:160px"
+                      names = "Test1 Test2 Test 3 Test 4"
+                      ></div>
+              <script>
+                  //var q = new
+              </script>
+          </div>
+   </div>
+</div> <!-- box -->
+
+{% endcomment %}
     <div class="row">
       <div class="col-md-12">
       <div class="accordion" id="accordion2">
@@ -46,7 +91,7 @@
         </div>
         <div id="collapseOne" class="accordion-body collapse in">
           <div class="accordion-inner padded">
-            <div class="box">
+              <div class="box">
               <div class="box-header">
                   <span class="title">Calls</span>
               </div>

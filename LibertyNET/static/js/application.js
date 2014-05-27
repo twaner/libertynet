@@ -74660,6 +74660,7 @@ $(function () {
         colors = $.map(Theme.colors, function(item) {
             return item;
         });
+
         tooltipLabels = {
             names: {
                 0: 'Automotive',
@@ -74676,7 +74677,7 @@ $(function () {
             if (width > 200) {
                 width = 200;
             }
-            return $(".spark-pie").sparkline([55, 100, 220, 180], {
+            return $(".spark-pie").sparkline([1,1,2,3,4], {
                 type: 'pie',
                 height: width,
                 sliceColors: colors,
@@ -74987,10 +74988,10 @@ $(function () {
             refreshAnimationType = $(this).attr("data-animation-type") || "linear";
             return gauges.push(new JustGage({
                 id: $(this).attr("id"),
-                min: 0,
-                max: 100,
+                min: $(this).attr("min"),
+                max: $(this).attr("max"),
                 title: $(this).attr("data-title"),
-                value: getRandomInt(1, 80),
+                value: $(this).attr("data-value"), //getRandomInt(1, 80),
                 label: "",
                 levelColorsGradient: false,
                 showMinMax: showMinMax,
@@ -75004,7 +75005,7 @@ $(function () {
         });
         setInterval(function() {
             return $(gauges).each(function() {
-                return this.refresh(getRandomInt(0, 80));
+                return this.refresh($(this).attr("data-value")); //(getRandomInt(0, 80));
             });
         }, 2500);
         $(".easy-pie-chart").each(function() {

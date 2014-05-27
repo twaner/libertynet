@@ -435,6 +435,9 @@ class ClientCallLog(CallLog):
     def get_absolute_url_edit(self):
         return reverse('Client:editclientcall', kwargs={'pk': self.id})
 
+    def get_absolute_url_follow(self):
+        return reverse('Client:followupcall', kwargs={'pk': self.id})
+
 
 class SalesProspectCallLog(CallLog):
     id = models.AutoField(primary_key=True)

@@ -547,6 +547,42 @@ def addclientcalllog(request, pk):
         return render(request, template_name, fd)
 
 
+def followupcall(request, pk):
+    """
+    Creates a Call Log for a Client based on pk that is passed in.
+    @param request: request.
+    @param pk: pk for Client.
+    @return: http response.
+    """
+    template_name = 'client/addclientcalllog.html'
+    form_list = form_generator(1)
+    call = ClientCallLog.objects.get(pk=pk)
+    client = call.client_id
+    calllog_dict = {
+        'client_id': call.client_id, 'call_date': date.today().strftime("%Y-%m-%d"),
+        'call_time': datetime.now().time().strftime("%H:%M"), 'purpose': 'Follow Up: ' + call.purpose,
+    }
+    #Update purpose field
+    #calllog_dict['purpose'] = 'Follow Up: '
+
+    if request.method == 'POST':
+        form_list[0] = ClientCallLogForm(request.POST)
+        if validation_helper(form_list):
+            calllog = create_calllog_helper(form_list[0], client)
+            #Update previous call
+            call.follow_up = False
+            call.save()
+            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.client_id}))
+        else:
+            form_list[0] = ClientCallLogForm(calllog_dict)
+            return render(request, template_name, dict_generator(form_list))
+    else:
+        form_list[0] = ClientCallLogForm(calllog_dict)
+        fd = dict_generator(form_list)
+        fd['client'] = call.client_id
+        return render(request, template_name, fd)
+
+
 def editclientcall(request, pk):
     template_name = 'client/editclientcall.html'
     form_list = form_generator(1)
