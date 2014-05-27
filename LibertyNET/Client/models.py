@@ -457,6 +457,13 @@ class SalesProspectCallLog(CallLog):
     def get_absolute_url_index(self):
         return reverse('Client:salescalllogindex', kwargs={'pk': self.sales_id.sales_prospect_id})
 
+    def get_absolute_url_edit(self):
+        return reverse('Client:editsalescall', kwargs={'pk': self.id})
+
+    def get_absolute_url_client(self):
+        return reverse('Client:details', kwargs={'pk': self.client_id.client_id})
+
+
     @property
     def full_details(self):
         """

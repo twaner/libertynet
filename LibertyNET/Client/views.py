@@ -27,7 +27,7 @@ class ClientListView(ListView):
     """
     model = Client
     context_object_name = 'all_client_list'
-    template_name = 'client/index_tester.html'
+    template_name = 'client/index.html'
 
     def get_context_data(self, **kwargs):
         context = super(ClientListView, self).get_context_data(**kwargs)
@@ -108,38 +108,6 @@ class ClientDetailView(DetailView):
                 order_by('-call_date', '-call_time')
             context['calllog_follow'] = ClientCallLog.objects.filter(client_id=client.client_id).\
                 filter(follow_up=True)
-            context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
-        except ObjectDoesNotExist:
-            pass
-        return context
-
-
-class ClientDetailViewWrap(DetailView):
-    """
-    View for Client Details.
-    """
-    model = Client
-    client_id = 'pk'
-    context_object_name = 'client_detail'
-    template_name = 'client/clientdetails_wrap.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(ClientDetailViewWrap, self).get_context_data(**kwargs)
-        client = self.get_object()
-        context['address_detail'] = Address.objects.get(pk=client.client_address_id)
-        context['contact_detail'] = Contact.objects.get(pk=client.client_contact_id)
-        #if client.client_billing_id is not None:
-        try:
-            context['billing_detail'] = Billing.objects.filter(pk=client.client_billing_id)
-        except ObjectDoesNotExist:
-            pass
-        try:
-            context['site_detail'] = Site.objects.filter(site_client_id=client.client_id)
-        except ObjectDoesNotExist:
-            pass
-        try:
-            context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id).\
-                order_by('-call_date', '-call_time')
             context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
         except ObjectDoesNotExist:
             pass
@@ -650,14 +618,14 @@ class ClientCallLogIndex(DetailView):
         return context
 
 
-def addsalescalllog(request, pk):
+def addsalescall(request, pk):
     """
     View to add a SalesProspect CallLog.
     @param request: request.
     @param pk: Sales PK.
     @return: http.
     """
-    template_name = 'client/addsalescalllog.html'
+    template_name = 'client/addsalescall.html'
     form_list = form_generator(1)
     form_list[0] = SalesProspectCallLogForm(request.POST)
     sales = SalesProspect.objects.get(pk=pk)
@@ -709,5 +677,34 @@ class SalesCallLogIndex(DetailView):
         context['next_contact'] = SalesProspectCallLog.objects.get_next_contact_date(sales)
 
         return context
+
+
+def editsalescall(request, pk):
+    pass
+    template_name = 'client/editclientcall.html'
+    form_list = form_generator(1)
+    calllog = ClientCallLog.objects.get(pk=pk)
+
+    calllog_dict = {
+        'caller': calllog.caller, 'call_date': calllog.call_date.strftime("%Y-%m-%d"),
+        'call_time': calllog.call_time.strftime("%H:%M"), 'purpose': calllog.purpose,
+        'notes': calllog.notes, 'next_contact': calllog.next_contact,
+        'follow_up': calllog.follow_up, 'client_id': calllog.client_id,
+    }
+
+    if request.method == 'POST':
+        form_list[0] = ClientCallLogForm(request.POST)
+        if validation_helper(form_list):
+            calllog = update_call_log_helper(form_list[0], calllog)
+            return HttpResponseRedirect(reverse('Client:clientcalllogdetails',
+                                                kwargs={'pk': calllog.id}))
+        else:
+            form_list[0] = ClientCallLogForm(calllog_dict)
+            return render(request, template_name, dict_generator(form_list))
+    else:
+        form_list[0] = ClientCallLogForm(calllog_dict)
+        form_dict = dict_generator(form_list)
+        form_dict['call'] = calllog
+        return render(request, template_name, form_dict)
 
 #endregion
