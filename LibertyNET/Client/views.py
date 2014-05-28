@@ -1,3 +1,5 @@
+from trace import Trace
+from django.contrib.gis.db.backends.spatialite import client
 from django.core.context_processors import request
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.core.urlresolvers import reverse
@@ -39,6 +41,12 @@ class ClientListView(ListView):
         else:
             q = len(sorted_list) - 4
         context['most_recent'] = sorted_list[q:]
+        # Clients that are marked for follow up in call log => Client should appear once only
+        calllog = ClientCallLog.objects.filter(follow_up=True)
+        print('ClientListView %s ' % calllog)
+        tmp_list = [calllog.client_id for calllog.client_id in calllog]
+        context['follow_up'] = set(tmp_list)
+        print("ClientListView %s " % context['follow_up'])
         return context
 
 
