@@ -1,12 +1,9 @@
-from StdSuites.AppleScript_Suite import return_
 from __builtin__ import property
+from datetime import date
 from django.db import models
-from django.utils.encoding import force_bytes
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
-from datetime import date
-from Site.models import Site
-
+from django.contrib.auth.models import User
 
 #region Choices
 
@@ -619,6 +616,15 @@ class CallLog(models.Model):
         @return: boolean.
         """
         return self.follow_up
+
+
+#endregion
+
+#region UserProfile
+
+class UserProfile(Person):
+    user = models.OneToOneField(User)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
 
 
 #endregion

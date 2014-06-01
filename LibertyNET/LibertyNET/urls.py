@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'site/', include('Site.urls', namespace="Site")),
     url(r'vendor/', include('Vendor.urls', namespace="Vendor")),
     url(r'work/', include('Work.urls', namespace="Work")),
+    url(r'common/', include('Common.urls', namespace="Common")),
     url(r'^admin/', include(admin.site.urls)),
 )
 

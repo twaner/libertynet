@@ -12,7 +12,7 @@ from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
 from helpermethods import create_client_helper, create_sales_prospect_helper, update_client_helper, \
     update_sales_prospect_helper, create_calllog_helper, create_client_calllog_helper, create_sales_calllog_helper, \
     update_call_log_helper
-from forms import ClientForm, SalesProspectForm, SalesProspectEditForm, SalesProspectCallLogForm, ClientCallLogForm
+from forms import ClientForm, SalesProspectForm, SalesProspectEditForm, SalesProspectCallLogForm, ClientCallLogForm, ClientForm2
 from Common.forms import AddressForm, ContactForm
 from Common.models import Address, Contact, Billing
 from Common.helpermethods import create_address_helper, form_generator, create_contact_helper, \

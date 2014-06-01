@@ -1,6 +1,7 @@
 from django import forms
-from models import Address, Billing, Contact, CallList, Installer, Card
+from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
+from models import Address, Billing, Contact, CallList, Installer, Card, UserProfile
 from bootstrap_toolkit.widgets import BootstrapDateInput
 
 #region AddressForms
@@ -117,6 +118,29 @@ class CallListForm(forms.ModelForm):
             'cl_is_enabled': _('Enable Call List'),
             'cl_genre': _('Call List Type'),
             'cl_order': _('Call List Order'),
+        }
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password']
+        widgets = {
+            'password': forms.PasswordInput(attrs={'placeholder': 'Password'}),
+            'username': forms.TextInput(attrs={'placeholder': 'Username'}),
+            'email': forms.TextInput(attrs={'placeholder': 'eMail'}),
+        }
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        #fields = '__all__'
+        exclude = ['picture', 'user']
+        widgets = {
+            'first_name': forms.PasswordInput(attrs={'placeholder': 'First Name'}),
+            'middle_initial': forms.TextInput(attrs={'placeholder': 'Middle Initial'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Last Name'}),
         }
 
 #endregion

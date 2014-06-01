@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+    <head>
+      <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
+          <!-- Always force latest IE rendering engine or request Chrome Frame -->
+          <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800">
+          <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        {% load staticfiles %}
+          <link href="/static/css/application.css" type="text/css" media="screen" rel="stylesheet" />
+          <link type="text/css" href="/static/css/bootstrap-timepicker.min.css" />
+          <!--[if lt IE 9]>
+          <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+          <![endif]-->
+          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+          <script type="text/javascript" src="/static/js/application.js" />
+          <script type="text/javascript" src="/static/js/bootstrap-2.2.2.min.js"></script>
+          <title>LibertyNET</title>
+    </head>
+    {% block body_block %}
+    <body>
+    {% endblock %}
+        <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            {% load staticfiles %}
+            <img src="{{ STATIC_URL }}media/website_logo_sm.png"  alt="Liberty Logo"/>
+            <a class="navbar-brand" href="#">Liberty NET</a>
+          </div>
+        </nav>
+        <div class="container">
+            <div class="col-md-4 col-md-offset-4">
+              <div class="padded">
+                <div class="login box" style="margin-top: 80px;">
+                  <div class="box-header">
+                    <span class="title">
+                      {% block base_header_title %}
+                        Login/Signup
+                      {% endblock base_header_title %}
+                    </span>
+                  </div>
+                  <div class="box-content padded">
+                  {% block base_content %}
+                    Base content block
+                  {% endblock base_content %}
+                  </div>
+                  {% comment %}
+                  <div class="box-content padded">
+                    <form class="separate-sections">
+                      <div class="input-group addon-left">
+                        <span class="input-group-addon" href="#">
+                          <i class="icon-user"></i>
+                        </span>
+                        <input type="text" placeholder="username">
+                      </div>
+
+                      <div class="input-group addon-left">
+                        <span class="input-group-addon" href="#">
+                          <i class="icon-key"></i>
+                        </span>
+                        <input type="password" placeholder="password">
+                      </div>
+
+                      <div>
+                        <a class="btn btn-blue btn-block" href="../dashboard/dashboard.html">
+                            Login <i class="icon-signin"></i>
+                        </a>
+                      </div>
+
+                    </form>
+                    <div>
+                      <a href="sign_up.html">
+                          Don't have an account? <strong>Sign Up</strong>
+                      </a>
+                    </div>
+                  </div>
+                  {% endcomment %}
+                </div>
+                {% comment %}
+                <div class="row">
+                  <div class="col-md-6">
+                    <a href="#" class="btn btn-facebook btn-block"><i class="icon-facebook-sign"></i> Facebook</a>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="#" class="btn btn-twitter btn-block"><i class="icon-twitter"></i> Twitter</a>
+                  </div>
+                </div>
+                {% endcomment %}
+              </div>
+            </div>
+        </div>
+    </body>
+</html>

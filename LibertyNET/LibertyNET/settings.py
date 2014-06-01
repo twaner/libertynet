@@ -10,8 +10,11 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
+#BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+SETTINGS_DIR = os.path.dirname(os.path.dirname(__file__))
+#PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
+PROJECT_PATH = SETTINGS_DIR
+#PROJECT_PATH = os.path.abspath(PROJECT_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -48,6 +51,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'bootstrap_toolkit',
     'LibertyNET',
+    'PIL',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,6 +62,17 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher',
+)
+
 
 ROOT_URLCONF = 'LibertyNET.urls'
 
@@ -110,7 +125,11 @@ DIRECTORY_STRING ='/Users/taiowawaner/Documents/LibertyNET/LibertyNetProject/Lib
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 #MEDIA_ROOT = '/Users/taiowawaner/Documents/LibertyNET/Django Projects/LibertySecurity/liberty/static/media/'
-MEDIA_ROOT = DIRECTORY_STRING + 'static/media/'
+MEDIA_ROOT_PATH = os.path.join(PROJECT_PATH, 'static/media/')
+MEDIA_ROOT = (
+    #DIRECTORY_STRING + 'static/media/'
+    MEDIA_ROOT_PATH
+)
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -125,22 +144,21 @@ STATIC_ROOT = ''
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS_PATH = os.path.join(PROJECT_PATH, 'static')
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    #'/Users/taiowawaner/Documents/LibertyNET/Django Projects/LibertySecurity/liberty/static/',
-    DIRECTORY_STRING + 'static',
+    #DIRECTORY_STRING + 'static',
     #os.path.join(PROJECT_DIR), 'static',
+    STATICFILES_DIRS_PATH,
 )
 
+TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates/')
 TEMPLATE_DIRS = (
-    #'/Users/taiowawaner/Documents/LibertyNET/Django Projects/LibertySecurity/liberty/templates/'
-    DIRECTORY_STRING + 'templates/'
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    #DIRECTORY_STRING + 'templates/',
+    TEMPLATE_PATH,
 )
 
 

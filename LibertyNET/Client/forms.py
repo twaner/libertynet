@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext as _
 from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
 from bootstrap_toolkit.widgets import BootstrapDateInput
+from Common.forms import AddressForm
 
 #region ClientForms
 
@@ -17,6 +18,34 @@ class ClientForm(forms.ModelForm):
         widgets = {
             'client_date': forms.DateInput(attrs={'class': 'datepicker fill-up'})
         }
+
+
+class ClientForm2(forms.ModelForm):
+    client_address = AddressForm()
+
+    class Meta:
+        model = Client
+        exclude = ['client_contact', 'client_billing']
+        fields = [
+            'client_number',
+            'business_name',
+            'is_business',
+            'client_address',
+            'client_contact',
+            'client_billing',
+            'client_date',
+            'first_name',
+            'last_name',
+            'middle_initial',
+        ]
+        help_texts = {
+            'business_name': _('Optional.'),
+            'is_business': _('Select for commercial accounts.'),
+        }
+        widgets = {
+            'client_date': forms.DateInput(attrs={'class': 'datepicker fill-up'})
+        }
+
 
 #endregion
 

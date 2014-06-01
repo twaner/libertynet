@@ -1,0 +1,166 @@
+{% extends '__login_signup.html' %}
+    {% block body_block %}
+    <body>
+    {% endblock %}
+      {% block base_header_title %}
+        Signup
+      {% endblock base_header_title %}
+      {% block base_content %}
+        {% if registered %}
+            <strong>Thank you for signing up!</strong>
+            <a href="#">Return to homepage</a>
+        {% else %}
+            <form id="user_form" method="post" action="client/register/"
+                  enctype="multipart/form-data" class="separate-sections">
+                {% csrf_token %}
+                {% for f in profile_form %}
+                    <div class="input-group addon-left">
+                    <span class="input-group-addon" href="#">
+                        <i class="icon-pencil"></i> ​
+                    </span>
+                    {{ f }}
+                </div>
+                {% endfor %}
+                <div class="input-group addon-left">
+                    <span class="input-group-addon" href="#">
+                        <i class="icon-user"></i>​
+                    </span>
+                    {{ user_form.username}}
+                </div>
+                <div class="input-group addon-left">
+                    <span class="input-group-addon" href="#">
+                        <i class="icon-envelope-alt"></i>​
+                    </span>
+                    {{ user_form.email}}
+                </div>
+                <div class="input-group addon-left">
+                    <span class="input-group-addon" href="#">
+                        <i class="icon-key"></i>
+                    </span>
+                    {{ user_form.password }}
+                </div>
+                <script>
+                    function checkPasswordMatch() {
+                        var password = $("#id_password").val();
+                        var confirmPassword = $("#id_password2").val();
+                        var pLength = password.length;
+                        var cpLength = confirmPassword.length;
+
+                        if (pLength > 1 && cpLength > 1) {
+                            if (password != confirmPassword )
+                            $("#divCheckPasswordMatch").html("Passwords do not match!");
+                            else
+                            $("#divCheckPasswordMatch").html("Passwords match.");
+                        }
+                    }
+                    $(document).ready(function () {
+                       $("#id_password2").keyup(checkPasswordMatch);
+                    });
+                </script>
+                <div class="input-group addon-left">
+                    <span class="input-group-addon" href="#">
+                        <i class="icon-key"></i>
+                    </span>
+                    <input type="password" placeholder="Confirm Password" id="id_password2"
+                            onChange="checkPasswordMatch();" />​
+                </div>
+                    <div class="registrationFormAlert" id="divCheckPasswordMatch">
+                </div>
+                <div class="form-actions" xmlns="http://www.w3.org/1999/html">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="submit" type="button" value="Register"
+                                       class="btn btn-md btn-blue"/>
+                            </div>
+                            <div class="col-md-6">
+                                <input action="action" type="button" class="btn btn-md btn-red"
+                                       value="Cancel" onclick="history.go(-1);" />
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- form-actions -->
+            </form>
+            <div>
+              <a href="login.html">
+                  Already have an account? <strong>Sign In</strong>
+              </a>
+            </div>
+        {% endif %}
+      {% endblock base_content %}
+
+
+
+    {% comment %}
+
+    span class="input-group-addon" href="#">
+                            {% if i.name == 'username' %}
+                                ​<i class=​"icon-user">​</i>​
+                            {% elif i.name == 'email' %}
+                                <i class=​"icon-envelope">​</i>​
+                            {% else %}
+                                <i class=​"icon-key">​</i>​
+                            {% endif %}
+                        </span>
+     <div class="input-group addon-left">
+                    <span class="input-group-addon" href="#">
+                      <i class="icon-user"></i>
+                    </span>
+                    {{ user_form }}
+                    <input type="text" placeholder="username">
+                  </div>
+                  <div class="input-group addon-left">
+                      <span class="input-group-addon" href="#">
+                        <i class="icon-envelope"></i>
+                      </span>
+                        <input type="text" placeholder="email">
+                        {{ user_form }}
+                  </div>
+                  <div class="input-group addon-left">
+                    <span class="input-group-addon" href="#">
+                      <i class="icon-key"></i>
+                    </span>
+                    <input type="password" placeholder="password">
+                      {{ user_form }}
+                 </div>
+      <div class="box-content padded">
+        <form class="separate-sections">
+          <div class="input-group addon-left">
+            <span class="input-group-addon" href="#">
+              <i class="icon-user"></i>
+            </span>
+            <input type="text" placeholder="username">
+          </div>
+
+          <div class="input-group addon-left">
+            <span class="input-group-addon" href="#">
+              <i class="icon-key"></i>
+            </span>
+            <input type="password" placeholder="password">
+          </div>
+
+          <div>
+            <a class="btn btn-blue btn-block" href="../dashboard/dashboard.html">
+                Login <i class="icon-signin"></i>
+            </a>
+          </div>
+
+        </form>
+        <div>
+          <a href="sign_up.html">
+              Don't have an account? <strong>Sign Up</strong>
+          </a>
+        </div>
+      </div>
+      {% endcomment %}
+
+    {% comment %}
+    <div class="row">
+      <div class="col-md-6">
+        <a href="#" class="btn btn-facebook btn-block"><i class="icon-facebook-sign"></i> Facebook</a>
+      </div>
+      <div class="col-md-6">
+        <a href="#" class="btn btn-twitter btn-block"><i class="icon-twitter"></i> Twitter</a>
+      </div>
+    </div>
+    {% endcomment %}
