@@ -5,7 +5,33 @@
 <body onload="initialize()" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 {% block base_header %}
-
+  <div class="container">
+    <div class="row">
+      <div class="area-top clearfix">
+        <div class="pull-left header">
+          <h3 class="title">
+            <i class="icon-group"></i>
+            Client Index
+          </h3>
+          <h5>
+            <span>
+              Client Landing Page
+            </span>
+          </h5>
+        </div>
+        <ul class="list-inline pull-right sparkline-box">
+          <li class="sparkline-row">
+            <h4 class="blue"><span>Total Clients</span> {{ all_client_list|length }} </h4>
+          </li>
+          <li class="sparkline-row">
+            <h4 class="blue"><span>New Clients</span> {{ most_recent|length }} </h4>
+          </li>
+          <li class="sparkline-row">
+            <h4 class="green"><span>Clients with Follow Ups</span> {{ follow_up|length }} </h4>
+          </li>
+        </ul>
+      </div>
+    </div>
 {% endblock %}
 
 {% block base_content %}
@@ -121,7 +147,7 @@
                 <div id="collapseTwo" class="accordion-body collapse">
                   <div class="accordion-inner padded">
                     <div class="box">
-                  <div class="box-header"><span class="title">Clients</span></div>
+                     <div class="box-header"><span class="title">10 Most Recent Clients</span></div>
                       <div class="box-content">
                             <div id="dataTables">
                             <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
@@ -175,10 +201,55 @@
                 </div>
                 <div id="collapseThree" class="accordion-body collapse">
                   <div class="accordion-inner padded">
-                    Clients who need follow up
+                    <div class="box">
+                     <div class="box-header"><span class="title">Clients that Require Follow Up</span></div>
+                      <div class="box-content">
+                        <div id="dataTables">
+                            <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
+                            <thead>
+                                <tr>
+                                  <th><div>Client ID</div></th>
+                                  <th><div>Client Name</div></th>
+                                  <th><div>Action</div></th>
+                                </tr>
+                            </thead>
+                                <tbody role="alert" aria-live="polite" aria-relavent="all">
+                                    {% if follow_up %}
+                                      {% for e in follow_up %}
+                                        <tr>
+                                          <td class="sorting_1">{{e.client_id.client_number}}</td>
+                                          <td>
+                                               <a href="{{ e.get_absolute_url }}">
+                                                      {{ e.client_id }}
+                                               </a>
+                                          </td>
+                                          <td>
+                                              <ul>
+                                              <div class="btn-group">
+                                                <button class="btn btn-xs btn-default dropdown-toggle"
+                                                        data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                                                <ul class="dropdown-menu">
+                                                  <li><a href="{{ e.client_id.get_absolute_url }}">Client Details</a></li>
+                                                  <li><a href="{{ billing_detail.get_absolute_url_edit }}">Billing Info</a></li>
+                                                  <li><a href="{{ site_detail.get_absolute_url }}">Site Details</a></li>
+                                                  <li><a href="{{ e.get_absolute_url }}">Call Log</a></li>
+                                                  <li class="divider"></li>
+                                                  <li><a href="#">Separated link</a></li>
+                                                </ul>
+                                              </div>
+                                              </ul>
+                                          </td>
+                                        </tr>
+                                      {% endfor %}
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                          </div>
+                      </div>
                   </div>
-              </div>
-            </div>
+                  </div>
+              </div> <!-- collapseThree -->
+            </div> <!-- accordion-group -->
           </div>
           </div>
         </div>

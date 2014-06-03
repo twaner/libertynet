@@ -3,17 +3,18 @@
     <body>
     {% endblock %}
       {% block base_header_title %}
-        Signup
+        LibertyNET Employee Signup
       {% endblock base_header_title %}
       {% block base_content %}
         {% if registered %}
             <strong>Thank you for signing up!</strong>
             <a href="#">Return to homepage</a>
         {% else %}
-            <form id="user_form" method="post" action="client/register/"
+            <form id="user_form" method="post" action=""
                   enctype="multipart/form-data" class="separate-sections">
                 {% csrf_token %}
-                {% for f in profile_form %}
+
+                {% for f in form1 %}
                     <div class="input-group addon-left">
                     <span class="input-group-addon" href="#">
                         <i class="icon-pencil"></i> ​
@@ -21,23 +22,26 @@
                     {{ f }}
                 </div>
                 {% endfor %}
+                <div>
+                    {{ form0.errors }}
+                </div>
                 <div class="input-group addon-left">
                     <span class="input-group-addon" href="#">
                         <i class="icon-user"></i>​
                     </span>
-                    {{ user_form.username}}
+                    {{ form0.username}}
                 </div>
                 <div class="input-group addon-left">
                     <span class="input-group-addon" href="#">
                         <i class="icon-envelope-alt"></i>​
                     </span>
-                    {{ user_form.email}}
+                    {{ form0.email}}
                 </div>
                 <div class="input-group addon-left">
                     <span class="input-group-addon" href="#">
                         <i class="icon-key"></i>
                     </span>
-                    {{ user_form.password }}
+                    {{ form0.password }}
                 </div>
                 <script>
                     function checkPasswordMatch() {
@@ -82,85 +86,9 @@
                 </div> <!-- form-actions -->
             </form>
             <div>
-              <a href="login.html">
+              <a href="/common/login/">
                   Already have an account? <strong>Sign In</strong>
               </a>
             </div>
         {% endif %}
       {% endblock base_content %}
-
-
-
-    {% comment %}
-
-    span class="input-group-addon" href="#">
-                            {% if i.name == 'username' %}
-                                ​<i class=​"icon-user">​</i>​
-                            {% elif i.name == 'email' %}
-                                <i class=​"icon-envelope">​</i>​
-                            {% else %}
-                                <i class=​"icon-key">​</i>​
-                            {% endif %}
-                        </span>
-     <div class="input-group addon-left">
-                    <span class="input-group-addon" href="#">
-                      <i class="icon-user"></i>
-                    </span>
-                    {{ user_form }}
-                    <input type="text" placeholder="username">
-                  </div>
-                  <div class="input-group addon-left">
-                      <span class="input-group-addon" href="#">
-                        <i class="icon-envelope"></i>
-                      </span>
-                        <input type="text" placeholder="email">
-                        {{ user_form }}
-                  </div>
-                  <div class="input-group addon-left">
-                    <span class="input-group-addon" href="#">
-                      <i class="icon-key"></i>
-                    </span>
-                    <input type="password" placeholder="password">
-                      {{ user_form }}
-                 </div>
-      <div class="box-content padded">
-        <form class="separate-sections">
-          <div class="input-group addon-left">
-            <span class="input-group-addon" href="#">
-              <i class="icon-user"></i>
-            </span>
-            <input type="text" placeholder="username">
-          </div>
-
-          <div class="input-group addon-left">
-            <span class="input-group-addon" href="#">
-              <i class="icon-key"></i>
-            </span>
-            <input type="password" placeholder="password">
-          </div>
-
-          <div>
-            <a class="btn btn-blue btn-block" href="../dashboard/dashboard.html">
-                Login <i class="icon-signin"></i>
-            </a>
-          </div>
-
-        </form>
-        <div>
-          <a href="sign_up.html">
-              Don't have an account? <strong>Sign Up</strong>
-          </a>
-        </div>
-      </div>
-      {% endcomment %}
-
-    {% comment %}
-    <div class="row">
-      <div class="col-md-6">
-        <a href="#" class="btn btn-facebook btn-block"><i class="icon-facebook-sign"></i> Facebook</a>
-      </div>
-      <div class="col-md-6">
-        <a href="#" class="btn btn-twitter btn-block"><i class="icon-twitter"></i> Twitter</a>
-      </div>
-    </div>
-    {% endcomment %}

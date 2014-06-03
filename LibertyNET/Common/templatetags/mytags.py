@@ -9,6 +9,9 @@ def addcss(field, css):
 def addstyle(field, mystyle):
     return field(attrs={"style": mystyle})
 
+@register.simple_tag
+def user_name(user):
+    return '%s %s' % (user.first_name, user.last_name)
 
     # "middle_initial"
     # "last_name"

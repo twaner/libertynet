@@ -1,16 +1,42 @@
-{% extends '__basewrap.html' %}
-{% load mytags %}
+{% extends '__login_signup.html' %}
+    {% block body_block %}
+    <body>
+    {% endblock %}
+    {% block base_header_title %}
+        LibertyNET Employee Login
+    {% endblock base_header_title %}
+    {% block base_content %}
+        <form id="login_form" method="post" action=""
+                class="separate-sections">
+            {% csrf_token %}
+            <div class="input-group addon-left">
+                <span class="input-group-addon" href="#">
+                  <i class="icon-user"></i>
+                </span>
+            <input type="text" name="username" value="" size="50" />
+              </div>
 
-{% block body_block %}
+              <div class="input-group addon-left">
+                <span class="input-group-addon" href="#">
+                  <i class="icon-key"></i>
+                </span>
+                <input type="password" name="password" value="" size="50" />
+              </div>
 
-{% endblock %}
-{% block base_header %}
-
-{% endblock %}
-
-{% block base_content %}
-    {% block form_breadcrumb %}
-    {% endblock form_breadcrumb %}
-
-
-{% endblock base_content%}
+              <div class="form-actions" xmlns="http://www.w3.org/1999/html">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="submit" type="button" value="Login"
+                                       class="btn btn-md btn-blue"/>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- form-actions -->
+        </form>
+        <div>
+          <a href="/common/register">
+              Don't have an account? <strong>Sign Up</strong>
+          </a>
+        </div>
+    {% endblock base_content %}

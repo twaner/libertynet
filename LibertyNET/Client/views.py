@@ -1,10 +1,12 @@
 from trace import Trace
 from django.contrib.gis.db.backends.spatialite import client
 from django.core.context_processors import request
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
+from django.template.context import RequestContext
 from django.views.generic import ListView, DetailView, UpdateView
 from django.views.generic.base import View
 from datetime import date, datetime
@@ -23,6 +25,7 @@ import operator
 #region ListViews - Index Views of All of an Object
 
 
+#@login_required(login_url='/common/login/')
 class ClientListView(ListView):
     """
     View of all Clients, Clients sorted by client_date.
@@ -43,10 +46,9 @@ class ClientListView(ListView):
         context['most_recent'] = sorted_list[q:]
         # Clients that are marked for follow up in call log => Client should appear once only
         calllog = ClientCallLog.objects.filter(follow_up=True)
-        print('ClientListView %s ' % calllog)
         tmp_list = [calllog.client_id for calllog.client_id in calllog]
         context['follow_up'] = set(tmp_list)
-        print("ClientListView %s " % context['follow_up'])
+
         return context
 
 
@@ -560,10 +562,16 @@ def followupcall(request, pk):
 
 
 def editclientcall(request, pk):
+    """
+    View to edit a Client CallLog.
+    @param request: request.
+    @param pk: Pk of CallLog.
+    @return: Http.
+    """
     template_name = 'client/editclientcall.html'
     form_list = form_generator(1)
     calllog = ClientCallLog.objects.get(pk=pk)
-
+    print('editclientcall: REQUEST %s' % request.get_full_path())
     calllog_dict = {
         'caller': calllog.caller, 'call_date': calllog.call_date.strftime("%Y-%m-%d"),
         'call_time': calllog.call_time.strftime("%H:%M"), 'purpose': calllog.purpose,
@@ -692,7 +700,6 @@ def editsalescall(request, pk):
     template_name = 'client/editclientcall.html'
     form_list = form_generator(1)
     calllog = ClientCallLog.objects.get(pk=pk)
-
     calllog_dict = {
         'caller': calllog.caller, 'call_date': calllog.call_date.strftime("%Y-%m-%d"),
         'call_time': calllog.call_time.strftime("%H:%M"), 'purpose': calllog.purpose,

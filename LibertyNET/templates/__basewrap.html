@@ -1,3 +1,4 @@
+{% load mytags %}
 <!doctype html>
 <html>
     <head>
@@ -68,30 +69,36 @@
                 </div>
               </form>
               {% endcomment %}
-              <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle dropdown-avatar" data-toggle="dropdown">
-                  <span>
-                    <img class="menu-avatar" src="../../images/avatars/avatar1.jpg" /> <span>John Smith <i class="icon-caret-down"></i></span>
-                    <span class="badge badge-dark-red">5</span>
-                  </span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <!-- the first element is the one with the big avatar, add a with-image class to it -->
-                    <li class="with-image">
-                      <div class="avatar">
-                        <img src="../../images/avatars/avatar1.jpg" />
-                      </div>
-                      <span>John Smith</span>
-                    </li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="icon-user"></i> <span>Profile</span></a></li>
-                    <li><a href="#"><i class="icon-cog"></i> <span>Settings</span></a></li>
-                    <li><a href="#"><i class="icon-envelope"></i> <span>Messages</span> <span class="label label-dark-red pull-right">5</span></a></li>
-                    <li><a href="#"><i class="icon-off"></i> <span>Logout</span></a></li>
-                  </ul>
-                </li>
-              </ul>
+              <!-- User dropdown -->
+                <div class="userauth">
+                  {% if user.is_authenticated %}
+                      <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle dropdown-avatar" data-toggle="dropdown">
+                          <span>
+                            <img class="menu-avatar" src="../../images/avatars/avatar1.jpg" />
+                              <span>{% user_name user %} <i class="icon-caret-down"></i></span>
+                            <span class="badge badge-dark-red">5</span>
+                          </span>
+                          </a>
+                          <ul class="dropdown-menu">
+                            <!-- the first element is the one with the big avatar, add a with-image class to it -->
+                            <li class="with-image">
+                              <div class="avatar">
+                                <img src="../../images/avatars/avatar1.jpg" />
+                              </div>
+                              <span>{{ user }}</span>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="icon-user"></i> <span>Profile</span></a></li>
+                            <li><a href="#"><i class="icon-cog"></i> <span>Settings</span></a></li>
+                            <li><a href="#"><i class="icon-envelope"></i> <span>Messages</span> <span class="label label-dark-red pull-right">5</span></a></li>
+                            <li><a href="{% url 'Common:logout' %}"><i class="icon-off"></i> <span>Logout</span></a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                 {% endif %}
+                </div>
             </div>
           </div><!-- /.navbar-collapse -->
         </nav>

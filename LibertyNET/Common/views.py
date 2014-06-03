@@ -1,7 +1,9 @@
 from django.core.context_processors import request
+from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404, get_list_or_404, render_to_response
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
@@ -101,6 +103,7 @@ def editclientbilling(request, pk):
         form_list[2] = CardForm(card_dict)
         return render(request, template_name, dict_generator(form_list))
 
+
 #endregion
 
 #region CallList
@@ -177,14 +180,16 @@ def updatecalllist(request, pk):
         form_list[1] = CallListContactForm(contact_dict)
         return render(request, template_name, dict_generator(form_list))
 
+
 #endregion
 
-#region Signup
+#region Auth
 
 def register(request):
     # Request's context
     context = RequestContext(request)
-    template_name = 'common/register.html',
+    template_name = 'common/register.html'
+    form_list = form_generator(2)
 
     # A boolean value for telling the template whether the registration was successful.
     # Set to False initially. Code changes value to True when registration succeeds.
@@ -194,13 +199,13 @@ def register(request):
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
-        user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
+        form_list[0] = UserForm(data=request.POST)
+        form_list[1] = UserProfileForm(data=request.POST)
 
         # If the two forms are valid...
-        if user_form.is_valid() and profile_form.is_valid():
+        if form_list[0].is_valid() and form_list[1].is_valid():
             # Save the user's form data to the database.
-            user = user_form.save()
+            user = form_list[0].save()
 
             # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.
@@ -210,7 +215,7 @@ def register(request):
             # Now sort out the UserProfile instance.
             # Since we need to set the user attribute ourselves, we set commit=False.
             # This delays saving the model until we're ready to avoid integrity problems.
-            profile = profile_form.save(commit=False)
+            profile = form_list[1].save(commit=False)
             profile.user = user
 
             # Did the user provide a profile picture?
@@ -223,29 +228,129 @@ def register(request):
 
             # Update our variable to tell the template registration was successful.
             registered = True
-
+            return HttpResponseRedirect(reverse('Employee:addemployee'),
+                                      {'user_info': profile}, context)
+            # return HttpResponseRedirect(reverse('Employee:addemployee',
+            #                                     ))
         # Invalid form or forms - mistakes or something else?
         # Print problems to the terminal.
         # They'll also be shown to the user.
         else:
-            print user_form.errors, profile_form.errors
+            print form_list[0].errors, form_list[1].errors
 
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
     else:
-        user_form = UserForm()
-        profile_form = UserProfileForm()
-
+        form_list[0] = UserForm()
+        form_list[1] = UserProfileForm()
+        form_dict = dict_generator(form_list)
+        form_dict['registered'] = registered
     # Render the template depending on the context.
     return render_to_response(
-            template_name,
-            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
-            context)
+        template_name,
+        form_dict,
+        context)
+
+
+def logout(request):
+    logout(request)
+    HttpResponseRedirect(reverse('Common:user_login'))
+
 
 #endregion
 
 #region Login
 
 
+def user_login(request):
+    # Like before, obtain the context for the user's request.
+    context = RequestContext(request)
+    template_name = 'common/login.html',
+
+    # If the request is a HTTP POST, try to pull out the relevant information.
+    if request.method == 'POST':
+        # Gather the username and password provided by the user.
+        # This information is obtained from the login form.
+        username = request.POST['username']
+        password = request.POST['password']
+
+        # Use Django's machinery to attempt to see if the username/password
+        # combination is valid - a User object is returned if it is.
+        user = authenticate(username=username, password=password)
+
+        # If we have a User object, the details are correct.
+        # If None (Python's way of representing the absence of a value), no user
+        # with matching credentials was found.
+        if user:
+            # Is the account active? It could have been disabled.
+            if user.is_active:
+                # If the account is valid and active, we can log the user in.
+                # We'll send the user back to the homepage.
+                login(request, user)
+                return HttpResponseRedirect(reverse('Client:index'))
+            else:
+                # An inactive account was used - no logging in!
+                return HttpResponse("Your Liberty NET account is disabled.")
+        else:
+            # Bad login details were provided. So we can't log the user in.
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse("Invalid login details supplied.")
+
+    # The request is not a HTTP POST, so display the login form.
+    # This scenario would most likely be a HTTP GET.
+    else:
+        # No context variables to pass to the template system, hence the
+        # blank dictionary object...
+        return render_to_response(template_name, {}, context)
+
+#endregion
+
+#region register employee
+
+
+class RegisterEmployeeView(View):
+    template_name = 'common/register.html'
+    form_list = form_generator(2)
+
+    def post(self, request, form_list=form_list):
+        form_list[0] = UserProfileForm(data=request.POST)
+        form_list[1] = UserForm(data=request.POST)
+
+        if validation_helper(form_list):
+            # If the two forms are valid...
+            if form_list[1].is_valid() and form_list[0].is_valid():
+                # Save the user's form data to the database.
+                user = form_list[1].save()
+
+                # Now we hash the password with the set_password method.
+                # Once hashed, we can update the user object.
+                user.set_password(user.password)
+                user.save()
+
+                # Now sort out the UserProfile instance.
+                # Since we need to set the user attribute ourselves, we set commit=False.
+                # This delays saving the model until we're ready to avoid integrity problems.
+                profile = form_list[0].save(commit=False)
+                profile.user = user
+
+                # Did the user provide a profile picture?
+                # If so, we need to get it from the input form and put it in the UserProfile model.
+                if 'picture' in request.FILES:
+                    profile.picture = request.FILES['picture']
+
+                # Now we save the UserProfile model instance.
+                profile.save()
+
+                # Update our variable to tell the template registration was successful.
+                registered = True
+
+            else:
+                print form_list[1].errors, form_list[0].errors
+
+    def get(self, request, form_list=form_list):
+        form_list[0] = UserProfileForm()
+        form_list[1] = UserForm()
+        form_dict = dict_generator(form_list)
+        return render(request, self.template_name, form_dict)
 
 #endregion

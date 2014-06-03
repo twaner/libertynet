@@ -138,7 +138,7 @@ class UserProfileForm(forms.ModelForm):
         #fields = '__all__'
         exclude = ['picture', 'user']
         widgets = {
-            'first_name': forms.PasswordInput(attrs={'placeholder': 'First Name'}),
+            'first_name': forms.TextInput(attrs={'placeholder': 'First Name'}),
             'middle_initial': forms.TextInput(attrs={'placeholder': 'Middle Initial'}),
             'last_name': forms.TextInput(attrs={'placeholder': 'Last Name'}),
         }
