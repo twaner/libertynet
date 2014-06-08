@@ -82,6 +82,7 @@ class SalesProspectEditForm(forms.ModelForm):
             'sp_business_name': _('Business Name'),
         }
 
+
 #endregion
 
 #region CallLogForms
@@ -100,13 +101,12 @@ class ClientCallLogForm(forms.ModelForm):
                                              'maxlength': ClientCallLog._meta.get_field('purpose').max_length,
                                              'onkeyup': "charRemaining('id_purpose', 'purpose_span')",
                                              # 'onload': "initialChar('id_purpose', 'purpose_span')",
-                                             }),
+            }),
             'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10,
                                            'maxlength': ClientCallLog._meta.get_field('notes').max_length,
                                            'onkeyup': "charRemaining('id_notes', 'notes_span')",
                                            # 'onload': "initialChar('id_notes', 'notes_span')",
-                                           }),
-
+            }),
         }
         labels = {
             'call_date': _('Date of Call'),
@@ -120,7 +120,6 @@ class SalesProspectCallLogForm(forms.ModelForm):
         model = SalesProspectCallLog
         fields = ['sales_id', 'caller', 'call_date', 'call_time', 'follow_up',
                   'purpose', 'notes', 'next_contact']
-        exclude = ['sales_id']
         widgets = {
             'call_date': forms.DateInput(attrs={'class': 'datepicker'}),
             'next_contact': forms.DateInput(attrs={'class': 'datepicker'}),
@@ -131,6 +130,19 @@ class SalesProspectCallLogForm(forms.ModelForm):
             'call_date': _('Date of Call'),
             'call_time': _('Time of Call'),
             'follow_up': _('Follow Up Required'),
+            'sales_id': _('Sales Lead')
+        }
+        widgets = {
+            'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3,
+                                             'maxlength': SalesProspectCallLog._meta.get_field('purpose').max_length,
+                                             'onkeyup': "charRemaining('id_purpose', 'purpose_span')",
+                                             # 'onload': "initialChar('id_purpose', 'purpose_span')",
+            }),
+            'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10,
+                                           'maxlength': SalesProspectCallLog._meta.get_field('notes').max_length,
+                                           'onkeyup': "charRemaining('id_notes', 'notes_span')",
+                                           # 'onload': "initialChar('id_notes', 'notes_span')",
+            }),
         }
 
 #endregion

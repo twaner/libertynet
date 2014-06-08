@@ -63,6 +63,7 @@ def update_client_helper(form, client, address, contact):
     client.save(update_fields=['first_name', 'middle_initial', 'last_name', 'business_name', 'is_business',
                                'client_address', 'client_contact'])
     """
+    client.save()
     client.save(update_fields=['first_name', 'middle_initial',
                                'last_name', 'client_number',
                                'business_name', 'is_business',
@@ -157,13 +158,14 @@ def update_sales_prospect_helper(form, sp, address, contact):
         sp.sp_contact = contact
 
     sp.sp_business_name = form.cleaned_data['sp_business_name']
+
     if sp.sp_business_name == '' or sp.sp_business_name is None:
         sp.sp_business_name = None
 
     sp.is_business = boolean_helper(form.cleaned_data['is_business'])
 
     try:
-        sp.sp_liberty_contact = Employee.objects.get(pk=form.cleaned_data['sp_liberty_contact'])
+        sp.sp_liberty_contact = Employee.objects.get(pk=form.cleaned_data['sp_liberty_contact'].employee_id)
     except ValueError:
         sp.sp_liberty_contact = None
 

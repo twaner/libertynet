@@ -252,13 +252,6 @@ class Client(Person):
         #def get_absolute_url(self):
         #   return 'ClientDetailView', [str(self.client_id)] #{'pk': self.client_id}
 
-    def get_absolute_url_edit_wrap(self):
-        """
-        Gets edit view url.
-        @return: edit view url.
-        """
-        return reverse('Client:editclient_wrap', kwargs={'pk': self.client_id})
-
     def get_absolute_url_calllog(self):
         """
         Gets client call log view url.
@@ -340,7 +333,7 @@ class SalesProspect(Person):
         (LOW, 'Low'),
         (UNKNOWN, 'Unknown'),
     )
-    sales_prospect_id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     sp_business_name = models.CharField(max_length=50, null=True, blank=True)
     is_business = models.BooleanField(default=False)
     sp_liberty_contact = models.ForeignKey('Employee.Employee', verbose_name="liberty employee", null=True, blank=True)
@@ -355,24 +348,24 @@ class SalesProspect(Person):
     objects = SalesProspectManager()
 
     def get_absolute_url(self):
-        return reverse('Client:salesprospectdetails', kwargs={'pk': self.sales_prospect_id})
+        return reverse('Client:salesprospectdetails', kwargs={'pk': self.id})
 
     def get_absolute_url_edit(self):
-        return reverse('Client:editsalesprospect', kwargs={'pk': self.sales_prospect_id})
+        return reverse('Client:editsalesprospect', kwargs={'pk': self.id})
 
     def get_absolute_url_calllog(self):
         """
         Gets client call log view url.
         @return: client call log view url.
         """
-        return reverse('Client:addsalescalllog', kwargs={'pk': self.sales_prospect_id})
+        return reverse('Client:addsalescalllog', kwargs={'pk': self.id})
 
     def get_absolute_url_calllog_index(self):
         """
         Gets client call log index view url.
         @return: client call log index view url.
         """
-        return reverse('Client:salescalllogindex', kwargs={'pk': self.sales_prospect_id})
+        return reverse('Client:salescalllogindex', kwargs={'pk': self.id})
 
     def clean(self):
         super(SalesProspect, self).clean()
@@ -452,10 +445,10 @@ class SalesProspectCallLog(CallLog):
         return reverse('Client:salescalllogdetails', kwargs={'pk': self.id})
 
     def get_absolute_url_sales(self):
-        return reverse('Client:salesprospectdetails', kwargs={'pk': self.sales_id.sales_prospect_id})
+        return reverse('Client:salesprospectdetails', kwargs={'pk': self.sales_id.id})
 
     def get_absolute_url_index(self):
-        return reverse('Client:salescalllogindex', kwargs={'pk': self.sales_id.sales_prospect_id})
+        return reverse('Client:salescalllogindex', kwargs={'pk': self.sales_id.id})
 
     def get_absolute_url_edit(self):
         return reverse('Client:editsalescall', kwargs={'pk': self.id})

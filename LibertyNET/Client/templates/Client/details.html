@@ -181,26 +181,26 @@
                                       <tbody>
                                           <tr>
                                               <td>
-                                                  camera name
+                                                  system name
                                               </td>
                                               <td>
-                                                  camera type
-                                              </td>
-                                          </tr>
-                                         <tr>
-                                              <td>
-                                                  camera name
-                                              </td>
-                                              <td>
-                                                  camera type
+                                                  system type
                                               </td>
                                           </tr>
                                          <tr>
                                               <td>
-                                                  camera name
+                                                  system name
                                               </td>
                                               <td>
-                                                  camera type
+                                                  system type
+                                              </td>
+                                          </tr>
+                                         <tr>
+                                              <td>
+                                                  system name
+                                              </td>
+                                              <td>
+                                                  system type
                                               </td>
                                           </tr>
                                          <tr>
@@ -215,7 +215,7 @@
                                   </table>
                               </div>
                           </div>
-                      </div> <!-- cut  -->
+                      </div> <!-- box End System  -->
                   </div>
               </div>
               <!-- Camera Systems -->
@@ -358,79 +358,7 @@
       <!-- 2nd row Left Column -->
       <div class="row">
           <div class="col-md-6">
-            <div class="box">
-                <div class="box-header">
-                    <span class="title">
-                        Call Log
-                    </span>
-                    <!-- detail boxes for hearder -->
-                    <ul class="box-toolbar">
-                        <li>
-                            <a href="#" class="tip" title data-original-title="Calls requiring follow up">
-                            {% if calllog_list %}
-                                <span class="label label-red">
-                                    {{ calllog_follow|length }}
-                                </span>
-                            {% endif %}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="tip" title data-original-title="Total Calls">
-                            {% if calllog_list %}
-                                <span class="label label-green">
-                                    {{ calllog_list|length }}
-                                </span>
-                            {% endif %}
-                            </a>
-                        </li>
-                        <li>
-                          <div class="btn-group">
-                            <button class="btn btn-xs btn-default dropdown-toggle"
-                                    data-toggle="dropdown"><i class="fa fa-cog"></i></button>
-                            <ul class="dropdown-menu">
-                              <li>
-                                  <a href="{{ client_detail.get_absolute_url_calllog }}">
-                                      Add Call Log
-                                  </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </li>
-                    </ul>
-                </div> <!-- box-header -->
-                <div class="box-content scrollable" style="height: 280px; overflow-y: auto">
-                    <!-- loop through calls -->
-                    {% if calllog_list %}
-                        {% for c in calllog_list %}
-                            <div class="box-section news with-icons">
-                                {% if c.requires_follow_up == False %}
-                                    <div class="avatar green">
-                                        <!-- icon based on call status -->
-                                        <i class="icon-ok icon-2x"></i>
-                                    </div>
-                                {% else %}
-                                    <div class="avatar cyan">
-                                        <!-- icon based on call status -->
-                                        <i class="icon-mobile-phone icon-2x"></i>
-                                    </div>
-                                {% endif %}
-                                <div class="news-time">
-                                    <p>{{ c.call_date }}</p>
-                                    <p>{{ c.call_time }}</p>
-                                </div>
-                                <div class="news-content">
-                                    <div class="news-title">
-                                        <a href="{{ c.get_absolute_url }}">{{ c.purpose }}</a>
-                                    </div>
-                                    <div class="news-text">
-                                       {{ c.notes }}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                </div> <!-- box-content scrollable -->
-            </div>
+            {% include 'client/__calllog.html' with context=calllog_list context1=calllog_follow %}
           </div>
           <!-- Right Column 2nd Row -->
           <div class="col-md-6">

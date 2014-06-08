@@ -6,8 +6,13 @@
         LibertyNET Employee Login
     {% endblock base_header_title %}
     {% block base_content %}
-        <form id="login_form" method="post" action=""
+        {% if next %}
+            <form action="{{ next }}" method="post">
+                <p>NEXT</p>
+        {% else %}
+            <form id="login_form" method="post" action="/common/login/"
                 class="separate-sections">
+        {% endif %}
             {% csrf_token %}
             <div class="input-group addon-left">
                 <span class="input-group-addon" href="#">

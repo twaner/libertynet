@@ -1,6 +1,8 @@
 from models import Address, Contact, Card, Billing, CallList, Genre
 from django.db import models
 from datetime import datetime, timedelta, date
+from django.shortcuts import redirect, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 import types
 
 #region Address Helpers
@@ -21,18 +23,18 @@ def create_address_helper(form):
     return address
 
 
-def update_address_helper(request, address):
+def update_address_helper(form, address):
     """
     Updates an address object.
-    @param request: request.
+    @param form: form.
     @param address: address object.
     @return: address.
     """
-    address.street = request.POST.get('street')
-    address.unit = request.POST.get('unit')
-    address.city = request.POST.get('city')
-    address.state = request.POST.get('state')
-    address.zip_code = request.POST.get('zip_code')
+    address.street = form.cleaned_data['street']
+    address.unit = form.cleaned_data['unit']
+    address.city = form.cleaned_data['city']
+    address.state = form.cleaned_data['state']
+    address.zip_code = form.cleaned_data['zip_code']
     address.save(update_fields=['street', 'unit', 'city', 'state', 'zip_code'])
     return address
 
@@ -138,21 +140,21 @@ def updated_contact_helper(request, contact):
     return contact
 
 
-def update_contact_helper(request, contact):
+def update_contact_helper(form, contact):
     """
     Updates a full contact object.
-    @param request: request.
+    @param form: request.
     @param contact: Contact object.
     @return: Contact.
     """
-    contact.phone = request.POST.get('phone')
-    contact.phone_extension = request.POST.get('phone_extension')
-    contact.cell = request.POST.get('cell')
-    contact.email = request.POST.get('email')
-    contact.work_email = request.POST.get('work_email')
-    contact.website = request.POST.get('website')
-    contact.office_phone = request.POST.get('office_phone')
-    contact.office_phone_extension = request.POST.get('office_phone_extension')
+    contact.phone = form.cleaned_data['phone']
+    contact.phone_extension = form.cleaned_data['phone_extension']
+    contact.cell = form.cleaned_data['cell']
+    contact.email = form.cleaned_data['email']
+    contact.work_email = form.cleaned_data['work_email']
+    contact.website = form.cleaned_data['website']
+    contact.office_phone = form.cleaned_data['office_phone']
+    contact.office_phone_extension = form.cleaned_data['office_phone_extension']
     contact.save(update_fields=['phone', 'phone_extension', 'cell', 'office_phone',
                                 'office_phone_extension', 'email', 'work_email', 'website'])
     return contact
@@ -584,5 +586,14 @@ def model_to_dict(instance):
         if isinstance(field, models.ForeignKey):
             data[field.name] = field.rel.to.objects.get(pk=data[field.name])
     return data
+
+#endregion
+
+#region Auth
+
+
+def show_login():
+    pass
+    #return HttpResponseRedirect(reverse('Common:login'))
 
 #endregion

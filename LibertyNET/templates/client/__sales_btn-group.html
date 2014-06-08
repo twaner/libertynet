@@ -1,0 +1,14 @@
+<ul>
+  <div class="btn-group">
+    <button class="btn btn-xs btn-default dropdown-toggle"
+            data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+    <ul class="dropdown-menu">
+      <li><a href="{{ e.client_id.get_absolute_url }}">Client Details</a></li>
+      <li><a href="{{ billing_detail.get_absolute_url_edit }}">Billing Info</a></li>
+      <li><a href="{{ site_detail.get_absolute_url }}">Site Details</a></li>
+      <li><a href="{{ e.get_absolute_url }}">Call Log</a></li>
+      <li class="divider"></li>
+      <li><a href="#">Separated link</a></li>
+    </ul>
+  </div>
+</ul>

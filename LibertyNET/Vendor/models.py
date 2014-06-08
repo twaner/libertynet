@@ -44,6 +44,7 @@ class SupplierListManager(models.Manager):
 
 #region Models
 
+
 class Manufacturer(models.Model):
     #TODO ==> Should this be a business with a human contact?
     manufacturer_id = models.AutoField(primary_key=True)

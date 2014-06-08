@@ -84,6 +84,8 @@ class CameraManager(models.Manager):
 #endregion
 
 #region Base Class
+
+
 class Equipment(models.Model):
     """
     Base class for any piece of equipment.

@@ -1,4 +1,5 @@
 from trace import Trace
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.gis.db.backends.spatialite import client
 from django.core.context_processors import request
 from django.contrib.auth.decorators import login_required
@@ -25,7 +26,6 @@ import operator
 #region ListViews - Index Views of All of an Object
 
 
-#@login_required(login_url='/common/login/')
 class ClientListView(ListView):
     """
     View of all Clients, Clients sorted by client_date.
@@ -33,6 +33,7 @@ class ClientListView(ListView):
     model = Client
     context_object_name = 'all_client_list'
     template_name = 'client/index.html'
+    #context = RequestContext(request)
 
     def get_context_data(self, **kwargs):
         context = super(ClientListView, self).get_context_data(**kwargs)
@@ -46,8 +47,10 @@ class ClientListView(ListView):
         context['most_recent'] = sorted_list[q:]
         # Clients that are marked for follow up in call log => Client should appear once only
         calllog = ClientCallLog.objects.filter(follow_up=True)
-        tmp_list = [calllog.client_id for calllog.client_id in calllog]
+        #tmp_list = [calllog.client_id for calllog.client_id in calllog]
+        tmp_list = [Client.objects.get(pk=q.client_id.client_id) for q in calllog]
         context['follow_up'] = set(tmp_list)
+        context['calllog_follow_all'] = calllog
 
         return context
 
@@ -59,6 +62,28 @@ class SalesProspectListView(ListView):
     model = SalesProspect
     context_object_name = 'all_sales_prospect_list'
     template_name = 'client/salesprospectindex.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SalesProspectListView, self).get_context_data(**kwargs)
+
+        # context['object_list'] = sorted(context['object_list'],
+        #                                 key=lambda sales_prospect: sales_prospect.is_business is False)
+        sorted_list = sorted(context['object_list'],
+                             key=lambda sales_prospect: sales_prospect.initial_contact_date
+                             and sales_prospect.is_business is 0)
+
+        if len(sorted_list) <= 5:
+            q = len(sorted_list)
+        else:
+            q = len(sorted_list) - 4
+        context['most_recent'] = sorted_list[q:]
+
+        calllog = SalesProspectCallLog.objects.filter(follow_up=True)
+        tmp_list = [SalesProspect.objects.get(pk=q.sales_id.id) for q in calllog]
+        context['follow_up'] = set(tmp_list)
+        context['calllog_follow_all'] = calllog
+
+        return context
 
 
 class ClientCallLogHome(ListView):
@@ -155,7 +180,7 @@ class SalesProspectDetailView(DetailView):
     View for Sales Prospect Details.
     """
     model = SalesProspect
-    sales_prospect_id = 'pk'
+    id = 'pk'
     template_name = 'client/salesprospectdetails.html'
     context_object_name = 'sales_prospect_detail'
 
@@ -172,7 +197,7 @@ class SalesProspectDetailView(DetailView):
             pass
         try:
             context['call_detail'] = SalesProspectCallLog.objects.\
-                filter(sales_id=sales.sales_prospect_id)
+                filter(sales_id=sales.id)
         except SalesProspectCallLog.DoesNotExist:
             pass
         return context
@@ -183,7 +208,7 @@ class SalesProspectDetailViewWrap(DetailView):
     View for Sales Prospect Details.
     """
     model = SalesProspect
-    sales_prospect_id = 'pk'
+    id = 'pk'
     template_name = 'client/salesdetails_wrap.html'
     context_object_name = 'sales_prospect_detail'
 
@@ -200,7 +225,7 @@ class SalesProspectDetailViewWrap(DetailView):
             pass
         try:
             context['call_detail'] = SalesProspectCallLog.objects.\
-                filter(sales_id=sales.sales_prospect_id)
+                filter(sales_id=sales.id)
         except SalesProspectCallLog.DoesNotExist:
             pass
         return context
@@ -230,7 +255,7 @@ class SalesProspectView(View):
             contact = create_contact_helper(form_list[2])
             sales_prospect = create_sales_prospect_helper(request, address=address, contact=contact)
             return HttpResponseRedirect(reverse('Client:salesprospectdetails',
-                                                kwargs={'pk': sales_prospect.sales_prospect_id}))
+                                                kwargs={'pk': sales_prospect.id}))
         else:
             return render(request, self.template_name, dict_generator(form_list))
 
@@ -325,18 +350,18 @@ def editsalesprospect(request, pk):
 
         validation = validation_helper(form_list)
         if validation:
-            address_up = update_address_helper(request, address)
-            contact_up = update_contact_helper(request, contact)
+            address_up = update_address_helper(form_list[1], address)
+            contact_up = update_contact_helper(form_list[2], contact)
 
-            sales_up = update_sales_prospect_helper(request, sales, address_up, contact_up)
+            sales_up = update_sales_prospect_helper(form_list[0], sales, address_up, contact_up)
 
             sp_to_client = boolean_helper(sales_up.is_client)
             if sp_to_client:
                 #TODO -- Add manner to send to edit client with dictionaries.
                 return HttpResponseRedirect(reverse('Client:salestoclient',
-                                                    kwargs={'pk': sales_up.sales_prospect_id}))
+                                                    kwargs={'pk': sales_up.id}))
             return HttpResponseRedirect(reverse('Client:salesprospectdetails',
-                                                kwargs={'pk': sales_up.sales_prospect_id}))
+                                                kwargs={'pk': sales_up.id}))
         else:
             return render(request, template_name, dict_generator(form_list))
     else:
@@ -344,7 +369,8 @@ def editsalesprospect(request, pk):
         form_list[1] = AddressForm(address_dict)
         form_list[2] = ContactForm(contact_dict)
     form_dict = dict_generator(form_list)
-    return render(request, template_name, dict_generator(form_list))
+    form_dict['sales'] = sales
+    return render(request, template_name, form_dict)
 
 
 def convert_to_client(request, pk):
@@ -395,13 +421,13 @@ def convert_to_client(request, pk):
         validation = validation_helper(form_list)
 
         if validation:
-            a = update_address_helper(request, address)
-            c = update_contact_helper(request, contact)
+            a = update_address_helper(form_list[1], address)
+            c = update_contact_helper(form_list[2], contact)
             cl = update_client_helper(form_list[0], client, a, c)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': cl.client_id}))
         else:
-            return render(form_list[0], template_name, dict_generator(form_list))
+            return render(request, template_name, dict_generator(form_list))
     else:
         form_list[0] = ClientForm(client_dict)
         form_list[1] = AddressForm(address_dict)
@@ -409,7 +435,7 @@ def convert_to_client(request, pk):
     form_dict = dict_generator(form_list)
     return render(request, template_name, form_dict)
 
-
+@login_required
 def editclient(request, pk):
     """
     View to edit a Client.
@@ -449,7 +475,7 @@ def editclient(request, pk):
 
         if validation:
             a = update_address_helper(request, address)
-            c = update_contact_helper(request, contact)
+            c = update_contact_helper(form_list[1], contact)
             cl = update_client_helper(form_list[0], client, a, c)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': cl.client_id}))
@@ -494,7 +520,7 @@ class ClientCallLogView(View):
         form_list[0] = ClientCallLogForm(calllog_dict)
         return render(request, self.template_name, dict_generator(form_list))
 
-
+@login_required
 def addclientcalllog(request, pk):
     """
     Creates a Call Log for a Client based on pk that is passed in.
@@ -646,20 +672,22 @@ def addsalescall(request, pk):
     form_list[0] = SalesProspectCallLogForm(request.POST)
     sales = SalesProspect.objects.get(pk=pk)
     calllog_dict = {
-        'sales_id': sales.sales_prospect_id, 'call_date': date.today().strftime("%Y-%m-%d"),
+        'sales_id': sales.id, 'call_date': date.today().strftime("%Y-%m-%d"),
         'call_time': datetime.now().time().strftime("%H:%M"),
     }
 
     if request.method == 'POST':
         if validation_helper(form_list):
-            calllog = create_calllog_helper(request, sales)
-            return HttpResponseRedirect(reverse('Client:salesprospectdetails', kwargs={'pk': sales.sales_prospect_id}))
+            calllog = create_calllog_helper(form_list[0], sales)
+            return HttpResponseRedirect(reverse('Client:salesprospectdetails', kwargs={'pk': sales.id}))
         else:
             form_list[0] = SalesProspectCallLogForm(calllog_dict)
             return render(request, template_name, dict_generator(form_list))
     else:
         form_list[0] = SalesProspectCallLogForm(calllog_dict)
-        return render(request, template_name, dict_generator(form_list))
+        fd = dict_generator(form_list)
+        fd['sales'] = sales
+        return render(request, template_name, fd)
 
 
 class SalesCallLogDetailView(DetailView):
@@ -688,7 +716,7 @@ class SalesCallLogIndex(DetailView):
     def get_context_data(self, **kwargs):
         context = super(SalesCallLogIndex, self).get_context_data(**kwargs)
         sales = self.get_object()
-        context['calllog_list'] = SalesProspectCallLog.objects.filter(sales_id=sales.sales_prospect_id)\
+        context['calllog_list'] = SalesProspectCallLog.objects.filter(sales_id=sales.id)\
             .order_by('-call_date', '-call_time')
         context['next_contact'] = SalesProspectCallLog.objects.get_next_contact_date(sales)
 

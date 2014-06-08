@@ -1,10 +1,11 @@
+from django.views.decorators.csrf import csrf_protect
 from django.core.context_processors import request
 from django.contrib.auth import logout
-from django.shortcuts import render, get_object_or_404, get_list_or_404, render_to_response
+from django.shortcuts import render, get_object_or_404, get_list_or_404, render_to_response, redirect
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, request
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 from django.contrib.auth.models import User
@@ -90,7 +91,7 @@ def editclientbilling(request, pk):
 
         validation = validation_helper(form_list)
         if validation:
-            address_up = update_address_helper(request, address)
+            address_up = update_address_helper(form_list[1], address)
             card_up = update_card_helper(request, card)
             billing_up = update_billing_helper(request, billing, address_up, card_up)
             return HttpResponseRedirect(reverse('Client:details',
@@ -254,18 +255,19 @@ def register(request):
 
 def logout(request):
     logout(request)
-    HttpResponseRedirect(reverse('Common:user_login'))
+    return redirect('login')
 
 
 #endregion
 
 #region Login
 
-
+@csrf_protect
 def user_login(request):
     # Like before, obtain the context for the user's request.
     context = RequestContext(request)
-    template_name = 'common/login.html',
+    template_name = 'common/login.html'
+    next = ''
 
     # If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
@@ -278,6 +280,11 @@ def user_login(request):
         # combination is valid - a User object is returned if it is.
         user = authenticate(username=username, password=password)
 
+        # Is there a next page?
+        # next = request.POST.get('next')
+        next = request.POST.get('next', False)
+        print('user_login POST %s =>' % next, type(next))
+
         # If we have a User object, the details are correct.
         # If None (Python's way of representing the absence of a value), no user
         # with matching credentials was found.
@@ -287,6 +294,7 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
+                # print('user_login ==> %s' % request.path)
                 return HttpResponseRedirect(reverse('Client:index'))
             else:
                 # An inactive account was used - no logging in!
@@ -301,7 +309,10 @@ def user_login(request):
     else:
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
-        return render_to_response(template_name, {}, context)
+        #next = request.GET['next']
+        next = request.GET.get('next', False)
+        print('user_login_next_GET => %s ' % next)
+        return render_to_response(template_name, {'next': next}, context)
 
 #endregion
 

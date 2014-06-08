@@ -1,24 +1,81 @@
-{% extends 'base.html' %}
+{% extends '__form_base.html' %}
+{% load mytags %}
+
 {% block body_block %}
-    <body onload="initialize()">
+<body onload="initialize()">
 {% endblock %}
-    {% load bootstrap_toolkit %}
-{% block content %}
-        <form action="" method="post">
-        {% csrf_token %}
-        <p>Enter information to convert to Client</p>
-        <p>Client Information:</p>
-        {{ form0 }}
-        <p>Address Information:</p>
-        <div id="locationField">
-            <input id="autocomplete" placeholder="Enter address"
-            onFocus="geolocate()" type="text" />
-        </div>
-        {{ form1 }}
-        <p>Contact Information:</p>
-        {{ form2 }}
-        <div class="form-actions">
-            <input type="submit" value="Submit" class="btn btn-primary" />
-        </div>
-    </form>
+{% block form_header %}
+{% include "mainheader_nograph.html" with icon="fa fa-group" title="Convert to Client" subtitle="Convert Lead to Client" %}
 {% endblock %}
+
+{% block form_breadcrumb %}
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="{% url 'Client:salesprospectindex' %}">Sales Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="icon-group"></i>
+              <a href="{{ sales.get_absolute_url }}">Sales Lead Details</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="icon-pencil"></i>
+                Convert to Client
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+{% endblock form_breadcrumb %}
+
+{% block h4_block %}Convert to Client{% endblock h4_block %}
+{% block form_content %}
+ {% for i in form0 %}
+    <li class="input">
+      <label>{{ i.label|title|cut:"_" }}</label>
+        {% if i.name == "is_business" %}
+            {{ i }}
+        {% else %}
+        {{ i }}
+        {% endif %}
+    </li>
+    {% endfor %}
+    <!-- end Client Info -->
+    <label>Address Information:</label>
+    <div id="locationField">
+        <input id="autocomplete" placeholder="Enter address"
+        onFocus="geolocate()" type="text" />
+    </div>
+    {% for i in form1 %}
+    <li>
+        <label>{{ i.label|title|cut:"_" }}</label>
+        {% if i.name == "state" %}
+            {{ i|addcss:"form-control" }}
+        {% else %}
+            {{ i }}
+        {% endif %}
+    </li>
+    {% endfor %}
+    <!-- end Address Info -->
+    <label>Contact Information:</label>
+    {% for i in form2 %}
+    <li>
+        <label>{{ i.label|title|cut:"_" }}</label>
+            {{ i }}
+    </li>
+    {% endfor %}
+{% endblock %}
+

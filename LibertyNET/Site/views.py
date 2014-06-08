@@ -104,7 +104,7 @@ def editclientsite(request, pk):
         form_list[1] = AddressForm(request.POST)
 
         if validation_helper(form_list):
-            a = update_address_helper(request, address)
+            a = update_address_helper(form_list[1], address)
             site = update_site_helper(form_list[0], a, site)
             return HttpResponseRedirect(reverse('Client:sitedetails',
                                         kwargs={'pk': site.site_id}))

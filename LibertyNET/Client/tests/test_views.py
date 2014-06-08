@@ -113,7 +113,7 @@ class TestSalesProspectView(TestCase):
 
     def test_edit_sales_view(self):
         sp = SalesProspect.objects.get(first_name='Sally')
-        url = reverse('Client:editsalesprospect', kwargs={'pk': sp.sales_prospect_id})
+        url = reverse('Client:editsalesprospect', kwargs={'pk': sp.id})
         resp = self.client.get(url)
 
         assert_equals_worker(self, 200, resp.status_code)
@@ -123,7 +123,7 @@ class TestSalesProspectView(TestCase):
 
     def test_edit_sales_view(self):
         sp = SalesProspect.objects.get(first_name='Sally')
-        url = reverse('Client:salestoclient', kwargs={'pk': sp.sales_prospect_id})
+        url = reverse('Client:salestoclient', kwargs={'pk': sp.id})
         resp = self.client.get(url)
 
         assert_equals_worker(self, 200, resp.status_code)
@@ -134,14 +134,14 @@ class TestSalesProspectView(TestCase):
     # CallLog
     def test_add_sales_call_log_view(self):
         sp = SalesProspect.objects.get(first_name='Sally')
-        cl = SalesProspectCallLog.objects.get(sales_id=sp.sales_prospect_id)
-        url = reverse('Client:salestoclient', kwargs={'pk': sp.sales_prospect_id})
+        cl = SalesProspectCallLog.objects.get(sales_id=sp.id)
+        url = reverse('Client:salestoclient', kwargs={'pk': sp.id})
         resp = self.client.get(url)
         assert_equals_worker(self, 200, resp.status_code)
 
     def test_sales_call_log_detail_view(self):
         sp = SalesProspect.objects.get(first_name='Sally')
-        scl = SalesProspectCallLog.objects.get(sales_id=sp.sales_prospect_id)
+        scl = SalesProspectCallLog.objects.get(sales_id=sp.id)
         url = reverse('Client:salescalllogdetails', kwargs={'pk': scl.id})
         resp = self.client.get(url)
         assert_equals_worker(self, 200, resp.status_code)
@@ -149,7 +149,7 @@ class TestSalesProspectView(TestCase):
 
     def test_sales_call_log_index(self):
         sp = SalesProspect.objects.get(first_name='Sally')
-        scl = SalesProspectCallLog.objects.get(sales_id=sp.sales_prospect_id)
+        scl = SalesProspectCallLog.objects.get(sales_id=sp.id)
         url = reverse('Client:salescalllogindex', kwargs={'pk': scl.id})
         resp = self.client.get(url)
         assert_equals_worker(self, 200, resp.status_code)
@@ -157,7 +157,7 @@ class TestSalesProspectView(TestCase):
 
     def test_sales_call_home_view(self):
         sp = SalesProspect.objects.get(first_name='Sally')
-        cl = SalesProspectCallLog.objects.get(sales_id=sp.sales_prospect_id)
+        cl = SalesProspectCallLog.objects.get(sales_id=sp.id)
         url = reverse('Client:salescallloghome')
         resp = self.client.get(url)
         assert_equals_worker(self, 200, resp.status_code)

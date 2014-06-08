@@ -1,4 +1,10 @@
 from django import template
+from Common.helpermethods import show_login
+from django.shortcuts import redirect, HttpResponseRedirect
+from django.core.context_processors import request
+from django.core.urlresolvers import reverse
+
+
 register = template.Library()
 
 @register.filter(name='addcss')
@@ -12,6 +18,18 @@ def addstyle(field, mystyle):
 @register.simple_tag
 def user_name(user):
     return '%s %s' % (user.first_name, user.last_name)
+
+
+#register.inclusion_tag("/Common/login.html")(show_login)
+
+@register.inclusion_tag("common/login.html")
+def show_login(request):
+    print('SHOW_LOGIN REQUEST %s' % request)
+    print('show_login: /common/login/?next=%s' % request.path)
+    return redirect('/common/login/?next=%s' % request.path)
+    #return HttpResponseRedirect(reverse('Common:login/?next=%s' % request.path))
+
+
 
     # "middle_initial"
     # "last_name"

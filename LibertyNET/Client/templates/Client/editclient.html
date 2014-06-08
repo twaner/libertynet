@@ -1,20 +1,14 @@
-{% extends '__basewrap.html' %}
+{% extends '__form_base.html' %}
 {% load mytags %}
-{% comment %}
-{% block icon %}fa fa-group{% endblock %}
-{% block navtitle %}Add Client{% endblock navtitle %}
-{% block navsubtitle %}Add Client Subtitle{% endblock navsubtitle %}
-{% include "breadcrumb.html" with label_list="Title" icon_list=["fa fa-phone"] "fa fa-square" as list %}
-{% endcomment %}
+
 {% block body_block %}
-<body onload="initialize()" xmlns="http://www.w3.org/1999/html">
+<body onload="initialize()">
 {% endblock %}
-{% block base_header %}
-{% include "mainheader_nograph.html" with icon="fa fa-group" title="Add Client" subtitle="Add Client Information" %}
+{% block form_header %}
+{% include "mainheader_nograph.html" with icon="fa fa-group" title="Edit Client" subtitle="Edit Client Information" %}
 {% endblock %}
 
-{% block base_content %}
-<!-- breadcrumb -->
+{% block form_breadcrumb %}
 <div class="container padded">
     <div class="row">
       <div id="breadcrumbs">
@@ -25,62 +19,63 @@
         <div class="breadcrumb-button">
           <span class="breadcrumb-label">
             <i class="fa fa-group"></i>
-              <a href="/client/index/">Client Home</a>
+              <a href="{% url 'Client:index' %}">Client Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="{{ client.get_absolute_url }}">Client Details</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
         <div class="breadcrumb-button">
             <span class="breadcrumb-label">
                 <i class="fa fa-plus-square"></i>
-                Add Client
+                Edit Client
             </span>
         </div>
       </div>
     </div>
 </div> <!-- container padded -->
+{% endblock form_breadcrumb %}
 
-<div class="container">
-    <div class="box-content">
-    <form class="fill-up" action="" method="post">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-lg-6">
-                <ul class="padded separate-sections">
-                    <label>Client Information:</label>
-                    {% for i in form0 %}
-                    <li class="input">
-                      <label>{{ i.name|title|cut:"_" }}</label>
-                        {% if i.name == "is_business" %}
-                            {{ i }}
-                        {% else %}
-                        {{ i }}
-                        {% endif %}
-                    </li>
-                    {% endfor %}
-                <!-- end Client Info -->
-                    <label>Address Information:</label>
-                    <div id="locationField">
-                        <input id="autocomplete" placeholder="Enter address"
-                        onFocus="geolocate()" type="text" />
-                    </div>
-                    {% for i in form1 %}
-                    <li>
-                        <label>{{ i.name|title|cut:"_" }}</label>
-                        {% if i.name == "state" %}
-                            {{ i|addcss:"form-control" }}
-                        {% else %}
-                            {{ i }}
-                        {% endif %}
-                    </li>
-                    {% endfor %}
-                <!-- end Address Info -->
-                    <label>Contact Information:</label>
-                    {{ form2 }}
-                    {% include "submit_cancel.html"  %}
-                </ul>
-            </div> <!-- col-lg-6 -->
-        </div> <!-- row -->
-    </form>
-    </div> <!-- box content -->
-</div> <!-- container -->
+{% block h4_block %}Edit Client{% endblock h4_block %}
+{% block form_content %}
+ {% for i in form0 %}
+    <li class="input">
+      <label>{{ i.label|title|cut:"_" }}</label>
+        {% if i.name == "is_business" %}
+            {{ i }}
+        {% else %}
+        {{ i }}
+        {% endif %}
+    </li>
+    {% endfor %}
+    <!-- end Client Info -->
+    <label>Address Information:</label>
+    <div id="locationField">
+        <input id="autocomplete" placeholder="Enter address"
+        onFocus="geolocate()" type="text" />
+    </div>
+    {% for i in form1 %}
+    <li>
+        <label>{{ i.label|title|cut:"_" }}</label>
+        {% if i.name == "state" %}
+            {{ i|addcss:"form-control" }}
+        {% else %}
+            {{ i }}
+        {% endif %}
+    </li>
+    {% endfor %}
+    <!-- end Address Info -->
+    <label>Contact Information:</label>
+    {% for i in form2 %}
+    <li>
+        <label>{{ i.label|title|cut:"_" }}</label>
+            {{ i }}
+    </li>
+    {% endfor %}
 {% endblock %}
+

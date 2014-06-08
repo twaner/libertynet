@@ -92,7 +92,7 @@ def editemployee(request, pk):
 
         validation = validation_helper(form_list)
         if validation:
-            address_updated = update_address_helper(request, address)
+            address_updated = update_address_helper(form_list[1], address)
             contact_updated = update_contact_employee_helper(request, contact)
             updated_employee = update_employee(request, employee, address_updated, contact_updated)
             return HttpResponseRedirect(reverse('Employee:index'))

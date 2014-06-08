@@ -135,7 +135,7 @@ class TestCallLogForms(TestCase):
         chm.form_assert_true_worker(self, form)
 
     def test_sales_calllog_form(self):
-        sales = SalesProspect.objects.get(sales_prospect_id = 9901)
+        sales = SalesProspect.objects.get(id=9901)
         employee = Employee.objects.filter(last_name='Smith').first()
         call_data = {}
         form = SalesProspectCallLogForm()

@@ -1,0 +1,40 @@
+<div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#{{ collapse_number }}">
+        {{ title }}
+      </a>
+    </div>
+    <div id="{{ collapse_number }}" class="accordion-body collapse ">
+      <div class="accordion-inner padded">
+        <div class="box">
+          <div class="box-header"><span class="title">{{ title1 }}</span></div>
+              <div class="box-content">
+                <div id="dataTables">
+                    <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
+                        <thead>
+                            <tr>
+                              {% include 'client/__sales_index_table_header.html' %}
+                            </tr>
+                        </thead>
+                        <tbody role="alert" aria-live="polite" aria-relavent="all">
+                            {% for e in context %}
+                            <tr>
+                              <td class="sorting_1">{{e.id}}</td>
+                              <td>
+                                   <a href="{{ e.get_absolute_url }}">
+                                          {{ e }}
+                                   </a>
+                              </td>
+                              <td>
+                                {% include 'client/__sales_btn-group.html' %}
+                              </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div> <!-- accordion-body collapse in -->
+ </div> <!-- accordion-group -->
