@@ -16,8 +16,10 @@ class EmployeeForm(forms.ModelForm):
         model = Employee
         exclude = ['emp_address', 'emp_contact']
         widgets = {
-            'hire_date': BootstrapDateInput,
-            'termination_date': BootstrapDateInput,
+            'hire_date':  forms.DateInput(attrs={
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'termination_date':  forms.DateInput(attrs={
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
             'termination_reason': forms.Textarea(attrs={'cols': 160, 'rows': 10})
         }
         labels = {
@@ -34,7 +36,8 @@ class AddEmployeeForm(forms.ModelForm):
             'emp_number': _('Employee Number'),
         }
         widgets = {
-            'hire_date': BootstrapDateInput,
+            'hire_date':  forms.DateInput(attrs={
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
         }
 
 #endregion

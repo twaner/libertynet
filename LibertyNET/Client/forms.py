@@ -1,7 +1,6 @@
 from django import forms
 from django.utils.translation import gettext as _
 from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
-from bootstrap_toolkit.widgets import BootstrapDateInput
 from Common.forms import AddressForm
 
 #region ClientForms
@@ -19,7 +18,7 @@ class ClientForm(forms.ModelForm):
             'client_date': forms.DateInput(attrs={
                 'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
             'is_business': forms.CheckboxInput(attrs={
-                    'class': "iButton-icons"
+                'class': "iButton-icons"
             })
         }
 
@@ -47,11 +46,10 @@ class ClientForm2(forms.ModelForm):
             'is_business': _('Select for commercial accounts.'),
         }
         widgets = {
-            'client_date':
-                forms.DateInput(attrs={
-                    'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'client_date': forms.DateInput(attrs={
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
             'is_business': forms.CheckboxInput(attrs={
-                    'class': "iButton-icons"
+                'class': "iButton-icons"
             })
         }
 
@@ -77,7 +75,7 @@ class SalesProspectForm(forms.ModelForm):
                 forms.DateInput(attrs={
                     'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
             'is_business': forms.CheckboxInput(attrs={
-                    'class': "iButton-icons"
+                'class': "iButton-icons"
             })
         }
 
@@ -96,9 +94,9 @@ class SalesProspectEditForm(forms.ModelForm):
         }
         widgets = {
             'initial_contact_date': forms.DateInput(attrs={
-                    'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
             'is_business': forms.CheckboxInput(attrs={
-                    'class': "iButton-icons"
+                'class': "iButton-icons"
             })
         }
 
@@ -115,8 +113,8 @@ class ClientCallLogForm(forms.ModelForm):
                   'purpose', 'notes', 'next_contact']
         #exclude = ['client_id']
         widgets = {
-            'call_date': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
-            'next_contact': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'call_date': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd", 'auto-close': 'true'}),
+            'next_contact': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd", 'auto-close': 'true'}),
             'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3,
                                              'maxlength': ClientCallLog._meta.get_field('purpose').max_length,
                                              'onkeyup': "charRemaining('id_purpose', 'purpose_span')",
@@ -127,6 +125,7 @@ class ClientCallLogForm(forms.ModelForm):
                                            'onkeyup': "charRemaining('id_notes', 'notes_span')",
                                            # 'onload': "initialChar('id_notes', 'notes_span')",
             }),
+            'follow_up': forms.CheckboxInput(attrs={'class': "iButton-icons"}),
         }
         labels = {
             'call_date': _('Date of Call'),

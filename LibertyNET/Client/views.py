@@ -479,8 +479,8 @@ def editclient(request, pk):
         validation = validation_helper(form_list)
 
         if validation:
-            a = update_address_helper(request, address)
-            c = update_contact_helper(form_list[1], contact)
+            a = update_address_helper(form_list[1], address)
+            c = update_contact_helper(form_list[2], contact)
             cl = update_client_helper(form_list[0], client, a, c)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': cl.client_id}))
