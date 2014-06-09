@@ -41,8 +41,10 @@
       <label>{{ i.label|title|cut:"_" }}</label>
         {% if i.name == "is_business" %}
             {{ i }}
+        {% elif i.name == "client_date" %}
+            {{ i|addcss:"datepicker fill-up" }}
         {% else %}
-        {{ i }}
+            {{ i }}
         {% endif %}
     </li>
     {% endfor %}
@@ -106,7 +108,7 @@
                         {% if i.name == "is_business" %}
                             {{ i }}
                         {% else %}
-                        {{ i }}
+                            {{ i }}
                         {% endif %}
                     </li>
                     {% endfor %}

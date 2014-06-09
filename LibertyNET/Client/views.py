@@ -66,12 +66,14 @@ class SalesProspectListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(SalesProspectListView, self).get_context_data(**kwargs)
 
-        # context['object_list'] = sorted(context['object_list'],
-        #                                 key=lambda sales_prospect: sales_prospect.is_business is False)
-        sorted_list = sorted(context['object_list'],
-                             key=lambda sales_prospect: sales_prospect.initial_contact_date
-                             and sales_prospect.is_business is 0)
-
+        try:
+            context['all_sales_prospect_list'] = SalesProspect.objects.filter(is_business=False)
+        except SalesProspect.DoesNotExist:
+            pass
+        sorted_list = []
+        tmp_list = []
+        sorted_list = sorted(context['all_sales_prospect_list'],
+                             key=lambda sales_prospect: sales_prospect.initial_contact_date)
         if len(sorted_list) <= 5:
             q = len(sorted_list)
         else:
@@ -79,7 +81,10 @@ class SalesProspectListView(ListView):
         context['most_recent'] = sorted_list[q:]
 
         calllog = SalesProspectCallLog.objects.filter(follow_up=True)
-        tmp_list = [SalesProspect.objects.get(pk=q.sales_id.id) for q in calllog]
+        try:
+            tmp_list = [SalesProspect.objects.get(pk=q.sales_id.id, is_business=False) for q in calllog]
+        except SalesProspect.DoesNotExist:
+            pass
         context['follow_up'] = set(tmp_list)
         context['calllog_follow_all'] = calllog
 

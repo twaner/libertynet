@@ -120,6 +120,7 @@ def create_sales_prospect_helper(form, address, contact):
     sales_probability = form.cleaned_data['sales_probability']
     initial_contact_date = form.cleaned_data['initial_contact_date']
     comments = form.cleaned_data['comments']
+    service_guide = form.cleaned_data['service_guide']
 
     sales_prospect = SalesProspect.objects.create_sales_prospect(first_name=first_name, middle_initial=middle_initial,
                                                                  last_name=last_name,
@@ -129,7 +130,7 @@ def create_sales_prospect_helper(form, address, contact):
                                                                  sales_type=sales_type,
                                                                  sales_probability=sales_probability,
                                                                  initial_contact_date=initial_contact_date,
-                                                                 sp_address=address,
+                                                                 sp_address=address, service_guide=service_guide,
                                                                  sp_contact=contact, comments=comments)
     sales_prospect.save()
     return sales_prospect
@@ -151,6 +152,7 @@ def update_sales_prospect_helper(form, sp, address, contact):
     sp.sales_probability = form.cleaned_data['sales_probability']
     sp.comments = form.cleaned_data['comments']
     sp.is_client = form.cleaned_data['is_client']
+    sp.service_guide = form.cleaned_data['service_guide']
     #Logic section
     if address is not None:
         sp.sp_address = address
@@ -176,7 +178,8 @@ def update_sales_prospect_helper(form, sp, address, contact):
                            'sp_business_name', 'is_business',
                            'sales_type', 'sales_probability',
                            'initial_contact_date', 'sp_address',
-                           'sp_contact', 'comments', 'is_client'])
+                           'sp_contact', 'comments', 'is_client',
+                           'service_guide'])
     return sp
 
 

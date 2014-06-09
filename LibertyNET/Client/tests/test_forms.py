@@ -90,7 +90,7 @@ class ClientTest(TestCase):
             'first_name': sp.first_name, 'middle_initial': sp.middle_initial, 'last_name': sp.last_name,
             'sp_liberty_contact': sp.sp_liberty_contact_id, 'sales_type': sp.sales_type,
             'sales_probability': sp.sales_probability, 'initial_contact_date': sp.initial_contact_date,
-            'comments': sp.comments
+            'comments': sp.comments, 'service_guide': sp.service_guide
         }
         form = SalesProspectEditForm(data=sales_prospect_data)
         self.assertTrue(form.is_valid(), 'SalesProspectEditForm is not valid!')
@@ -101,7 +101,7 @@ class ClientTest(TestCase):
             'first_name': sp.first_name, 'middle_initial': sp.middle_initial, 'last_name': sp.last_name,
             'sp_liberty_contact': sp.sp_liberty_contact_id, 'sales_type': sp.sales_type,
             'sales_probability': sp.sales_probability, 'initial_contact_date': sp.initial_contact_date,
-            'comments': sp.comments
+            'comments': sp.comments, 'service_guide': sp.service_guide
         }
         form = SalesProspectEditForm(data=sales_prospect_data)
         chm.form_assert_false_worker(self, form)

@@ -59,7 +59,7 @@ class ClientFactoryBusiness(factory.DjangoModelFactory):
 
 class SalesProspectResidentialFactory(factory.DjangoModelFactory):
     FACTORY_FOR = SalesProspect
-    sales_prospect_id = 999
+    id = 999
     first_name = 'Sally'
     middle_initial = 'P'
     last_name = 'Salesprospect'
@@ -68,13 +68,14 @@ class SalesProspectResidentialFactory(factory.DjangoModelFactory):
     sales_probability = 'M'
     initial_contact_date = '2014-01-21'
     comments = 'Met at local function.'
+    service_guide = False
     sp_address = factory.lazy_attribute(lambda a: Common.factories.AddressFactory.create())
     sp_contact = factory.lazy_attribute(lambda a: Common.factories.ContactEmployeeFactory.create())
 
 
 class SalesProspectBusinessFactory(factory.DjangoModelFactory):
     FACTORY_FOR = SalesProspect
-    sales_prospect_id = 9901
+    id = 9901
     first_name = 'John'
     middle_initial = 'P'
     last_name = 'Businessprospect'
@@ -85,6 +86,7 @@ class SalesProspectBusinessFactory(factory.DjangoModelFactory):
     sales_probability = 'M'
     initial_contact_date = '2014-01-11'
     comments = 'Met at local dinner.'
+    service_guide = False
     sp_address = factory.SubFactory(AddressFactory)
     sp_contact = factory.SubFactory(ContactFactory)
 

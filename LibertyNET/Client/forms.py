@@ -16,7 +16,11 @@ class ClientForm(forms.ModelForm):
             'is_business': _('Select for commercial accounts.'),
         }
         widgets = {
-            'client_date': forms.DateInput(attrs={'class': 'datepicker fill-up'})
+            'client_date': forms.DateInput(attrs={
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'is_business': forms.CheckboxInput(attrs={
+                    'class': "iButton-icons"
+            })
         }
 
 
@@ -43,7 +47,12 @@ class ClientForm2(forms.ModelForm):
             'is_business': _('Select for commercial accounts.'),
         }
         widgets = {
-            'client_date': forms.DateInput(attrs={'class': 'datepicker fill-up'})
+            'client_date':
+                forms.DateInput(attrs={
+                    'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'is_business': forms.CheckboxInput(attrs={
+                    'class': "iButton-icons"
+            })
         }
 
 
@@ -56,14 +65,20 @@ class SalesProspectForm(forms.ModelForm):
     class Meta:
         model = SalesProspect
         exclude = ['sp_address', 'sp_contact', 'is_client']
-        widgets = {
-            'initial_contact_date': BootstrapDateInput,
-        }
+
         help_texts = {
             'is_business': _('Select for commercial accounts.'),
         }
         labels = {
             'sp_business_name': _('Business Name'),
+        }
+        widgets = {
+            'initial_contact_date':
+                forms.DateInput(attrs={
+                    'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'is_business': forms.CheckboxInput(attrs={
+                    'class': "iButton-icons"
+            })
         }
 
 
@@ -71,15 +86,20 @@ class SalesProspectEditForm(forms.ModelForm):
     class Meta:
         model = SalesProspect
         exclude = ['sp_address', 'sp_contact']
-        widgets = {
-            'initial_contact_date': BootstrapDateInput,
-        }
+
         help_texts = {
             'is_business': _('Select for commercial accounts.'),
             'is_client': _('Select to convert to Client.'),
         }
         labels = {
             'sp_business_name': _('Business Name'),
+        }
+        widgets = {
+            'initial_contact_date': forms.DateInput(attrs={
+                    'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'is_business': forms.CheckboxInput(attrs={
+                    'class': "iButton-icons"
+            })
         }
 
 
@@ -95,8 +115,8 @@ class ClientCallLogForm(forms.ModelForm):
                   'purpose', 'notes', 'next_contact']
         #exclude = ['client_id']
         widgets = {
-            'call_date': forms.DateInput(attrs={'class': 'datepicker'}),
-            'next_contact': forms.DateInput(attrs={'class': 'datepicker'}),
+            'call_date': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'next_contact': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
             'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3,
                                              'maxlength': ClientCallLog._meta.get_field('purpose').max_length,
                                              'onkeyup': "charRemaining('id_purpose', 'purpose_span')",
@@ -120,12 +140,7 @@ class SalesProspectCallLogForm(forms.ModelForm):
         model = SalesProspectCallLog
         fields = ['sales_id', 'caller', 'call_date', 'call_time', 'follow_up',
                   'purpose', 'notes', 'next_contact']
-        widgets = {
-            'call_date': forms.DateInput(attrs={'class': 'datepicker'}),
-            'next_contact': forms.DateInput(attrs={'class': 'datepicker'}),
-            'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3}),
-            'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10}),
-        }
+
         labels = {
             'call_date': _('Date of Call'),
             'call_time': _('Time of Call'),
@@ -133,6 +148,8 @@ class SalesProspectCallLogForm(forms.ModelForm):
             'sales_id': _('Sales Lead')
         }
         widgets = {
+            'call_date': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'next_contact': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
             'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3,
                                              'maxlength': SalesProspectCallLog._meta.get_field('purpose').max_length,
                                              'onkeyup': "charRemaining('id_purpose', 'purpose_span')",

@@ -93,7 +93,7 @@ class PersonalManager(models.Manager):
 class SalesProspectManager(models.Manager):
     def create_sales_prospect(self, first_name, middle_initial, last_name, sp_business_name,
                               is_business, sp_liberty_contact, sales_type, sales_probability,
-                              initial_contact_date, comments, sp_address, sp_contact, is_client):
+                              initial_contact_date, comments, sp_address, sp_contact, is_client, service_guide):
         """
         Creates and returns a sales prospect.
         @param first_name: sales prospect's first name.
@@ -113,17 +113,16 @@ class SalesProspectManager(models.Manager):
         """
         sales_prospect = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
                                      sp_business_name=sp_business_name, is_business=is_business,
-                                     sp_liberty_contact=sp_liberty_contact,
+                                     sp_liberty_contact=sp_liberty_contact, service_guide=service_guide,
                                      sales_type=sales_type, initial_contact_date=initial_contact_date,
                                      comments=comments, sp_address=sp_address, is_client=is_client,
-                                     sales_probability=sales_probability,
-                                     sp_contact=sp_contact)
+                                     sales_probability=sales_probability, sp_contact=sp_contact)
         sales_prospect.save()
         return sales_prospect
 
     def create_sales_prospect(self, first_name, middle_initial, last_name,
                               sp_liberty_contact, sales_type, sales_probability,
-                              initial_contact_date, comments, sp_address, sp_contact):
+                              initial_contact_date, comments, sp_address, sp_contact, service_guide):
         """
         Creates and returns a sales prospect with NO business attributes.
         @param first_name: sales prospect's first name.
@@ -139,7 +138,7 @@ class SalesProspectManager(models.Manager):
         @return: Sales Prospect.
         """
         sales_prospect = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
-                                     sp_liberty_contact=sp_liberty_contact,
+                                     sp_liberty_contact=sp_liberty_contact, service_guide=service_guide,
                                      sales_type=sales_type, initial_contact_date=initial_contact_date,
                                      comments=comments, sp_address=sp_address,
                                      sales_probability=sales_probability,
@@ -344,6 +343,8 @@ class SalesProspect(Person):
     sp_address = models.ForeignKey('Common.Address', verbose_name="prospect address", null=True, blank=True)
     sp_contact = models.ForeignKey('Common.Contact', verbose_name="prospect contact info", null=True, blank=True)
     is_client = models.BooleanField(default=False)
+    # 6-8
+    service_guide = models.BooleanField(default=False)
 
     objects = SalesProspectManager()
 

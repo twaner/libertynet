@@ -71803,7 +71803,7 @@ Editableform based on Twitter Bootstrap 3
     };
 
     var defaults = $.fn.datepicker.defaults = {
-        autoclose: false,
+        autoclose: true,
         beforeShowDay: $.noop,
         calendarWeeks: false,
         clearBtn: false,
