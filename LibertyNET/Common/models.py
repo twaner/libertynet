@@ -620,6 +620,14 @@ class CallLog(models.Model):
 
 #endregion
 
+
+class Notes(models.Model):
+    date = models.DateField()
+    time = models.TimeField()
+    purpose = models.TextField(max_length=100)
+    notes = models.TextField(max_length=1000)
+
+
 #region UserProfile
 
 class UserProfile(Person):

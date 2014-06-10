@@ -1,4 +1,5 @@
 from django.db import models
+from Common.fields import CurrencyField
 
 #region ModelManagers
 
@@ -130,10 +131,30 @@ class Panel(Equipment):
         return 'Panel: %s' % self.name
 
 
+# 6-9 NEW
+
+
+class PartCategory(models.Model):
+    category = models.TextField(blank=False)
+
+
 class Part(Equipment):
     part_manufacturer = models.ForeignKey('Vendor.Manufacturer')
-    part_number = models.CharField(max_length=45)
-    type = models.ForeignKey('Common.Genre')
+    # 6-9 renamed from part_number
+    number = models.CharField(max_length=45)
+    revision = models.CharField(max_length=45)
+    # 6-9 Deleted
+    #type = models.ForeignKey('Common.Genre')
+    # New
+    cost = CurrencyField(decimal_places=2, max_digits=10, blank=False)
+    flat_price = CurrencyField(decimal_places=2, max_digits=10, blank=False)
+    labor = models.DecimalField(decimal_places=2, max_digits=10, blank=False)
+    notes = models.ForeignKey('Common.Notes', blank=True)
+    spec_sheet = models.TextField()
+    install_guide = models.TextField()
+    category = models.ForeignKey('Equipment.PartCategory', blank=False)
+    is_active = models.BooleanField(default=True, blank=False)
+    is_recalled = models.BooleanField(default=True, blank=False)
 
     def __str__(self):
         return 'Part: %s' % self.name

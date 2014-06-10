@@ -49,7 +49,7 @@ def addemployee(request):
         validation = validation_helper(form_list)
         if validation:
             address = create_address_helper(form_list[1])
-            contact = create_employee_contact_helper(request)
+            contact = create_employee_contact_helper(form_list[2])
             employee = create_employee_worker(request, address, contact)
             return HttpResponseRedirect(reverse('Employee:index'))
     else:
@@ -93,7 +93,7 @@ def editemployee(request, pk):
         validation = validation_helper(form_list)
         if validation:
             address_updated = update_address_helper(form_list[1], address)
-            contact_updated = update_contact_employee_helper(request, contact)
+            contact_updated = update_contact_employee_helper(form_list[2], contact)
             updated_employee = update_employee(request, employee, address_updated, contact_updated)
             return HttpResponseRedirect(reverse('Employee:index'))
     else:

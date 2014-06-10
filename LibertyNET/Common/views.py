@@ -48,8 +48,8 @@ def addclientbilling(request, pk):
         validation = validation_helper(form_list)
         if validation:
             address = create_address_helper(form_list[1])
-            card = create_card_helper(request)
-            billing = create_billing_helper(request, address=address, card=card)
+            card = create_card_helper(form_list[2])
+            billing = create_billing_helper(form_list[0], address=address, card=card)
             client_updated = update_client_billing_helper(client, billing)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': client_updated.client_id}))
@@ -92,8 +92,8 @@ def editclientbilling(request, pk):
         validation = validation_helper(form_list)
         if validation:
             address_up = update_address_helper(form_list[1], address)
-            card_up = update_card_helper(request, card)
-            billing_up = update_billing_helper(request, billing, address_up, card_up)
+            card_up = update_card_helper(form_list[2], card)
+            billing_up = update_billing_helper(form_list[0], billing, address_up, card_up)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': client.client_id}))
         else:
@@ -133,7 +133,7 @@ def addcalllist(request, pk):
         form_list[0] = CallListForm(request.POST)
         form_list[1] = CallListContactForm(request.POST)
         if validation_helper(form_list):
-            contact = create_calllist_contact_helper(request)
+            contact = create_calllist_contact_helper(form_list[1])
             call_list = create_call_list_helper(form_list[0], contact, site)
             # Assumption a site must have a client
             related_client = Client.objects.get(pk=site.site_client_id)
@@ -170,8 +170,8 @@ def updatecalllist(request, pk):
         form_list[1] = ContactForm(request.POST)
 
         if validation_helper(form_list):
-            contact_up = update_calllist_contact(request, contact)
-            calllist_up = update_call_list_helper(request, calllist, contact_up)
+            contact_up = update_calllist_contact(form_list[0], contact)
+            calllist_up = update_call_list_helper(form_list[1], calllist, contact_up)
             return HttpResponseRedirect(reverse('Client:sitedetails',
                                                 kwargs={'pk': site.site_id}))
         else:
@@ -191,6 +191,7 @@ def register(request):
     context = RequestContext(request)
     template_name = 'common/register.html'
     form_list = form_generator(2)
+    form_dict = dict_generator(form_list)
 
     # A boolean value for telling the template whether the registration was successful.
     # Set to False initially. Code changes value to True when registration succeeds.
