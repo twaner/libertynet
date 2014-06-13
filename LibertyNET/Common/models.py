@@ -4,6 +4,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+#from Common.fields import models.DecimalField
 
 #region Choices
 
@@ -581,8 +582,6 @@ class CallLog(models.Model):
     notes = models.CharField(max_length=500)
     next_contact = models.DateField()
     follow_up = models.BooleanField(default=False)
-    #ALTER TABLE `libertynet11`.`Client_clientcalllog` ADD COLUMN `follow_up` TINYINT(1) NOT NULL  AFTER `client_id_id` ;
-    #ALTER TABLE `libertynet11`.`Client_salesprospectcalllog` ADD COLUMN `follow_up` TINYINT(1) NOT NULL  AFTER `sales_id_id` ;
 
     def clean(self):
         pass
@@ -636,3 +635,26 @@ class UserProfile(Person):
 
 
 #endregion
+
+#region ESTIMATE
+class Estimate(models.Model):
+    job_name = models.TextField(max_length=45)
+    estimate_address = models.ForeignKey('Common.Address')
+    date = models.DateField()
+    preparer = models.ForeignKey('Employee.Employee')
+    cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    is_capital_improvement = models.BooleanField(default=False)
+    total_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    total_profit = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    total_flat_rate = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    listed_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    listed_profit = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    sales_commission = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    labor = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    prevailing_wage = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    margin = models.DecimalField(max_digits=3, decimal_places=2, blank=True)
+    margin_guidelines = models.TextField(max_length=100)
+
+    class Meta:
+        abstract = True

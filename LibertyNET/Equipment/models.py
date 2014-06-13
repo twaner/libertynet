@@ -1,5 +1,6 @@
 from django.db import models
-from Common.fields import CurrencyField
+#from Common.fields import models.DecimalField
+from Common.models import Estimate
 
 #region ModelManagers
 
@@ -93,7 +94,7 @@ class Equipment(models.Model):
     @field name: Name of the equipment.
     @field location: Location of the equipment.
     """
-    name = models.CharField(max_length=45)
+    name = models.CharField(max_length=60)
     location = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
@@ -141,17 +142,17 @@ class PartCategory(models.Model):
 class Part(Equipment):
     part_manufacturer = models.ForeignKey('Vendor.Manufacturer')
     # 6-9 renamed from part_number
-    number = models.CharField(max_length=45)
+    number = models.CharField(max_length=60)
     revision = models.CharField(max_length=45)
     # 6-9 Deleted
     #type = models.ForeignKey('Common.Genre')
     # New
-    cost = CurrencyField(decimal_places=2, max_digits=10, blank=False)
-    flat_price = CurrencyField(decimal_places=2, max_digits=10, blank=False)
+    cost = models.DecimalField(decimal_places=2, max_digits=10, blank=False)
+    flat_price = models.DecimalField(decimal_places=2, max_digits=10, blank=False)
     labor = models.DecimalField(decimal_places=2, max_digits=10, blank=False)
-    notes = models.ForeignKey('Common.Notes', blank=True)
-    spec_sheet = models.TextField()
-    install_guide = models.TextField()
+    notes = models.TextField(max_length=300, blank=True)
+    spec_sheet = models.TextField(blank=True)
+    install_guide = models.TextField(blank=True)
     category = models.ForeignKey('Equipment.PartCategory', blank=False)
     is_active = models.BooleanField(default=True, blank=False)
     is_recalled = models.BooleanField(default=True, blank=False)
@@ -170,3 +171,42 @@ class Camera(Equipment):
         return 'Camera: %s' % self.name
 
 #endregion
+
+#region estimate parts
+
+
+#ADDED -> 6/11
+
+
+class ClientEstimate(Estimate):
+    estimate_client = models.ForeignKey('Client.Client')
+    estimate_parts = models.ManyToManyField('Equipment.Estimate_Parts_Client')
+
+
+class SalesEstimate(Estimate):
+    estimate_sales = models.ForeignKey('Client.SalesProspect')
+    estimate_parts = models.ManyToManyField('Equipment.Estimate_Parts_Sales')
+
+
+class Estimate_Parts_Client(models.Model):
+    estimate_id = models.ForeignKey('Equipment.ClientEstimate')
+    part_id = models.ForeignKey('Equipment.Part')
+    quantity = models.IntegerField(max_length=6)
+    final_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
+    sub_total = models.DecimalField(max_digits=10, decimal_places=2)
+    profit = models.DecimalField(max_digits=10, decimal_places=2)
+    flat_total = models.DecimalField(max_digits=10, decimal_places=2)
+    total_labor = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+class Estimate_Parts_Sales(models.Model):
+    estimate_id = models.ForeignKey('Equipment.SalesEstimate')
+    part_id = models.ForeignKey('Equipment.Part')
+    quantity = models.IntegerField(max_length=6)
+    final_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
+    sub_total = models.DecimalField(max_digits=10, decimal_places=2)
+    profit = models.DecimalField(max_digits=10, decimal_places=2)
+    flat_total = models.DecimalField(max_digits=10, decimal_places=2)
+    total_labor = models.DecimalField(max_digits=10, decimal_places=2)

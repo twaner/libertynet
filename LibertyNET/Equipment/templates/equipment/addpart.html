@@ -1,0 +1,53 @@
+{% extends '__form_base.html' %}
+{% load mytags %}
+{% block body_block %}
+    <body onload="initialize()">
+{% endblock %}
+{% block form_header %}
+{% include "mainheader_nograph.html" with icon="fa fa-group" title="Add Call Log" subtitle="Created Call Record" %}
+{% endblock %}
+{% block h4_block %}Add Call{% endblock h4_block %}
+{% block form_breadcrumb %}
+<!-- breadcrumb -->
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="/client/index/">Equipment Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="fa fa-phone"></i>
+                Add Part
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+{% endblock form_breadcrumb %}
+{% block form_content %}
+    {% for i in form %}
+        <li>
+            <label>{{ i.label|title|cut:"_" }}</label>
+            {% if i.name == "client_id" or i.name == "caller"%}
+                {{ i|addcss:"form-control" }}
+                {% elif i.name = 'notes' %}
+                    {{ i }}
+                    <span>Characters Remaining: </span><span id="notes_span">{{ i.field.max_length }}</span>
+                {% elif i.name = 'purpose' %}
+                {{ i }}
+                <span>Characters Remaining: </span><span id="purpose_span">{{ i.field.max_length }}</span>
+            {% else %}
+                {{ i }}
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endblock %}
