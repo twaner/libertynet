@@ -39,10 +39,10 @@
             <label>{{ i.label|title|cut:"_" }}</label>
             {% if i.name == "client_id" or i.name == "caller"%}
                 {{ i|addcss:"form-control" }}
-                {% elif i.name = 'notes' %}
-                    {{ i }}
-                    <span>Characters Remaining: </span><span id="notes_span">{{ i.field.max_length }}</span>
-                {% elif i.name = 'purpose' %}
+            {% elif i.name == 'notes' %}
+                {{ i }}
+                <span>Characters Remaining: </span><span id="notes_span">{{ i.field.max_length }}</span>
+            {% elif i.name == 'purpose' %}
                 {{ i }}
                 <span>Characters Remaining: </span><span id="purpose_span">{{ i.field.max_length }}</span>
             {% else %}

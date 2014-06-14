@@ -138,6 +138,9 @@ class Panel(Equipment):
 class PartCategory(models.Model):
     category = models.TextField(blank=False)
 
+    def __str__(self):
+        return self.category
+
 
 class Part(Equipment):
     part_manufacturer = models.ForeignKey('Vendor.Manufacturer')
@@ -155,7 +158,7 @@ class Part(Equipment):
     install_guide = models.TextField(blank=True)
     category = models.ForeignKey('Equipment.PartCategory', blank=False)
     is_active = models.BooleanField(default=True, blank=False)
-    is_recalled = models.BooleanField(default=True, blank=False)
+    is_recalled = models.BooleanField(default=False, blank=False)
 
     def __str__(self):
         return 'Part: %s' % self.name

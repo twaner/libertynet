@@ -23,12 +23,22 @@ class PartFormEstimate(forms.ModelForm):
         exclude = ['location']
 
         widgets = {
-           'part_manufacturer': forms.Select(attrs={
-               'class': 'form-control'
-           }),
-           'category' : forms.Select(attrs={
-              "class": "form-control"
-           }),
+            'part_manufacturer': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'category': forms.Select(attrs={
+                "class": "form-control"
+            }),
+            'is_recalled': forms.CheckboxInput(attrs={
+                'class': "iButton-icons"}),
+            'is_active': forms.CheckboxInput(attrs={
+                'class': "iButton-icons"}),
+            'notes': forms.Textarea(attrs={
+                'cols': 160, 'rows': 10,
+                'maxlength': Part._meta.get_field('notes').max_length,
+                'onkeyup': "charRemaining('id_notes', 'notes_span')",
+                # 'onload': "initialChar('id_notes', 'notes_span')",
+            }),
         }
 
 

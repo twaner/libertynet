@@ -1,0 +1,106 @@
+{% extends '__basewrap.html' %}
+{% load mytags %}
+
+{% block body_block %}
+<body onload="initialize()" xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+{% block base_header %}
+  <div class="container">
+    <div class="row">
+      <div class="area-top clearfix">
+        <div class="pull-left header">
+          <h3 class="title">
+            <i class="icon-group"></i>
+            Part Index
+          </h3>
+          <h5>
+            <span>
+              Part Index Page
+            </span>
+          </h5>
+        </div>
+        <ul class="list-inline pull-right sparkline-box">
+          <li class="sparkline-row">
+            <h4 class="blue"><span>Types of Parts</span> {{ parts|length }} </h4>
+          </li>
+          <li class="sparkline-row">
+            <h4 class="blue"><span>Number of Vendors</span> {{ vendors|length }} </h4>
+          </li>
+          <li class="sparkline-row">
+            <h4 class="green"><span>Number of Part Categories</span> {{ part_category|length }} </h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block base_content %}
+    {% block form_breadcrumb %}
+    <!-- Breadcrumb line -->
+  <div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+            <div class="breadcrumb-button">
+              <span class="breadcrumb-label">
+                <i class="fa fa-group"></i> Part Home
+              </span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+      </div>
+    </div>
+  </div> <!-- container padded -->
+  {% endblock form_breadcrumb %}
+
+      <!-- Button -->
+  <div class="container">
+      <div class="action-nav-normal action-nav-line">
+         <div class="row action-nav-row">
+            <div class="col-sm-2 action-nav-button">
+              <a href="{% url 'Client:addclient' %}" title="Add Client">
+                <i class="icon-file-alt"></i>
+                <span>Add Client</span>
+              </a>
+              <span class="triangle-button red"><i class="icon-plus"></i></span>
+            </div>
+          <div class="col-sm-2 action-nav-button">
+              <a href="{% url 'Client:addcalllog' %}" title="Add Call">
+                <i class="fa fa-phone-square"></i>
+                <span>Add Call</span>
+              </a>
+              <span class="triangle-button red"><i class="icon-plus"></i></span>
+          </div>
+          <div class="col-sm-2 action-nav-button">
+              <a href="#" title="Add Estimate">
+                <i class="icon-file"></i>
+                <span>Add Estimate</span>
+              </a>
+              <span class="triangle-button red"><i class="icon-plus"></i></span>
+          </div>
+          <div class="col-sm-2 action-nav-button">
+           <a href="{% url 'Client:callloghome' %}" title="Client Call Home">
+            <i class="icon-comments-alt"></i>
+            <span>Client Calls</span>
+           </a>
+           <span class="label label-black">{{ calllog_follow_all|length }}</span>
+         </div>
+      </div>
+
+      <!-- Tables -->
+      {% if parts %}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="accordion" id="accordion2">
+                <p>Insert Rows</p>
+
+            </div> <!-- div#accordion2 -->
+          </div> <!-- col-md-12 -->
+        </div> <!-- row -->
+      {% endif %}
+     </div>      <!-- action-nav-normal -->
+  </div> <!-- container -->
+{% endblock base_content%}

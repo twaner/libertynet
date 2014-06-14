@@ -11,25 +11,24 @@ from Site.views import SiteDetailView, addclientsite, editclientsite
 
 urlpatterns = patterns('',
                        url(r'^index/$', ClientListView.as_view(), name='index'),
-                       # TODO Remove --> test to show Work Order View
-                       # Detail and Edit Views
+                       ## Detail and Edit Views ##
                        url(r'clientdetails/(?P<pk>[\d-]+)/$', ClientDetailViewWO.as_view(), name='clientdetails'),
                        url(r'^(?P<pk>[\d-]+)/$', ClientDetailView.as_view(), name='details'),
                        url(r'^addclient/$', ClientView.as_view(), name='addclient'),
                        url(r'editclient/(?P<pk>\d+)/$', editclient, name='editclient'),
-                       # Billing
+                       ## Billing ##
                        url(r'addclientbilling/(?P<pk>[\d-]+)/$', addclientbilling,
                            name='addclientbilling'),
                        url(r'editclientbilling/(?P<pk>[\d-]+)/$', editclientbilling,
                            name='editclientbilling'),
-                       # Call List
+                       ## Call List ##
                        url(r'addclientcalllist/(?P<pk>[\d-]+)/$', addcalllist,
                            name='addclientcalllist'),
                        url(r'editclientcalllist/(?P<pk>[\d-]+)/$', updatecalllist, name='editclientcalllist'),
                        url(r'calllistdetails/(?P<pk>[\d-]+)/$', CallListDetails.as_view(), name='calllistdetails'),
-                       # Site
+                       ## Site ##
                        url(r'sitedetails/(?P<pk>[\d-]+)/$', SiteDetailView.as_view(), name='sitedetails'),
-                       # CallLog
+                       ## CallLog ##
                        url(r'addclientcalllog/(?P<pk>[\d-]+)/$', addclientcalllog, name='addclientcalllog'),
                        url(r'followupcall/(?P<pk>[\d-]+)/$', followupcall, name='followupcall'),
                        url(r'editclientcall/(?P<pk>[\d-]+)/$', editclientcall, name='editclientcall'),
@@ -40,7 +39,7 @@ urlpatterns = patterns('',
                        url(r'clientcalllogindex/(?P<pk>[\d-]+)/$', ClientCallLogIndex.as_view(),
                            name='clientcalllogindex'),
                        url(r'^callloghome/$', ClientCallLogHome.as_view(), name='callloghome'),
-                       # Site
+                       ## Site ##
                        url(r'addclientsite/(?P<pk>[\d-]+)/$', addclientsite,
                            name='addclientsite'),
                        url(r'editclientsite/(?P<pk>[\d-]+)/$', editclientsite,
