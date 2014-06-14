@@ -1,6 +1,6 @@
 from django import forms
 from models import Device, Camera, Panel, Part, ClientEstimate, \
-    SalesEstimate, Estimate_Parts_Client, Estimate_Parts_Sales
+    SalesEstimate, Estimate_Parts_Client, Estimate_Parts_Sales, PartCategory
 
 #region EquipmentForms
 
@@ -20,7 +20,7 @@ class PanelForm(forms.ModelForm):
 class PartFormEstimate(forms.ModelForm):
     class Meta:
         model = Part
-        exclude = ['location']
+        exclude = ['location', 'quantity']
 
         widgets = {
             'part_manufacturer': forms.Select(attrs={
@@ -47,6 +47,13 @@ class CameraForm(forms.ModelForm):
         model = Camera
         fields = '__all__'
 
+
+class PartCategoryForm(forms.ModelForm):
+    class Meta:
+        model = PartCategory
+        fields = '__all__'
+
+# TODO - Move to Work
 
 class ClientEstimateForm(forms.ModelForm):
     class Meta:

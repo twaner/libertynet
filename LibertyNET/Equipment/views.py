@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView
 from models import Device, Camera, Panel, Part, ClientEstimate, \
     SalesEstimate, Estimate_Parts_Client, Estimate_Parts_Sales, PartCategory
-from Equipment.forms import DeviceForm, PanelForm, CameraForm, PartFormEstimate, ClientEstimateForm,\
+from Equipment.forms import DeviceForm, PanelForm, CameraForm, PartFormEstimate, PartCategoryForm, \
+    ClientEstimateForm,\
 SalesEstimateForm, EstimatePartsClientForm, EstimatePartsSalesForm
 from Vendor.models import Manufacturer
 
@@ -16,7 +17,7 @@ class CreateInventoryPart(CreateView):
     #model = Part
     form_class = PartFormEstimate
     initial = {
-        'is_active': False,
+        'is_active': True,
         'is_recalled': False,
     }
     template_name = 'equipment/addpart.html'
@@ -37,6 +38,15 @@ class PartIndex(ListView):
         context['part_category'] = PartCategory.objects.all()
 
         return context
+
+
+class CreatePartCategory(CreateView):
+    form_class = PartCategoryForm
+    template_name = 'equipment/addpartcategory.html'
+    success_url = 'equipment/index.html'
+
+    def form_valid(self, form):
+        return super(CreatePartCategory, self).form_valid(form)
 
 
 # endregion Part

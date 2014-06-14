@@ -136,7 +136,7 @@ class Panel(Equipment):
 
 
 class PartCategory(models.Model):
-    category = models.TextField(blank=False)
+    category = models.CharField(max_length=75, blank=False)
 
     def __str__(self):
         return self.category
@@ -159,6 +159,7 @@ class Part(Equipment):
     category = models.ForeignKey('Equipment.PartCategory', blank=False)
     is_active = models.BooleanField(default=True, blank=False)
     is_recalled = models.BooleanField(default=False, blank=False)
+    quantity = models.IntegerField(max_length=6, blank=True, default=0)
 
     def __str__(self):
         return 'Part: %s' % self.name

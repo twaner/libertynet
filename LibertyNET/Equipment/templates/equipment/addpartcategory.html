@@ -1,0 +1,43 @@
+{% extends '__form_base.html' %}
+{% load mytags %}
+{% block body_block %}
+    <body onload="initialize()">
+{% endblock %}
+{% block form_header %}
+{% include "mainheader_nograph.html" with icon="fa fa-group" title="Add Part Category" subtitle="Add Part Category to Database" %}
+{% endblock %}
+{% block h4_block %}Add Part Category{% endblock h4_block %}
+{% block form_breadcrumb %}
+<!-- breadcrumb -->
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="/equipment/index/">Equipment Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="fa fa-phone"></i>
+                Add Part Category
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+{% endblock form_breadcrumb %}
+{% block form_content %}
+    {% for i in form %}
+        <li>
+            <label>{{ i.label|title|cut:"_" }}</label>
+                {{ i }}
+        </li>
+    {% endfor %}
+{% endblock %}
