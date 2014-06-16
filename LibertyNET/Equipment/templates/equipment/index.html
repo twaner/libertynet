@@ -1,9 +1,5 @@
 {% extends '__basewrap.html' %}
 {% load mytags %}
-
-{% block body_block %}
-<body onload="initialize()" xmlns="http://www.w3.org/1999/html">
-{% endblock %}
 {% block base_header %}
   <div class="container">
     <div class="row">
@@ -15,7 +11,7 @@
           </h3>
           <h5>
             <span>
-              Part Index Page
+              Part Index Details View
             </span>
           </h5>
         </div>
@@ -56,7 +52,7 @@
   </div> <!-- container padded -->
   {% endblock form_breadcrumb %}
 
-      <!-- Button -->
+  <!-- Button -->
   <div class="container">
       <div class="action-nav-normal action-nav-line">
          <div class="row action-nav-row">
@@ -75,9 +71,9 @@
               <span class="triangle-button red"><i class="icon-plus"></i></span>
           </div>
           <div class="col-sm-2 action-nav-button">
-              <a href="#" title="Add Inventory">
+              <a href="{% url 'Equipment:updateinventory' %}" title="Update Inventory">
                 <i class="icon-file"></i>
-                <span>Add Inventory</span>
+                <span>Update Inventory</span>
               </a>
               <span class="triangle-button red"><i class="icon-plus"></i></span>
           </div>
@@ -89,14 +85,63 @@
            <span class="label label-black">{{ calllog_follow_all|length }}</span>
          </div>
       </div>
+      <!-- end button -->
+
+      <div class="box">
+          <div class="box-header">
+              <span class="title">Gauges</span>
+          </div>
+          <div class="box-content padded" style="text-align: center">
+              <div class="row">
+                  <div class="col-md-4">
+              <div  id="eATME" style="width:200px; height:160px"></div>
+              <script>
+                  var g = new JustGage({
+                    id: "eATME",
+                    value: {{ active_parts|length }},
+                    min: 0,
+                    max: {{ parts|length }},
+                    title: "Active Parts in Inventory",
+                    label: "Active Parts",
+
+                  });
+                  var r = function(){
+                      if (g.value) {
+                      g.barColor = Theme.colors.green;
+                      //g.color = Theme.colors.green;
+                  }
+                  }
+              </script>
+                      </div>
+                  <div class="col-md-4">
+              <div  id="eATME2" style="width:200px; height:160px"></div>
+              <script>
+                  var g = new JustGage({
+                    id: "eATME2",
+                    value: {{ recalled_parts|length }},
+                    min: 0,
+                    max: {{ parts|length }},
+                    title: "Recalled Parts in Inventory",
+                    label: "Recalled Parts"
+                  });
+              </script>
+                      </div>
+                  <div class="col-md-4">
+                      <div class="categoryPie" style="width:160px; height:160px"
+                              names = "Test1 Test2 Test 3 Test 4"/>
+                      <script>
+                          initPieChart();
+                      </script>
+                  </div>
+          </div>
+      </div> <!-- box -->
 
       <!-- Tables -->
       {% if parts %}
         <div class="row">
           <div class="col-md-12">
             <div class="accordion" id="accordion2">
-                <p>Insert Rows</p>
-
+                {% include 'equipment/__part_index_table.html' with collapse_number="collapseOne" title="All Parts" title1="Part List" context=parts%}
             </div> <!-- div#accordion2 -->
           </div> <!-- col-md-12 -->
         </div> <!-- row -->

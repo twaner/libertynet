@@ -1,12 +1,9 @@
 {% extends '__form_base.html' %}
 {% load mytags %}
-{% block body_block %}
-    <body onload="initialize()">
-{% endblock %}
 {% block form_header %}
-{% include "mainheader_nograph.html" with icon="fa fa-group" title="Add Part" subtitle="Add Part to Database" %}
+{% include "mainheader_nograph.html" with icon="fa fa-group" title="Update Inventory" subtitle="Update Part Inventory" %}
 {% endblock %}
-{% block h4_block %}Add Part{% endblock h4_block %}
+{% block h4_block %}Update Part Inventory{% endblock h4_block %}
 {% block form_breadcrumb %}
 <!-- breadcrumb -->
 <div class="container padded">
@@ -26,7 +23,7 @@
         <div class="breadcrumb-button">
             <span class="breadcrumb-label">
                 <i class="fa fa-phone"></i>
-                Add Part
+                Update Part Inventory
             </span>
         </div>
       </div>
@@ -37,15 +34,7 @@
     {% for i in form %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
-            {% if i.name == 'notes' %}
-                {{ i }}
-                <span>Characters Remaining: </span>
-                <span id="notes_span">
-                    <script>document.write(get_remaining_char('id_notes'))</script>
-                </span>
-            {% else %}
-                {{ i }}
-            {% endif %}
+            {{ i }}
         </li>
     {% endfor %}
 {% endblock %}

@@ -74678,7 +74678,7 @@ $(function () {
             if (width > 200) {
                 width = 200;
             }
-            return $(".spark-pie").sparkline([1,1,2,3,4], {
+            return $(".spark-pie").sparkline([1,1,2,3,14], {
                 type: 'pie',
                 height: width,
                 sliceColors: colors,
@@ -75054,38 +75054,3 @@ $(function () {
     });
 
 }).call(this);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

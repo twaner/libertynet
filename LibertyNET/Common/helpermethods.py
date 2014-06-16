@@ -1,5 +1,6 @@
 from models import Address, Contact, Card, Billing, CallList, Genre
 from django.db import models
+import django.forms
 from datetime import datetime, timedelta, date
 from django.shortcuts import redirect, HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -421,6 +422,18 @@ def form_worker(form_list, request, *args):
             form_list[i] = args[i]
 
     return form_list
+
+
+def readonly_worker(self, field_list):
+    for i in field_list:
+        print('readonly_worker %s ' % type(self.fields[i]))
+        if self.fields[i].widget is type(django.forms.widgets.Select) or \
+                self.fields[i] is type('django.forms.models.ModelChoiceField'):
+            print('IF readonly_worker %s ' % type(self.fields[i]))
+            self.fields[i].widget.attrs['disabled'] = True
+        else:
+            self.fields[i].widget.attrs['readonly'] = True
+
 
 
 def boolean_helper(*args):

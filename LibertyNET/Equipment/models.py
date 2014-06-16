@@ -1,6 +1,7 @@
 from django.db import models
-#from Common.fields import models.DecimalField
+from django.core.urlresolvers import reverse
 from Common.models import Estimate
+#from Common.fields import models.DecimalField
 
 #region ModelManagers
 
@@ -141,6 +142,16 @@ class PartCategory(models.Model):
     def __str__(self):
         return self.category
 
+    def get_absolute_url(self):
+        return reverse('Equipment:categorydetails', kwargs={
+            'pk': self.id
+        })
+
+    def get_absolute_url_edit(self):
+        return reverse('Equipment:editcategory', kwargs={
+            'pk': self.id
+        })
+
 
 class Part(Equipment):
     part_manufacturer = models.ForeignKey('Vendor.Manufacturer')
@@ -163,6 +174,25 @@ class Part(Equipment):
 
     def __str__(self):
         return 'Part: %s' % self.name
+
+    def get_quantity(self):
+        if self.quantity is None:
+            self.quantity = 0
+        return self.quantity
+
+    def get_absolute_url(self):
+        return reverse('Equipment:partdetails', kwargs={
+            'pk': self.id
+        })
+
+    def get_absolute_url_index(self):
+        return reverse('Equipment:index')
+
+    def get_absolute_url_update_inv(self):
+        return reverse('Equipment:updatepartinventory', kwargs={
+            'pk': self.id
+        })
+
 
 
 class Camera(Equipment):
