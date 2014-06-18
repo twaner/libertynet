@@ -1,11 +1,12 @@
 {% extends '__form_base.html' %}
 {% load mytags %}
 {% block body_block %}
+    <body onload="initialize()">
 {% endblock %}
 {% block form_header %}
-{% include "mainheader_nograph.html" with icon="fa fa-group" title="Add Part" subtitle="Add Part to Database" %}
+{% include "mainheader_nograph.html" with icon="fa fa-group" title="Create Estimate" subtitle="Create Estimate" %}
 {% endblock %}
-{% block h4_block %}Add Part{% endblock h4_block %}
+{% block h4_block %}Create Estimate{% endblock h4_block %}
 {% block form_breadcrumb %}
 <!-- breadcrumb -->
 <div class="container padded">
@@ -18,14 +19,14 @@
         <div class="breadcrumb-button">
           <span class="breadcrumb-label">
             <i class="fa fa-group"></i>
-              <a href="/equipment/index/">Equipment Home</a>
+              <a href="/equipment/index/">Client Home</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
         <div class="breadcrumb-button">
             <span class="breadcrumb-label">
                 <i class="fa fa-phone"></i>
-                Add Part
+                Create Part
             </span>
         </div>
       </div>

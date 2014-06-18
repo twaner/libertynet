@@ -638,7 +638,7 @@ class UserProfile(Person):
 
 #region ESTIMATE
 class Estimate(models.Model):
-    job_name = models.TextField(max_length=45)
+    job_name = models.CharField(max_length=45)
     estimate_address = models.ForeignKey('Common.Address')
     date = models.DateField()
     preparer = models.ForeignKey('Employee.Employee')

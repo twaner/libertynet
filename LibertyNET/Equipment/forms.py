@@ -1,7 +1,6 @@
 import autocomplete_light
 from django import forms
-from models import Device, Camera, Panel, Part, ClientEstimate, \
-    SalesEstimate, Estimate_Parts_Client, Estimate_Parts_Sales, PartCategory
+from models import Device, Camera, Panel, Part, PartCategory
 from Common.helpermethods import readonly_worker
 
 #region EquipmentForms
@@ -112,32 +111,4 @@ class PartCategoryForm(forms.ModelForm):
         model = PartCategory
         fields = '__all__'
 
-
-# TODO - Move to Work
-
-
-class ClientEstimateForm(forms.ModelForm):
-    class Meta:
-        model = ClientEstimate
-        fields = '__all__'
-
-
-class SalesEstimateForm(forms.ModelForm):
-    class Meta:
-        model = SalesEstimate
-        fields = '__all__'
-
-
-class EstimatePartsClientForm(forms.ModelForm):
-    class Meta:
-        model = Estimate_Parts_Client
-        fields = '__all__'
-
-
-class EstimatePartsSalesForm(forms.ModelForm):
-    class Meta:
-        model = Estimate_Parts_Sales
-        fields = '__all__'
-
-
-        #endregion
+#endregion

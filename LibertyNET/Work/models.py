@@ -2,7 +2,7 @@ from django.db import models
 from datetime import datetime, timedelta, date
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
-from Common.models import NUMBER_CHOICES
+from Common.models import NUMBER_CHOICES, Estimate
 from Common.helpermethods import time_diff, seconds_to_hours, time_delta_to_str
 
 #region ModelManagers
@@ -209,4 +209,57 @@ class Wage(models.Model):
         else:
             return timedelta(hours=0, minutes=0)
 
-            #endregion
+#endregion
+
+#region Estimate
+
+
+class ClientEstimate(Estimate):
+    estimate_client = models.ForeignKey('Client.Client')
+    estimate_parts = models.ManyToManyField('Work.Estimate_Parts_Client')
+
+
+class SalesEstimate(Estimate):
+    estimate_sales = models.ForeignKey('Client.SalesProspect')
+    estimate_parts = models.ManyToManyField('Work.Estimate_Parts_Sales')
+
+
+class EstimatePartsBase(models.Model):
+    part_id = models.ForeignKey('Equipment.Part')
+    quantity = models.IntegerField(max_length=6)
+    final_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
+    sub_total = models.DecimalField(max_digits=10, decimal_places=2)
+    profit = models.DecimalField(max_digits=10, decimal_places=2)
+    flat_total = models.DecimalField(max_digits=10, decimal_places=2)
+    total_labor = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        abstract = True
+
+
+class Estimate_Parts_Client(EstimatePartsBase):
+    estimate_id = models.ForeignKey('Work.ClientEstimate')
+    # part_id = models.ForeignKey('Equipment.Part')
+    # quantity = models.IntegerField(max_length=6)
+    # final_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    # cost = models.DecimalField(max_digits=10, decimal_places=2)
+    # sub_total = models.DecimalField(max_digits=10, decimal_places=2)
+    # profit = models.DecimalField(max_digits=10, decimal_places=2)
+    # flat_total = models.DecimalField(max_digits=10, decimal_places=2)
+    # total_labor = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+class Estimate_Parts_Sales(EstimatePartsBase):
+    estimate_id = models.ForeignKey('Work.SalesEstimate')
+    # part_id = models.ForeignKey('Equipment.Part')
+    # quantity = models.IntegerField(max_length=6)
+    # final_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    # cost = models.DecimalField(max_digits=10, decimal_places=2)
+    # sub_total = models.DecimalField(max_digits=10, decimal_places=2)
+    # profit = models.DecimalField(max_digits=10, decimal_places=2)
+    # flat_total = models.DecimalField(max_digits=10, decimal_places=2)
+    # total_labor = models.DecimalField(max_digits=10, decimal_places=2)
+
+#endregion
+

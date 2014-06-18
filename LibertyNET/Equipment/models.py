@@ -194,7 +194,6 @@ class Part(Equipment):
         })
 
 
-
 class Camera(Equipment):
     camera_id = models.AutoField(primary_key=True)
     camera_system_id = models.ForeignKey('Site.System')
@@ -212,35 +211,35 @@ class Camera(Equipment):
 #ADDED -> 6/11
 
 
-class ClientEstimate(Estimate):
-    estimate_client = models.ForeignKey('Client.Client')
-    estimate_parts = models.ManyToManyField('Equipment.Estimate_Parts_Client')
-
-
-class SalesEstimate(Estimate):
-    estimate_sales = models.ForeignKey('Client.SalesProspect')
-    estimate_parts = models.ManyToManyField('Equipment.Estimate_Parts_Sales')
-
-
-class Estimate_Parts_Client(models.Model):
-    estimate_id = models.ForeignKey('Equipment.ClientEstimate')
-    part_id = models.ForeignKey('Equipment.Part')
-    quantity = models.IntegerField(max_length=6)
-    final_cost = models.DecimalField(max_digits=10, decimal_places=2)
-    cost = models.DecimalField(max_digits=10, decimal_places=2)
-    sub_total = models.DecimalField(max_digits=10, decimal_places=2)
-    profit = models.DecimalField(max_digits=10, decimal_places=2)
-    flat_total = models.DecimalField(max_digits=10, decimal_places=2)
-    total_labor = models.DecimalField(max_digits=10, decimal_places=2)
-
-
-class Estimate_Parts_Sales(models.Model):
-    estimate_id = models.ForeignKey('Equipment.SalesEstimate')
-    part_id = models.ForeignKey('Equipment.Part')
-    quantity = models.IntegerField(max_length=6)
-    final_cost = models.DecimalField(max_digits=10, decimal_places=2)
-    cost = models.DecimalField(max_digits=10, decimal_places=2)
-    sub_total = models.DecimalField(max_digits=10, decimal_places=2)
-    profit = models.DecimalField(max_digits=10, decimal_places=2)
-    flat_total = models.DecimalField(max_digits=10, decimal_places=2)
-    total_labor = models.DecimalField(max_digits=10, decimal_places=2)
+# class ClientEstimate(Estimate):
+#     estimate_client = models.ForeignKey('Client.Client')
+#     estimate_parts = models.ManyToManyField('Equipment.Estimate_Parts_Client')
+#
+#
+# class SalesEstimate(Estimate):
+#     estimate_sales = models.ForeignKey('Client.SalesProspect')
+#     estimate_parts = models.ManyToManyField('Equipment.Estimate_Parts_Sales')
+#
+#
+# class Estimate_Parts_Client(models.Model):
+#     estimate_id = models.ForeignKey('Equipment.ClientEstimate')
+#     part_id = models.ForeignKey('Equipment.Part')
+#     quantity = models.IntegerField(max_length=6)
+#     final_cost = models.DecimalField(max_digits=10, decimal_places=2)
+#     cost = models.DecimalField(max_digits=10, decimal_places=2)
+#     sub_total = models.DecimalField(max_digits=10, decimal_places=2)
+#     profit = models.DecimalField(max_digits=10, decimal_places=2)
+#     flat_total = models.DecimalField(max_digits=10, decimal_places=2)
+#     total_labor = models.DecimalField(max_digits=10, decimal_places=2)
+#
+#
+# class Estimate_Parts_Sales(models.Model):
+#     estimate_id = models.ForeignKey('Equipment.SalesEstimate')
+#     part_id = models.ForeignKey('Equipment.Part')
+#     quantity = models.IntegerField(max_length=6)
+#     final_cost = models.DecimalField(max_digits=10, decimal_places=2)
+#     cost = models.DecimalField(max_digits=10, decimal_places=2)
+#     sub_total = models.DecimalField(max_digits=10, decimal_places=2)
+#     profit = models.DecimalField(max_digits=10, decimal_places=2)
+#     flat_total = models.DecimalField(max_digits=10, decimal_places=2)
+#     total_labor = models.DecimalField(max_digits=10, decimal_places=2)

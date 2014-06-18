@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, include, url
-from django.contrib import admin
+from django.conf.urls import patterns, url
 from Equipment.views import CreateInventoryPart, PartIndex, CreatePartCategory, UpdatePartInventory, \
-UpdatePartInventoryGeneric, PartDetailsView
+    UpdatePartInventoryGeneric, PartDetailsView
+
 
 urlpatterns = patterns('',
                        # Static Views
@@ -11,6 +11,7 @@ urlpatterns = patterns('',
                        url(r'^addpart/$', CreateInventoryPart.as_view(), name="addpart"),
                        url(r'^addpartcategory/$', CreatePartCategory.as_view(), name="addpartcategory"),
                        url(r'^updateinventory/$', UpdatePartInventoryGeneric.as_view(), name="updateinventory"),
-                       url(r'^updatepartinventory/(?P<pk>\d+)/$', UpdatePartInventory.as_view(), name="updatepartinventory"),
+                       url(r'^updatepartinventory/(?P<pk>\d+)/$', UpdatePartInventory.as_view(),
+                           name="updatepartinventory"),
 
 )

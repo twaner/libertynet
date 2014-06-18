@@ -424,16 +424,13 @@ def form_worker(form_list, request, *args):
     return form_list
 
 
-def readonly_worker(self, field_list):
+def readonly_worker(form, field_list):
     for i in field_list:
-        print('readonly_worker %s ' % type(self.fields[i]))
-        if self.fields[i].widget is type(django.forms.widgets.Select) or \
-                self.fields[i] is type('django.forms.models.ModelChoiceField'):
-            print('IF readonly_worker %s ' % type(self.fields[i]))
-            self.fields[i].widget.attrs['disabled'] = True
+        if isinstance(form.fields[i].widget, django.forms.widgets.Select) or \
+                isinstance(form.fields[i], django.forms.models.ModelChoiceField):
+            form.fields[i].widget.attrs['readonly'] = True
         else:
-            self.fields[i].widget.attrs['readonly'] = True
-
+            form.fields[i].widget.attrs['readonly'] = True
 
 
 def boolean_helper(*args):

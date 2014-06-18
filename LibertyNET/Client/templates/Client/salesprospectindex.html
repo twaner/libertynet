@@ -1,6 +1,5 @@
 {% extends '__basewrap.html' %}
 {% block body_block %}
-<body onload="initialize()" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 {% block base_header %}
   <div class="container">
@@ -63,14 +62,21 @@
               </a>
               <span class="triangle-button red"><i class="icon-plus"></i></span>
             </div>
-          <div class="col-sm-2 action-nav-button">
+         <div class="col-sm-2 action-nav-button">
               <a href="{% url 'Client:salescallloghome' %}" title="Add Call">
                 <i class="fa fa-phone-square"></i>
                 <span>Add Call</span>
               </a>
               <span class="triangle-button red"><i class="icon-plus"></i></span>
-          </div>
-          <div class="col-sm-2 action-nav-button">
+         </div>
+         <div class="col-sm-2 action-nav-button">
+              <a href="{% url 'Work:createsalesestimate' %}" title="Add Estimate">
+                <i class="icon-file"></i>
+                <span>Add Estimate</span>
+              </a>
+              <span class="triangle-button red"><i class="icon-plus"></i></span>
+         </div>
+         <div class="col-sm-2 action-nav-button">
            <a href="{% url 'Client:salescallloghome' %}" title="Sales Call Home">
             <i class="icon-comments-alt"></i>
             <span>Sales Call Home</span>

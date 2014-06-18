@@ -1,6 +1,8 @@
 from django import forms
+from django.utils.translation import gettext as _
 from bootstrap_toolkit.widgets import BootstrapDateInput
-from models import Job, Task, Ticket, Wage
+from models import Job, Task, Ticket, Wage, ClientEstimate, Estimate_Parts_Client, \
+    Estimate_Parts_Sales, SalesEstimate
 
 #region ModelForms
 
@@ -57,7 +59,55 @@ class WageForm(forms.ModelForm):
         labels = {
             'wages_employee': _('Employee Name'),
             'wage_date': _('Date'),
-
         }
 
-#endregiond
+
+#endregion
+
+#region Estimates
+
+
+class ClientEstimateForm(forms.ModelForm):
+    class Meta:
+        model = ClientEstimate
+        fields = ['job_name', 'date', 'preparer', 'is_capital_improvement', 'margin',
+                  'margin_guidelines', 'estimate_address']
+        widgets = {
+            'is_capital_improvement': forms.CheckboxInput(attrs={
+                'class': "iButton-icons"}),
+            'estimate_address': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'preparer': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+        }
+
+
+class SalesEstimateForm(forms.ModelForm):
+    class Meta:
+        model = SalesEstimate
+        fields = ['job_name', 'date', 'preparer', 'is_capital_improvement', 'margin',
+                  'margin_guidelines', 'estimate_address']
+        widgets = {
+            'is_capital_improvement': forms.CheckboxInput(attrs={
+                'class': "iButton-icons"}),
+            'estimate_address': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'preparer': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+        }
+
+
+class EstimatePartsClientForm(forms.ModelForm):
+    class Meta:
+        model = Estimate_Parts_Client
+        fields = '__all__'
+
+
+class EstimatePartsSalesForm(forms.ModelForm):
+    class Meta:
+        model = Estimate_Parts_Sales
+        fields = '__all__'

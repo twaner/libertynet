@@ -1,12 +1,9 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.core.urlresolvers import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, View, DetailView
-from models import Device, Camera, Panel, Part, ClientEstimate, \
-    SalesEstimate, Estimate_Parts_Client, Estimate_Parts_Sales, PartCategory
-from Equipment.forms import DeviceForm, PanelForm, CameraForm, PartFormEstimate, PartCategoryForm, \
-    ClientEstimateForm, \
-    SalesEstimateForm, EstimatePartsClientForm, EstimatePartsSalesForm, PartFormInventory, PartFormInventoryRO
+from Equipment.models import Part, PartCategory
+from Equipment.forms import PartFormEstimate, PartCategoryForm, \
+    PartFormInventory, PartFormInventoryRO
 from Vendor.models import Manufacturer
 
 #region Globals
@@ -48,7 +45,7 @@ class PartIndex(ListView):
         context['active_parts'] = Part.objects.filter(is_active=True)
         context['recalled_parts'] = Part.objects.filter(is_recalled=True)
         context['category_list'] = PartCategory.objects.values_list('category', flat=True)
-        print('PartIndex %s' % context['category_list'])
+        #print('PartIndex %s' % context['category_list'])
         context['vendors'] = Manufacturer.objects.all()
         context['part_category'] = PartCategory.objects.all()
 
@@ -95,7 +92,7 @@ class UpdatePartInventoryGeneric(View):
     success_url = equipment_index
 
     def form_valid(self, form):
-        return super(UpdatePartInventory, self).form_valid(form)
+        return super(UpdatePartInventoryGeneric, self).form_valid(form)
 
     def get(self, request, **kwargs):
         form = PartFormInventory
