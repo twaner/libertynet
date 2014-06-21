@@ -81,6 +81,32 @@ class WageManager(models.Manager):
         return wage
 
 
+class ClientEstimateManager(models.Manager):
+    def create_clientestimate(self, job_name, estimate_address, date, preparer,
+                              cost, is_capital_improvement, total_cost, total_price,
+                              total_profit, total_flat_rate, listed_price, listed_profit,
+                              sales_commission, labor, prevailing_wage, margin, margin_guidelines):
+
+        estimate = self.create(job_name=job_name, estimate_address=estimate_address, date=date,
+                               preparer=preparer, cost=cost, is_capital_improvement=is_capital_improvement,
+                               total_cost=total_cost, total_price=total_price, total_profit=total_profit,
+                               listed_price=listed_price, listed_profit=listed_profit,
+                               labor=labor, sales_commission=sales_commission, prevailing_wage=prevailing_wage,
+                               margin=margin, margin_guidelines=margin_guidelines, total_flat_rate=total_flat_rate)
+        estimate.cost = 0.0
+        estimate.total_cost = 0.0
+        estimate.total_price = 0.0
+        estimate.total_profit = 0.0
+        estimate.total_flat_rate = 0.0
+        estimate.listed_price = 0.0
+        estimate.listed_profit = 0.0
+        estimate.sales_commission = 0.0
+        estimate.labor = 0.0
+        estimate.prevailing_wage = 0.0
+
+        estimate.save()
+        return estimate
+
 #endregion
 
 #region Models
@@ -209,6 +235,7 @@ class Wage(models.Model):
         else:
             return timedelta(hours=0, minutes=0)
 
+
 #endregion
 
 #region Estimate
@@ -218,10 +245,24 @@ class ClientEstimate(Estimate):
     estimate_client = models.ForeignKey('Client.Client')
     estimate_parts = models.ManyToManyField('Work.Estimate_Parts_Client')
 
+    objects = ClientEstimateManager()
+
+    def __str__(self):
+        return 'Estimate for: %s \n %s' % (self.estimate_client, self.date)
+
+    def get_absolute_url(self):
+        return reverse('Work:estimatedetails', kwargs={'pk': self.id})
+
+    def create_estimate(self):
+        return reverse('Work:createestimate', kwargs={'pk': self.id})
+
 
 class SalesEstimate(Estimate):
     estimate_sales = models.ForeignKey('Client.SalesProspect')
     estimate_parts = models.ManyToManyField('Work.Estimate_Parts_Sales')
+
+    def __str__(self):
+        return 'Estimate for: %s \n %s' % (self.estimate_sales, self.date)
 
 
 class EstimatePartsBase(models.Model):

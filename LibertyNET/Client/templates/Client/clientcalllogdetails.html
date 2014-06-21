@@ -1,10 +1,10 @@
-{% extends '__form_ro_base.html' %}
+{% extends 'common/__form_ro_base.html' %}
 {% load mytags %}
 {% block body_block %}
 <body onload="initialize()" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 {% block form_header %}
-{% include "mainheader_nograph.html" with icon="fa fa-phone" title="Call Details" subtitle="Detailed Call Information" %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-phone" title="Call Details" subtitle="Detailed Call Information" %}
 {% endblock %}
 
 {% block form_breadcrumb %}

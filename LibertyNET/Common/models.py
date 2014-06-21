@@ -338,6 +338,10 @@ class Address(models.Model):
         return (u'%s %s %s %s %s' % (self.street, self.unit,
                                      self.city, self.state, self.zip_code))
 
+    def formatted(self):
+        return (u'%s %s \n%s %s \n%s' % (self.street, self.unit,
+                                          self.city, self.state, self.zip_code))
+
 
 class Contact(models.Model):
     phone = models.CharField("primary phone", max_length=13, blank=True)
@@ -642,17 +646,17 @@ class Estimate(models.Model):
     estimate_address = models.ForeignKey('Common.Address')
     date = models.DateField()
     preparer = models.ForeignKey('Employee.Employee')
-    cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
     is_capital_improvement = models.BooleanField(default=False)
-    total_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
-    total_profit = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
-    total_flat_rate = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
-    listed_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
-    listed_profit = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
-    sales_commission = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
-    labor = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
-    prevailing_wage = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    total_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
+    total_profit = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
+    total_flat_rate = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
+    listed_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
+    listed_profit = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
+    sales_commission = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
+    labor = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
+    prevailing_wage = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
     margin = models.DecimalField(max_digits=3, decimal_places=2, blank=True)
     margin_guidelines = models.TextField(max_length=100)
 

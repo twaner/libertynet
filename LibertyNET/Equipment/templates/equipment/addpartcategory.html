@@ -1,10 +1,10 @@
-{% extends '__form_base.html' %}
+{% extends 'common/__form_base.html' %}
 {% load mytags %}
 {% block body_block %}
     <body onload="initialize()">
 {% endblock %}
 {% block form_header %}
-{% include "mainheader_nograph.html" with icon="fa fa-group" title="Add Part Category" subtitle="Add Part Category to Database" %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-group" title="Add Part Category" subtitle="Add Part Category to Database" %}
 {% endblock %}
 {% block h4_block %}Add Part Category{% endblock h4_block %}
 {% block form_breadcrumb %}

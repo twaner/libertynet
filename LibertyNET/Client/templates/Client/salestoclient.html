@@ -1,11 +1,11 @@
-{% extends '__form_base.html' %}
+{% extends 'common/__form_base.html' %}
 {% load mytags %}
 
 {% block body_block %}
 <body onload="initialize()">
 {% endblock %}
 {% block form_header %}
-{% include "mainheader_nograph.html" with icon="fa fa-group" title="Convert to Client" subtitle="Convert Lead to Client" %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-group" title="Convert to Client" subtitle="Convert Lead to Client" %}
 {% endblock %}
 
 {% block form_breadcrumb %}

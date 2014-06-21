@@ -1,10 +1,10 @@
-{% extends '__basewrap.html' %}
+{% extends 'common/__basewrap.html' %}
 {% load mytags %}
 {% block body_block %}
     <body onload="initialize()">
 {% endblock %}
 {% block base_header %}
-{% include "mainheader_nograph.html" with icon="fa fa-group" title="Client Call Log Index" subtitle="List of Call for Client" %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-group" title="Client Call Log Index" subtitle="List of Call for Client" %}
 {% endblock %}
 
 {% block base_content %}

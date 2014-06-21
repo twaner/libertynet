@@ -1,4 +1,4 @@
-{% extends 'basewrap.html' %}
+{% extends 'common/basewrap.html' %}
 {% comment %}
 {% block icon %}fa fa-phone{% endblock %}
 {% block navtitle %}Title{% endblock navtitle %}
@@ -6,7 +6,7 @@
 {% endcomment %}
 
 {% block header %}
-{% include "mainheader_nograph.html" with icon="fa fa-phone" title="Sales Prospect Details" subtitle="Detailed Sales Prospect Information" %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-phone" title="Sales Prospect Details" subtitle="Detailed Sales Prospect Information" %}
 {% endblock %}
 
 {% block content %}

@@ -355,16 +355,18 @@ def validation_helper(form_list):
     @return: Boolean based on validation.
     """
     invalid = 0
+    if type(form_list) is not list:
+        form_list = [form_list]
     for i in form_list:
         if not i.is_valid():
             invalid += 1
-            print('VALIDATION_HELPER ==> Errors: %s | Num Errors: %s \n Form: %s ' % (i.errors, len(i.errors), i))
+            print('VALIDATION_HELPER ==> Errors: %s | Num Errors: %s \n Form: %s ' % (i.errors, len(i.errors), type(i)))
             # for q in i:
             #     print('validation_helper: %s' % q.name_of_field.errors)
         else:
             i.is_valid()
             print('VALIDATION_HELPER ==> %s ' % i.is_valid())
-    print('validation_helper invalid=%s' % invalid)
+    print('VALIDATION_HELPER invalid=%s' % invalid)
     if invalid >= 1:
         return False
     else:

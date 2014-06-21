@@ -1,14 +1,16 @@
 from django.conf.urls import patterns, url
 from Work.views import CreateEstimateView, ClientEstimateIndex, CreateSalesEstimateView, SalesEstimateIndex, \
-    ClientEstimateDetails, SalesEstimateDetails
+    ClientEstimateDetails, SalesEstimateDetails, CreateEstimateStep2
 
 
 urlpatterns = patterns('',
                        # Static Views
                        url(r'^clientestimateindex/$', ClientEstimateIndex.as_view(), name='clientestimateindex'),
-                       url(r'^estimatedetails/(?P<pk>\d+)/$', ClientEstimateDetails.as_view(), name='estimatedetails'),
+                       url(r'^estimatedetails/(?P<pk>[\d-]+)/$', ClientEstimateDetails.as_view(), name='estimatedetails'),
                        # Create Views
                        url(r'^createestimate', CreateEstimateView.as_view(), name='createestimate'),
+                       url(r'^estimate_pt2/(?P<pk>[\d-]+)/$', CreateEstimateStep2.as_view(),
+                           name='estimate_pt2'),
 
                        # Update Views
 

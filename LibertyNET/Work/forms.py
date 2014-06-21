@@ -70,8 +70,11 @@ class WageForm(forms.ModelForm):
 class ClientEstimateForm(forms.ModelForm):
     class Meta:
         model = ClientEstimate
-        fields = ['job_name', 'date', 'preparer', 'is_capital_improvement', 'margin',
-                  'margin_guidelines', 'estimate_address']
+        fields = ['estimate_client', 'job_name', 'date', 'preparer',
+                  'is_capital_improvement', 'margin', 'estimate_address']
+        #           'margin_guidelines', 'estimate_address']
+        # fields = ['job_name', 'date', 'preparer', 'is_capital_improvement', 'margin',
+        #           'margin_guidelines', 'estimate_address']
         widgets = {
             'is_capital_improvement': forms.CheckboxInput(attrs={
                 'class': "iButton-icons"}),
@@ -81,6 +84,11 @@ class ClientEstimateForm(forms.ModelForm):
             'preparer': forms.Select(attrs={
                 'class': 'form-control'
             }),
+            'estimate_client': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'date': forms.DateInput(attrs={
+            'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
         }
 
 
@@ -98,6 +106,11 @@ class SalesEstimateForm(forms.ModelForm):
             'preparer': forms.Select(attrs={
                 'class': 'form-control'
             }),
+            'estimate_client': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'date': forms.DateInput(attrs={
+            'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
         }
 
 

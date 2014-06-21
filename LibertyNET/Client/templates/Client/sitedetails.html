@@ -1,11 +1,11 @@
-{% extends '__form_ro_base.html' %}
+{% extends 'common/__form_ro_base.html' %}
 {% load mytags %}
 {% load humanize %}
 {% block body_block %}
 <body onload="initialize()" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 {% block form_header %}
-{% include "mainheader_nograph.html" with icon="fa fa-phone" title="Site Details" subtitle="Detailed Site Information" %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-phone" title="Site Details" subtitle="Detailed Site Information" %}
 {% endblock %}
 
 {% block form_breadcrumb %}
@@ -107,8 +107,10 @@
         </div> <!-- row -->
 
         <!-- Call List Table -->
-        <div class="row">
+
+        <!--<div class="row">-->
           <div class="col-md-6">
+           <div class="floating">
             <div class="box">
                 <div class="box-header">
                     <span class="title">
@@ -200,7 +202,9 @@
                     {% endif %}
                 </div> <!-- box-content scrollable -->
             </div> <!-- box -->
-        </div> <!-- row -->
+           </div> <!-- floating -->
+          </div> <!-- col-md-6-->
+        <!--</div> &lt;!&ndash; row &ndash;&gt;-->
 {% endblock %}
 
 

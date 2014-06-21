@@ -1,4 +1,4 @@
-{% extends '__basewrap.html' %}
+{% extends 'common/__basewrap.html' %}
 {% load mytags %}
 
 {% block body_block %}
@@ -14,7 +14,7 @@
         {% endblock form_breadcrumb %}
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <div class="box">
                 <div class="box-header">​
                     <span class="title">
@@ -25,11 +25,11 @@
                 <form class="fill-up" action="" method="post">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-md-6">
                             <ul class="padded separate-sections">
                                 {% block form_content %}
                                 {% endblock form_content %}
-                                {% include "submit_cancel.html"  %}
+                                {% include "common/submit_cancel.html"  %}
                             </ul>
                         </div> <!-- col-lg-6 -->
                     </div> <!-- row -->
@@ -37,5 +37,6 @@
                 </div> <!-- box content -->
             </div> <!-- box -->
         </div>
+    </div> <!--row-->
 </div> <!-- container -->
 {% endblock base_content%}

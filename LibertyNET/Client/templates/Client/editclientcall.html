@@ -1,4 +1,4 @@
-{% extends '__form_base.html' %}
+{% extends 'common/__form_base.html' %}
 {% load mytags %}
 {% block body_block %}
     <script>
@@ -6,7 +6,7 @@
     </script>
 {% endblock %}
 {% block form_header %}
-{% include "mainheader_nograph.html" with icon="fa fa-group" title="Edit Call Details" subtitle="Edit Call Record" %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-group" title="Edit Call Details" subtitle="Edit Call Record" %}
 {% endblock %}
 {% block h4_block %}Edit Call{% endblock h4_block %}
 {% block form_breadcrumb %}

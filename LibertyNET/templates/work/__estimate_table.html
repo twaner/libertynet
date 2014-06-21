@@ -1,0 +1,213 @@
+<div class="box">
+  <div class="box-header">
+      <span class="title">{{ title }}</span>
+  </div>
+      <div class="box-content">
+        <div id="dataTables">
+            <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
+            <thead>
+            <tr>
+              <td><div>Part #</div></td>
+                <td><div>Name</div></td>
+                <td style="width: 30px"><div>Cost</div></td>
+                <td style="width: 20px">Margin</td>
+                <td style="width: 20px">Final Cost</td>
+                <td style="width: 20px">Flat Price</td>
+                <td style="width: 20px">Labor</td>
+                <td style="width: 20px">Qty</td>
+                <td style="width: 20px">Cost</td>
+                <td style="width: 20px">Sub Total</td>
+                <td style="width: 25px">Profit</td>
+                <td style="width: 20px">Flat total</td>
+                <td style="width: 20px">Total Labor</td>
+                <td style="width: 20px">Notes</td>
+            </tr>
+            </thead>
+                <tbody role="alert" aria-live="polite" aria-relavent="all">
+                {% for e in context %}
+                    <tr>
+                      <td >{{ e.part_id.number }}</td>
+                      <td>
+                          {{ e.part_id.name }}
+                      </td>
+                      <td>
+                        {{ e.part_id.cost }}
+                      </td>
+                      <td>
+                          {{ context2.margin }}
+                      </td>
+                      <td>
+                          {{ e.final_cost }}
+                      </td>
+                      <td>
+                          {{ e.part_id.flat_price}}
+                      </td>
+                      <td>
+                          {{ e.part_id.labor }}
+                      </td>
+                      <td>
+                          {{ e.quantity }}
+                      </td>
+                      <td>
+                          {{ e.cost }}
+                      </td>
+                      <td>
+                          {{ e.sub_total }}
+                      </td>
+                      <td>
+                          {{ e.profit }}
+                      </td>
+                      <td>
+                          {{ e.flat_total }}
+                      </td>
+                      <td>
+                          {{ e.total_labor }}
+                      </td>
+                      <td>
+                          <a href="#">Notes</a>
+                      </td>
+                    </tr>
+                {% endfor %}
+                {# summary of estimate #}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td>
+                        Cost of System
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>$200</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Price of System
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>$200</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Total Profit
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>$200</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Flat Rate Price
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>$200</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Total Labor
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>3 Days</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Sales Commission
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>$200</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Listed Price
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>$200</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Listed Profit
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>$200</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Sales Commission
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>$200</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+      </div>
+</div>

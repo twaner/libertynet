@@ -20108,7 +20108,27 @@ a.editable-click.editable-disabled:hover {
     }
 }
 
+/* My CSS
+*/
+#estimate_td {
+    bgcolor: #808080
+    style: width: 40px
+}
+
+#floating {
+    position: fixed;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 10em;
+    width: 20%;
+    /* just for example presentation */
+    top: 5em;
+}
+
 /*
+
 
 
 
