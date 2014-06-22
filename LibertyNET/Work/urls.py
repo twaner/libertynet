@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from Work.views import CreateEstimateView, ClientEstimateIndex, CreateSalesEstimateView, SalesEstimateIndex, \
-    ClientEstimateDetails, SalesEstimateDetails, CreateEstimateStep2
+    ClientEstimateDetails, SalesEstimateDetails, CreateEstimateStep2, AddPartView, addpart
 
 
 urlpatterns = patterns('',
@@ -11,6 +11,10 @@ urlpatterns = patterns('',
                        url(r'^createestimate', CreateEstimateView.as_view(), name='createestimate'),
                        url(r'^estimate_pt2/(?P<pk>[\d-]+)/$', CreateEstimateStep2.as_view(),
                            name='estimate_pt2'),
+                       # url(r'^addpart/(?P<pk>[\d-]+)/$', AddPartView.as_view(),
+                       #     name='addpart'),
+                       url(r'^addpart/(?P<pk>[\d-]+)/$', addpart,
+                           name='addpart'),
 
                        # Update Views
 

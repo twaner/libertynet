@@ -19,8 +19,22 @@ def addstyle(field, mystyle):
 def user_name(user):
     return '%s %s' % (user.first_name, user.last_name)
 
-
 #register.inclusion_tag("/Common/login.html")(show_login)
+
+
+@register.filter(name='to_percent')
+def percentify(val):
+    """
+    Takes a value and returns it as a Percentage.
+    @param val:
+    @return:
+    """
+    if val >= 1:
+        q = format(val, "%")
+    elif val < 1:
+        q = "{0:0.f}".format(float(val) * 100)
+    return q
+
 
 @register.inclusion_tag("common/login.html")
 def show_login(request):

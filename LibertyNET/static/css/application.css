@@ -20110,12 +20110,17 @@ a.editable-click.editable-disabled:hover {
 
 /* My CSS
 */
-#estimate_td {
-    bgcolor: #808080
+.estimate-td {
+    color: #808080
     style: width: 40px
 }
 
-#floating {
+.black-font {
+    color: black
+}
+
+
+.floating {
     position: fixed;
     right: 0;
     left: 0;

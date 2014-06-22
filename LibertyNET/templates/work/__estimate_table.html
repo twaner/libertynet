@@ -6,10 +6,42 @@
         <div id="dataTables">
             <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
             <thead>
+            {% comment %}
             <tr>
+                                <td class="estimate-td">
+                                    <strong>
+                                        <span class="black-font">
+                                        Name
+                                        </font>
+                                    </strong>
+
+                                </td>
+                                <td>
+                                    {{ estimate.job_name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#808080">
+                                    Address
+                                </td>
+                                <td>
+                                    {{ estimate.estimate_address }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#808080">
+                                    Date
+                                </td>
+                                <td>
+                                    {{ estimate.date }}
+                                </td>
+                            </tr>
+
+            <tr>
+            {% endcomment %}
               <td><div>Part #</div></td>
                 <td><div>Name</div></td>
-                <td style="width: 30px"><div>Cost</div></td>
+                <td style="width: 65px"><div>Cost</div></td>
                 <td style="width: 20px">Margin</td>
                 <td style="width: 20px">Final Cost</td>
                 <td style="width: 20px">Flat Price</td>

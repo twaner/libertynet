@@ -1,11 +1,13 @@
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, View, DetailView
 from Work.models import ClientEstimate, SalesEstimate, Estimate_Parts_Client, Estimate_Parts_Sales
-from Work.forms import ClientEstimateForm, SalesEstimateForm, EstimatePartsClientForm, EstimatePartsSalesForm, JobForm
+from Work.forms import ClientEstimateForm, SalesEstimateForm, EstimatePartsClientForm, EstimatePartsSalesForm, \
+    JobForm
 from Work.helpermethods import create_estimate_step_one
 from Equipment.models import Part, PartCategory
-from Common.helpermethods import validation_helper, form_assert_false_worker
+from Common.helpermethods import validation_helper, form_generator, dict_generator
 
 
 #region Index Views
@@ -82,9 +84,48 @@ class CreateEstimateView(CreateView):
         return super(CreateEstimateView, self).form_invalid(form)
 
 
+def addpart(request, pk):
+    form_list = form_generator(1)
+    template_name = 'work/addpart.html'
+    model = Estimate_Parts_Client
+    est_dict = {
+        'estimate_id': 
+    }
+
+    estimate = ClientEstimate.objects.get(pk=pk)
+    form_list[0] = EstimatePartsClientForm(request.POST)
+    if request.method == 'POST':
+        if validation_helper(form_list):
+            form_list[0].save()
+            return HttpResponseRedirect(reverse_lazy(estimate.get_absolute_url()))
+        else:
+            form_list[0] = EstimatePartsClientForm()
+            return render(request, template_name, dict_generator(form_list))
+    else:
+        form_list[0] = EstimatePartsClientForm()
+        return render(request, template_name, dict_generator(form_list))
+
+
+
+class AddPartView(UpdateView):
+    form_class = EstimatePartsClientForm
+    template_name = 'work/addpart.html'
+    model = Estimate_Parts_Client
+
+    def form_valid(self, form):
+        success_url = reverse_lazy(estimate.get_absolute_url())
+        return super(AddPartView, self).form_valid()
+
+    def form_invalid(self, form):
+        validation_helper(form_list=form)
+        return super(AddPartView, self).form_invalid(form)
+
+
 class CreateEstimateStep2(UpdateView):
     form_class = EstimatePartsClientForm
     model = ClientEstimate
+    template_name = 'work/createestimate_pt2.html'
+    success_url = reverse_lazy('Work:estimatedetails')
     template_name = 'work/createestimate_pt2.html'
     success_url = reverse_lazy('Work:estimatedetails')
     #context_object_name = 'estimate'
