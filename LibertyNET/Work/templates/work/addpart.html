@@ -37,12 +37,11 @@
     {% for i in form0 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
-            {% if i.name == 'notes' %}
+            {% if i.name = 'part_id' %}
                 {{ i }}
-                <span>Characters Remaining: </span>
-                <span id="notes_span">
-                    <script>document.write(get_remaining_char('id_notes'))</script>
-                </span>
+                Cost: <span id="idCost"></span><br/>
+                Flat: <span id="idFlat"></span><br/>
+                Labor: <span id="idLabor"></span><br/>
             {% else %}
                 {{ i }}
             {% endif %}

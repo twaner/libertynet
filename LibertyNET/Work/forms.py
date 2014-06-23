@@ -3,8 +3,9 @@ from django.utils.translation import gettext as _
 from bootstrap_toolkit.widgets import BootstrapDateInput
 from models import Job, Task, Ticket, Wage, ClientEstimate, Estimate_Parts_Client, \
     Estimate_Parts_Sales, SalesEstimate
+from Equipment.models import Part
 
-#region ModelForms
+# region ModelForms
 
 
 class JobForm(forms.ModelForm):
@@ -88,7 +89,7 @@ class ClientEstimateForm(forms.ModelForm):
                 'class': 'form-control'
             }),
             'date': forms.DateInput(attrs={
-            'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
         }
 
 
@@ -110,7 +111,7 @@ class SalesEstimateForm(forms.ModelForm):
                 'class': 'form-control'
             }),
             'date': forms.DateInput(attrs={
-            'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
         }
 
 
@@ -118,6 +119,25 @@ class EstimatePartsClientForm(forms.ModelForm):
     class Meta:
         model = Estimate_Parts_Client
         fields = '__all__'
+        widgets = {
+            'part_id': forms.Select(attrs={
+                'onchange': "Dajaxice.Work.get_part(Dajax.process,{"
+                            "'pk':this.value"
+                            "});",
+                'class': 'form-control',
+            }),
+        }
+        # part_id = forms.ModelChoiceField(widget=forms.Select(attrs={
+        #                                                      'onchange': "Dajaxice.Work.get_part(Dajax.process,{"
+        #                                                                  "'pk':this.value"
+        #                                                                  "});",
+        #                                                      'class': 'form-control',
+        # }),
+        #                                  queryset=Part.objects.all(), required=True,
+        #                                  # empty_label=Select Part, label=Part,
+        #         #                          help_text=lcountry_help, error_messages={
+        #         # 'required': lcountry_required}
+        #     )
 
 
 class EstimatePartsSalesForm(forms.ModelForm):

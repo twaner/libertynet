@@ -1,9 +1,12 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
+from dajaxice.core import dajaxice_autodiscover, dajaxice_config
+dajaxice_autodiscover()
 from Work.views import CreateEstimateView, ClientEstimateIndex, CreateSalesEstimateView, SalesEstimateIndex, \
     ClientEstimateDetails, SalesEstimateDetails, CreateEstimateStep2, AddPartView, addpart
 
 
 urlpatterns = patterns('',
+                       url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
                        # Static Views
                        url(r'^clientestimateindex/$', ClientEstimateIndex.as_view(), name='clientestimateindex'),
                        url(r'^estimatedetails/(?P<pk>[\d-]+)/$', ClientEstimateDetails.as_view(), name='estimatedetails'),
@@ -27,3 +30,4 @@ urlpatterns = patterns('',
                        # Update Views
                        )
 
+# urlpatterns += staticfiles_urlpatterns()

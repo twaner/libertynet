@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-#BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SETTINGS_DIR = os.path.dirname(os.path.dirname(__file__))
 #PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
 PROJECT_PATH = SETTINGS_DIR
@@ -51,6 +51,8 @@ INSTALLED_APPS = (
     'bootstrap_toolkit',
     'LibertyNET',
     'PIL',
+    'dajaxice',
+    'dajax',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -72,7 +74,6 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.CryptPasswordHasher',
 )
 
-
 ROOT_URLCONF = 'LibertyNET.urls'
 
 WSGI_APPLICATION = 'LibertyNET.wsgi.application'
@@ -84,12 +85,12 @@ WSGI_APPLICATION = 'LibertyNET.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'LibertyNET12',                # Or path to database file if using sqlite3.
+        'NAME': 'LibertyNET12',  # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'HOST': '',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',  # Set to empty string for default.
     }
 }
 
@@ -119,7 +120,7 @@ LOGIN_URL = '/common/login/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 #Directory string
-DIRECTORY_STRING ='/Users/taiowawaner/Documents/LibertyNET/LibertyNetProject/LibertyNET/'
+DIRECTORY_STRING = '/Users/taiowawaner/Documents/LibertyNET/LibertyNetProject/LibertyNET/'
 
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -140,9 +141,15 @@ MEDIA_URL = 'static/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/static/'
 
 STATIC_URL = '/static/'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'dajaxice.finders.DajaxiceFinder',
+)
 
 STATICFILES_DIRS_PATH = os.path.join(PROJECT_PATH, 'static')
 # Additional locations of static files
@@ -155,19 +162,26 @@ STATICFILES_DIRS = (
     STATICFILES_DIRS_PATH,
 )
 
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.eggs.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "django.core.context_processors.request",
+)
+
 TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates/')
 TEMPLATE_DIRS = (
-    #DIRECTORY_STRING + 'templates/',
     TEMPLATE_PATH,
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
- "django.core.context_processors.debug",
- "django.core.context_processors.i18n",
- "django.core.context_processors.media",
- "django.core.context_processors.static",
- "django.core.context_processors.tz",
- "django.contrib.messages.context_processors.messages",
- "django.core.context_processors.request",)
-
-
+DAJAXICE_MEDIA_PREFIX = "dajaxice"

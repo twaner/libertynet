@@ -88,8 +88,9 @@ def addpart(request, pk):
     form_list = form_generator(1)
     template_name = 'work/addpart.html'
     model = Estimate_Parts_Client
+    client = ClientEstimate.objects.get(pk=pk)
     est_dict = {
-        'estimate_id': 
+        'estimate_id': client
     }
 
     estimate = ClientEstimate.objects.get(pk=pk)
@@ -99,10 +100,10 @@ def addpart(request, pk):
             form_list[0].save()
             return HttpResponseRedirect(reverse_lazy(estimate.get_absolute_url()))
         else:
-            form_list[0] = EstimatePartsClientForm()
+            form_list[0] = EstimatePartsClientForm(est_dict)
             return render(request, template_name, dict_generator(form_list))
     else:
-        form_list[0] = EstimatePartsClientForm()
+        form_list[0] = EstimatePartsClientForm(est_dict)
         return render(request, template_name, dict_generator(form_list))
 
 

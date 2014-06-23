@@ -1,14 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "common/__basewrap.html" %}
+
+{% block base_content %}
+<script>
+    function my_js_callback(data){
+
+        alert(data.message);
+    }
+
+    function estimate(pk){
+        alert(data.message);
+
+    }
+
+    function alerter(){
+        Dajaxice.Work.sayhello(Dajax.process);
+    }
+
+    function calculate(){
+    Dajaxice.Work.multiply(Dajax.process,{'a':$('#a').val(),'b':$('#b').val()})
+    }
+</script>
+
+    get_estimate
     <p>Client-Estimate</p>
     {% for i in estimate %}
     <li>
-        {{ i }}
+        {{ i }} Testing:
+        {{ i.id }}
+        <button title="{{ i }}" name="{{ i }}"
+                onclick="Dajaxice.Work.get_estimate(Dajax.process, {pk: 2});">BTN</button>
     </li>
     {% endfor %}
-</body>
-</html>
+    <li>
+        <input type="button" value="Say Hello Input"
+                onclick="Dajaxice.Work.sayhello(my_js_callback);"></input>
+                <!--
+                onclick="Dajaxice.Work.sayhello(Dajax.process)";
+                -->
+
+    </li>
+    <input type="text" value="" id="result">
+    <input type="button" onclick="Dajaxice.Work.randomize(Dajax.process)" value="Random!">
+    <button onclick="alerter()">alerter()</button>
+    <button onclick="Dajaxice.LibertyNET.Work.sayhello(my_js_callback);">Say Hello!</button>
+
+    <div onclick="Dajaxice.Work.assign_test(Dajax.process);">Click Here!</div>
+    <div onclick="Dajaxice.Work.assign_test(Dajax.process);">Click Here!</div>
+
+    <input type="text" value="5" id="a"> x
+    <input type="text" value="6" id="b"> =
+    <input type="text" value="" id="result">
+    <input type="button" value="Multiply!" onclick="calculate();">
+
+{% endblock %}

@@ -173,7 +173,7 @@ class Part(Equipment):
     quantity = models.IntegerField(max_length=6, blank=True, default=0)
 
     def __str__(self):
-        return 'Part: %s' % self.name
+        return '%s' % self.name
 
     def get_quantity(self):
         if self.quantity is None:
