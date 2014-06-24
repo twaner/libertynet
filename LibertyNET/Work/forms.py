@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import gettext as _
 from bootstrap_toolkit.widgets import BootstrapDateInput
+from Common.helpermethods import readonly_worker
 from models import Job, Task, Ticket, Wage, ClientEstimate, Estimate_Parts_Client, \
     Estimate_Parts_Sales, SalesEstimate
 from Equipment.models import Part
@@ -63,7 +64,7 @@ class WageForm(forms.ModelForm):
         }
 
 
-#endregion
+# endregion
 
 #region Estimates
 
@@ -115,10 +116,11 @@ class SalesEstimateForm(forms.ModelForm):
         }
 
 
-class EstimatePartsClientForm(forms.ModelForm):
+class EstimatePartsClientFormBase(forms.ModelForm):
     class Meta:
         model = Estimate_Parts_Client
-        fields = '__all__'
+        fields = ['estimate_id', 'part_id', 'quantity', 'cost', 'final_cost', 'sub_total',
+                  'profit', 'flat_total', 'total_labor']
         widgets = {
             'part_id': forms.Select(attrs={
                 'onchange': "Dajaxice.Work.get_part(Dajax.process,{"
@@ -126,6 +128,9 @@ class EstimatePartsClientForm(forms.ModelForm):
                             "});",
                 'class': 'form-control',
             }),
+            'estimate_id': forms.Select(attrs={
+                'class': 'form-control'
+            })
         }
         # part_id = forms.ModelChoiceField(widget=forms.Select(attrs={
         #                                                      'onchange': "Dajaxice.Work.get_part(Dajax.process,{"
@@ -138,6 +143,23 @@ class EstimatePartsClientForm(forms.ModelForm):
         #         #                          help_text=lcountry_help, error_messages={
         #         # 'required': lcountry_required}
         #     )
+
+
+class EstimatePartsClientForm(EstimatePartsClientFormBase):
+    def __init__(self, *args, **kwargs):
+        super(EstimatePartsClientForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            field_list = ['estimate_id', 'quantity', 'cost', 'final_cost', 'sub_total',
+                          'profit', 'flat_total', 'total_labor']
+            readonly_worker(self, field_list)
+
+    def clean_part(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            return instance.part
+        else:
+            return self.cleaned_data['estimate_parts_client']
 
 
 class EstimatePartsSalesForm(forms.ModelForm):

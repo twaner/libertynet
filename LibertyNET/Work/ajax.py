@@ -13,9 +13,9 @@ def get_part(request, pk):
     print('PART %s' % part)
     print('PartCOST %s ' % part.cost)
     # print('PART %s Cost: %s \nFlat %s \nLabor %s' % part, part.cost, part.flat_price, part.labor)
-    # dajax.assign('#idCost', 'innerHTML', part.cost)
-    # dajax.assign('#idFlat', 'innerHTML', part.flat_price)
-    # dajax.assign('#idLabor', 'innerHTML', part.labor)
+    dajax.assign('#idCost', 'innerHTML', str(part.cost))
+    dajax.assign('#idFlat', 'innerHTML', str(part.flat_price))
+    dajax.assign('#idLabor', 'innerHTML', str(part.labor))
     print('get_part BEFORE return()')
     return dajax.json()
 
@@ -23,10 +23,13 @@ def get_part(request, pk):
 def get_estimate(request, pk):
     dajax = Dajax()
     est = ClientEstimate.objects.get(pk=pk)
-    dajax.alert('Hello %s ' % est.name)
+    print('get_estimate %s ' % est)
+    dajax.alert('Hello %s ' % est.job_name)
     # return simplejson.dumps({
     #     'message': est.name
     # })
+    return dajax.json()
+
 
 @dajaxice_register(method='GET')
 def sayhello(request):

@@ -107,19 +107,39 @@ def addpart(request, pk):
         return render(request, template_name, dict_generator(form_list))
 
 
-
 class AddPartView(UpdateView):
     form_class = EstimatePartsClientForm
     template_name = 'work/addpart.html'
-    model = Estimate_Parts_Client
+    model = ClientEstimate
+    print('AddPartView called %s' % object)
 
-    def form_valid(self, form):
-        success_url = reverse_lazy(estimate.get_absolute_url())
-        return super(AddPartView, self).form_valid()
+    def get_success_url(self):
+        obj = self.get_object(queryset=None)
+        return reverse_lazy(obj.get_absolute_url())
 
-    def form_invalid(self, form):
-        validation_helper(form_list=form)
-        return super(AddPartView, self).form_invalid(form)
+    # def form_valid(self, form):
+    #     success_url = reverse_lazy(estimate.get_absolute_url())
+    #     return super(AddPartView, self).form_valid()
+    #
+    # def form_invalid(self, form):
+    #     validation_helper(form_list=form)
+    #     return super(AddPartView, self).form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(AddPartView, self).get_context_data(**kwargs)
+        context['estimate'] = self.object
+        print('addpartview context %s' % context)
+        return context
+
+    # def get_object(self, queryset=None):
+    #     r = self.model
+    #     print('get_object %s ' % r)
+    #     return r
+    #
+    # def get(self, request, **kwargs):
+    #     form = EstimatePartsClientForm
+    #     print('addpartget - kwargs %s' % self.pk_url_kwarg)
+    #     return render(request, self.template_name, {'form': form})
 
 
 class CreateEstimateStep2(UpdateView):
@@ -130,7 +150,6 @@ class CreateEstimateStep2(UpdateView):
     template_name = 'work/createestimate_pt2.html'
     success_url = reverse_lazy('Work:estimatedetails')
     #context_object_name = 'estimate'
-    print('CreateEstimateStep2 CALLED')
     #
     # def get(self, request, *args, **kwargs):
     #     def get_context_data(self, **kwargs):

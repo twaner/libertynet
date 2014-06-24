@@ -28,7 +28,7 @@
         {{ i }} Testing:
         {{ i.id }}
         <button title="{{ i }}" name="{{ i }}"
-                onclick="Dajaxice.Work.get_estimate(Dajax.process, {pk: 2});">BTN</button>
+                onclick="Dajaxice.Work.get_estimate(Dajax.process, {pk: '{{ i.id }}'});">BTN</button>
     </li>
     {% endfor %}
     <li>

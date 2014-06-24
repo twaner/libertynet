@@ -34,17 +34,62 @@
 </div> <!-- container padded -->
 {% endblock form_breadcrumb %}
 {% block form_content %}
+    <script>
+//        $(document).ready(function() {
+//            $("#id_part_id").change(function () {
+//                alert('Handler for .change() called');
+//            });
+//        });
+//        $(document).ready(function() {
+//            $("#id_quantity").change(function () {
+//                alert('Handler for .change() called');
+//            });
+//        });
+
+        $(document).ready(function() {
+            $("#id_quantity").change(function(){
+                var cost = $("#idCost").text();
+                var flat = $("#idFlat").text();
+                var labor = $("#idLabor").text();
+                var margin = .40;
+                var qty = $("#id_quantity").text();
+                var estCost = cost * qty;
+                $("#id_cost").val(cost * qty);
+                var finalCost = (cost/1-margin);
+                $("#id_final_cost").innerHTML = finalCost;
+                var subTotal = finalCost * qty;
+                $("#id_sub_total").innerHTML = subTotal
+                $("#id_profit").innerHTML = subTotal - estCost;
+                $("#id_total_hours").innerHTML = qty * labor;
+                alert(cost + ' ' + qty + ' ' +  flat + ' ' + (cost * qty));
+            });
+        });
+    </script>
     {% for i in form0 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
-            {% if i.name = 'part_id' %}
+            {% if i.name = 'estimate_id' %}
                 {{ i }}
-                Cost: <span id="idCost"></span><br/>
-                Flat: <span id="idFlat"></span><br/>
-                Labor: <span id="idLabor"></span><br/>
+                <strong>
+                    Margin: <span id="idMargin">{{ estimate.margin }}%</span>
+                    {{estimate_parts_client}}
+                    {{ object }}
+                </strong>
+            {% elif i.name = 'part_id' %}
+                {{ i }}
+                <strong>
+                Cost: $<span id="idCost">0</span><br/>
+                Flat: $<span id="idFlat">0</span><br/>
+                Labor: <span id="idLabor">0</span> hrs.<br/>
+                </strong>
             {% else %}
                 {{ i }}
             {% endif %}
         </li>
     {% endfor %}
+    {% if estimate %}
+        {{ estimate }}
+    {% else %}
+        No estimate
+    {% endif %}
 {% endblock %}
