@@ -52,19 +52,29 @@
                 var flat = $("#idFlat").text();
                 var labor = $("#idLabor").text();
                 var margin = .40;
-                var qty = $("#id_quantity").text();
+                var qty = $("#id_quantity").val();
                 var estCost = cost * qty;
-                $("#id_cost").val(cost * qty);
-                var finalCost = (cost/1-margin);
-                $("#id_final_cost").innerHTML = finalCost;
+                $("#id_cost").val(cost);
+                var finalCost = (cost/(1-margin));
+                $("#id_final_cost").val(finalCost.toFixed(2));
                 var subTotal = finalCost * qty;
-                $("#id_sub_total").innerHTML = subTotal
-                $("#id_profit").innerHTML = subTotal - estCost;
-                $("#id_total_hours").innerHTML = qty * labor;
-                alert(cost + ' ' + qty + ' ' +  flat + ' ' + (cost * qty));
+                $("#id_sub_total").val(subTotal.toFixed(2));
+                var profit = subTotal - estCost
+                $("#id_profit").val(profit.toFixed(2));
+                var totalLabor = qty * labor;
+                $("#id_total_labor").val(totalLabor.toFixed(2));
+                $("#id_flat_total").val(qty * flat)
+                //alert(cost + ' ' + qty + ' ' +  flat + ' ' + (cost * qty));
             });
         });
+        function showQty() {
+                    var qty = $("#id_quantity").val();
+                    var labor = $("#idLabor").text();
+                    var fc = $("#id_final_cost").val();
+                    alert('qty ' + qty + ' final cost' + fc);
+        };
     </script>
+    <input type="button" onclick="showQty()">
     {% for i in form0 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
