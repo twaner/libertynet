@@ -1,5 +1,6 @@
 __author__ = 'taiowawaner'
-from Work.models import ClientEstimate
+from Work.models import ClientEstimate,Estimate_Parts_Client
+from Equipment.models import Part
 
 #region Estimate Helpers
 
@@ -18,6 +19,25 @@ def create_estimate_step_one(form):
                                                             margin=margin
                                                             )
     return estimate
+
+
+def add_part_helper(form, estimate):
+    part_id = form.cleaned_data['part_id']
+    quantity = form.cleaned_data['quantity']
+    final_cost = form.cleaned_data['final_cost']
+    cost = form.cleaned_data['cost']
+    sub_total = form.cleaned_data['sub_total']
+    profit = form.cleaned_data['profit']
+    flat_total = form.cleaned_data['flat_total']
+    total_labor = form.cleaned_data['total_labor']
+    estimate_id = form.cleaned_data['estimate_id']
+
+    epc = Estimate_Parts_Client.ob
+
+    estimate.add()
+
+
+    # return estimate
 
 #endregion
 

@@ -130,7 +130,11 @@ class EstimatePartsClientFormBase(forms.ModelForm):
             }),
             'estimate_id': forms.Select(attrs={
                 'class': 'form-control'
-            })
+            }),
+            'quantity': forms.TextInput(attrs={
+                'type': 'number',
+                'min': '0',
+            }),
         }
         # part_id = forms.ModelChoiceField(widget=forms.Select(attrs={
         #                                                      'onchange': "Dajaxice.Work.get_part(Dajax.process,{"
