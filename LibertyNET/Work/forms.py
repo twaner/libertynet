@@ -119,7 +119,7 @@ class SalesEstimateForm(forms.ModelForm):
 class EstimatePartsClientFormBase(forms.ModelForm):
     class Meta:
         model = Estimate_Parts_Client
-        fields = ['estimate_id', 'part_id', 'quantity', 'cost', 'final_cost', 'sub_total',
+        fields = ['part_id', 'quantity', 'cost', 'final_cost', 'sub_total',
                   'profit', 'flat_total', 'total_labor']
         widgets = {
             'part_id': forms.Select(attrs={
@@ -128,9 +128,9 @@ class EstimatePartsClientFormBase(forms.ModelForm):
                             "});",
                 'class': 'form-control',
             }),
-            'estimate_id': forms.Select(attrs={
-                'class': 'form-control'
-            }),
+            # 'estimate_id': forms.Select(attrs={
+            #     'class': 'form-control'
+            # }),
             'quantity': forms.TextInput(attrs={
                 'type': 'number',
                 'min': '0',
@@ -154,7 +154,7 @@ class EstimatePartsClientForm(EstimatePartsClientFormBase):
         super(EstimatePartsClientForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
-            field_list = ['estimate_id', 'quantity', 'cost', 'final_cost', 'sub_total',
+            field_list = ['quantity', 'cost', 'final_cost', 'sub_total',
                           'profit', 'flat_total', 'total_labor']
             readonly_worker(self, field_list)
 

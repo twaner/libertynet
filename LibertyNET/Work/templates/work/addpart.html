@@ -51,7 +51,7 @@
                 var cost = $("#idCost").text();
                 var flat = $("#idFlat").text();
                 var labor = $("#idLabor").text();
-                var margin = .40;
+                var margin = $("#idMargin").text();
                 var qty = $("#id_quantity").val();
                 var estCost = cost * qty;
                 $("#id_cost").val(cost);
@@ -64,6 +64,8 @@
                 var totalLabor = qty * labor;
                 $("#id_total_labor").val(totalLabor.toFixed(2));
                 $("#id_flat_total").val(qty * flat)
+                var tmp = margin * flat;
+                alert(margin + ' ' + tmp);
             });
         });
         function showQty() {
@@ -72,8 +74,18 @@
                     var fc = $("#id_final_cost").val();
                     alert('qty ' + qty + ' final cost' + fc);
         };
+        $('#id_part_id').change(
+                function clearValues(){
+            if($("$id_part_id").text() != '---------') {
+                alert('this works!')
+            };
+        });
+
     </script>
     <input type="button" onclick="showQty()">
+    <strong>
+        Margin: <span id="idMargin">{{ estimate.margin }}</span>%
+    </strong>
     {% for i in form0 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>

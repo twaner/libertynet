@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, UpdateView, View, DetailView
 from Work.models import ClientEstimate, SalesEstimate, Estimate_Parts_Client, Estimate_Parts_Sales
 from Work.forms import ClientEstimateForm, SalesEstimateForm, EstimatePartsClientForm, EstimatePartsSalesForm, \
@@ -156,20 +156,19 @@ def add_part(request, pk):
     form_class = EstimatePartsClientForm
     template_name = 'work/addpart.html'
     part_dict = {
-        'quantity': '0'
+        'quantity': '0', 'estimate_id': estimate
     }
     if request.method == 'POST':
         form_list[0] = EstimatePartsClientForm(request.POST)
         if validation_helper(form_list):
             estimate = add_part_helper(form_list[0], estimate)
+            success_url = reverse_lazy(estimate.get_absolute_url())
             return HttpResponseRedirect(
-                reverse_lazy(estimate.get_absolute_url()))
+                reverse_lazy(success_url))
     else:
         form_list[0] = EstimatePartsClientForm(part_dict)
-        form_dict = form_generator(form_list)
-        form_dict['est'] = estimate
+        form_dict = {'form0': form_list[0], 'estimate': estimate}
         return render(request, template_name, form_dict)
-
 
 
 class CreateEstimateStep2(UpdateView):

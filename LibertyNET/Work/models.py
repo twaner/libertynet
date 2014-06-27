@@ -107,6 +107,17 @@ class ClientEstimateManager(models.Manager):
         estimate.save()
         return estimate
 
+
+class EstimatePartsModelManager(models.Manager):
+    def create_estimate_parts(self, part_id, quantity, final_cost, cost, sub_total, profit,
+                              flat_total, total_labor):
+        estimate_parts = self.create(part_id=part_id, quantity=quantity, final_cost=final_cost,
+                                     cost=cost, sub_total=sub_total, profit=profit,
+                                     flat_total=flat_total, total_labor=total_labor)
+        estimate_parts.save()
+        return estimate_parts
+
+
 #endregion
 
 #region Models
@@ -280,7 +291,7 @@ class EstimatePartsBase(models.Model):
 
 
 class Estimate_Parts_Client(EstimatePartsBase):
-    estimate_id = models.ForeignKey('Work.ClientEstimate')
+    #estimate_id = models.ForeignKey('Work.ClientEstimate')
     # part_id = models.ForeignKey('Equipment.Part')
     # quantity = models.IntegerField(max_length=6)
     # final_cost = models.DecimalField(max_digits=10, decimal_places=2)
@@ -289,6 +300,8 @@ class Estimate_Parts_Client(EstimatePartsBase):
     # profit = models.DecimalField(max_digits=10, decimal_places=2)
     # flat_total = models.DecimalField(max_digits=10, decimal_places=2)
     # total_labor = models.DecimalField(max_digits=10, decimal_places=2)
+
+    objects = EstimatePartsModelManager()
 
 
 class Estimate_Parts_Sales(EstimatePartsBase):
@@ -302,5 +315,10 @@ class Estimate_Parts_Sales(EstimatePartsBase):
     # flat_total = models.DecimalField(max_digits=10, decimal_places=2)
     # total_labor = models.DecimalField(max_digits=10, decimal_places=2)
 
+    objects = EstimatePartsModelManager()
+
 #endregion
+
+
+
 
