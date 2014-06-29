@@ -609,3 +609,9 @@ def show_login():
     #return HttpResponseRedirect(reverse('Common:login'))
 
 #endregion
+
+
+def dajax_assign_helper(dajax, obj, value_list, html, dflt):
+    pass
+    # for i in value_list:
+    #     dajax.assign(str('id_' + i), html, str(oi))

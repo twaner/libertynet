@@ -40,11 +40,12 @@
 //                alert('Handler for .change() called');
 //            });
 //        });
-//        $(document).ready(function() {
-//            $("#id_quantity").change(function () {
-//                alert('Handler for .change() called');
-//            });
-//        });
+        $(document).ready(function() {
+            $("#id_quantity").change(function () {
+                var part = $("#id_part_id").val();
+                alert('Handler for .change() called' + part);
+            });
+        });
 
         $(document).ready(function() {
             $("#id_quantity").change(function(){
@@ -67,6 +68,20 @@
                 var tmp = margin * flat;
             });
         });
+
+        $(document).ready(function() {
+            $("#id_part_id").change(function() {
+            var part = $("#id_part_id").val();
+            if (part != '') {
+                Dajaxice.Work.get_estimate_parts_details(Dajax.process,
+                        {pk: part, estimate_id: '{{ estimate.id }}' });
+                }
+//             else {
+//                Dajaxice.Work.get_estimate_parts_details(Dajax.process,
+//                        {pk: '00001', estimate_id: '{{ estimate.id }}' });
+//            }
+            });
+        })
 //        function showQty() {
 //                    var qty = $("#id_quantity").val();
 //                    var labor = $("#idLabor").text();
@@ -88,14 +103,7 @@
     {% for i in form0 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
-            {% if i.name = 'estimate_id' %}
-                {{ i }}
-                <strong>
-                    Margin: <span id="idMargin">{{ estimate.margin }}%</span>
-                    {{estimate_parts_client}}
-                    {{ object }}
-                </strong>
-            {% elif i.name = 'part_id' %}
+            {% if i.name = 'part_id' %}
                 {{ i }}
                 <strong>
                 Cost: $<span id="idCost">0</span><br/>

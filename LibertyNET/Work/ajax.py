@@ -1,4 +1,3 @@
-from django.utils import simplejson
 import random
 from dajaxice.decorators import dajaxice_register
 from dajax.core import Dajax
@@ -7,24 +6,51 @@ from Work.models import ClientEstimate, Estimate_Parts_Client
 
 @dajaxice_register
 def get_part(request, pk):
-    print('ajax/get_part - CALLED! \nName: %s' % pk)
+    """
+    Gets details for a Part.
+    @param request: request.
+    @param pk: Pk of the Part.
+    @return: json.
+    """
     dajax = Dajax()
     part = Part.objects.get(pk=pk)
-    # print('PART %s' % part)
-    # print('PartCOST %s ' % part.cost)
-    # print('PART %s Cost: %s \nFlat %s \nLabor %s' % part, part.cost, part.flat_price, part.labor)
     dajax.assign('#idCost', 'innerHTML', str(part.cost))
     dajax.assign('#idFlat', 'innerHTML', str(part.flat_price))
     dajax.assign('#idLabor', 'innerHTML', str(part.labor))
-    print('get_part BEFORE return()')
     return dajax.json()
 
 @dajaxice_register
-def get_estimate_parts_details(request, pk):
-    # Estimate pk
+def get_estimate_parts_details(request, pk, estimate_id):
+    """
+    Gets the Estimate_Parts object for an Estimate by Part Id
+    @param request: request.
+    @param pk: Pk of Part.
+    @param estimate_id: Pk of Estimate.
+    @return: json.
+    """
     dajax = Dajax()
-    est_parts = Estimate_Parts_Client
-
+    estimate = ClientEstimate.objects.get(pk=estimate_id)
+    if pk >= 1:
+        est_parts = estimate.estimate_parts.filter(part_id=pk)
+    print('value tester %s' % len(est_parts))
+    if est_parts:
+        ep = est_parts[0]
+        dajax.assign('#id_quantity', 'value', str(ep.quantity))
+        dajax.assign('#id_cost', 'value', str(ep.cost))
+        dajax.assign('#id_final_cost', 'value', str(ep.final_cost))
+        dajax.assign('#id_sub_total', 'value', str(ep.sub_total))
+        dajax.assign('#id_profit', 'value', str(ep.profit))
+        dajax.assign('#id_flat_total', 'value', str(ep.flat_total))
+        dajax.assign('#id_total_labor', 'value', str(ep.total_labor))
+    else:
+        dajax.assign('#id_quantity', 'value', str(0))
+        dajax.assign('#id_cost', 'value', str(0))
+        dajax.assign('#id_final_cost', 'value', str(0))
+        dajax.assign('#id_sub_total', 'value', str(0))
+        dajax.assign('#id_profit', 'value', str(0))
+        dajax.assign('#id_flat_total', 'value', str(0))
+        dajax.assign('#id_total_labor', 'value', str(0))
+    return dajax.json()
 
 @dajaxice_register
 def get_estimate(request, pk):
