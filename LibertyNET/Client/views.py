@@ -448,7 +448,6 @@ def editclient(request, pk):
     @param pk: Client PK.
     @return: http.
     """
-    print('EDITCLIENT VIEW!!!!!!!!!')
     template_name = 'client/editclient.html'
     form_list = form_generator(3)
     client = Client.objects.get(pk=pk)

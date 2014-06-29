@@ -124,7 +124,7 @@ class EstimatePartsClientFormBase(forms.ModelForm):
         widgets = {
             'part_id': forms.Select(attrs={
                 'onchange': "Dajaxice.Work.get_part(Dajax.process,{"
-                            "'pk':this.value"
+                            "'pk': this.value"
                             "});",
                 'class': 'form-control',
             }),

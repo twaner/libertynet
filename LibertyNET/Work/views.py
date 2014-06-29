@@ -162,9 +162,10 @@ def add_part(request, pk):
         form_list[0] = EstimatePartsClientForm(request.POST)
         if validation_helper(form_list):
             estimate = add_part_helper(form_list[0], estimate)
-            success_url = reverse_lazy(estimate.get_absolute_url())
-            return HttpResponseRedirect(
-                reverse_lazy(success_url))
+            print('ADD_PART++> %s' % estimate.id, type(estimate))
+            return HttpResponseRedirect('Work:estimatedetails',
+                                        kwargs={'pk': estimate.id})
+
     else:
         form_list[0] = EstimatePartsClientForm(part_dict)
         form_dict = {'form0': form_list[0], 'estimate': estimate}

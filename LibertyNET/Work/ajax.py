@@ -3,21 +3,28 @@ import random
 from dajaxice.decorators import dajaxice_register
 from dajax.core import Dajax
 from Equipment.models import Part
-from Work.models import ClientEstimate
+from Work.models import ClientEstimate, Estimate_Parts_Client
 
 @dajaxice_register
 def get_part(request, pk):
     print('ajax/get_part - CALLED! \nName: %s' % pk)
     dajax = Dajax()
     part = Part.objects.get(pk=pk)
-    print('PART %s' % part)
-    print('PartCOST %s ' % part.cost)
+    # print('PART %s' % part)
+    # print('PartCOST %s ' % part.cost)
     # print('PART %s Cost: %s \nFlat %s \nLabor %s' % part, part.cost, part.flat_price, part.labor)
     dajax.assign('#idCost', 'innerHTML', str(part.cost))
     dajax.assign('#idFlat', 'innerHTML', str(part.flat_price))
     dajax.assign('#idLabor', 'innerHTML', str(part.labor))
     print('get_part BEFORE return()')
     return dajax.json()
+
+@dajaxice_register
+def get_estimate_parts_details(request, pk):
+    # Estimate pk
+    dajax = Dajax()
+    est_parts = Estimate_Parts_Client
+
 
 @dajaxice_register
 def get_estimate(request, pk):

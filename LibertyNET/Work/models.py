@@ -85,14 +85,16 @@ class ClientEstimateManager(models.Manager):
     def create_clientestimate(self, job_name, estimate_address, date, preparer,
                               cost, is_capital_improvement, total_cost, total_price,
                               total_profit, total_flat_rate, listed_price, listed_profit,
-                              sales_commission, labor, prevailing_wage, margin, margin_guidelines):
+                              sales_commission, labor, prevailing_wage, margin, margin_guidelines,
+                              custom_sales_commission):
 
         estimate = self.create(job_name=job_name, estimate_address=estimate_address, date=date,
                                preparer=preparer, cost=cost, is_capital_improvement=is_capital_improvement,
                                total_cost=total_cost, total_price=total_price, total_profit=total_profit,
                                listed_price=listed_price, listed_profit=listed_profit,
                                labor=labor, sales_commission=sales_commission, prevailing_wage=prevailing_wage,
-                               margin=margin, margin_guidelines=margin_guidelines, total_flat_rate=total_flat_rate)
+                               margin=margin, margin_guidelines=margin_guidelines, total_flat_rate=total_flat_rate,
+                               custom_sales_commission=custom_sales_commission)
         estimate.cost = 0.0
         estimate.total_cost = 0.0
         estimate.total_price = 0.0
@@ -103,6 +105,7 @@ class ClientEstimateManager(models.Manager):
         estimate.sales_commission = 0.0
         estimate.labor = 0.0
         estimate.prevailing_wage = 0.0
+        estimate.custom_sales_commission = 0.0
 
         estimate.save()
         return estimate
@@ -111,6 +114,7 @@ class ClientEstimateManager(models.Manager):
 class EstimatePartsModelManager(models.Manager):
     def create_estimate_parts(self, part_id, quantity, final_cost, cost, sub_total, profit,
                               flat_total, total_labor):
+        cost = cost * quantity
         estimate_parts = self.create(part_id=part_id, quantity=quantity, final_cost=final_cost,
                                      cost=cost, sub_total=sub_total, profit=profit,
                                      flat_total=flat_total, total_labor=total_labor)
