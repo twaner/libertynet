@@ -108,19 +108,15 @@ class Site(models.Model):
     site_call_list = models.ManyToManyField('Common.CallList', blank=True, null=True)
     site_name = models.CharField(max_length=45)
     site_address = models.ForeignKey('Common.Address')
-    #ALTER TABLE `libertynet11`.`Site_site` ADD COLUMN `site_name` VARCHAR(45) NOT NULL  AFTER `site_client_id` ;
-    # ALTER TABLE `libertynet11`.`Site_site` ADD COLUMN `site_address_id` INT(11) NOT NULL COMMENT 'Site\'s Address'  AFTER `site_name` ,
-    #   ADD CONSTRAINT `site_address_id`
-    #   FOREIGN KEY (`site_address_id` )
-    #   REFERENCES `libertynet11`.`Common_address` (`id` )
-    #   ON DELETE NO ACTION
-    #   ON UPDATE NO ACTION
-    # , ADD INDEX `site_address_id_idx` (`site_address_id` ASC) ;
 
     objects = SiteManager()
 
     def __str__(self):
         return '%s' % self.site_client
+
+    @property
+    def get_address(self):
+        return '%s' % self.site_address
 
     def get_calllist_len(self):
         print('get_calllist_len ', len(self.site_call_list.all()))

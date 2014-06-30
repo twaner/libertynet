@@ -43,9 +43,12 @@
                 <span id="notes_span">
                     <script>document.write(get_remaining_char('id_notes'))</script>
                 </span>
+            {% elif i.name == 'estimate_address' %}
+                {{ i }}
             {% else %}
                 {{ i }}
             {% endif %}
         </li>
     {% endfor %}
+    <select id="combo2" onchange="" size="1"></select>
 {% endblock %}

@@ -2,7 +2,9 @@ import random
 from dajaxice.decorators import dajaxice_register
 from dajax.core import Dajax
 from Equipment.models import Part
-from Work.models import ClientEstimate, Estimate_Parts_Client
+from Work.models import ClientEstimate
+from Client.models import Client
+from Site.models import Site
 
 @dajaxice_register
 def get_part(request, pk):
@@ -42,6 +44,14 @@ def get_estimate_parts_details(request, pk, estimate_id):
         dajax.assign('#id_profit', 'value', str(ep.profit))
         dajax.assign('#id_flat_total', 'value', str(ep.flat_total))
         dajax.assign('#id_total_labor', 'value', str(ep.total_labor))
+    elif pk == 00000:
+        dajax.assign('#id_quantity', 'value', str(0))
+        dajax.assign('#id_cost', 'value', str(0))
+        dajax.assign('#id_final_cost', 'value', str(0))
+        dajax.assign('#id_sub_total', 'value', str(0))
+        dajax.assign('#id_profit', 'value', str(0))
+        dajax.assign('#id_flat_total', 'value', str(0))
+        dajax.assign('#id_total_labor', 'value', str(0))
     else:
         dajax.assign('#id_quantity', 'value', str(0))
         dajax.assign('#id_cost', 'value', str(0))
@@ -50,6 +60,20 @@ def get_estimate_parts_details(request, pk, estimate_id):
         dajax.assign('#id_profit', 'value', str(0))
         dajax.assign('#id_flat_total', 'value', str(0))
         dajax.assign('#id_total_labor', 'value', str(0))
+    return dajax.json()
+
+@dajaxice_register
+def get_sites(request, pk):
+    dajax = Dajax()
+    # get Sites
+    site = list(Site.objects.filter(site_client=pk))
+    # populate dropdown
+    print('get_sites %s ' % site)
+    out = []
+    [out.append("<option value='#'>%s</option>" % option.get_address) for option in site]
+
+    dajax.assign('#id_estimate_address', 'innerHTML', ''.join(out))
+
     return dajax.json()
 
 @dajaxice_register

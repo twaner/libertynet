@@ -2,10 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8959466-4394-41a0-a1ac-cc0945cfaa97" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/common/__basewrap.html" afterPath="$PROJECT_DIR$/templates/common/__basewrap.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Work/templates/work/addpart.html" afterPath="$PROJECT_DIR$/Work/templates/work/addpart.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/address_autocomplete.js" afterPath="$PROJECT_DIR$/static/js/address_autocomplete.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Work/ajax.py" afterPath="$PROJECT_DIR$/Work/ajax.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/helpermethods.py" afterPath="$PROJECT_DIR$/Common/helpermethods.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Work/templates/work/createestimate.html" afterPath="$PROJECT_DIR$/Work/templates/work/createestimate.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Work/estimate_engine.py" afterPath="$PROJECT_DIR$/Work/estimate_engine.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Work/forms.py" afterPath="$PROJECT_DIR$/Work/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/templates/Common/login.html" afterPath="$PROJECT_DIR$/Common/templates/Common/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Site/models.py" afterPath="$PROJECT_DIR$/Site/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/templatetags/mytags.py" afterPath="$PROJECT_DIR$/Common/templatetags/mytags.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/views.py" afterPath="$PROJECT_DIR$/Client/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/views.py" afterPath="$PROJECT_DIR$/Common/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Work/views.py" afterPath="$PROJECT_DIR$/Work/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="LibertyNET.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,37 +37,34 @@
     <favorites_list name="LibertyNET" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.64595664">
       <split-first>
         <leaf>
           <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Work/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="3390">
-                  <caret line="164" column="30" selection-start-line="164" selection-start-column="30" selection-end-line="164" selection-end-column="30" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="1095" max-vertical-offset="3450">
+                  <caret line="72" column="40" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="40" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="addpart.html" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="addpart.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Work/templates/work/addpart.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.582846" vertical-offset="931" max-vertical-offset="1920">
-                  <caret line="82" column="13" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
-                  <folding>
-                    <marker date="1404011980000" expanded="true" signature="1311:1451" placeholder="{...}" />
-                    <marker date="1404011980000" expanded="true" signature="1363:1437" placeholder="{...}" />
-                  </folding>
+                <state vertical-scroll-proportion="-21.875" vertical-offset="0" max-vertical-offset="1890">
+                  <caret line="35" column="21" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="estimatedetails.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Work/templates/work/estimatedetails.html">
+          <file leaf-file-name="createestimate.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Work/templates/work/createestimate.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-63.125" vertical-offset="2130" max-vertical-offset="4080">
-                  <caret line="243" column="33" selection-start-line="243" selection-start-column="33" selection-end-line="243" selection-end-column="33" />
+                <state vertical-scroll-proportion="-15.125" vertical-offset="327" max-vertical-offset="885">
+                  <caret line="46" column="20" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
                   <folding />
                 </state>
               </provider>
@@ -66,8 +73,8 @@
           <file leaf-file-name="estimate_engine.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Work/estimate_engine.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="572" max-vertical-offset="1185">
-                  <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1140">
+                  <caret line="59" column="8" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="8" />
                   <folding>
                     <element signature="e#27#59#0" expanded="true" />
                   </folding>
@@ -75,14 +82,66 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="__basewrap.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/templates/common/__basewrap.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-3.24" vertical-offset="168" max-vertical-offset="2025">
+                  <caret line="22" column="70" selection-start-line="22" selection-start-column="70" selection-end-line="22" selection-end-column="70" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="ajax.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Work/ajax.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1515">
-                  <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="855" max-vertical-offset="1875">
+                  <caret line="74" column="38" selection-start-line="74" selection-start-column="38" selection-end-line="74" selection-end-column="38" />
                   <folding>
                     <element signature="e#0#13#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="forms.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Work/forms.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="1008" max-vertical-offset="2715">
+                  <caret line="92" column="34" selection-start-line="92" selection-start-column="34" selection-end-line="92" selection-end-column="34" />
+                  <folding>
+                    <element signature="e#0#24#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="address_autocomplete.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/static/js/address_autocomplete.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="1485">
+                  <caret line="15" column="25" selection-start-line="0" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="address_helper.js" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/static/js/address_helper.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.39848197" vertical-offset="405" max-vertical-offset="1695">
+                  <caret line="43" column="1" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="span_helper.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/static/js/span_helper.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="135">
+                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -94,18 +153,30 @@
           <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Work/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="4057" max-vertical-offset="4935">
+                <state vertical-scroll-proportion="0.0" vertical-offset="3562" max-vertical-offset="4935">
                   <caret line="286" column="8" selection-start-line="286" selection-start-column="4" selection-end-line="286" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Common/models.py">
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Common/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="9362" max-vertical-offset="9990">
-                  <caret line="661" column="107" selection-start-line="661" selection-start-column="107" selection-end-line="661" selection-end-column="107" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="1560" max-vertical-offset="5265">
+                  <caret line="291" column="0" selection-start-line="291" selection-start-column="0" selection-end-line="291" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#0#53#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Work/urls.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+                  <caret line="20" column="38" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="38" />
                   <folding />
                 </state>
               </provider>
@@ -114,17 +185,27 @@
           <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="5729" max-vertical-offset="11100">
-                  <caret line="481" column="28" selection-start-line="481" selection-start-column="28" selection-end-line="481" selection-end-column="28" />
+                <state vertical-scroll-proportion="-8.5" vertical-offset="1564" max-vertical-offset="11115">
+                  <caret line="142" column="39" selection-start-line="142" selection-start-column="39" selection-end-line="142" selection-end-column="39" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="helpermethods.py" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Site/models.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.5478615" vertical-offset="1456" max-vertical-offset="3555">
+                  <caret line="117" column="19" selection-start-line="117" selection-start-column="8" selection-end-line="117" selection-end-column="19" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="helpermethods.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Common/helpermethods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.8249027" vertical-offset="8651" max-vertical-offset="9240">
+                <state vertical-scroll-proportion="0.0" vertical-offset="8403" max-vertical-offset="9240">
                   <caret line="611" column="0" selection-start-line="611" selection-start-column="0" selection-end-line="611" selection-end-column="0" />
                   <folding />
                 </state>
@@ -134,8 +215,8 @@
           <file leaf-file-name="helpermethods.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Work/helpermethods.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="557" max-vertical-offset="1185">
-                  <caret line="41" column="61" selection-start-line="41" selection-start-column="61" selection-end-line="41" selection-end-column="61" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="694" max-vertical-offset="1185">
+                  <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
                   <folding>
                     <element signature="e#27#110#0" expanded="true" />
                   </folding>
@@ -146,21 +227,11 @@
           <file leaf-file-name="forms.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Work/forms.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="1727" max-vertical-offset="2670">
-                  <caret line="125" column="68" selection-start-line="125" selection-start-column="68" selection-end-line="125" selection-end-column="68" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="1772" max-vertical-offset="2715">
+                  <caret line="128" column="68" selection-start-line="128" selection-start-column="68" selection-end-line="128" selection-end-column="68" />
                   <folding>
                     <element signature="e#0#24#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="clientestimateindex.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Work/templates/work/clientestimateindex.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-27.5" vertical-offset="0" max-vertical-offset="900">
-                  <caret line="44" column="64" selection-start-line="44" selection-start-column="64" selection-end-line="44" selection-end-column="64" />
-                  <folding />
                 </state>
               </provider>
             </entry>
@@ -185,18 +256,10 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html" />
-        <option value="$PROJECT_DIR$/Client/templates/Client/clientcalllogindex.html" />
-        <option value="$PROJECT_DIR$/Client/templates/Client/clientdetails.html" />
-        <option value="$PROJECT_DIR$/Client/templates/Client/details.html" />
-        <option value="$PROJECT_DIR$/Client/templates/Client/editclientcall.html" />
-        <option value="$PROJECT_DIR$/Client/templates/Client/editclientcalllist.html" />
-        <option value="$PROJECT_DIR$/Client/templates/Client/editclientsite.html" />
         <option value="$PROJECT_DIR$/Client/templates/Client/editsalesprospect.html" />
         <option value="$PROJECT_DIR$/Client/templates/Client/salesdetails_wrap.html" />
         <option value="$PROJECT_DIR$/Client/templates/Client/salesprospectindex.html" />
         <option value="$PROJECT_DIR$/Client/templates/Client/salestoclient.html" />
-        <option value="$PROJECT_DIR$/Common/templates/Common/login.html" />
         <option value="$PROJECT_DIR$/Common/templates/Common/register.html" />
         <option value="$PROJECT_DIR$/Employee/templates/employee/addemployee.html" />
         <option value="$PROJECT_DIR$/Equipment/templates/equipment/addpart.html" />
@@ -210,7 +273,6 @@
         <option value="$PROJECT_DIR$/templates/common/__form_base.html" />
         <option value="$PROJECT_DIR$/templates/equipment/__estimate_table.html" />
         <option value="$PROJECT_DIR$/Client/templates/Client/editclient.html" />
-        <option value="$PROJECT_DIR$/Common/templatetags/mytags.py" />
         <option value="$PROJECT_DIR$/static/css/application.css" />
         <option value="$PROJECT_DIR$/Work/templates/work/estimatedetails.html" />
         <option value="$PROJECT_DIR$/Client/models.py" />
@@ -221,27 +283,37 @@
         <option value="$PROJECT_DIR$/LibertyNET/settings.py" />
         <option value="$PROJECT_DIR$/static/js/dajax/jquery.dajax.core.js" />
         <option value="$PROJECT_DIR$/Equipment/models.py" />
-        <option value="$PROJECT_DIR$/templates/common/__basewrap.html" />
         <option value="$PROJECT_DIR$/Work/templates/work/clientestimateindex.html" />
         <option value="$PROJECT_DIR$/Equipment/views.py" />
-        <option value="$PROJECT_DIR$/Work/urls.py" />
         <option value="$PROJECT_DIR$/Common/models.py" />
-        <option value="$PROJECT_DIR$/Client/views.py" />
         <option value="$PROJECT_DIR$/Work/helpermethods.py" />
         <option value="$PROJECT_DIR$/Work/models.py" />
-        <option value="$PROJECT_DIR$/Work/estimate_engine.py" />
         <option value="$PROJECT_DIR$/templates/work/__estimate_table.html" />
-        <option value="$PROJECT_DIR$/Work/forms.py" />
-        <option value="$PROJECT_DIR$/Work/views.py" />
         <option value="$PROJECT_DIR$/Common/helpermethods.py" />
-        <option value="$PROJECT_DIR$/Work/ajax.py" />
+        <option value="$PROJECT_DIR$/Common/views.py" />
+        <option value="$PROJECT_DIR$/Common/templates/Common/login.html" />
+        <option value="$PROJECT_DIR$/Work/estimate_engine.py" />
+        <option value="$PROJECT_DIR$/Work/views.py" />
+        <option value="$PROJECT_DIR$/Work/urls.py" />
+        <option value="$PROJECT_DIR$/Client/views.py" />
         <option value="$PROJECT_DIR$/Work/templates/work/addpart.html" />
+        <option value="$PROJECT_DIR$/Common/templatetags/mytags.py" />
+        <option value="$PROJECT_DIR$/Work/forms.py" />
+        <option value="$PROJECT_DIR$/Site/models.py" />
+        <option value="$PROJECT_DIR$/Work/templates/work/createestimate.html" />
+        <option value="$PROJECT_DIR$/Work/ajax.py" />
+        <option value="$PROJECT_DIR$/static/js/test.js" />
+        <option value="$PROJECT_DIR$/static/js/address_autocomplete.js" />
+        <option value="$PROJECT_DIR$/static/address_helper.js" />
+        <option value="$PROJECT_DIR$/templates/common/__basewrap.html" />
+        <option value="$PROJECT_DIR$/static/js/address_helper.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="12" />
     <option name="y" value="22" />
-    <option name="width" value="1280" />
+    <option name="width" value="1268" />
     <option name="height" value="717" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -323,24 +395,6 @@
               <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="work" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -402,28 +456,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dajax" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="Work" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -460,70 +492,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Equipment" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Employee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Employee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="employee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LibertyNET" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="Common" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -543,6 +511,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templatetags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LibertyNET" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LibertyNET" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Common" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -628,8 +618,8 @@
       <recent name="$PROJECT_DIR$/templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/static/js/dajax" />
       <recent name="$PROJECT_DIR$/static/js" />
+      <recent name="$PROJECT_DIR$/static/js/dajax" />
       <recent name="$PROJECT_DIR$/templates/work" />
       <recent name="$PROJECT_DIR$/templates/common" />
       <recent name="$PROJECT_DIR$/templates/client" />
@@ -821,15 +811,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1280" height="717" extended-state="6" />
+    <frame x="12" y="22" width="1268" height="717" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277311" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3327787" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3318335" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16097023" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17528272" sideWeight="0.5728643" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17292006" sideWeight="0.5728643" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16478191" sideWeight="0.42713568" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -866,55 +856,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/common/submit_cancel.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="811">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/common/scrollable_box.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/common/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1710">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/common/breadcrumb.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="834">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/calllistdetails.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.018292682" vertical-offset="90" max-vertical-offset="1800">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/common/__form_ro_base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="615">
-          <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/sitedetails.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.2396486" vertical-offset="0" max-vertical-offset="3255">
-          <caret line="119" column="31" selection-start-line="119" selection-start-column="31" selection-end-line="119" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1815">
@@ -999,28 +940,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/common/__form_base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3451883" vertical-offset="0" max-vertical-offset="720">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/jquery.ba-serializeobject.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
           <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/address_autocomplete.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1410">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LibertyNET/urls.py">
@@ -1051,24 +975,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Common/templatetags/mytags.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26444834" vertical-offset="194" max-vertical-offset="825">
-          <caret line="27" column="49" selection-start-line="27" selection-start-column="49" selection-end-line="27" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/dajax/jquery.dajax.core.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1050">
           <caret line="0" column="7" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/addcalllog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70229006" vertical-offset="322" max-vertical-offset="870">
-          <caret line="46" column="96" selection-start-line="46" selection-start-column="86" selection-end-line="46" selection-end-column="96" />
         </state>
       </provider>
     </entry>
@@ -1079,25 +989,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/common/__basewrap.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5192308" vertical-offset="0" max-vertical-offset="2055">
-          <caret line="27" column="6" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Equipment/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="605" max-vertical-offset="2250">
           <caret line="98" column="12" selection-start-line="98" selection-start-column="12" selection-end-line="98" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Work/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
-          <caret line="19" column="45" selection-start-line="18" selection-start-column="22" selection-end-line="19" selection-end-column="45" />
           <folding />
         </state>
       </provider>
@@ -1120,34 +1015,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Work/templates/work/createestimate.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17384106" vertical-offset="0" max-vertical-offset="840">
-          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5729" max-vertical-offset="11100">
-          <caret line="481" column="28" selection-start-line="481" selection-start-column="28" selection-end-line="481" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Equipment/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="902" max-vertical-offset="1740">
           <caret line="73" column="41" selection-start-line="73" selection-start-column="41" selection-end-line="73" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Common/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="9381" max-vertical-offset="9990">
-          <caret line="661" column="107" selection-start-line="661" selection-start-column="107" selection-end-line="661" selection-end-column="107" />
           <folding />
         </state>
       </provider>
@@ -1160,60 +1031,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Work/templates/work/estimatedetails.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-63.125" vertical-offset="2130" max-vertical-offset="4080">
-          <caret line="243" column="33" selection-start-line="243" selection-start-column="33" selection-end-line="243" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Work/helpermethods.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="557" max-vertical-offset="1185">
-          <caret line="41" column="61" selection-start-line="41" selection-start-column="61" selection-end-line="41" selection-end-column="61" />
-          <folding>
-            <element signature="e#27#110#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Work/estimate_engine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="572" max-vertical-offset="1185">
-          <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
-          <folding>
-            <element signature="e#27#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Work/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="3390">
-          <caret line="164" column="30" selection-start-line="164" selection-start-column="30" selection-end-line="164" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Work/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1727" max-vertical-offset="2670">
-          <caret line="125" column="68" selection-start-line="125" selection-start-column="68" selection-end-line="125" selection-end-column="68" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Work/templates/work/clientestimateindex.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-27.5" vertical-offset="0" max-vertical-offset="900">
-          <caret line="44" column="64" selection-start-line="44" selection-start-column="64" selection-end-line="44" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/work/__estimate_table.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.6647174" vertical-offset="2081" max-vertical-offset="4155">
@@ -1222,40 +1039,225 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Common/helpermethods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="8403" max-vertical-offset="9240">
+          <caret line="611" column="0" selection-start-line="611" selection-start-column="0" selection-end-line="611" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8181818" vertical-offset="9165" max-vertical-offset="9990">
+          <caret line="661" column="107" selection-start-line="661" selection-start-column="107" selection-end-line="661" selection-end-column="107" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1560" max-vertical-offset="5265">
+          <caret line="291" column="0" selection-start-line="291" selection-start-column="0" selection-end-line="291" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#53#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/templates/Common/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25798526" vertical-offset="0" max-vertical-offset="814">
+          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/addcalllog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6928839" vertical-offset="45" max-vertical-offset="870">
+          <caret line="40" column="33" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Work/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4057" max-vertical-offset="4935">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3562" max-vertical-offset="4935">
           <caret line="286" column="8" selection-start-line="286" selection-start-column="4" selection-end-line="286" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Common/helpermethods.py">
+    <entry file="file://$PROJECT_DIR$/Work/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8249027" vertical-offset="8651" max-vertical-offset="9240">
-          <caret line="611" column="0" selection-start-line="611" selection-start-column="0" selection-end-line="611" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+          <caret line="20" column="38" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Work/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1095" max-vertical-offset="3450">
+          <caret line="72" column="40" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="838">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.5" vertical-offset="1564" max-vertical-offset="11115">
+          <caret line="142" column="39" selection-start-line="142" selection-start-column="39" selection-end-line="142" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Work/templates/work/clientestimateindex.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3469387" vertical-offset="0" max-vertical-offset="900">
+          <caret line="44" column="64" selection-start-line="44" selection-start-column="64" selection-end-line="44" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Work/templates/work/estimatedetails.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="7.105263" vertical-offset="0" max-vertical-offset="4080">
+          <caret line="243" column="33" selection-start-line="243" selection-start-column="33" selection-end-line="243" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/templatetags/mytags.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07392996" vertical-offset="22" max-vertical-offset="900">
+          <caret line="4" column="43" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#27#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/common/__form_base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8269962" vertical-offset="0" max-vertical-offset="720">
+          <caret line="29" column="53" selection-start-line="29" selection-start-column="41" selection-end-line="29" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Work/templates/work/addpart.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.875" vertical-offset="0" max-vertical-offset="1890">
+          <caret line="35" column="21" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Work/helpermethods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="1185">
+          <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+          <folding>
+            <element signature="e#27#110#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Work/templates/work/createestimate.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.125" vertical-offset="327" max-vertical-offset="885">
+          <caret line="46" column="20" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Site/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5478615" vertical-offset="1456" max-vertical-offset="3555">
+          <caret line="117" column="19" selection-start-line="117" selection-start-column="8" selection-end-line="117" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Work/ajax.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1515">
-          <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="855" max-vertical-offset="1875">
+          <caret line="74" column="38" selection-start-line="74" selection-start-column="38" selection-end-line="74" selection-end-column="38" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Work/templates/work/addpart.html">
+    <entry file="file://$PROJECT_DIR$/Work/estimate_engine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.582846" vertical-offset="931" max-vertical-offset="1920">
-          <caret line="82" column="13" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1140">
+          <caret line="59" column="8" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="8" />
           <folding>
-            <marker date="1404011980000" expanded="true" signature="1311:1451" placeholder="{...}" />
-            <marker date="1404011980000" expanded="true" signature="1363:1437" placeholder="{...}" />
+            <element signature="e#27#59#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/bootstrap-datepicker2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7185">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Work/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1008" max-vertical-offset="2715">
+          <caret line="92" column="34" selection-start-line="92" selection-start-column="34" selection-end-line="92" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/span_helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/common/__basewrap.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.24" vertical-offset="168" max-vertical-offset="2025">
+          <caret line="22" column="70" selection-start-line="22" selection-start-column="70" selection-end-line="22" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/address_autocomplete.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="1485">
+          <caret line="15" column="25" selection-start-line="0" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/address_helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39848197" vertical-offset="405" max-vertical-offset="1695">
+          <caret line="43" column="1" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>

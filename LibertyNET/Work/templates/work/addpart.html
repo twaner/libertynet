@@ -36,16 +36,19 @@
 {% block form_content %}
     <script>
 //        $(document).ready(function() {
-//            $("#id_part_id").change(function () {
-//                alert('Handler for .change() called');
+//           $('#id_part_id').change(
+//                function(){
+//            if($("$id_part_id").text() != '---------') {
+//                alert('this works!')
+//            };
+//        });
+//        });
+//        $(document).ready(function() {
+//            $("#id_quantity").change(function () {
+//                var part = $("#id_part_id").val();
+//                alert('Handler for .change() called' + part);
 //            });
 //        });
-        $(document).ready(function() {
-            $("#id_quantity").change(function () {
-                var part = $("#id_part_id").val();
-                alert('Handler for .change() called' + part);
-            });
-        });
 
         $(document).ready(function() {
             $("#id_quantity").change(function(){
@@ -53,6 +56,7 @@
                 var flat = $("#idFlat").text();
                 var labor = $("#idLabor").text();
                 var margin = $("#idMargin").text();
+                var margin = '{{ estimate.margin }}';
                 var qty = $("#id_quantity").val();
                 var estCost = cost * qty;
                 $("#id_cost").val(cost);
@@ -76,10 +80,10 @@
                 Dajaxice.Work.get_estimate_parts_details(Dajax.process,
                         {pk: part, estimate_id: '{{ estimate.id }}' });
                 }
-//             else {
-//                Dajaxice.Work.get_estimate_parts_details(Dajax.process,
-//                        {pk: '00001', estimate_id: '{{ estimate.id }}' });
-//            }
+             else {
+                Dajaxice.Work.get_estimate_parts_details(Dajax.process,
+                        {pk: '00000', estimate_id: '{{ estimate.id }}' });
+            }
             });
         })
 //        function showQty() {
@@ -88,18 +92,17 @@
 //                    var fc = $("#id_final_cost").val();
 //                    alert('qty ' + qty + ' final cost' + fc);
 //        };
-        $('#id_part_id').change(
-                function clearValues(){
-            if($("$id_part_id").text() != '---------') {
-                alert('this works!')
-            };
-        });
-
     </script>
-    <input type="button" onclick="showQty()">
-    <strong>
-        Margin: <span id="idMargin">{{ estimate.margin }}</span>%
-    </strong>
+    {% if estimate %}
+        <strong>
+            {{ estimate }}
+        </strong><br />
+        <strong>
+            Margin: <span id="idMargin">{{ estimate.margin|to_percent }}</span>%
+        </strong>
+    {% else %}
+        No estimate
+    {% endif %}
     {% for i in form0 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
@@ -115,9 +118,4 @@
             {% endif %}
         </li>
     {% endfor %}
-    {% if estimate %}
-        {{ estimate }}
-    {% else %}
-        No estimate
-    {% endif %}
 {% endblock %}

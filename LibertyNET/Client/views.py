@@ -484,7 +484,8 @@ def editclient(request, pk):
             cl = update_client_helper(form_list[0], client, a, c)
             return HttpResponseRedirect(reverse('Client:details',
                                                 kwargs={'pk': cl.client_id}))
-
+        else:
+            render(request, template_name, dict_generator(form_list))
     else:
         form_list[0] = ClientForm(client_dict)
         form_list[1] = AddressForm(address_dict)

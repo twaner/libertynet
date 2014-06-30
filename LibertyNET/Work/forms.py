@@ -81,13 +81,16 @@ class ClientEstimateForm(forms.ModelForm):
             'is_capital_improvement': forms.CheckboxInput(attrs={
                 'class': "iButton-icons"}),
             'estimate_address': forms.Select(attrs={
-                'class': 'form-control'
+                'class': 'form-control',
             }),
             'preparer': forms.Select(attrs={
                 'class': 'form-control'
             }),
             'estimate_client': forms.Select(attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'onchange': "Dajaxice.Work.get_sites(Dajax.process,{"
+                            "'pk': this.value"
+                            "});",
             }),
             'date': forms.DateInput(attrs={
                 'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),

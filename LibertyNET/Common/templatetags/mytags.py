@@ -1,8 +1,8 @@
 from django import template
-from Common.helpermethods import show_login
 from django.shortcuts import redirect, HttpResponseRedirect
 from django.core.context_processors import request
 from django.core.urlresolvers import reverse
+from Common.helpermethods import show_login
 
 
 register = template.Library()
@@ -25,14 +25,15 @@ def user_name(user):
 @register.filter(name='to_percent')
 def percentify(val):
     """
-    Takes a value and returns it as a Percentage.
-    @param val:
-    @return:
+    Takes a value and returns it as a Percentage - .25 to 25%.
+    @param val: Value to be updated.
+    @return: Number in percent format
     """
     if val >= 1:
         q = format(val, "%")
     elif val < 1:
-        q = "{0:0.f}".format(float(val) * 100)
+        q = "{0:.0f}".format(float(val) * 100)
+        #q = "{:.0}".format(val * 100)
     return q
 
 

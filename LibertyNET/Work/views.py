@@ -163,8 +163,12 @@ def add_part(request, pk):
         if validation_helper(form_list):
             estimate = add_part_helper(form_list[0], estimate)
             print('ADD_PART++> %s' % estimate.id, type(estimate))
+            print(request.META['HTTP_HOST'])
+            print(request.get_host())
             return HttpResponseRedirect('Work:estimatedetails',
                                         kwargs={'pk': estimate.id})
+        else:
+            return render(request, template_name, dict_generator(form_list))
 
     else:
         form_list[0] = EstimatePartsClientForm(part_dict)

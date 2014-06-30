@@ -57,11 +57,8 @@ class EstimateEngine:
         @return: False if Part is in Estimate, True if it is not.
         """
         part_list = list(self.estimate.estimate_parts.all())
-        print("estimate_engine - new_part_checker \n Part: '{0}' \n Part.id '{1}' \n Part_list '{2}'".format(part, part.id, part_list))
         for i in part_list:
             #if type(part) == type(i.part_id):
-            print('test junk %s' % i.part_id)
-            print('type %s' % type(part) == type(i.part_id))
             if part.id == i.part_id.id:
                 return False
         else:
