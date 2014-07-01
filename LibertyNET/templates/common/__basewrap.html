@@ -17,7 +17,7 @@
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <![endif]-->
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
       <script type="text/javascript" src="/static/js/jquery.ba-serializeobject.min.js"></script>
       <script type="text/javascript" src="/static/js/application.js" />
       <script type="text/javascript" src="/static/js/address_helper.js"></script>
@@ -26,13 +26,12 @@
       <script type="text/javascript" src="/static/js/bootstrap-timepicker.js"></script>
       <script type="text/javascript" src="/static/js/dajax/jquery.dajax.core.js"></script>
       <!--<script type='text/javascript' src='{{STATIC_URL}}dajaxice.core.js'-->
-        charset='utf-8'></script>
       <!--<script type="text/javascript" src="/static/js/dajax/dojo.dajax.core.js"></script>-->
       {% dajaxice_js_import %}
       <title>LibertyNET</title>
     </head>
     {% block body_block %}
-    <body>
+    <body onload="initialize()">
     {% endblock %}
         <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
           <!-- Brand and toggle get grouped for better mobile display -->

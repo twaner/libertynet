@@ -10,3 +10,5 @@ $('#text').keypress(function(){
     var max = document.getElementById('text').maxLength
     $("#remainingC").html("Remaining characters : " +(max - this.value.length));
 });
+
+
