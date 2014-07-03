@@ -66,14 +66,14 @@ class WageForm(forms.ModelForm):
 
 # endregion
 
-#region Estimates
+# region Estimates
 
 
 class ClientEstimateForm(forms.ModelForm):
     class Meta:
         model = ClientEstimate
-        fields = ['estimate_client', 'job_name', 'date', 'preparer',
-                  'is_capital_improvement', 'margin', 'estimate_address']
+        fields = ['estimate_client', 'estimate_address', 'job_name', 'date',
+                  'preparer', 'is_capital_improvement', 'margin', 'margin_guidelines']
         #           'margin_guidelines', 'estimate_address']
         # fields = ['job_name', 'date', 'preparer', 'is_capital_improvement', 'margin',
         #           'margin_guidelines', 'estimate_address']
@@ -94,6 +94,11 @@ class ClientEstimateForm(forms.ModelForm):
             }),
             'date': forms.DateInput(attrs={
                 'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'margin_guidelines': forms.Textarea(attrs={'cols': 160, 'rows': 3,
+                                                       'maxlength': ClientEstimate._meta.get_field(
+                                                           'margin_guidelines').max_length,
+                                                       'onkeyup': "charRemaining('id_margin_guidelines', 'remaining_span')",
+            }),
         }
 
 

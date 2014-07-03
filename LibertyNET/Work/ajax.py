@@ -70,6 +70,7 @@ def get_sites(request, pk):
     # populate dropdown
     print('get_sites %s ' % site)
     out = []
+    # out = ["<option value='' selected='/selected'>---------</option>"]
     [out.append("<option value='#'>%s</option>" % option.get_address) for option in site]
 
     dajax.assign('#id_estimate_address', 'innerHTML', ''.join(out))

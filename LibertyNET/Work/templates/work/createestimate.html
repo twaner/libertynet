@@ -37,18 +37,14 @@
     {% for i in form %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
-            {% if i.name == 'notes' %}
+            {% if i.name == 'margin_guidelines' %}
                 {{ i }}
+                <script>document.write(get_remaining_char('"id_margin_guidelines" '))</script>
                 <span>Characters Remaining: </span>
-                <span id="notes_span">
-                    <script>document.write(get_remaining_char('id_notes'))</script>
-                </span>
-            {% elif i.name == 'estimate_address' %}
-                {{ i }}
+                <span id="remaining_span">{{ i.field.max_length }}</span>
             {% else %}
                 {{ i }}
             {% endif %}
         </li>
     {% endfor %}
-    <select id="combo2" onchange="" size="1"></select>
 {% endblock %}
