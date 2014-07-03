@@ -71,7 +71,6 @@ class SalesEstimateDetails(DetailView):
 class CreateEstimateView(CreateView):
     form_class = ClientEstimateForm
     template_name = 'work/createestimate.html'
-    print('CreateEstimateView CALLED')
 
     def form_valid(self, form):
 

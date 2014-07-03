@@ -658,7 +658,7 @@ class Estimate(models.Model):
     labor = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
     prevailing_wage = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
     margin = models.DecimalField(max_digits=3, decimal_places=2, blank=True)
-    margin_guidelines = models.TextField(max_length=100)
+    margin_guidelines = models.CharField(max_length=100)
     custom_sales_commission = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.0)
 
     class Meta:

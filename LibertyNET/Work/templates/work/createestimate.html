@@ -26,7 +26,7 @@
         <div class="breadcrumb-button">
             <span class="breadcrumb-label">
                 <i class="fa fa-phone"></i>
-                Create Part
+                Create Estimate
             </span>
         </div>
       </div>
@@ -39,7 +39,6 @@
             <label>{{ i.label|title|cut:"_" }}</label>
             {% if i.name == 'margin_guidelines' %}
                 {{ i }}
-                <script>document.write(get_remaining_char('"id_margin_guidelines" '))</script>
                 <span>Characters Remaining: </span>
                 <span id="remaining_span">{{ i.field.max_length }}</span>
             {% else %}

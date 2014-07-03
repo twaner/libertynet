@@ -97,7 +97,8 @@ class ClientEstimateForm(forms.ModelForm):
             'margin_guidelines': forms.Textarea(attrs={'cols': 160, 'rows': 3,
                                                        'maxlength': ClientEstimate._meta.get_field(
                                                            'margin_guidelines').max_length,
-                                                       'onkeyup': "charRemaining('id_margin_guidelines', 'remaining_span')",
+                                                       'onkeyup': "charRemaining('id_margin_guidelines', "
+                                                                  "'remaining_span')",
             }),
         }
 
@@ -136,9 +137,6 @@ class EstimatePartsClientFormBase(forms.ModelForm):
                             "});",
                 'class': 'form-control',
             }),
-            # 'estimate_id': forms.Select(attrs={
-            #     'class': 'form-control'
-            # }),
             'quantity': forms.TextInput(attrs={
                 'type': 'number',
                 'min': '0',
