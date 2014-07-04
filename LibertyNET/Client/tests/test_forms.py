@@ -14,6 +14,7 @@ import Common.helpermethods as chm
 
 date1 = (date.today() + timedelta(days=10)).strftime("%Y-%m-%d")
 date2 = (date.today() + timedelta(days=100)).strftime("%Y-%m-%d")
+date_today = date.today().strftime("%Y-%m-%d")
 
 #endregion
 
@@ -37,7 +38,7 @@ class ClientTest(TestCase):
         c = Contact.objects.get(pk=2222)
         client = Client.objects.create_client(first_name='Al', middle_initial='Q', last_name='Alston',
                                               client_number=9191, client_address=a, client_contact=c,
-                                              client_date='2013-12-29')
+                                              client_date='2013-12-29', is_business=None, business_name=None)
         chm.assert_true_worker(self, Client, client)
         client_data = {
             'first_name': client.first_name, 'middle_initial': client.middle_initial, 'last_name': client.last_name,
@@ -60,14 +61,15 @@ class ClientTest(TestCase):
         self.assertTrue(isinstance(a, Address), 'address != Address')
         c = Contact.objects.get(pk=2222)
         self.assertTrue(isinstance(c, Contact), 'contact != Contact')
-        liberty_contact = EmployeeFactory()
+        liberty_contact = EmployeeFactory(employee_id=909900, emp_address=a, emp_contact=c)
         # Sales Prospect
-        sp = SalesProspect.objects.create_sales_prospect(first_name='Ken', middle_initial='L',
-                                                         last_name='Salesprospect',
-                                                         sp_liberty_contact=liberty_contact,
-                                                         sales_type='New', sales_probability='L',
-                                                         initial_contact_date='2014-1-15', comments='new lead.',
-                                                         sp_address=a, sp_contact=c)
+        # sp = SalesProspect.objects.create_sales_prospect(first_name='Ken', middle_initial='L',
+        #                                                  last_name='Salesprospect',
+        #                                                  sp_liberty_contact=liberty_contact,
+        #                                                  sales_type='New', sales_probability='L',
+        #                                                  initial_contact_date='2014-1-15', comments='new lead.',
+        #                                                  sp_address=a, sp_contact=c)
+        sp = SalesProspectBusinessFactory()
         self.assertTrue(isinstance(sp, SalesProspect), 'salesprospect != SalesProspect')
         # Form work
         sales_prospect_data = {

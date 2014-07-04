@@ -40,7 +40,7 @@ class ClientFactoryNoBilling(factory.DjangoModelFactory):
 
 class ClientFactoryBusiness(factory.DjangoModelFactory):
     FACTORY_FOR = Client
-    client_id = 987
+    client_id = factory.Sequence(lambda n: '89%d' % n)
     first_name = 'Stephen'
     middle_initial = 'Q'
     last_name = 'Clienttest'
@@ -59,7 +59,7 @@ class ClientFactoryBusiness(factory.DjangoModelFactory):
 
 class SalesProspectResidentialFactory(factory.DjangoModelFactory):
     FACTORY_FOR = SalesProspect
-    id = 999
+    id = factory.Sequence(lambda n: '81%d' % n)
     first_name = 'Sally'
     middle_initial = 'P'
     last_name = 'Salesprospect'
@@ -75,7 +75,7 @@ class SalesProspectResidentialFactory(factory.DjangoModelFactory):
 
 class SalesProspectBusinessFactory(factory.DjangoModelFactory):
     FACTORY_FOR = SalesProspect
-    id = 9901
+    id = factory.Sequence(lambda n: '89%d' % n)
     first_name = 'John'
     middle_initial = 'P'
     last_name = 'Businessprospect'
@@ -89,6 +89,7 @@ class SalesProspectBusinessFactory(factory.DjangoModelFactory):
     service_guide = False
     sp_address = factory.SubFactory(AddressFactory)
     sp_contact = factory.SubFactory(ContactFactory)
+
 
 #endregion
 

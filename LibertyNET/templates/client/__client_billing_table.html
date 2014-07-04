@@ -1,0 +1,39 @@
+<div class="box">
+  <div class="box-header">
+      <span class="title">
+          <i class="fa fa-credit-card"></i>
+          Billing Profiles
+      </span>
+      <ul class="box-toolbar">
+        <li>
+          <div class="btn-group">
+            <button class="btn btn-xs btn-default dropdown-toggle"
+                    data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+            <ul class="dropdown-menu">
+              <li><a href="{{ e.get_absolute_url_edit }}">Add Billing Profile</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+  </div>
+  <div class="box-content scrollable" style="height: 110px; overflow-y: auto">
+      <div class="box-content">
+          <table class="table table-normal">
+              <tbody>
+                    {% for b in billing_detail %}
+                        <tr>
+                            <td>
+                                Profile Name:
+                            </td>
+                            <td>
+                                <a href="b.get_absolute_url_edit">
+                                    {{ b }}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>

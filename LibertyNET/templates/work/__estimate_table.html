@@ -8,35 +8,33 @@
             <thead>
             {% comment %}
             <tr>
-                                <td class="estimate-td">
-                                    <strong>
-                                        <span class="black-font">
-                                        Name
-                                        </font>
-                                    </strong>
-
-                                </td>
-                                <td>
-                                    {{ estimate.job_name }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="#808080">
-                                    Address
-                                </td>
-                                <td>
-                                    {{ estimate.estimate_address }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="#808080">
-                                    Date
-                                </td>
-                                <td>
-                                    {{ estimate.date }}
-                                </td>
-                            </tr>
-
+                <td class="estimate-td">
+                    <strong>
+                        <span class="black-font">
+                        Name
+                        </span>
+                    </strong>
+                </td>
+                <td>
+                    {{ estimate.job_name }}
+                </td>
+            </tr>
+            <tr>
+                <td bgcolor="#808080">
+                    Address
+                </td>
+                <td>
+                    {{ estimate.estimate_address }}
+                </td>
+            </tr>
+            <tr>
+                <td bgcolor="#808080">
+                    Date
+                </td>
+                <td>
+                    {{ estimate.date }}
+                </td>
+            </tr>
             <tr>
             {% endcomment %}
               <td><div>Part #</div></td>
@@ -224,7 +222,11 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>${{ estimate.listed_price }}</td>
+                    <td>
+                        <a href="#">
+                            ${{ estimate.listed_price }}
+                        </a>
+                    </td>
                     <td></td>
                     <td></td>
                     <td></td>

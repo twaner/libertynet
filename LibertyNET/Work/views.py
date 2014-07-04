@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, UpdateView, View, DetailView
+from django.views.generic.detail import SingleObjectMixin
 from Work.models import ClientEstimate, SalesEstimate, Estimate_Parts_Client, Estimate_Parts_Sales
 from Work.forms import ClientEstimateForm, SalesEstimateForm, EstimatePartsClientForm, EstimatePartsSalesForm, \
-    JobForm
-from Work.helpermethods import create_estimate_step_one,add_part_helper
+    JobForm, UpdateClientEstimateForm
+from Work.helpermethods import create_estimate_step_one, add_part_helper, update_estimate_helper
 from Equipment.models import Part, PartCategory
 from Common.helpermethods import validation_helper, form_generator, dict_generator
 
@@ -13,6 +14,9 @@ from Common.helpermethods import validation_helper, form_generator, dict_generat
 #region Index Views
 
 class ClientEstimateIndex(ListView):
+    """
+    Index view for Client Estimates.
+    """
     model = ClientEstimate
     context_object_name = 'estimate'
     template_name = 'work/clientestimateindex.html'
@@ -23,6 +27,9 @@ class ClientEstimateIndex(ListView):
 
 
 class SalesEstimateIndex(ListView):
+    """
+    Index view for Sales Estimates.
+    """
     model = SalesEstimate
     context_object_name = 'estimate'
     template_name = 'work/salesestimateindex.html'
@@ -39,6 +46,9 @@ class SalesEstimateIndex(ListView):
 
 
 class ClientEstimateDetails(DetailView):
+    """
+    Details View for a Client Estimate
+    """
     model = ClientEstimate
     context_object_name = 'estimate'
     template_name = 'work/estimatedetails.html'
@@ -51,6 +61,9 @@ class ClientEstimateDetails(DetailView):
 
 
 class SalesEstimateDetails(DetailView):
+    """
+    Details View for a Sales Estimate
+    """
     model = SalesEstimate
     context_object_name = 'estimate'
     template_name = 'work/salesestimatedetails.html'
@@ -64,11 +77,10 @@ class SalesEstimateDetails(DetailView):
 #region Create Views
 
 
-# class CreateEstimateStartView(CreateView):
-#     form_class = EstimatePartsClientForm
-
-
 class CreateEstimateView(CreateView):
+    """
+    Creates a Client Estimate object.
+    """
     form_class = ClientEstimateForm
     template_name = 'work/createestimate.html'
 
@@ -83,42 +95,13 @@ class CreateEstimateView(CreateView):
         return super(CreateEstimateView, self).form_invalid(form)
 
 
-def addpart(request, pk):
-    form_list = form_generator(1)
-    template_name = 'work/addpart.html'
-    model = Estimate_Parts_Client
-    client = ClientEstimate.objects.get(pk=pk)
-    est_dict = {
-        'estimate_id': client
-    }
-
-    estimate = ClientEstimate.objects.get(pk=pk)
-    form_list[0] = EstimatePartsClientForm(request.POST)
-    if request.method == 'POST':
-        if validation_helper(form_list):
-            form_list[0].save()
-            return HttpResponseRedirect(reverse_lazy(estimate.get_absolute_url()))
-        else:
-            form_list[0] = EstimatePartsClientForm(est_dict)
-            return render(request, template_name, dict_generator(form_list))
-    else:
-        form_list[0] = EstimatePartsClientForm(est_dict)
-        return render(request, template_name, dict_generator(form_list))
-
-
 class AddPartView(UpdateView):
     form_class = EstimatePartsClientForm
     template_name = 'work/addpart.html'
     model = ClientEstimate
-    # def get_initial(self):
-    #     return {
-    #         'quantity': 0
-    #     }
     initial = {
         'quantity': '0'
     }
-
-    print('AddPartView called')
 
     def get_success_url(self):
         obj = self.get_object(queryset=None)
@@ -150,6 +133,12 @@ class AddPartView(UpdateView):
 
 
 def add_part(request, pk):
+    """
+    Adds a Part to an Estimate object.
+    @param request: request.
+    @param pk: primary key of Estimate.
+    @return: http response.
+    """
     form_list = form_generator(1)
     estimate = ClientEstimate.objects.get(pk=pk)
     form_class = EstimatePartsClientForm
@@ -161,9 +150,9 @@ def add_part(request, pk):
         form_list[0] = EstimatePartsClientForm(request.POST)
         if validation_helper(form_list):
             estimate = add_part_helper(form_list[0], estimate)
-            print('ADD_PART++> %s' % estimate.id, type(estimate))
-            print(request.META['HTTP_HOST'])
-            print(request.get_host())
+            # print('ADD_PART++> %s' % estimate.id, type(estimate))
+            # print(request.META['HTTP_HOST'])
+            # print(request.get_host())
             return HttpResponseRedirect('Work:estimatedetails',
                                         kwargs={'pk': estimate.id})
         else:
@@ -201,6 +190,9 @@ class CreateEstimateStep2(UpdateView):
 
 
 class CreateSalesEstimateView(CreateView):
+    """
+    Creates a Sales Estimate object.
+    """
     form_class = SalesEstimateForm
     template_name = 'work/createestimate.html'
     success_url = reverse_lazy('Work:salesestimatedetails')
@@ -227,6 +219,51 @@ class CreateSalesEstimateStep2(UpdateView):
 #region Update Views
 
 
+class UpdateEstimateView(UpdateView, SingleObjectMixin):
+    """
+    Updates an Estimate object by allowing custom pricing.
+    """
+    form_class = UpdateClientEstimateForm
+    template_name = 'work/createestimate.html'
+    model = ClientEstimate
 
+    def form_valid(self, form):
+        obj = self.get_object(queryset=None)
+        estimate = update_estimate_helper(form, obj)
+        success_url = reverse_lazy(estimate.get_absolute_url())
+        return super(UpdateEstimateView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        validation_helper(form_list=form)
+        obj = self.get_object(queryset=None)
+        print('UpdateEstimateView form_invalid %s ' % obj)
+        return super(UpdateEstimateView, self).form_invalid(form)
+
+
+#endregion
+
+#region OLDCODE
+
+# def addpart(request, pk):
+#     form_list = form_generator(1)
+#     template_name = 'work/addpart.html'
+#     model = Estimate_Parts_Client
+#     client = ClientEstimate.objects.get(pk=pk)
+#     est_dict = {
+#         'estimate_id': client
+#     }
+#
+#     estimate = ClientEstimate.objects.get(pk=pk)
+#     form_list[0] = EstimatePartsClientForm(request.POST)
+#     if request.method == 'POST':
+#         if validation_helper(form_list):
+#             form_list[0].save()
+#             return HttpResponseRedirect(reverse_lazy(estimate.get_absolute_url()))
+#         else:
+#             form_list[0] = EstimatePartsClientForm(est_dict)
+#             return render(request, template_name, dict_generator(form_list))
+#     else:
+#         form_list[0] = EstimatePartsClientForm(est_dict)
+#         return render(request, template_name, dict_generator(form_list))
 
 #endregion

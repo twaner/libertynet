@@ -4,7 +4,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-#from Common.fields import models.DecimalField
+# from Common.fields import models.DecimalField
 
 #region Choices
 
@@ -226,6 +226,21 @@ class InstallerManager(models.Manager):
         return installer
 
 
+class NotesManager(models.Manager):
+    def create_notes(self, date, time, purpose, notes):
+        """
+        Creates a new Notes object.
+        @param date: Date.
+        @param time: Time.
+        @param purpose: Purpose of notes.
+        @param notes: Notes.
+        @return: Notes.
+        """
+        notes = self.create(date=date, time=time, purpose=purpose, notes=notes)
+        notes.save()
+        return notes
+
+
 #endregion
 
 #region BaseModels
@@ -340,7 +355,7 @@ class Address(models.Model):
 
     def formatted(self):
         return (u'%s %s \n%s %s \n%s' % (self.street, self.unit,
-                                          self.city, self.state, self.zip_code))
+                                         self.city, self.state, self.zip_code))
 
 
 class Contact(models.Model):
@@ -629,6 +644,11 @@ class Notes(models.Model):
     time = models.TimeField()
     purpose = models.TextField(max_length=100)
     notes = models.TextField(max_length=1000)
+
+    objects = NotesManager()
+
+    def __str__(self):
+        return '%s' % self.purpose
 
 
 #region UserProfile

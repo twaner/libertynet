@@ -127,7 +127,10 @@ class CallListDetails(DetailView):
 def addcalllist(request, pk):
     template_name = 'client/addclientcalllist.html'
     site = Site.objects.get(pk=pk)
+    client = site.site_client
     form_list = form_generator(2)
+    client_dict = {'first_name': client.first_name, 'middle_initial': client.middle_initial,
+                   'last_name': client.last_name}
 
     if request.method == 'POST':
         form_list[0] = CallListForm(request.POST)
@@ -142,7 +145,7 @@ def addcalllist(request, pk):
         else:
             return render(request, template_name, dict_generator(form_list))
     else:
-        form_list[0] = CallListForm()
+        form_list[0] = CallListForm(client_dict)
         form_list[1] = CallListContactForm()
         fd = dict_generator(form_list)
         fd['site'] = site

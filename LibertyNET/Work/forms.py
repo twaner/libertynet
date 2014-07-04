@@ -103,6 +103,13 @@ class ClientEstimateForm(forms.ModelForm):
         }
 
 
+class UpdateClientEstimateForm(forms.ModelForm):
+    class Meta:
+        model = ClientEstimate
+        fields = ['job_name', 'margin', 'listed_price',
+                  'custom_sales_commission']
+
+
 class SalesEstimateForm(forms.ModelForm):
     class Meta:
         model = SalesEstimate

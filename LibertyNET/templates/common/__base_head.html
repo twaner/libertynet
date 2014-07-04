@@ -1,0 +1,26 @@
+{% load dajaxice_templatetags %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
+<!-- Always force latest IE rendering engine or request Chrome Frame -->
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+{% load staticfiles %}
+<link href="/static/css/application.css" type="text/css" media="screen" rel="stylesheet" />
+<link type="text/css" href="/static/css/bootstrap-timepicker.min.css" />
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+<script type="text/javascript" src="/static/js/jquery.ba-serializeobject.min.js"></script>
+<script type="text/javascript" src="/static/js/application.js" />
+<script type="text/javascript" src="/static/js/address_helper.js"></script>
+<script type="text/javascript" src="/static/js/char-remaining.js"></script>
+<script type="text/javascript" src="/static/js/password.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-timepicker.js"></script>
+<script type="text/javascript" src="/static/js/dajax/jquery.dajax.core.js"></script>
+<!--<script type='text/javascript' src='{{STATIC_URL}}dajaxice.core.js'-->
+<!--<script type="text/javascript" src="/static/js/dajax/dojo.dajax.core.js"></script>-->
+{% dajaxice_js_import %}
+<title>LibertyNET</title>

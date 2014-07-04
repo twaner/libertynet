@@ -1,10 +1,40 @@
-{% extends 'base.html' %}
+{% extends 'common/__form_base.html' %}
+{% load mytags %}
 {% block body_block %}
-    <body onload="initialize()">
 {% endblock %}
-    {% load bootstrap_toolkit %}
-{% block content %}
-        <form action="" method="post">
+
+{% block form_header %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-group" title="Add Client Billing" subtitle="Create Billing Info" %}
+{% endblock %}
+{% block h4_block %}Add Call{% endblock h4_block %}
+{% block form_breadcrumb %}
+<!-- breadcrumb -->
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="/client/index/">Client Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="fa fa-phone"></i>
+                Add Client Billing
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+{% endblock form_breadcrumb %}
+{% block form_content %}
+    <form action="" method="post">
         {% csrf_token %}
         <p>Billing Information:</p>
         {{ form0 }}

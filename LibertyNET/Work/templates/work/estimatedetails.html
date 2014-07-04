@@ -42,7 +42,7 @@
         <div class="breadcrumb-button">
           <span class="breadcrumb-label">
             <i class="fa fa-group"></i>
-              <a href="/work/estmateindex/">Estimate Home</a>
+              <a href="/work/clientestimateindex/">Estimate Home</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
@@ -102,6 +102,49 @@
                   </div>
               </div>
           </div>
+          {% comment %}
+          <div class="col-md-9">
+            <div class="box">
+                <div class="box-header">
+                    <div class="title">
+                        Estimate Statistics
+                    </div>
+                </div>
+                <div class="box-content padded">
+                  <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="dashboard-stats">
+                             <ul class="list-inline">
+                                 <li class="glyph">
+                                    <i class="icon-bolt icon-2x"></i>
+                                 </li>
+                                 <li class="count">6969</li>
+                             </ul>
+                             <div class="progress">
+                                 <div class="progress-bar>
+                                 </div>
+                             </div>
+                             <div class="stats-label">Total Cost</div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top:30px">
+                      <div class="col-md-6">
+                          <div class="dashboard-stats small">
+                              <ul>
+                                  <li class="count">8080</li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        {% endcomment %}
       </div> <!-- row -->
       <div class="row">
           <div class="col-md-5">
@@ -141,7 +184,6 @@
           <!-- spacer -->
           <div class="col-md-1">
           </div>
-
           <div class="col-md-6">
             <div class="box">
                 <div class="box-content">
@@ -172,95 +214,94 @@
       <!-- ROW 2 -->
       <div class="row">
         <div class="col-md-12">
-                {% include "work/__estimate_table.html" with title="Estimate" context=parts context2=estimate %}
-            </div>
+          {% include "work/__estimate_table.html" with title="Estimate" context=parts context2=estimate %}
         </div>
       </div><!-- ROW -->
       <!-- ROW 3 -->
       <div class="row">
-            <div class="col-md-6">
-                <div class="box">
-                    <div class="box-header">
-                        <span class="title">
-                            Estimate Details
-                        </span>
-                    </div> <!-- box-header -->
-                    <div class="box-content hpadded">
-                        <strong>Client</strong>
-                            <li>
-                                {{ estimate.estimate_client }}
-                            </li>
-                        <strong>Job Name</strong>
-                            <li>
-                                {{ estimate.job_name }}
-                            </li>
-                        <strong>Address</strong>
-                            <li>
-                                {{ estimate.estimate_address }}
-                            </li>
-                        <strong>Date</strong>
-                            <li>
-                                {{ estimate.date }}
-                            </li>
-                        <strong>Preparer</strong>
-                            <li>
-                                {{ estimate.preparer }}
-                            </li>
-                        <strong>Cost</strong>
-                            <li>
-                                {{ estimate.cost }}
-                            </li>
-                        <strong>Estimate is Capital Improvement</strong>
-                            <li>
-                                {{ estimate.is_capital_improvement }}
-                            </li>
-                        <strong>Total Cost</strong>
-                            <li>
-                                {{ estimate.total_cost }}
-                            </li>
-                        <strong>Total Price</strong>
-                            <li>
-                                {{ estimate.total_price }}
-                            </li>
-                        <strong>Total Profit</strong>
-                            <li>
-                                {{ estimate.total_profit }}
-                            </li>
-                        <strong>Total Flat Rate</strong>
-                            <li>
-                                {{ estimate.total_flat_rate }}
-                            </li>
-                        <strong>Listed Price</strong>
-                            <li>
-                                {{ estimate.listed_price }}
-                            </li>
-                        <strong>List Profit</strong>
-                            <li>
-                                {{ estimate.listed_profit }}
-                            </li>
-                        <strong>Sales Commission</strong>
-                            <li>
-                                {{ estimate.sales_commission }}
-                            </li>
-                        <strong>Labor</strong>
-                            <li>
-                                {{ estimate.labor }}
-                            </li>
-                        <strong>Prevaling Wage</strong>
-                            <li>
-                                {{ estimate.prevaling_wage }}
-                            </li>
-                        <strong>Margin</strong>
-                            <li>
-                                {{ estimate.margin }}
-                            </li>
-                        <strong>Margin Guidelines</strong>
-                            <li>
-                                {{ estimate.margin_guidelines }}
-                            </li>
-                    </div> <!-- box-content -->
-                </div> <!-- box -->
-            </div> <!-- col-md-4 -->
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-header">
+                    <span class="title">
+                        Estimate Details
+                    </span>
+                </div> <!-- box-header -->
+                <div class="box-content hpadded">
+                    <strong>Client</strong>
+                        <li>
+                            {{ estimate.estimate_client }}
+                        </li>
+                    <strong>Job Name</strong>
+                        <li>
+                            {{ estimate.job_name }}
+                        </li>
+                    <strong>Address</strong>
+                        <li>
+                            {{ estimate.estimate_address }}
+                        </li>
+                    <strong>Date</strong>
+                        <li>
+                            {{ estimate.date }}
+                        </li>
+                    <strong>Preparer</strong>
+                        <li>
+                            {{ estimate.preparer }}
+                        </li>
+                    <strong>Cost</strong>
+                        <li>
+                            {{ estimate.cost }}
+                        </li>
+                    <strong>Estimate is Capital Improvement</strong>
+                        <li>
+                            {{ estimate.is_capital_improvement }}
+                        </li>
+                    <strong>Total Cost</strong>
+                        <li>
+                            {{ estimate.total_cost }}
+                        </li>
+                    <strong>Total Price</strong>
+                        <li>
+                            {{ estimate.total_price }}
+                        </li>
+                    <strong>Total Profit</strong>
+                        <li>
+                            {{ estimate.total_profit }}
+                        </li>
+                    <strong>Total Flat Rate</strong>
+                        <li>
+                            {{ estimate.total_flat_rate }}
+                        </li>
+                    <strong>Listed Price</strong>
+                        <li>
+                            {{ estimate.listed_price }}
+                        </li>
+                    <strong>List Profit</strong>
+                        <li>
+                            {{ estimate.listed_profit }}
+                        </li>
+                    <strong>Sales Commission</strong>
+                        <li>
+                            {{ estimate.sales_commission }}
+                        </li>
+                    <strong>Labor</strong>
+                        <li>
+                            {{ estimate.labor }}
+                        </li>
+                    <strong>Prevaling Wage</strong>
+                        <li>
+                            {{ estimate.prevaling_wage }}
+                        </li>
+                    <strong>Margin</strong>
+                        <li>
+                            {{ estimate.margin }}
+                        </li>
+                    <strong>Margin Guidelines</strong>
+                        <li>
+                            {{ estimate.margin_guidelines }}
+                        </li>
+                </div> <!-- box-content -->
+            </div> <!-- box -->
+        </div> <!-- col-md-4 -->
       </div> <!-- row -->
   </div> <!-- container -->
 

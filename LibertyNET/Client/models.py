@@ -26,7 +26,13 @@ class ClientManager(models.Manager):
         @param client_date: date client opened account with company.
         @return: client object
         """
-        client = self.create(first_name=first_name, middle_initial=middle_initial.upper(), last_name=last_name,
+        if business_name is None:
+            business_name = ''
+        if is_business is None:
+            is_business = ''
+        middle_initial.upper()
+
+        client = self.create(first_name=first_name, middle_initial=middle_initial, last_name=last_name,
                              client_number=client_number, business_name=business_name,
                              is_business=is_business, client_address=client_address,
                              client_contact=client_contact, client_date=client_date)

@@ -7,6 +7,11 @@ from Equipment.models import Part
 
 
 def create_estimate_step_one(form):
+    """
+    Creates an Estimate object.
+    @param form: form.
+    @return: Estimate.
+    """
     job_name = form.cleaned_data['job_name']
     estimate_address = form.cleaned_data['estimate_address']
     date = form.cleaned_data['date']
@@ -23,7 +28,12 @@ def create_estimate_step_one(form):
 
 
 def add_part_helper(form, estimate):
-    print('add_part_helper called')
+    """
+    Adds a Part to an Estimate. Using the Estimate Engine.
+    @param form: form.
+    @param estimate: Estimate.
+    @return: Updated Estimate.
+    """
     part_id = form.cleaned_data['part_id']
     quantity = form.cleaned_data['quantity']
     final_cost = form.cleaned_data['final_cost']
@@ -53,6 +63,13 @@ def add_part_helper(form, estimate):
 
 
 def update_part_helper(form, part, estimate):
+    """
+    Updates an Estimate Parts object.
+    @param form: form.
+    @param part: Part to be added.
+    @param estimate: Estimate.
+    @return: Estimate Parts object.
+    """
     p_list = estimate.estimate_parts.filter(part_id=part.id)
     est_parts = p_list[0]
     est_parts.part_id = form.cleaned_data['part_id']
@@ -67,6 +84,26 @@ def update_part_helper(form, part, estimate):
     est_parts.save(update_fields=['part_id', 'quantity', 'final_cost', 'cost', 'sub_total',
                                   'profit', 'flat_total', 'total_labor'])
     return est_parts
+
+
+def update_estimate_helper(form, estimate):
+    """
+    Updates an Estimate to allow for custom pricing using
+    the Estimate Engine.
+    @param form: form.
+    @param estimate: Estimate to be updated
+    @return: Updated estimate.
+    """
+    estimate.job_name = form.cleaned_data['job_name']
+    estimate.margin = form.cleaned_data['margin']
+    estimate.listed_profit = form.cleaned_data['listed_price']
+    # estimate.custom_sales_commission = form.cleaned_data['custom_sales_commission']
+
+    # estimate.save(update_fields=['job_name', 'margin', 'listed_price',
+    #                              'custom_sales_commission'])
+    ee = EstimateEngine(estimate)
+    estimate = ee.set_estimate_totals()
+    return estimate
 
 # endregion
 

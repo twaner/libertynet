@@ -1,0 +1,68 @@
+<div class="box">
+  <div class="box-header">
+      <span class="title">
+          <i class="fa fa-sitemap"></i>
+          Alarm/Camera Systems
+      </span>
+      <ul class="box-toolbar">
+        <li>
+            <a href="#" class="tip" title data-original-title="Total Alarms">
+            {% if calllog_list %}
+                <span class="label label-blue">
+                    2
+                </span>
+            {% endif %}
+            </a>
+        </li>
+        <li>
+          <div class="btn-group">
+            <button class="btn btn-xs btn-default dropdown-toggle"
+                    data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+            <ul class="dropdown-menu">
+              <li><a href="{{ e.get_absolute_url_edit }}">Add System</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+  </div>
+  <div class="box-content scrollable" style="height: 80px; overflow-y: auto">
+      <div class="box-content">
+          <table class="table table-normal">
+              <tbody>
+                  <tr>
+                      <td>
+                          system name
+                      </td>
+                      <td>
+                          system type
+                      </td>
+                  </tr>
+                 <tr>
+                      <td>
+                          system name
+                      </td>
+                      <td>
+                          system type
+                      </td>
+                  </tr>
+                 <tr>
+                      <td>
+                          system name
+                      </td>
+                      <td>
+                          system type
+                      </td>
+                  </tr>
+                 <tr>
+                      <td>
+                          camera name
+                      </td>
+                      <td>
+                          camera type
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>

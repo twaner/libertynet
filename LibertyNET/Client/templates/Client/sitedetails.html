@@ -2,7 +2,6 @@
 {% load mytags %}
 {% load humanize %}
 {% block body_block %}
-<body onload="initialize()" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 {% block form_header %}
 {% include "common/mainheader_nograph.html" with icon="fa fa-phone" title="Site Details" subtitle="Detailed Site Information" %}
@@ -61,150 +60,151 @@
 {% endblock cog_block %}
 
 {% block form_content %}
-        <div class="row">
-            <div class="col-md-6">
-                <div class="box">
+<div class="row">
+    <div class="col-md-6">
+        <div class="box">
 
-                <div class="box-content padded">
-                   <ul class="padded separate-sections">
-                    {% if client_detail %}
-                       <strong>Site Name</strong>
-                        <li>
-                            {{ site_detail.site_name }}
-                        </li>
-                       <strong>Client Name</strong>
-                                  <li>
-                                      {{ client_detail.get_full_name }}
-                                  </li>
-                              {% if client_detail.is_a_business == True %}
-                                  <strong>
-                                      Business Name
-                                  </strong>
-                                  <li>
-                                      {{ client_detail.business_name }}
-                                  </li>
-                              {% endif %}
-                    {% endif %}
-                    {% if address_detail %}
-                       <strong>Site Address</strong>
-                          <address>
-                              {{ address_detail.street }}
-                              <br />
-                              {% if address_detail.unit|length  != 0 %}
-                                  {{ address_detail.unit }}
-                              <br/>
-                              {% endif %}
-                              {{ address_detail.city }},
-                              {{ address_detail.state }}
-                              <br />
-                              {{ address_detail.zip_code }}
-                          </address>
-                    {% endif %}
-                  </ul>
-                </div> <!-- box content padded -->
-                </div> <!-- box -->
-            </div> <!-- col -->
-        </div> <!-- row -->
+        <div class="box-content padded">
+           <ul class="padded separate-sections">
+            {% if client_detail %}
+               <strong>Site Name</strong>
+                <li>
+                    {{ site_detail.site_name }}
+                </li>
+               <strong>Client Name</strong>
+                          <li>
+                              {{ client_detail.get_full_name }}
+                          </li>
+                      {% if client_detail.is_a_business == True %}
+                          <strong>
+                              Business Name
+                          </strong>
+                          <li>
+                              {{ client_detail.business_name }}
+                          </li>
+                      {% endif %}
+            {% endif %}
+            {% if address_detail %}
+               <strong>Site Address</strong>
+                  <address>
+                      {{ address_detail.street }}
+                      <br />
+                      {% if address_detail.unit|length  != 0 %}
+                          {{ address_detail.unit }}
+                      <br/>
+                      {% endif %}
+                      {{ address_detail.city }},
+                      {{ address_detail.state }}
+                      <br />
+                      {{ address_detail.zip_code }}
+                  </address>
+            {% endif %}
+          </ul>
+        </div> <!-- box content padded -->
+        </div> <!-- box -->
+    </div> <!-- col -->
+</div> <!-- row -->
 
-        <!-- Call List Table -->
+<!-- Call List Table -->
 
-        <!--<div class="row">-->
-          <div class="col-md-6">
-           <div class="floating">
-            <div class="box">
-                <div class="box-header">
-                    <span class="title">
-                        Site Call List{{calllist_detail|length|pluralize }}
-                    </span>
-                    <!-- number of calls of some importance total calls for now-->
-                    <ul class="box-toolbar">
-                        <li>
-                            <a href="#" class="tip" title data-original-title="Active Call Lists">
-                            {% if calllist_detail %}
-                                <span class="label label-green">
-                                    {{ calllist_active|length }}
-                                </span>
-                            {% endif %}
-                            </a>
-                        </li>
-                        {% comment %}
-                        <li>
-                            <a href="#" class="tip" title data-original-title="Inactive Call Lists">
-                            {% if calllist_detail %}
-                                <span class="label label-blue">
-                                    {{ calllist_detail|length - calllist_active|length }}
-                                </span>
-                            {% endif %}
-                            </a>
-                        </li>
-                        {% endcomment %}
-                        <li>
-                            <a href="#" class="tip" title data-original-title="Total Site Call Lists">
-                            {% if calllist_detail %}
-                                <span class="label label-blue">
-                                    {{ calllist_detail|length }}
-                                </span>
-                            {% endif %}
-                            </a>
-                        </li>
-
-                        <li>
-                          <div class="btn-group">
-                            <button class="btn btn-xs btn-default dropdown-toggle"
-                                    data-toggle="dropdown"><i class="fa fa-cog"></i></button>
-                            <ul class="dropdown-menu">
-                              <li>
-                                  <a href="{{ site_detail.get_absolute_url_add_calllist }}">
-                                      Add Call List
-                                  </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </li>
-                    </ul>
-                </div> <!-- box-header -->
-                <div class="box-content scrollable" style="height: 280px; overflow-y: auto">
-                    <!-- loop through calls -->
+<div class="row">
+  <div class="col-md-6">
+   <div class="not-floating">
+    <div class="box">
+        <div class="box-header">
+            <span class="title">
+                Site Call List{{calllist_detail|length|pluralize }}
+            </span>
+            <!-- number of calls of some importance total calls for now-->
+            <ul class="box-toolbar">
+                <li>
+                    <a href="#" class="tip" title data-original-title="Active Call Lists">
                     {% if calllist_detail %}
-                        {% for c in calllist_detail %}
-                            <div class="box-section news with-icons">
-                                {% if c.is_active == 'Active' %}
-                                    <div class="avatar green">
-                                        <!-- icon based on call status -->
-                                        <i class="icon-mobile-phone icon-2x"></i>
-                                    </div>
-                                {% else %}
-                                    <div class="avatar blue">
-                                        <!-- icon based on call status -->
-                                        <i class="icon-ban-circle icon-2x"></i>
-                                    </div>
-                                {% endif %}
-                                <div class="news-time">
-                                    <p>
-                                        <a href="{{ c.get_absolute_url }}">
-                                            Order: {{ c.get_cl_order_display|ordinal }}
-                                        </a>
-                                    </p>
-                                    <p>{{ c.is_active }}</p>
-                                </div>
-                                <div class="news-content">
-                                    <div class="news-title">
-                                        <a href="{{ c.get_absolute_url }}">
-                                            {{ c.cl_genre }}
-                                        </a>
-                                    </div>
-                                    <div class="news-text">
-                                       {{ c.cl_contact }}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
+                        <span class="label label-green">
+                            {{ calllist_active|length }}
+                        </span>
                     {% endif %}
-                </div> <!-- box-content scrollable -->
-            </div> <!-- box -->
-           </div> <!-- floating -->
-          </div> <!-- col-md-6-->
-        <!--</div> &lt;!&ndash; row &ndash;&gt;-->
+                    </a>
+                </li>
+                {% comment %}
+                <li>
+                    <a href="#" class="tip" title data-original-title="Inactive Call Lists">
+                    {% if calllist_detail %}
+                        <span class="label label-blue">
+                            {{ calllist_detail|length - calllist_active|length }}
+                        </span>
+                    {% endif %}
+                    </a>
+                </li>
+                {% endcomment %}
+                <li>
+                    <a href="#" class="tip" title data-original-title="Total Site Call Lists">
+                    {% if calllist_detail %}
+                        <span class="label label-blue">
+                            {{ calllist_detail|length }}
+                        </span>
+                    {% endif %}
+                    </a>
+                </li>
+
+                <li>
+                  <div class="btn-group">
+                    <button class="btn btn-xs btn-default dropdown-toggle"
+                            data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                          <a href="{{ site_detail.get_absolute_url_add_calllist }}">
+                              Add Call List
+                          </a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+            </ul>
+        </div> <!-- box-header -->
+        <div class="box-content scrollable" style="height: 280px; overflow-y: auto">
+            <!-- loop through calls -->
+            {% if calllist_detail %}
+                {% for c in calllist_detail %}
+                    <div class="box-section news with-icons">
+                        {% if c.is_active == 'Active' %}
+                            <div class="avatar green">
+                                <!-- icon based on call status -->
+                                <i class="icon-mobile-phone icon-2x"></i>
+                            </div>
+                        {% else %}
+                            <div class="avatar blue">
+                                <!-- icon based on call status -->
+                                <i class="icon-ban-circle icon-2x"></i>
+                            </div>
+                        {% endif %}
+                        <div class="news-time">
+                            <p>
+                                <a href="{{ c.get_absolute_url }}">
+                                    Order: {{ c.get_cl_order_display|ordinal }}
+                                </a>
+                            </p>
+                            <p>{{ c.is_active }}</p>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-title">
+                                <a href="{{ c.get_absolute_url }}">
+                                    {{ c.cl_genre }}
+                                </a>
+                            </div>
+                            <div class="news-text">
+                               {{ c.cl_contact }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div> <!-- box-content scrollable -->
+    </div> <!-- box -->
+   </div> <!-- floating -->
+  </div> <!-- col-md-6-->
+</div> <!-- row -->
+
 {% endblock %}
 
 

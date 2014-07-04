@@ -1,7 +1,9 @@
 import factory
 import factory.fuzzy
-from django.db import models
-from models import Address, Contact, Card, Billing, Installer, Genre, CallList
+from django.contrib.auth.models import User
+from Common.models import Address, Contact, Card, Billing, Installer, Genre, CallList, \
+    Notes, UserProfile
+from Common.helpermethods import date_change, time_worker
 
 
 class AddressFactory(factory.DjangoModelFactory):
@@ -16,7 +18,7 @@ class AddressFactory(factory.DjangoModelFactory):
 
 class ContactEmployeeFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Contact
-    id = factory.Sequence(lambda n: '889%d' % n)
+    id = factory.Sequence(lambda n: '89%d' % n)
     phone = factory.Sequence(lambda n: '845678%04d' % n)
     cell = factory.Sequence(lambda n: '97811122%02d' % n)
     office_phone = factory.Sequence(lambda n: '97811144%02d' % n)
@@ -97,9 +99,36 @@ class Call_ListFactory(factory.DjangoModelFactory):
     cl_genre = factory.SubFactory(GenreRandomFactory)
 
 
+class NotesFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Notes
+    date = date_change(1)
+    time = '13:00'
+    purpose = 'This is a test purpose'
+    notes = 'this is a test notes'
+
+
+class UserFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = User
+    username ='testusername'
+    email = 'usertest@email.com'
+    is_active = True
+    is_staff = True
+    date_joined = date_change(0)
+
+
+class UserProfileFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = UserProfile
+    first_name = 'Jason'
+    middle_initial = 'E'
+    last_name = 'Calllist'
+    user = factory.SubFactory(UserFactory)
+    picture = None
+
+
 class IPAddressFactory(factory.DjangoModelFactory):
     pass
-    #model = models.GenericIPAddressField
+    # model = models.GenericIPAddressField
+
 
 
 

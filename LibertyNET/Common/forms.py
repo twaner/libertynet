@@ -119,6 +119,11 @@ class CallListForm(forms.ModelForm):
             'cl_genre': _('Call List Type'),
             'cl_order': _('Call List Order'),
         }
+        widgets = {
+            'cl_is_enabled': forms.CheckboxInput(attrs={
+                'class': "iButton-icons"
+            }),
+        }
 
 
 class UserForm(forms.ModelForm):

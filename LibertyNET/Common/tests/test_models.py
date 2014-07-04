@@ -1,12 +1,15 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from Common.models import Address, Contact, Card, Billing, Installer, Genre, CallList
+from django.contrib.auth.models import User
+from Common.models import Address, Contact, Card, Billing, Installer, Genre, CallList, \
+        Notes, UserProfile
 import Common.factories as f
-from Common.helpermethods import assert_equals_worker, assert_true_worker
+from Common.helpermethods import assert_equals_worker, assert_true_worker, date_change
 
 
 #region Globals
 
+# date1 = (date.today() + timedelta(days=10)).strftime("%Y-%m-%d")
 
 add = dict(street='44 Broadway', unit='4B', city='Kingston', state='NY', zip_code='12401')
 con = dict(phone="8453334444", phone_extension="2", cell="8456667777",
@@ -57,7 +60,6 @@ class ContactTest(TestCase):
         self.assertEqual(c.__str__(), '845-333-4444', '__str__() does not match phone')
         self.assertEqual(c.phone_extension_helper(), '845-333-4444 ext. 2', 'extension helper not matching.')
 
-
     def test_contact_clean(self):
         c = Contact()
         self.assertRaises(ValidationError, c.clean())
@@ -94,7 +96,6 @@ class CardTest(TestCase):
         self.assertTrue(isinstance(card, Card), 'card is not Card')
         assert_equals_worker(self, ('Card Info: %s %s' % (card.first_name, card.last_name)),
                              card.__str__())
-
 
     def test_card_clean(self):
         c = Card()
@@ -142,6 +143,14 @@ class InstallerTest(TestCase):
         assert_equals_worker(self, installer.installer_company_name, installer.__str__())
 
 
+class NotesTest(TestCase):
+    def setUp(self):
+        purpose = 'Test purpose.'
+        notes_text = 'Test notes.'
+        notes = Notes.objects.create_notes(date=date_change(1), time='13:00', purpose=purpose, notes=notes_text)
+        assert_true_worker(self, Notes, notes)
+        assert_equals_worker(self, notes.purpose, notes.__str__())
+
 #endregion
 
 #region Factory Tests
@@ -184,4 +193,17 @@ class FactoryTestCase(TestCase):
         genre = f.GenreFactory()
         self.assertTrue(isinstance(genre, Genre), 'GenreFactory !Genre')
 
-        #endregion
+    def test_note_factory(self):
+        notes = f.NotesFactory()
+        self.assertTrue(isinstance(notes, Notes), "NotesFactory !Notes")
+
+    def test_user_factory(self):
+        user = f.UserFactory()
+        self.assertTrue(isinstance(user, User), "UserFactory !User")
+
+    def test_userprofile_factory(self):
+        userprofile = f.UserProfile()
+        self.assertTrue(isinstance(userprofile, UserProfile), "UserProfileFactory !UserProfile")
+
+    #endregion
+

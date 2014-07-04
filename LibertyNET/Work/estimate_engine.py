@@ -46,13 +46,15 @@ class EstimateEngine:
         estimate.save(update_fields=['total_cost', 'total_price', 'total_profit', 'total_flat_rate',
                                      'listed_price', 'listed_profit', 'sales_commission', 'labor',
                                      'custom_sales_commission'])
-
+        # print('EstimateEngine set_estimate_totals listed_profit %s' %
+        #         estimate.listed_price, estimate)
+        # print('EstimateEngine set_estimate_totals listed_profit %s '
+        #       % estimate.listed_profit, estimate.custom_sales_commission)
         return estimate
 
     def new_part_checker(self, part):
         """
         Determines if a Part is already attached to an Estimate
-        @param estimate: Estimate to be updated.
         @param part: Part to be added or updated.
         @return: False if Part is in Estimate, True if it is not.
         """
