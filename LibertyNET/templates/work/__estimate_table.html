@@ -1,3 +1,4 @@
+{% load mytags %}
 <div class="box">
   <div class="box-header">
       <span class="title">{{ title }}</span>
@@ -45,7 +46,7 @@
                 <td style="width: 20px">Flat Price</td>
                 <td style="width: 20px">Labor</td>
                 <td style="width: 20px">Qty</td>
-                <td style="width: 20px">Cost</td>
+                <td style="width: 20px">Total Cost</td>
                 <td style="width: 20px">Sub Total</td>
                 <td style="width: 25px">Profit</td>
                 <td style="width: 20px">Flat total</td>
@@ -56,7 +57,11 @@
                 <tbody role="alert" aria-live="polite" aria-relavent="all">
                 {% for e in context %}
                     <tr>
-                      <td >{{ e.part_id.number }}</td>
+                      <td >
+                          <a href="{% url 'Work:updatepart' estimate.id  e.part_id.id %}">
+                          {{ e.part_id.number }}
+                          </a>
+                      </td>
                       <td>
                           {{ e.part_id.name }}
                       </td>
@@ -64,7 +69,7 @@
                         {{ e.part_id.cost }}
                       </td>
                       <td>
-                          {{ context2.margin }}
+                          {{ context2.margin|to_percent }}%
                       </td>
                       <td>
                           {{ e.final_cost }}
@@ -80,6 +85,7 @@
                       </td>
                       <td>
                           {{ e.cost }}
+                          {# cost object on estimate parts #}
                       </td>
                       <td>
                           {{ e.sub_total }}
@@ -104,7 +110,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        Cost of System
+                        Cost of System {# Sum of cost of all parts in estimate #}
                     </td>
                     <td></td>
                     <td></td>
@@ -112,7 +118,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>$ {{ estimate.total_cost }}</td>
+                    <td>{{ estimate.total_cost }}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -223,7 +229,7 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="#">
+                        <a href="{{ estimate.update_estimate }}">
                             ${{ estimate.listed_price }}
                         </a>
                     </td>

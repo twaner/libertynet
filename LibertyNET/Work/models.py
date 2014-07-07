@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from Common.models import NUMBER_CHOICES, Estimate
@@ -271,6 +271,16 @@ class ClientEstimate(Estimate):
     def create_estimate(self):
         return reverse('Work:createestimate', kwargs={'pk': self.id})
 
+    def update_estimate(self):
+        return reverse('Work:updateestimate', kwargs={'pk': self.id})
+
+    def update_parts(self):
+        return reverse('Work:updatepart', kwargs={'pk': self.id})
+
+    def update_part(self):
+        return reverse('Work:updatepart', kwargs={'pk': self.id,
+                                                  'part_pk': self.estimate_parts.part_id})
+
 
 class SalesEstimate(Estimate):
     estimate_sales = models.ForeignKey('Client.SalesProspect')
@@ -283,15 +293,18 @@ class SalesEstimate(Estimate):
 class EstimatePartsBase(models.Model):
     part_id = models.ForeignKey('Equipment.Part')
     quantity = models.IntegerField(max_length=6)
-    final_cost = models.DecimalField(max_digits=10, decimal_places=2)
-    cost = models.DecimalField(max_digits=10, decimal_places=2)
-    sub_total = models.DecimalField(max_digits=10, decimal_places=2)
-    profit = models.DecimalField(max_digits=10, decimal_places=2)
-    flat_total = models.DecimalField(max_digits=10, decimal_places=2)
-    total_labor = models.DecimalField(max_digits=10, decimal_places=2)
+    final_cost = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Total of Cost Plus Margin')
+    cost = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Cost of Estimate Part')
+    sub_total = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Sub Total of Part')
+    profit = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Profit off Part')
+    flat_total = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Total Flat Price of Part')
+    total_labor = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Total Labor for Part')
 
     class Meta:
         abstract = True
+
+    def update_part(self):
+        return reverse('Work:updatepart', kwargs={'pk': self.part_id})
 
 
 class Estimate_Parts_Client(EstimatePartsBase):

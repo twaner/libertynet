@@ -66,7 +66,7 @@ class WageForm(forms.ModelForm):
 
 # endregion
 
-# region Estimates
+#region Estimates
 
 
 class ClientEstimateForm(forms.ModelForm):
@@ -74,8 +74,6 @@ class ClientEstimateForm(forms.ModelForm):
         model = ClientEstimate
         fields = ['estimate_client', 'estimate_address', 'job_name', 'date',
                   'preparer', 'is_capital_improvement', 'margin', 'margin_guidelines']
-        #           'margin_guidelines', 'estimate_address']
-        # fields = ['job_name', 'date', 'preparer', 'is_capital_improvement', 'margin',
         #           'margin_guidelines', 'estimate_address']
         widgets = {
             'is_capital_improvement': forms.CheckboxInput(attrs={
@@ -137,6 +135,9 @@ class EstimatePartsClientFormBase(forms.ModelForm):
         model = Estimate_Parts_Client
         fields = ['part_id', 'quantity', 'cost', 'final_cost', 'sub_total',
                   'profit', 'flat_total', 'total_labor']
+        labels = {
+            'part_id': _('Part Name'),
+        }
         widgets = {
             'part_id': forms.Select(attrs={
                 'onchange': "Dajaxice.Work.get_part(Dajax.process,{"

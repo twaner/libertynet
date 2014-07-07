@@ -22,12 +22,12 @@ class EstimateEngine:
         cost_dict = self.estimate.estimate_parts.all(). \
             aggregate(Sum('cost'), Sum('final_cost'), Sum('sub_total'), Sum('profit'),
                       Sum('flat_total'), Sum('total_labor'))
+        print('EstimateEngine get_aggregate_parts % s' % cost_dict)
         return cost_dict
 
     def set_estimate_totals(self):
         """
         Sets all dollar values for an Estimate that are related to the Parts
-        @param cost_dict: Dictionary of Sums of dollar values in all Estimate_Parts
         @return: Estimate
         """
         cost_dict = self.get_aggregate_parts()
@@ -43,13 +43,12 @@ class EstimateEngine:
         estimate.listed_profit = estimate.listed_price - estimate.total_cost
         estimate.custom_sales_commission = estimate.listed_price / (1 / margin)
         # Update estimate and return
-        estimate.save(update_fields=['total_cost', 'total_price', 'total_profit', 'total_flat_rate',
+        estimate.save(update_fields=['total_cost', 'cost', 'total_price', 'total_profit', 'total_flat_rate',
                                      'listed_price', 'listed_profit', 'sales_commission', 'labor',
                                      'custom_sales_commission'])
-        # print('EstimateEngine set_estimate_totals listed_profit %s' %
-        #         estimate.listed_price, estimate)
-        # print('EstimateEngine set_estimate_totals listed_profit %s '
-        #       % estimate.listed_profit, estimate.custom_sales_commission)
+        print('EstimateEngine set_estimate_totals() = After save(update): "pk" {2} \nlisted_profit {0}, '
+              '\ncustom_commission {1}'
+              .format(estimate.listed_profit, estimate.custom_sales_commission, estimate.id))
         return estimate
 
     def new_part_checker(self, part):
@@ -60,13 +59,13 @@ class EstimateEngine:
         """
         part_list = list(self.estimate.estimate_parts.all())
         for i in part_list:
-            #if type(part) == type(i.part_id):
+            # if type(part) == type(i.part_id):
             if part.id == i.part_id.id:
                 return False
         else:
-                return True
+            return True
 
-#region JunkCode
+# region JunkCode
 #print("estimate_engine - new_part_checker \n Part: '{0}' \n Part.id '{1}' \n Part_list '{2}'".format(part, part.id, part_list))
 # print('test junk %s' % i.part_id)
 # print('type %s' % type(part) == type(i.part_id))

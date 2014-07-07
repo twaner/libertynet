@@ -57,8 +57,10 @@ def add_part_helper(form, estimate):
         print('add_part_helper is_new_part!')
     else:
         # Update the Estimate Parts obj
-        est_parts = update_part_helper(form, part_id, estimate)
-    estimate = ee.set_estimate_totals()
+        print('Add_part_helper %s ' % estimate.listed_profit)
+        estimate = update_part_helper(form, part_id, estimate)
+    # estimate = ee.set_estimate_totals()
+    ee.set_estimate_totals()
     return estimate
 
 
@@ -70,12 +72,13 @@ def update_part_helper(form, part, estimate):
     @param estimate: Estimate.
     @return: Estimate Parts object.
     """
-    p_list = estimate.estimate_parts.filter(part_id=part.id)
-    est_parts = p_list[0]
+    est_parts = estimate.estimate_parts.filter(part_id=part.id)[0]
+    # est_parts = p_list[0]
     est_parts.part_id = form.cleaned_data['part_id']
     est_parts.quantity = form.cleaned_data['quantity']
     est_parts.final_cost = form.cleaned_data['final_cost']
-    est_parts.cost = form.cleaned_data['cost'] * est_parts.quantity
+    # est_parts.cost = form.cleaned_data['cost'] * est_parts.quantity
+    est_parts.cost = est_parts.part_id.cost * est_parts.quantity
     est_parts.sub_total = form.cleaned_data['sub_total']
     est_parts.profit = form.cleaned_data['profit']
     est_parts.flat_total = form.cleaned_data['flat_total']
@@ -83,7 +86,7 @@ def update_part_helper(form, part, estimate):
 
     est_parts.save(update_fields=['part_id', 'quantity', 'final_cost', 'cost', 'sub_total',
                                   'profit', 'flat_total', 'total_labor'])
-    return est_parts
+    return estimate
 
 
 def update_estimate_helper(form, estimate):
@@ -94,15 +97,25 @@ def update_estimate_helper(form, estimate):
     @param estimate: Estimate to be updated
     @return: Updated estimate.
     """
+    print('update_estimate_helper 1st: listed profit {0} \n custom comm {1} '.
+          format(estimate.listed_profit, estimate.custom_sales_commission))
     estimate.job_name = form.cleaned_data['job_name']
     estimate.margin = form.cleaned_data['margin']
-    estimate.listed_profit = form.cleaned_data['listed_price']
+    estimate.listed_price = form.cleaned_data['listed_price']
     # estimate.custom_sales_commission = form.cleaned_data['custom_sales_commission']
 
-    # estimate.save(update_fields=['job_name', 'margin', 'listed_price',
-    #                              'custom_sales_commission'])
+    estimate.save(update_fields=['job_name', 'margin', 'listed_price'])
+                                 # 'custom_sales_commission'])
+    print('update_estimate_helper 2nd: listed profit {0} \n custom comm {1} '.
+          format(estimate.listed_profit, estimate.custom_sales_commission))
     ee = EstimateEngine(estimate)
-    estimate = ee.set_estimate_totals()
+    estimate1 = ee.set_estimate_totals()
+    print('Update_estimate_helper After Work pk {2} \n listed_profit {0} \n custom commission {1}  '.format(
+        estimate1.listed_profit, estimate1.custom_sales_commission, estimate1.id))
+    # estimate.save()
+    print('types estimate1 %s ' % type(estimate), type(estimate1))
+    print('Update_estimate_helper {0} {1} == {2} {3}'
+          .format(estimate.listed_profit, estimate.id, estimate1.listed_profit, estimate1.id))
     return estimate
 
 # endregion

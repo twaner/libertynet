@@ -55,11 +55,11 @@
                 var cost = $("#idCost").text();
                 var flat = $("#idFlat").text();
                 var labor = $("#idLabor").text();
-                var margin = $("#idMargin").text();
+//                var margin = $("#idMargin").text();
                 var margin = '{{ estimate.margin }}';
                 var qty = $("#id_quantity").val();
                 var estCost = cost * qty;
-                $("#id_cost").val(cost);
+                $("#id_cost").val(estCost);
                 var finalCost = (cost/(1-margin));
                 $("#id_final_cost").val(finalCost.toFixed(2));
                 var subTotal = finalCost * qty;
@@ -69,7 +69,6 @@
                 var totalLabor = qty * labor;
                 $("#id_total_labor").val(totalLabor.toFixed(2));
                 $("#id_flat_total").val(qty * flat)
-                var tmp = margin * flat;
             });
         });
 
@@ -107,11 +106,21 @@
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
             {% if i.name = 'part_id' %}
-                {{ i }}
                 <strong>
+                {% if part %}
+                <script>
+                    $("#id_part_id").prop( "disabled", true );
+                </script>
+                {{ i|addcss:"form-control" }}
+                Cost: $<span id="idCost">{{ part.cost }}</span><br/>
+                Flat: $<span id="idFlat">{{ part.flat_price }}</span><br/>
+                Labor: <span id="idLabor">{{ part.labor }}</span> hrs.<br/>
+                {% else %}
+                {{ i }}
                 Cost: $<span id="idCost">0</span><br/>
                 Flat: $<span id="idFlat">0</span><br/>
                 Labor: <span id="idLabor">0</span> hrs.<br/>
+                {% endif %}
                 </strong>
             {% else %}
                 {{ i }}
