@@ -12,7 +12,7 @@ import types
 def create_address_helper(form):
     """
     creates an address object based on request data.
-    @param request: request data.
+    @param form: form.
     @return: address object.
     """
     street = form.cleaned_data['street']
@@ -48,7 +48,7 @@ def update_address_helper(form, address):
 def create_employee_contact_helper(form):
     """
     Creates employee based contact object based on request info.
-    @param form: request.
+    @param form: form.
     @return: contact object.
     """
     phone = form.cleaned_data['phone']
@@ -66,7 +66,7 @@ def create_employee_contact_helper(form):
 def update_contact_employee_helper(form, contact):
     """
     Updates a contact object for an Employee.
-    @param request: request.
+    @param form: form.
     @param contact: Contact object.
     @return: Contact object.
     """
@@ -84,7 +84,7 @@ def update_contact_employee_helper(form, contact):
 def create_contact_helper(form):
     """
     Creates employee based contact object based on request info.
-    @param request: request.
+    @param form: form.
     @return: contact object.
     """
     phone = form.cleaned_data['phone']
@@ -107,7 +107,7 @@ def create_contact_helper(form):
 def create_contact_client_calllog_helper(form):
     """
     Creates employee based contact object based on request info.
-    @param request: request.
+    @param form: form.
     @return: contact object.
     """
     phone = form.cleaned_data['phone']
@@ -123,7 +123,7 @@ def create_contact_client_calllog_helper(form):
 def updated_contact_helper(form, contact):
     """
     Updates a contact object.
-    @param request: request.
+    @param form: form.
     @param contact: Contact object.
     @return: Contact object.
     """
@@ -188,7 +188,7 @@ def create_billing_helper(form, address, card):
     Creates a new Billing object.
     @param address: Address object.
     @param card: Card object.
-    @param request: request.
+    @param form: form.
     @return: Billing.
     """
     profile_name = form.cleaned_data['profile_name']
@@ -270,7 +270,7 @@ def create_call_list_helper_not_site(form, contact):
 def update_call_list_helper(form, calllist, contact):
     """
     Updates a Call List
-    @param request: request.
+    @param form: form.
     @param calllist: Call List.
     @param contact: Contact.
     @return: Call List.
@@ -299,7 +299,7 @@ def update_call_list_helper(form, calllist, contact):
 def create_card_helper(form):
     """
     Creates a Credit Card.
-    @param request: request.
+    @param form: form.
     @return: Credit Card.
     """
     first_name = form.cleaned_data['first_name']
@@ -433,6 +433,14 @@ def readonly_worker(form, field_list):
             form.fields[i].widget.attrs['readonly'] = True
         else:
             form.fields[i].widget.attrs['readonly'] = True
+
+
+def date_picker_helper():
+    """
+    Sets CSS for datepicker.
+    @return: dictionary of CSS attributes
+    """
+    return {'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd", 'auto-close': 'true'}
 
 
 def boolean_helper(*args):

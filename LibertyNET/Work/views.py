@@ -6,12 +6,12 @@ from django.views.generic.detail import SingleObjectMixin
 from Work.models import ClientEstimate, SalesEstimate, Estimate_Parts_Client, Estimate_Parts_Sales
 from Work.forms import ClientEstimateForm, SalesEstimateForm, EstimatePartsClientForm, EstimatePartsSalesForm, \
     JobForm, UpdateClientEstimateForm
-from Work.helpermethods import create_estimate_step_one, add_part_helper, update_estimate_helper
+from Work.helpermethods import add_part_helper, update_estimate_helper, create_estimate_helper
 from Equipment.models import Part, PartCategory
 from Common.helpermethods import validation_helper, form_generator, dict_generator
 
 
-#region Index Views
+# region Index Views
 
 class ClientEstimateIndex(ListView):
     """
@@ -39,7 +39,7 @@ class SalesEstimateIndex(ListView):
         return context
 
 
-#endregion
+# endregion
 
 
 #region Detail Views
@@ -72,6 +72,7 @@ class SalesEstimateDetails(DetailView):
         context = super(SalesEstimateIndex, self).get_context_data(**kwargs)
         return context
 
+
 #endregion
 
 #region Create Views
@@ -83,58 +84,48 @@ class CreateEstimateView(CreateView):
     """
     form_class = ClientEstimateForm
     template_name = 'work/createestimate.html'
+    form_list = form_generator(1)
 
-    def form_valid(self, form):
+    # def form_valid(self, form):
+    #     print('CreateEstimateView FORMCLEANED %s ' % form.cleaned_date['estimate_address'])
+    #     estimate = form.save()
+    #     print('CreateEstimateView ESTIMATE %s' % estimate.estimate_address)
+    #     success_url = reverse_lazy(estimate.get_absolute_url())
+    #     return super(CreateEstimateView, self).form_valid(form)
+    #
+    # def form_invalid(self, form):
+    #     # print('CreateEstimateView %s ' % form)
 
-        estimate = form.save()
-        success_url = reverse_lazy(estimate.get_absolute_url())
-        return super(CreateEstimateView, self).form_valid(form)
-
-    def form_invalid(self, form):
-        validation_helper(form_list=form)
-        return super(CreateEstimateView, self).form_invalid(form)
-
-
-class UpdatePartView(UpdateView, SingleObjectMixin):
-    form_class = EstimatePartsClientForm
-    template_name = 'work/addpart.html'
-    model = ClientEstimate
-
-    # def get_success_url(self):
-    #     obj = self.get_object(queryset=None)
-    #     return reverse_lazy(obj.get_absolute_url())
-
-    def form_valid(self, form):
-        estimate_in = self.get_object()
-        print('UpdatePartView form_valid %s' % estimate_in)
-        estimate = add_part_helper(form,  estimate_in)
-        success_url = reverse_lazy(estimate.get_absolute_url())
-        return super(UpdatePartView, self).form_valid(form)
+        # validation_helper(form_list=form)
+        # return super(CreateEstimateView, self).form_invalid(form)
 
     def get_context_data(self, **kwargs):
         self.object = self.get_object(queryset=None)
-        context = super(UpdatePartView, self).get_context_data(**kwargs)
+        context = super(CreateEstimateView, self).get_context_data(**kwargs)
         return context
 
     def get_object(self, queryset=None):
-        object = super(UpdatePartView, self).get_object()
+        object = super(CreateEstimateView, self).get_object()
         return object
 
-    def get(self, request, pk, part_pk, **kwargs):
-        # estimate = ClientEstimate.objects.get(pk=pk)
-        estimate = self.get_object()
-        estimate_parts = estimate.estimate_parts.filter(part_id=part_pk)[0]
-        est_parts_dict = {
-            'part_id': estimate_parts.part_id, 'quantity': estimate_parts.quantity,
-            'final_cost': estimate_parts.final_cost, 'cost': estimate_parts.cost,
-            'sub_total': estimate_parts.sub_total, 'profit': estimate_parts.profit,
-            'flat_total': estimate_parts.flat_total, 'total_labor': estimate_parts.total_labor,
-        }
-        form = EstimatePartsClientForm(est_parts_dict)
-        context = self.get_context_data()
-        context['estimate'] = estimate
-        part = estimate_parts.part_id
-        return render(request, self.template_name, {'form0': form, 'estimate': estimate, 'part': part})
+    def post(self, request, *args, **kwargs):
+        self.form_list[0] = ClientEstimateForm(request.POST)
+        print('THRHRHRHRH {0}'.format(request.POST['estimate_address']))
+        print('THRHRHRHRH {0}'.format(request.POST['estimate_client']))
+
+        print('CREATEESTIMATE {0}'.format(self.form_list[0].fields['estimate_address']))
+        if validation_helper(self.form_list[0]):
+            estimate = create_estimate_helper(self.form_list[0])
+            return HttpResponseRedirect(reverse('Work:estimatedetails', kwargs={
+                'pk': estimate.id
+            }))
+        else:
+            return render(request, self.template_name, {'form': self.form_list[0]})
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class
+        context = {'estimate_address': None}
+        return render(request, self.template_name, {'form': form, 'context': context})
 
 
 def add_part(request, pk):
@@ -155,46 +146,84 @@ def add_part(request, pk):
         form_list[0] = EstimatePartsClientForm(request.POST)
         if validation_helper(form_list):
             estimate = add_part_helper(form_list[0], estimate)
-            # print('ADD_PART++> %s' % estimate.id, type(estimate))
-            print('ADD_PART form %s' % request.POST)
-            print('ADD_PART form %s' % request.body)
-            # print('ADDPART REQUEST %s ' % request.META['HTTP_HOST'], request.get_host())
+            return HttpResponseRedirect(reverse('Work:estimatedetails',
+                                                kwargs={'pk': estimate.id}))
+        else:
+            return render(request, template_name, dict_generator(form_list))
 
-            # print('RESPONSE %s' % 'test')
+    else:
+        print('ADD_PART CALLED!!')
+        form_list[0] = EstimatePartsClientForm(part_dict)
+        form_dict = {'form0': form_list[0], 'estimate': estimate}
+        return render(request, template_name, form_dict)
+
+
+class UpdatePartView(UpdateView):
+    form_class = EstimatePartsClientForm
+    template_name = 'work/addpart.html'
+    model = ClientEstimate
+    form_list = form_generator(1)
+
+    def get_context_data(self, **kwargs):
+        self.object = self.get_object(queryset=None)
+        context = super(UpdatePartView, self).get_context_data(**kwargs)
+        return context
+
+    def get_object(self, queryset=None):
+        object = super(UpdatePartView, self).get_object()
+        return object
+
+    def post(self, request, *args, **kwargs):
+        estimate = self.get_object()
+        self.form_list[0] = EstimatePartsClientForm(request.POST)
+        if validation_helper(self.form_list):
+            estimate = add_part_helper(self.form_list[0], estimate)
+            return HttpResponseRedirect(reverse('Work:estimatedetails',
+                                                kwargs={'pk': estimate.id}))
+
+    def get(self, request, pk, part_pk, **kwargs):
+        estimate = self.get_object()
+        estimate_parts = estimate.estimate_parts.filter(part_id=part_pk)[0]
+        est_parts_dict = {
+            'part_id': estimate_parts.part_id, 'quantity': estimate_parts.quantity,
+            'final_cost': estimate_parts.final_cost, 'cost': estimate_parts.cost,
+            'sub_total': estimate_parts.sub_total, 'profit': estimate_parts.profit,
+            'flat_total': estimate_parts.flat_total, 'total_labor': estimate_parts.total_labor,
+        }
+        form = EstimatePartsClientForm(est_parts_dict)
+        context = self.get_context_data()
+        context['estimate'] = estimate
+        part = estimate_parts.part_id
+        return render(request, self.template_name, {'form0': form, 'estimate': estimate, 'part': part})
+
+
+def update_part(request, pk, part_pk):
+    form_class = EstimatePartsClientForm
+    template_name = 'work/addpart.html'
+    form_list = form_generator(1)
+    estimate = ClientEstimate.objects.get(pk=pk)
+    estimate_parts = estimate.estimate_parts.filter(part_id=part_pk)[0]
+    est_parts_dict = {
+        'part_id': estimate_parts.part_id, 'quantity': estimate_parts.quantity,
+        'final_cost': estimate_parts.final_cost, 'cost': estimate_parts.cost,
+        'sub_total': estimate_parts.sub_total, 'profit': estimate_parts.profit,
+        'flat_total': estimate_parts.flat_total, 'total_labor': estimate_parts.total_labor,
+    }
+
+    if request.method == 'POST':
+        form_list[0] = EstimatePartsClientForm(request.POST)
+        if validation_helper(form_list):
+            estimate = add_part_helper(form_list[0], estimate)
             return HttpResponseRedirect('Work:estimatedetails',
                                         kwargs={'pk': estimate.id})
         else:
             return render(request, template_name, dict_generator(form_list))
 
     else:
-        form_list[0] = EstimatePartsClientForm(part_dict)
-        form_dict = {'form0': form_list[0], 'estimate': estimate}
+        form_list[0] = EstimatePartsClientForm(est_parts_dict)
+        part = estimate_parts.part_id
+        form_dict = {'form0': form_list[0], 'estimate': estimate, 'part': part}
         return render(request, template_name, form_dict)
-
-
-class CreateEstimateStep2(UpdateView):
-    form_class = EstimatePartsClientForm
-    model = ClientEstimate
-    template_name = 'work/createestimate_pt2.html'
-    success_url = reverse_lazy('Work:estimatedetails')
-    template_name = 'work/createestimate_pt2.html'
-    success_url = reverse_lazy('Work:estimatedetails')
-    #context_object_name = 'estimate'
-    #
-    # def get(self, request, *args, **kwargs):
-    #     def get_context_data(self, **kwargs):
-    #         context = super(CreateEstimateStep2, self).get_context_data()
-    #         return context
-    #     context = get_context_data()
-    #     print('CreateEstimateStep2 get CALLED %s' % context)
-    #     return render(request, self.template_name, context)
-
-    def form_valid(self, form):
-        return super(CreateEstimateStep2, self).form_valid(form)
-
-    def form_invalid(self, form):
-        validation_helper(form_list=form)
-        return super(CreateEstimateStep2, self).form_invalid(form)
 
 
 class CreateSalesEstimateView(CreateView):
@@ -222,56 +251,135 @@ class CreateSalesEstimateStep2(UpdateView):
     def form_valid(self, form):
         return super(CreateSalesEstimateStep2, self).form_valid(form)
 
+
 #endregion
 
 #region Update Views
 
 
-class UpdateEstimateView(UpdateView, SingleObjectMixin):
+class UpdateEstimateView(UpdateView):
     """
     Updates an Estimate object by allowing custom pricing.
     """
     form_class = UpdateClientEstimateForm
     template_name = 'work/createestimate.html'
     model = ClientEstimate
+    form_list = form_generator(1)
 
-    def form_valid(self, form):
-        obj = self.get_object(queryset=None)
-        estimate = update_estimate_helper(form, obj)
-        success_url = reverse_lazy(estimate.get_absolute_url())
-        return super(UpdateEstimateView, self).form_valid(form)
+    def post(self, request, *args, **kwargs):
+        self.form_list[0] = UpdateClientEstimateForm(request.POST)
+        if validation_helper(self.form_list[0]):
+            estimate = self.get_object(queryset=None)
+            estimate = update_estimate_helper(self.form_list[0], estimate)
+            return HttpResponseRedirect(reverse('Work:estimatedetails',
+                                                kwargs={'pk': estimate.id}))
+        else:
+            self.form_list[0] = UpdateClientEstimateForm()
+            return render(request, self.template_name, {'form': self.form_list[0]})
 
-    def form_invalid(self, form):
-        validation_helper(form_list=form)
-        obj = self.get_object(queryset=None)
-        print('UpdateEstimateView form_invalid %s ' % obj)
-        return super(UpdateEstimateView, self).form_invalid(form)
+    def get(self, request, *args, **kwargs):
+        obj = ClientEstimate.objects.get(pk=self.kwargs['pk'])
+        est_dict = {
+            'job_name': obj.job_name, 'margin': obj.margin, 'listed_price': obj.listed_price,
+            'custom_sales_commission': obj.custom_sales_commission
+        }
+        self.form_list[0] = UpdateClientEstimateForm(est_dict)
+        return render(request, self.template_name, {'form': self.form_list[0]})
 
 
-#endregion
+        #endregion
 
-#region OLDCODE
+        #region OLDCODE
 
-# def addpart(request, pk):
-#     form_list = form_generator(1)
-#     template_name = 'work/addpart.html'
-#     model = Estimate_Parts_Client
-#     client = ClientEstimate.objects.get(pk=pk)
-#     est_dict = {
-#         'estimate_id': client
-#     }
-#
-#     estimate = ClientEstimate.objects.get(pk=pk)
-#     form_list[0] = EstimatePartsClientForm(request.POST)
-#     if request.method == 'POST':
-#         if validation_helper(form_list):
-#             form_list[0].save()
-#             return HttpResponseRedirect(reverse_lazy(estimate.get_absolute_url()))
-#         else:
-#             form_list[0] = EstimatePartsClientForm(est_dict)
-#             return render(request, template_name, dict_generator(form_list))
-#     else:
-#         form_list[0] = EstimatePartsClientForm(est_dict)
-#         return render(request, template_name, dict_generator(form_list))
+        # def addpart(request, pk):
+        #     form_list = form_generator(1)
+        #     template_name = 'work/addpart.html'
+        #     model = Estimate_Parts_Client
+        #     client = ClientEstimate.objects.get(pk=pk)
+        #     est_dict = {
+        #         'estimate_id': client
+        #     }
+        #
+        #     estimate = ClientEstimate.objects.get(pk=pk)
+        #     form_list[0] = EstimatePartsClientForm(request.POST)
+        #     if request.method == 'POST':
+        #         if validation_helper(form_list):
+        #             form_list[0].save()
+        #             return HttpResponseRedirect(reverse_lazy(estimate.get_absolute_url()))
+        #         else:
+        #             form_list[0] = EstimatePartsClientForm(est_dict)
+        #             return render(request, template_name, dict_generator(form_list))
+        #     else:
+        #         form_list[0] = EstimatePartsClientForm(est_dict)
+        #         return render(request, template_name, dict_generator(form_list))
 
-#endregion
+        #endregion
+        # def form_valid(self, form):
+        #     obj = self.get_object(queryset=None)
+        #     # estimate = update_estimate_helper(form, obj)
+        #     success_url = reverse_lazy(obj.get_absolute_url())
+        #     return super(UpdateEstimateView, self).form_valid(form)
+        #
+        # def form_invalid(self, form):
+        #     validation_helper(form_list=form)
+        #     obj = self.get_object(queryset=None)
+        #     print('UpdateEstimateView form_invalid %s ' % obj)
+        #     return super(UpdateEstimateView, self).form_invalid(form)
+
+        # def get_object(self, queryset=None):
+        #     object = super(UpdateClientEstimateForm, self).get_object()
+        #     return object
+        # class CreateEstimateStep2(UpdateView):
+        # form_class = EstimatePartsClientForm
+        # model = ClientEstimate
+        # template_name = 'work/createestimate_pt2.html'
+        # success_url = reverse_lazy('Work:estimatedetails')
+        # template_name = 'work/createestimate_pt2.html'
+        # success_url = reverse_lazy('Work:estimatedetails')
+        # #context_object_name = 'estimate'
+        # #
+        # # def get(self, request, *args, **kwargs):
+        # #     def get_context_data(self, **kwargs):
+        # #         context = super(CreateEstimateStep2, self).get_context_data()
+        # #         return context
+        # #     context = get_context_data()
+        # #     print('CreateEstimateStep2 get CALLED %s' % context)
+        # #     return render(request, self.template_name, context)
+        #
+        # def form_valid(self, form):
+        #     return super(CreateEstimateStep2, self).form_valid(form)
+        #
+        # def form_invalid(self, form):
+        #     validation_helper(form_list=form)
+        #     return super(CreateEstimateStep2, self).form_invalid(form)
+"""
+
+
+
+==================
+def update_estimate(request, pk):
+    # DNU
+    template_name = 'work/createestimate.html'
+    form_list = form_generator(1)
+    obj = ClientEstimate.objects.get(pk=pk)
+    est_dict = {
+        'job_name': obj.job_name, 'margin': obj.margin, 'listed_price': obj.listed_price,
+        'custom_sales_commission': obj.custom_sales_commission
+    }
+
+    if request.method == 'POST':
+        form_list[0] = UpdateClientEstimateForm(request.POST)
+        if validation_helper(form_list):
+            obj = update_estimate_helper(form_list[0], obj)
+            print('\n\tWork:update_estimate {0}\t{1}'.format(obj, obj.id))
+            return HttpResponseRedirect(reverse('Work:estimatedetails',
+                                                kwargs={'pk': obj.id}))
+        else:
+            form_list[0] = UpdateClientEstimateForm()
+            return render(request, template_name, {'form': form_list[0]})
+    else:
+
+        form_list[0] = UpdateClientEstimateForm(est_dict)
+        return render(request, template_name, {'form': form_list[0]})
+
+"""

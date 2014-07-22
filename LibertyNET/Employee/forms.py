@@ -1,12 +1,14 @@
 from django import forms
 from models import Employee, Title
 from django.utils.translation import gettext as _
-from bootstrap_toolkit.widgets import BootstrapDateInput
+from Common.helpermethods import date_picker_helper
 
 #region Variables
 employee_labels = {
     'emp_number': _('Employee Number'),
 }
+
+date_picker_css = date_picker_helper()
 
 #region EmployeeForms
 
@@ -16,11 +18,11 @@ class EmployeeForm(forms.ModelForm):
         model = Employee
         exclude = ['emp_address', 'emp_contact']
         widgets = {
-            'hire_date':  forms.DateInput(attrs={
-                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
-            'termination_date':  forms.DateInput(attrs={
-                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
-            'termination_reason': forms.Textarea(attrs={'cols': 160, 'rows': 10})
+            'hire_date':  forms.DateInput(attrs=date_picker_css),
+            'termination_date':  forms.DateInput(attrs=date_picker_css),
+            'termination_reason': forms.Textarea(attrs={'cols': 160, 'rows': 10}),
+            'is_terminated': forms.CheckboxInput(attrs={'class': "iButton-icons"}),
+            'pay_type': forms.Select(attrs={'class': 'form-control'}),
         }
         labels = {
             'is_terminated': _('Terminate Employee'),
@@ -36,8 +38,8 @@ class AddEmployeeForm(forms.ModelForm):
             'emp_number': _('Employee Number'),
         }
         widgets = {
-            'hire_date':  forms.DateInput(attrs={
-                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'hire_date':  forms.DateInput(attrs=date_picker_css),
+            'pay_type': forms.Select(attrs={'class': 'form-control'}),
         }
 
 #endregion

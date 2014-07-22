@@ -63,7 +63,7 @@
               <div class="action-nav-normal">
                   <div class="row action-nav-row">
                       <div class="col-sm-6 action-nav-button">
-                          <a href="#" title="Add Part">
+                          <a href="{% url 'Work:add_part' estimate.id %}" title="Add Part">
                           <i class="icon-check"></i>
                           <span>Add Part</span>
                               <span class="triangle-button blue">
@@ -72,9 +72,9 @@
                           </a>
                       </div>
                       <div class="col-sm-6 action-nav-button">
-                          <a href="#" title="Update Details">
+                          <a href="{{ estimate.update_estimate }}" title="Update Price">
                           <i class="icon-check"></i>
-                          <span>Update Details</span>
+                          <span>Update Price</span>
                               <span class="triangle-button blue">
                                   <i class="icon-plus"></i>
                               </span>
@@ -103,7 +103,6 @@
                   </div>
               </div>
           </div>
-          {% comment %}
           <div class="col-md-9">
             <div class="box">
                 <div class="box-header">
@@ -135,18 +134,24 @@
                   </div>
                   <div class="row" style="margin-top:30px">
                       <div class="col-md-6">
-                          <div class="dashboard-stats small">
-                              <ul>
-                                  <li class="count">8080</li>
-                              </ul>
+                          <!--<div class="dashboard-stats small">-->
+                              <!--<ul>-->
+                                  <!--<li class="count">8080</li>-->
+                              <!--</ul>-->
+                          <!--</div>-->
+                          <div class="box content padded">
+                          <div class="sine-chart" id="sineChart" style="height: 300">
+
+                          </div>
                           </div>
                       </div>
                   </div>
                 </div>
             </div>
           </div>
-        {% endcomment %}
       </div> <!-- row -->
+      </div>
+      <div class="container padded">
       <div class="row">
           <div class="col-md-5">
               <div class="box">
@@ -195,7 +200,7 @@
                                     <strong>Margin</strong>
                                 </td>
                                 <td>
-                                    {{ estimate.margin|to_percent }}
+                                    {{ estimate.margin|to_percent }}<span>%</span>
                                 </td>
                             </tr>
                             <tr>
@@ -294,7 +299,7 @@
                         </li>
                     <strong>Margin</strong>
                         <li>
-                            {{ estimate.margin }}
+                            {{ estimate.margin|to_percent }}
                         </li>
                     <strong>Margin Guidelines</strong>
                         <li>

@@ -11,6 +11,7 @@ class EstimateEngine:
     def __init__(self, estimate):
         if type(estimate) is ClientEstimate:
             self.estimate = ClientEstimate.objects.get(pk=estimate.id)
+            print('EstimateEngine %s' % type(self.estimate), self.estimate.id)
         else:
             self.estimate = SalesEstimate.objects.get(pk=estimate.id)
 
@@ -22,7 +23,6 @@ class EstimateEngine:
         cost_dict = self.estimate.estimate_parts.all(). \
             aggregate(Sum('cost'), Sum('final_cost'), Sum('sub_total'), Sum('profit'),
                       Sum('flat_total'), Sum('total_labor'))
-        print('EstimateEngine get_aggregate_parts % s' % cost_dict)
         return cost_dict
 
     def set_estimate_totals(self):
@@ -46,9 +46,10 @@ class EstimateEngine:
         estimate.save(update_fields=['total_cost', 'cost', 'total_price', 'total_profit', 'total_flat_rate',
                                      'listed_price', 'listed_profit', 'sales_commission', 'labor',
                                      'custom_sales_commission'])
-        print('EstimateEngine set_estimate_totals() = After save(update): "pk" {2} \nlisted_profit {0}, '
-              '\ncustom_commission {1}'
-              .format(estimate.listed_profit, estimate.custom_sales_commission, estimate.id))
+        # print('\nEstimateEngine set_estimate_totals() = After save(update): "pk" {2} \nlisted_profit {0}, '
+        #       '\ncustom_commission {1}\ntotal cost {3}, \ncost {4}'
+        #       .format(estimate.listed_profit, estimate.custom_sales_commission, estimate.id,
+        #               estimate.total_cost, estimate.cost))
         return estimate
 
     def new_part_checker(self, part):

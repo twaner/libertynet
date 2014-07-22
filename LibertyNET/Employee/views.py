@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from models import Employee, Title
 from forms import AddEmployeeForm, EmployeeForm
@@ -9,14 +10,25 @@ from Common.helpermethods import create_address_helper, create_employee_contact_
     validation_helper, dict_generator, update_address_helper, update_contact_employee_helper
 from Common.forms import AddressForm, EmployeeContactForm
 from Common.models import Address, Contact
+from Client.models import ClientCallLog, SalesProspectCallLog
 
 #region ListViews
 
 
 class EmployeeListView(ListView):
     model = Employee
-    context_object_name = 'all_employees_list'
+    context_object_name = 'all_employees'
     template_name = 'employee/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeListView, self).get_context_data(**kwargs)
+        sorted_list = sorted(context['object_list'], key=lambda employee: employee.hire_date)
+        if len(sorted_list) <= 5:
+            q = len(sorted_list)
+        else:
+            q = len(sorted_list) - 4
+        context['most_recent'] = sorted_list[q:]
+        return context
 
 
 class EmployeeDetailView(DetailView):
@@ -32,6 +44,18 @@ class EmployeeDetailView(DetailView):
         context['address_detail'] = Address.objects.get(pk=employee.emp_address_id)
         context['contact_detail'] = Contact.objects.get(pk=employee.emp_contact_id)
         context['title_detail'] = employee.emp_title.all()
+        try:
+            client_calls = ClientCallLog.objects.filter(caller=employee.employee_id).\
+                    order_by('-call_date', '-call_time')
+            sales_calls = SalesProspectCallLog.objects.filter(caller=employee.employee_id).\
+                    order_by('-call_date', '-call_time')
+            context['client_calls'] = client_calls
+            context['sales_calls'] = sales_calls
+            context['client_calls_follow'] = client_calls.filter(follow_up=True)
+            context['sales_calls_follow'] = sales_calls.filter(follow_up=True)
+        except ObjectDoesNotExist:
+            pass
+
         return context
 
 #endregion
@@ -101,7 +125,8 @@ def editemployee(request, pk):
         form_list[0] = EmployeeForm(employee_dict)
         form_list[1] = AddressForm(address_dict)
         form_list[2] = EmployeeContactForm(contact_dict)
-    form_dict = dict_generator(form_list)
+        form_dict = dict_generator(form_list)
+        form_dict['employee'] = employee
     return render(request, 'employee/editemployee.html', form_dict)
 
 

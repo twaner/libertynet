@@ -2,24 +2,29 @@ from django.conf.urls import patterns, url, include
 from dajaxice.core import dajaxice_autodiscover, dajaxice_config
 dajaxice_autodiscover()
 from Work.views import CreateEstimateView, ClientEstimateIndex, CreateSalesEstimateView, SalesEstimateIndex, \
-    ClientEstimateDetails, SalesEstimateDetails, CreateEstimateStep2, UpdatePartView, add_part, UpdateEstimateView
+    ClientEstimateDetails, SalesEstimateDetails, UpdatePartView, UpdateEstimateView, \
+    update_part, add_part
+#CreateEstimateStep2, , update_estimate
 
 
 urlpatterns = patterns('',
                        url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
                        # Static Views
                        url(r'^clientestimateindex/$', ClientEstimateIndex.as_view(), name='clientestimateindex'),
-                       url(r'^estimatedetails/(?P<pk>[\d-]+)/$', ClientEstimateDetails.as_view(), name='estimatedetails'),
+                       url(r'^estimatedetails/(?P<pk>[\d-]+)/$', ClientEstimateDetails.as_view(),
+                           name='estimatedetails'),
                        # Create Views
                        url(r'^createestimate', CreateEstimateView.as_view(), name='createestimate'),
-                       url(r'^estimate_pt2/(?P<pk>[\d-]+)/$', CreateEstimateStep2.as_view(),
-                           name='estimate_pt2'),
+                       # url(r'^estimate_pt2/(?P<pk>[\d-]+)/$', CreateEstimateStep2.as_view(),
+                       #     name='estimate_pt2'),
                        url(r'^updatepart/(?P<pk>[\d-]+)/(?P<part_pk>[\d-]+)/$', UpdatePartView.as_view(), name='updatepart'),
+                       # url(r'^updatepart/(?P<pk>[\d-]+)/(?P<part_pk>[\d-]+)/$', update_part, name='updatepart'),
                        # url(r'^addpart/(?P<pk>[\d-]+)/$', addpart,
                        #     name='addpart'),
                        url(r'^add_part/(?P<pk>[\d-]+)/$', add_part,
                            name='add_part'),
                        # Update Views
+                       # url(r'^updateestimate/(?P<pk>[\d-]+)/$', update_estimate, name='updateestimate'),
                        url(r'^updateestimate/(?P<pk>[\d-]+)/$', UpdateEstimateView.as_view(), name='updateestimate'),
 
                        ## Sales ##

@@ -32,6 +32,27 @@
       </div>
     </div>
 </div> <!-- container padded -->
+<script>
+    $(document).ready(function(){
+       $('#id_estimate_address').empty();
+    });
+//    $(document).ready(function(){
+//       $('#id_estimate_client').change(function(){
+//          alert($('#id_estimate_address').value);
+//          alert('estimate client changed');
+//       });
+//    });
+    function buttonfunc(){
+        var tmp = ($('#id_estimate_address'));
+        alert(tmp.val());
+        $('#id_estimate_address') = tmp.val();
+        $("#id_estimate_address option[value='tmp']").attr("selected", true);
+        alert($("#id_estimate_address").selected==true);
+        alert($("#id_estimate_address").selected);
+    }
+
+//        $("#routetype option[value='quietest']").attr("selected", "selected");
+</script>
 {% endblock form_breadcrumb %}
 {% block form_content %}
     {% for i in form %}
@@ -41,6 +62,13 @@
                 {{ i }}
                 <span>Characters Remaining: </span>
                 <span id="remaining_span">{{ i.field.max_length }}</span>
+                {% elif i.name == 'estimate_client' %}
+                {{ i }}
+                <!--<select id="id_estimate_address" name="estimate_address"-->
+                        <!--class="form-control">-->
+                    <!--<option>Select an Address</option>-->
+                <!--</select>-->
+            <button title="Click me" onclick="buttonfunc()"/>
             {% else %}
                 {{ i }}
             {% endif %}

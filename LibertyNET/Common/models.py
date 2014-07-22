@@ -257,6 +257,12 @@ class Person(models.Model):
     class Meta:
         abstract = True
 
+    def get_full_name(self):
+        if self.middle_initial != '':
+            return u'%s %s %s' % (self.first_name, self.middle_initial, self.last_name)
+        else:
+            return u'%s %s' % (self.first_name, self.last_name)
+
 
 class Business(Person):
     """
