@@ -1,0 +1,12 @@
+<address>
+  {{ address_detail.street }}
+  <br />
+  {% if address_detail.unit|length  != 0 %}
+      {{ address_detail.unit }}
+  <br/>
+  {% endif %}
+  {{ address_detail.city }},
+  {{ address_detail.state }}
+  <br />
+  {{ address_detail.zip_code }}
+</address>

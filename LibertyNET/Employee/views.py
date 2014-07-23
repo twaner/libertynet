@@ -12,7 +12,7 @@ from Common.forms import AddressForm, EmployeeContactForm
 from Common.models import Address, Contact
 from Client.models import ClientCallLog, SalesProspectCallLog
 
-#region ListViews
+# region ListViews
 
 
 class EmployeeListView(ListView):
@@ -22,12 +22,14 @@ class EmployeeListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(EmployeeListView, self).get_context_data(**kwargs)
-        sorted_list = sorted(context['object_list'], key=lambda employee: employee.hire_date)
+        context['active'] = Employee.objects.filter(is_terminated=False)
+        sorted_list = sorted(context['active'], key=lambda employee: employee.hire_date)
         if len(sorted_list) <= 5:
             q = len(sorted_list)
         else:
             q = len(sorted_list) - 4
         context['most_recent'] = sorted_list[q:]
+        context['terminated'] = Employee.objects.filter(is_terminated=True)
         return context
 
 
@@ -45,10 +47,10 @@ class EmployeeDetailView(DetailView):
         context['contact_detail'] = Contact.objects.get(pk=employee.emp_contact_id)
         context['title_detail'] = employee.emp_title.all()
         try:
-            client_calls = ClientCallLog.objects.filter(caller=employee.employee_id).\
-                    order_by('-call_date', '-call_time')
-            sales_calls = SalesProspectCallLog.objects.filter(caller=employee.employee_id).\
-                    order_by('-call_date', '-call_time')
+            client_calls = ClientCallLog.objects.filter(caller=employee.employee_id). \
+                order_by('-call_date', '-call_time')
+            sales_calls = SalesProspectCallLog.objects.filter(caller=employee.employee_id). \
+                order_by('-call_date', '-call_time')
             context['client_calls'] = client_calls
             context['sales_calls'] = sales_calls
             context['client_calls_follow'] = client_calls.filter(follow_up=True)
@@ -58,9 +60,10 @@ class EmployeeDetailView(DetailView):
 
         return context
 
-#endregion
 
-#region Employee Views
+# endregion
+
+# region Employee Views
 
 
 def addemployee(request):
@@ -130,4 +133,4 @@ def editemployee(request, pk):
     return render(request, 'employee/editemployee.html', form_dict)
 
 
-        #endregion
+    #endregion

@@ -48,8 +48,9 @@
         </div>
       </div> <!-- container padded -->
     {% endblock form_breadcrumb %}
-        {% include 'employee/__employee_index_table.html' with collapse_number="collapseOne" title="All Employee" title1="Employee List" context=all_employees in="in"%}
+        {% include 'employee/__employee_index_table.html' with collapse_number="collapseOne" title="Active Employee" title1="Employee List" context=active in="in"%}
         {% include 'employee/__employee_index_table.html' with collapse_number="collapseTwo" title="New Employee" title1="New Employee List" context=most_recent in=""%}
+        {% include 'employee/__employee_index_table.html' with collapse_number="collapseThree" title="Terminated Employee" title1="Terminated Employee List" context=terminated in=""%}
 
 {% endblock base_content %}
 

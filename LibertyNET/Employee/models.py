@@ -103,6 +103,8 @@ class Title(models.Model):
         """
         return self.get_title_display()
 
+    def get_title_name(self):
+        return self.get_title_display()
 
 #endregion
 
@@ -186,5 +188,18 @@ class Employee(Person):
         @return: Titles for Employee
         """
         return self.emp_title.all()
+
+    @property
+    def get_employee_status(self):
+        if not self.is_terminated:
+            status = "Active"
+        else:
+            status = "Terminated"
+        return status
+
+    @property
+    def get_pay_type(self):
+        return self.get_pay_type_display()
+
 
 #endregion

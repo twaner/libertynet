@@ -18,6 +18,7 @@
   </div> <!-- box-header -->
   <div class="box-content scrollable" style="height: 360px; overflow-y: auto">
       <div class="box-content padded" >
+          <h5>Client Information</h5>
           <strong>Client Number</strong>
               <li>
                   {{ client_detail.client_number }}
@@ -34,44 +35,16 @@
                   {{ client_detail.business_name }}
               </li>
           {% endif %}
-          <strong>Client Address</strong>
-              <address>
-                  {{ address_detail.street }}
-                  <br />
-                  {% if address_detail.unit|length  != 0 %}
-                      {{ address_detail.unit }}
-                  <br/>
-                  {% endif %}
-                  {{ address_detail.city }},
-                  {{ address_detail.state }}
-                  <br />
-                  {{ address_detail.zip_code }}
-              </address>
-          <strong>Contact Information</strong>
-              {% if contact_detail.phone %}
-              <li>
-                  <abbr title="phone">[h]</abbr> {{ contact_detail.phone_extension_helper }}
-              </li>
-              {% endif %}
-              {% if contact_detail.office_phone %}
-              <li>
-                  <abbr title="phone">[o]</abbr> {{ contact_detail.office_phone_extension_helper }}
-              </li>
-              {% endif %}
-              {% if contact_detail.cell %}
-              <li>
-                  <abbr title="phone">[m]</abbr> {{ contact_detail.cell_helper }}
-              </li>
-              {% endif %}
-              <li>
-                  [e] <a href="mailto:#">{{ contact_detail.email }}</a>
-              </li>
           <strong>Client Since</strong>
               <li>
                   {{ client_detail.client_date|naturalday }}
               </li>
           <strong>Time as Client</strong>
                   {{ client_detail.client_date|date:"d M Y"|naturalday }}
+          <h5>Address</h5>
+            {% include 'common/__address_info.html' with address_detail=address_detail %}
+          <h5>Contact Information</h5>
+            {% include 'common/__contact_info.html' with contact_detail=contact_detail %}
       </div>
   </div> <!-- box-content scrollable -->
 </div>

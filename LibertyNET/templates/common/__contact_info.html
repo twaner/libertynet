@@ -1,0 +1,15 @@
+  {% if contact_detail.phone %}
+    <address>
+      <abbr title="home">[h]</abbr> {{ contact_detail.phone_extension_helper }}
+  {% endif %}
+  {% if contact_detail.office_phone %}
+    <address>
+      <abbr title="office">[o]</abbr> {{ contact_detail.office_phone_extension_helper }}
+  {% endif %}
+  {% if contact_detail.cell %}
+    <address>
+      <abbr title="mobile">[m]</abbr> {{ contact_detail.cell_helper }}
+  {% endif %}
+    <address>
+      <abbr title="email">[e]</abbr><a href="mailto:#">{{ contact_detail.email }}</a>
+    </address>

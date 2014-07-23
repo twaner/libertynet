@@ -5,76 +5,88 @@
         Employee Information
     </span>
     <ul class="box-toolbar">
-        <li>
+        <dd>
           <div class="btn-group">
             <button class="btn btn-xs btn-default dropdown-toggle"
                     data-toggle="dropdown"><i class="fa fa-cog"></i></button>
             <ul class="dropdown-menu">
-              <li><a href="{{ employee_detail.get_absolute_url_edit }}">Edit Employee Details</a></li>
+              <dd><a href="{{ employee_detail.get_absolute_url_edit }}">Edit Employee Details</a></dd>
             </ul>
           </div>
-        </li>
+        </dd>
     </ul>
   </div> <!-- box-header -->
   <div class="box-content scrollable" style="height: 360px; overflow-y: auto">
       <div class="box-content padded" >
-          <strong>Employee Number</strong>
-              <li>
-                  {{ employee_detail.emp_number }}
-              </li>
-          <strong>Employee Name</strong>
-              <li>
-                  {{ employee_detail.get_full_name }}
-              </li>
-              <strong>
-                  Employee Titles -- Use template tag to handle plural
-              </strong>
-              <li>
-                  {% for q in title_detail %}
-                    {{ q }}
-                  {% endfor %}
-              </li>
-
-          <strong>Employee Address</strong>
-              <address>
-                  {{ address_detail.street }}
-                  <br />
-                  {% if address_detail.unit|length  != 0 %}
-                      {{ address_detail.unit }}
-                  <br/>
-                  {% endif %}
-                  {{ address_detail.city }},
-                  {{ address_detail.state }}
-                  <br />
-                  {{ address_detail.zip_code }}
-              </address>
-          <strong>Contact Information</strong>
-              {% if contact_detail.phone %}
-              <li>
-                  <abbr title="phone">[h]</abbr> {{ contact_detail.phone_extension_helper }}
-              </li>
-              {% endif %}
-              {% if contact_detail.office_phone %}
-              <li>
-                  <abbr title="phone">[o]</abbr> {{ contact_detail.office_phone_extension_helper }}
-              </li>
-              {% endif %}
-              {% if contact_detail.cell %}
-              <li>
-                  <abbr title="phone">[m]</abbr> {{ contact_detail.cell_helper }}
-              </li>
-              {% endif %}
-              <li>
-                  [e] <a href="mailto:#">{{ contact_detail.email }}</a>
-              </li>
-          <strong>Employee Since</strong>
-              <li>
+          <h5>Employee Information</h5>
+          <dl>
+              <dt>Employee Name</dt>
+                  <dd>
+                      {{ employee_detail.get_full_name }}
+                  </dd>
+              <dt>Employee Number</dt>
+                  <dd>
+                      {{ employee_detail.emp_number }}
+                  </dd>
+              <dt>Employee Status</dt>
+                  <dd>
+                      {% if employee_detail.is_terminated %}
+                        <p class="text-warning">
+                         {{ employee_detail.get_employee_status }}
+                        </p>
+                      {% else %}
+                        <p class="text-success">
+                         {{ employee_detail.get_employee_status }}
+                        </p>
+                      {% endif %}
+                  </dd>
+                  <dt>
+                      Employee Title{{ title_detail|pluralize }}
+                  </dt>
+                  <dd>
+                      {% for q in title_detail %}
+                        {{ q }}
+                      {% endfor %}
+                  </dd>
+    
+              <h5>Employment Information</h5>
+                {% if employee_detail.is_terminated %}
+                    <dt>Termination Date</dt>
+                        <dd>
+                            {{ employee_detail.termination_date }}
+                        </dd>
+                    <dt>Termination Reason</dt>
+                        <dd>
+                            {{ employee_detail.termination_reason }}
+                        </dd>
+                {% endif %}
+              <dt>Employee Since</dt>
+                <dd>
                   {{ employee_detail.hire_date|naturalday }}
-              </li>
-          <strong>Time as Employee</strong>
-                  {{ employee_detail.hire_date|date:"d M Y"|naturalday }}
-
-          <p>Salary INFO -- View model for more details</p>
+                </dd>
+              <dt>Time as Employee</dt>
+                <dd>
+                  NOW: {% now "m d Y " %}
+                  {{ employee_detail.hire_date|date:"m d Y"}} -- TODO - get as time span
+                </dd>
+              <dt>Employee Since</dt>
+                <dd>
+                  {{ employee_detail.hire_date|naturalday }}
+                </dd>
+              <h5>Salary Info</h5>
+                  <dt>Pay Type</dt>
+                <dd>
+                  {{ employee_detail.get_pay_type }}
+                <dd/>
+                  <dt>Pay Rate</dt>
+                <dd>
+                  ${{ employee_detail.pay_rate }}
+                <dd/>
+          </dl>
+          <h5>Employee Address</h5>
+            {% include 'common/__address_info.html' with address_detail=address_detail %}
+          <h5>Contact Information</h5>
+            {% include 'common/__contact_info.html' with contact_detail=contact_detail %}
       </div>
   </div> <!-- box-content scrollable -->
 </div> <!-- box -->
