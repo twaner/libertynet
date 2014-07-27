@@ -84,7 +84,7 @@ class WorkTests(TestCase):
 
         e = EmployeeFactory(employee_id=9887)#(first_name='John')
         e2 = EmployeeFactory(employee_id=3445)
-        c = ClientFactory(id=8877)
+        c = ClientFactory(client_id=8877)
         print('setup completed...')
 
     def test_job(self):

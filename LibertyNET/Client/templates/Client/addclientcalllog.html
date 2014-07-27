@@ -44,7 +44,7 @@
     {% for i in form0 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
-            {% if i.name == "id" or i.name == "caller" %}
+            {% if i.name == "client_id" or i.name == "caller" %}
                 {{ i|addcss:"form-control" }}
                 {% elif i.name = 'notes' %}
                     {{ i }}

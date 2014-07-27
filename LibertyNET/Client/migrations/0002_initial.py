@@ -13,7 +13,7 @@ class Migration(SchemaMigration):
             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('middle_initial', self.gf('django.db.models.fields.CharField')(max_length=2, null=True, blank=True)),
             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('client_id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('client_number', self.gf('django.db.models.fields.IntegerField')(max_length=10)),
             ('business_name', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, blank=True)),
             ('is_business', self.gf('django.db.models.fields.BooleanField')(default=False)),
@@ -54,7 +54,7 @@ class Migration(SchemaMigration):
             ('next_contact', self.gf('django.db.models.fields.DateField')()),
             ('follow_up', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['Client.Client'])),
+            ('client_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['Client.Client'])),
         ))
         db.send_create_signal(u'Client', ['ClientCallLog'])
 
@@ -95,7 +95,7 @@ class Migration(SchemaMigration):
             'client_billing': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Common.Billing']", 'null': 'True', 'blank': 'True'}),
             'client_contact': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Common.Contact']"}),
             'client_date': ('django.db.models.fields.DateField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'client_id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'client_number': ('django.db.models.fields.IntegerField', [], {'max_length': '10'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'is_business': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -107,7 +107,7 @@ class Migration(SchemaMigration):
             'call_date': ('django.db.models.fields.DateField', [], {}),
             'call_time': ('django.db.models.fields.TimeField', [], {}),
             'caller': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Employee.Employee']", 'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Client.Client']"}),
+            'client_id': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Client.Client']"}),
             'follow_up': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'next_contact': ('django.db.models.fields.DateField', [], {}),

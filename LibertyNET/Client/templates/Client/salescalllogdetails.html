@@ -17,7 +17,7 @@
     </a>
         {% comment %}
         {% if client_detail or business_client %}
-            <a href="{% url 'site_info:details' client_detail.id %}">
+            <a href="{% url 'site_info:details' client_detail.client_id %}">
          Client Site Information
             </a>
         {% endif %}

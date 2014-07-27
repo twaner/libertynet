@@ -204,8 +204,8 @@ def create_calllog_helper(form, obj):
     follow_up = form.cleaned_data['follow_up']
 
     if isinstance(obj, Client):
-        id = obj
-        calllog = ClientCallLog.objects.create_client_calllog(id=id, caller=caller, call_date=call_date,
+        client_id = obj
+        calllog = ClientCallLog.objects.create_client_calllog(client_id=client_id, caller=caller, call_date=call_date,
                                                               call_time=call_time, purpose=purpose, notes=notes,
                                                               next_contact=next_contact, follow_up=follow_up)
         return calllog
@@ -224,7 +224,7 @@ def create_client_calllog_helper(form):
     @param form: validated form.
     @return: CallLog.
     """
-    id = form.cleaned_data['id']
+    client_id = form.cleaned_data['client_id']
     tmp_emp = form.cleaned_data['caller']
     caller = Employee.objects.get(pk=tmp_emp.employee_id)
     call_date = form.cleaned_data['call_date']
@@ -234,7 +234,7 @@ def create_client_calllog_helper(form):
     next_contact = form.cleaned_data['next_contact']
     follow_up = form.cleaned_data['follow_up']
 
-    calllog = ClientCallLog.objects.create_client_calllog(id=id, caller=caller, call_date=call_date,
+    calllog = ClientCallLog.objects.create_client_calllog(client_id=client_id, caller=caller, call_date=call_date,
                                                           call_time=call_time, purpose=purpose, notes=notes,
                                                           next_contact=next_contact, follow_up=follow_up)
     return calllog
@@ -247,7 +247,7 @@ def update_call_log_helper(form, calllog):
     @param calllog: CallLog object.
     @return: CallLog.
     """
-    calllog.id = form.cleaned_data['id']
+    calllog.client_id = form.cleaned_data['client_id']
     calllog.caller = form.cleaned_data['caller']
     calllog.call_date = form.cleaned_data['call_date']
     calllog.call_time = form.cleaned_data['call_time']
@@ -266,7 +266,7 @@ def update_call_log_helper(form, calllog):
                     new_notes[old_notes_len:-1]
     else:
         calllog.notes = new_notes
-    calllog.save(update_fields=['id', 'caller', 'call_date',
+    calllog.save(update_fields=['client_id', 'caller', 'call_date',
                                 'call_time', 'purpose', 'follow_up',
                                 'next_contact', 'notes'])
     return calllog

@@ -58,7 +58,7 @@ class ClientViewTest(TestCase):
     def test_client_call_detail_view(self):
         cl = Client.objects.get(first_name='Stephen')
         calllog = ClientCallLog.objects.get(client_id=cl)
-        url = reverse('Client:clientcalllogdetails', kwargs={'pk': cl.id})
+        url = reverse('Client:clientcalllogdetails', kwargs={'pk': cl.client_id})
         resp = self.client.get(url)
         assert_equals_worker(self, resp.status_code, 200)
         assert_in_worker(self, cl.first_name, resp.content)

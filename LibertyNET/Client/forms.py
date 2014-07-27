@@ -108,9 +108,9 @@ class SalesProspectEditForm(forms.ModelForm):
 class ClientCallLogForm(forms.ModelForm):
     class Meta:
         model = ClientCallLog
-        fields = ['id', 'caller', 'call_date', 'call_time', 'follow_up',
+        fields = ['client_id', 'caller', 'call_date', 'call_time', 'follow_up',
                   'purpose', 'notes', 'next_contact']
-        #exclude = ['id']
+        #exclude = ['client_id']
         widgets = {
             'call_date': forms.DateInput(
                 attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd", 'auto-close': 'true'}),
@@ -138,7 +138,7 @@ class ClientCallLogForm(forms.ModelForm):
 class SalesProspectCallLogForm(forms.ModelForm):
     class Meta:
         model = SalesProspectCallLog
-        fields = ['sales_client_id', 'caller', 'call_date', 'call_time', 'follow_up',
+        fields = ['sales_id', 'caller', 'call_date', 'call_time', 'follow_up',
                   'purpose', 'notes', 'next_contact']
 
         labels = {

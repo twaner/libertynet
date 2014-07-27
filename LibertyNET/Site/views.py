@@ -28,7 +28,7 @@ class SiteDetailView(DetailView):
         context = super(SiteDetailView, self).get_context_data(**kwargs)
         site = self.get_object()
         client = Client.objects.get(pk=site.site_client_id)
-        context['client_detail'] = Client.objects.get(pk=client.id)
+        context['client_detail'] = Client.objects.get(pk=client.client_id)
         context['address_detail'] = Address.objects.get(pk=client.client_address_id)
         context['calllist_detail'] = site.site_call_list.all().order_by('cl_order')
         context['calllist_active'] = site.site_call_list.filter(cl_is_enabled=True)
@@ -51,7 +51,7 @@ def addclientsite(request, pk):
     form_list[2] = CallListForm(request.POST)
     form_list[3] = CallListContactForm(request.POST)
     site_dict = {
-        'site_client': client.id
+        'site_client': client.client_id
     }
     call_dict = {
         'first_name': client.first_name,
