@@ -1,6 +1,6 @@
 {% extends "common/__basewrap.html" %}
 {% load mytags %}
-
+{% load humanize %}
 {% block body_block %}
 {% endblock %}
 
@@ -24,10 +24,16 @@
             <h4 class="blue"><span>Total Estimates</span> {{ estimate|length }} </h4>
           </li>
           <li class="sparkline-row">
-            <h4 class="blue"><span>New Clients</span> {{ estimate|length }} </h4>
+            <h4 class="blue"><span>Total Price</span> {{ price }} </h4>
           </li>
           <li class="sparkline-row">
-            <h4 class="green"><span>Clients with Follow Ups</span> {{ estimate|length }} </h4>
+            <h4 class="
+                {% if profit > 0 %}
+                    green
+                {% else %}
+                    red
+                {% endif %}
+            "><span>Total Profit</span> {{ profit }} </h4>
           </li>
         </ul>
       </div>
@@ -47,7 +53,7 @@
         </div>
             <div class="breadcrumb-button">
               <span class="breadcrumb-label">
-                <i class="fa fa-group"></i> Client Home
+                <i class="fa fa-group"></i> Client Estimate Home
               </span>
               <span class="breadcrumb-arrow"><span></span></span>
             </div>
@@ -56,6 +62,95 @@
   </div> <!-- container padded -->
  {% endblock form_breadcrumb %}
  <div class="container">
+     <figure style="width: 800px; height: 400px;" id="myChart"></figure>
+     <script>
+        var qq = 0;
+        var ww = 0;
+        var fields = [1,2,3]
+    // My work
+    // Data Source
+        var estimates = jQuery.parseJSON({{ estimate_list|safe }});
+        var getData = function() {
+          // counter
+          var cnt = 0;
+          var data = {
+            "xScale": "ordinal",
+            "yScale": "linear"
+          };
+
+        data.main = []
+          $(fields).each(function() {
+              // graph data array
+              var graphData = [];
+              var q = 0;
+              var t = '';
+              cnt++;
+              // loop through array of estimates
+              $.each(estimates, function (){
+                  if(cnt % 3 == 0){
+                    q = parseInt(this["fields"]["listed_price"]);
+                      t = 'cnt % 3 == 0 PRICE';
+                  }
+                  else if(cnt % 3 == 1) {
+                    q = parseInt(this["fields"]["listed_profit"]);
+                      t = 'cnt % 3 == 1 PROFIT';
+                  }
+                  else if (cnt % 3 == 2){
+                    q = parseInt(this["fields"]["custom_sales_commission"]);
+                      t = 'cnt % 3 == 2 custom_sales_commission';
+                  }
+                  graphData.push({
+                      "x": this["fields"]["job_name"],
+                      "y": q
+                  });
+//                  alert("cnt & q " + cnt + ' ' + q + ' t is : ' + t + ' this ' + this["fields"]["job_name"]
+//                         + ' graphData length ' + graphData.length);
+              });
+              data.main.push({
+                "className": ".estimates",
+                "data": graphData
+            })
+          });
+          return data;
+        }
+
+        var myChart = new xChart('bar', getData(), '#myChart', {axisPaddingTop: 5, paddingLeft: 35});
+     </script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      var estimates = jQuery.parseJSON({{ estimate_list|safe }});
+      var estimates_array = [['Job Name', 'Price', 'Profit', 'Commission']]
+      for (var i = 0; i < estimates.length; i++) {
+//          if(parseFloat(estimates[i]["fields"]["listed_price"]) > 0 &&
+//             parseFloat(estimates[i]["fields"]["listed_profit"] > 0) &&
+//              parseFloat(estimates[i]["fields"]["custom_sales_commission"]) > 0)
+//          {
+              estimates_array.push([estimates[i]["fields"]["job_name"], parseFloat(estimates[i]["fields"]["listed_price"]),
+                  parseFloat(estimates[i]["fields"]["listed_profit"]), parseFloat(estimates[i]["fields"]["custom_sales_commission"])])
+      }
+
+//      $.each(estimates, function(){
+//          estimates_array.push([estimates["fields"]["job_name"],parseFloat(estimates["fields"]["listed_price"]),
+//             parseFloat(estimates["fields"]["listed_profit"]),parseFloat(estimates["fields"]["custom_sales_commission"])])
+//      });
+
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(
+            estimates_array
+        );
+
+        var options = {
+          title: 'Estimate Overview',
+          hAxis: {title: 'Estimate', titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+     <div id="chart_div" style="width: 900px; height: 500px;"></div>
     <div class="row">
         <div class="col-md-12">
             <div class="box">
@@ -72,6 +167,8 @@
                                     <td><div>Client Name</div></td>
                                     <td><div>Estimate Name</div></td>
                                     <td><div>Date</div></td>
+                                    <td><div>Price</div></td>
+                                    <td><div>Proft</div></td>
                                 </tr>
                             </thead>
                             <tbody role="alert" aria-live="polite" aria-relavent="all">
@@ -83,6 +180,12 @@
                                             <a href="{{ e.get_absolute_url }}">{{ e.job_name }}</a>
                                         </td>
                                         <td>{{ e.date }}</td>
+                                        <td>
+                                            ${{ e.listed_price|intcomma }}
+                                        </td>
+                                        <td>
+                                            ${{ e.listed_profit|intcomma }}
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 {% else %}

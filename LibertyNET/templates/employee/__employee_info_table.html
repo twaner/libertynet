@@ -5,15 +5,15 @@
         Employee Information
     </span>
     <ul class="box-toolbar">
-        <dd>
+        <li>
           <div class="btn-group">
             <button class="btn btn-xs btn-default dropdown-toggle"
                     data-toggle="dropdown"><i class="fa fa-cog"></i></button>
             <ul class="dropdown-menu">
-              <dd><a href="{{ employee_detail.get_absolute_url_edit }}">Edit Employee Details</a></dd>
+              <li><a href="{{ employee_detail.get_absolute_url_edit }}">Edit Employee Details</a></li>
             </ul>
           </div>
-        </dd>
+        </li>
     </ul>
   </div> <!-- box-header -->
   <div class="box-content scrollable" style="height: 360px; overflow-y: auto">
@@ -62,17 +62,13 @@
                 {% endif %}
               <dt>Employee Since</dt>
                 <dd>
-                  {{ employee_detail.hire_date|naturalday }}
+                  {{ employee_detail.hire_date }}
                 </dd>
               <dt>Time as Employee</dt>
                 <dd>
-                  NOW: {% now "m d Y " %}
-                  {{ employee_detail.hire_date|date:"m d Y"}} -- TODO - get as time span
+                  {{ employee_detail.hire_date|timesince }}
                 </dd>
-              <dt>Employee Since</dt>
-                <dd>
-                  {{ employee_detail.hire_date|naturalday }}
-                </dd>
+              {# compensation #}
               <h5>Salary Info</h5>
                   <dt>Pay Type</dt>
                 <dd>

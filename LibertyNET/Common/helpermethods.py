@@ -343,8 +343,12 @@ def update_card_helper(form, card):
 
 #region General Helpers
 
-
 def get_model_fields(model):
+    """
+    Gets fields for a Model.
+    @param model: Model.
+    @return: fields.
+    """
     return model._meta.fields
 
 

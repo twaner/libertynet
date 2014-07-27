@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.db.models import Count, Min, Sum, Avg
+from django.core import serializers
+import json
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, UpdateView, View, DetailView
@@ -23,6 +26,18 @@ class ClientEstimateIndex(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ClientEstimateIndex, self).get_context_data(**kwargs)
+        client_estimates = ClientEstimate.objects.all()
+        # context['estimate_list'] = list(client_estimates)
+        ser = serializers.serialize('json', client_estimates,
+                                    fields=('job_name', 'listed_price', 'listed_profit', 'custom_sales_commission'))
+
+        tmp = list(client_estimates.values_list('job_name', 'listed_price', 'listed_profit'))
+        context['estimate_list'] = json.dumps(ser)
+        print('JSON DUM %s ' % context['estimate_list'])
+        dollar_dict = client_estimates.aggregate(Sum('listed_price'), Sum('listed_profit'))
+        context['price'] = dollar_dict['listed_price__sum']
+        context['profit'] = dollar_dict['listed_profit__sum']
+        print(context['estimate_list'])
         return context
 
 
@@ -42,7 +57,7 @@ class SalesEstimateIndex(ListView):
 # endregion
 
 
-#region Detail Views
+# region Detail Views
 
 
 class ClientEstimateDetails(DetailView):
@@ -96,8 +111,8 @@ class CreateEstimateView(CreateView):
     # def form_invalid(self, form):
     #     # print('CreateEstimateView %s ' % form)
 
-        # validation_helper(form_list=form)
-        # return super(CreateEstimateView, self).form_invalid(form)
+    # validation_helper(form_list=form)
+    # return super(CreateEstimateView, self).form_invalid(form)
 
     def get_context_data(self, **kwargs):
         self.object = self.get_object(queryset=None)
@@ -352,6 +367,8 @@ class UpdateEstimateView(UpdateView):
         # def form_invalid(self, form):
         #     validation_helper(form_list=form)
         #     return super(CreateEstimateStep2, self).form_invalid(form)
+
+
 """
 
 
