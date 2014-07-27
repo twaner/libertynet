@@ -11,7 +11,7 @@ from Common.helpermethods import date_change
 
 class ClientFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Client
-    client_id = factory.fuzzy.FuzzyInteger(99, 200)
+    id = factory.fuzzy.FuzzyInteger(99, 200)
     first_name = 'Stephen'
     middle_initial = 'Q'
     last_name = 'Clienttest'
@@ -26,7 +26,7 @@ class ClientFactory(factory.DjangoModelFactory):
 
 class ClientFactoryNoBilling(factory.DjangoModelFactory):
     FACTORY_FOR = Client
-    client_id = 977
+    id = 977
     first_name = 'Stephen'
     middle_initial = 'Q'
     last_name = 'Clienttest'
@@ -40,7 +40,7 @@ class ClientFactoryNoBilling(factory.DjangoModelFactory):
 
 class ClientFactoryBusiness(factory.DjangoModelFactory):
     FACTORY_FOR = Client
-    client_id = factory.Sequence(lambda n: '89%d' % n)
+    id = factory.Sequence(lambda n: '89%d' % n)
     first_name = 'Stephen'
     middle_initial = 'Q'
     last_name = 'Clienttest'
@@ -99,7 +99,7 @@ class SalesProspectBusinessFactory(factory.DjangoModelFactory):
 class ClientCallLogFactory(factory.DjangoModelFactory):
     FACTORY_FOR = ClientCallLog
     id = factory.fuzzy.FuzzyInteger(19, 50)
-    client_id = factory.SubFactory(ClientFactoryBusiness)
+    id = factory.SubFactory(ClientFactoryBusiness)
     caller = factory.SubFactory(EmployeeDjangoFactory)
     call_date = date_change(-4)
     call_time = '13:13'
@@ -125,7 +125,7 @@ class SalesProspectCallLogFactory(factory.DjangoModelFactory):
 class ClientCallLogFollowFactory(factory.DjangoModelFactory):
     FACTORY_FOR = ClientCallLog
     id = factory.fuzzy.FuzzyInteger(19, 50)
-    client_id = factory.SubFactory(ClientFactoryBusiness)
+    id = factory.SubFactory(ClientFactoryBusiness)
     caller = factory.SubFactory(EmployeeDjangoFactory)
     call_date = date_change(-4)
     call_time = '13:13'

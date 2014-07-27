@@ -157,7 +157,7 @@ class ClientCallLogManager(models.Manager):
     def create_client_calllog(self, client_id, caller, call_date, call_time, purpose, notes, next_contact, follow_up):
         """
         Creates a ClientCallLog.
-        @param client_id: Client Id.
+        @param clientid: Client Id.
         @param caller: Liberty Employee.
         @param call_date: Date of call.
         @param call_time: Time of call.
@@ -180,7 +180,7 @@ class ClientCallLogManager(models.Manager):
         @param client: Client.
         @return: ClientCallLog that has date of next call.
         """
-        #call = ClientCallLog.objects.filter(client_id=client).latest('next_contact')
+        #call = ClientCallLog.objects.filter(id=client).latest('next_contact')
         call = ClientCallLog.objects.filter(client_id=client).\
             filter(next_contact__gte=date.today().strftime("%Y-%m-%d")).first()
         return call
@@ -227,7 +227,7 @@ class Client(Person):
     """
     Client object. An object that contains attributes that a LS Client would have.
     """
-    client_id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     client_number = models.IntegerField(max_length=10)
     business_name = models.CharField(max_length=50, blank=True, null=True)
     is_business = models.BooleanField(default=False)
@@ -245,38 +245,38 @@ class Client(Person):
         Gets details view url.
         @return: details view url.
         """
-        return reverse('Client:details', kwargs={'pk': self.client_id})
+        return reverse('Client:details', kwargs={'pk': self.id})
 
     def get_absolute_url_edit(self):
         """
         Gets edit view url.
         @return: edit view url.
         """
-        return reverse('Client:editclient', kwargs={'pk': self.client_id})
+        return reverse('Client:editclient', kwargs={'pk': self.id})
         #@models.permalink
         #def get_absolute_url(self):
-        #   return 'ClientDetailView', [str(self.client_id)] #{'pk': self.client_id}
+        #   return 'ClientDetailView', [str(self.id)] #{'pk': self.id}
 
     def get_absolute_url_calllog(self):
         """
         Gets client call log view url.
         @return: client call log view url.
         """
-        return reverse('Client:addclientcalllog', kwargs={'pk': self.client_id})
+        return reverse('Client:addclientcalllog', kwargs={'pk': self.id})
 
     def get_absolute_url_calllog_index(self):
         """
         Gets client call log index view url.
         @return: client call log index view url.
         """
-        return reverse('Client:clientcalllogindex', kwargs={'pk': self.client_id})
+        return reverse('Client:clientcalllogindex', kwargs={'pk': self.id})
 
     def get_absolute_url_add_site(self):
         """
         Gets link to add Site for a specific client.
         @return:
         """
-        return reverse('Client:addclientsite', kwargs={'pk': self.client_id})
+        return reverse('Client:addclientsite', kwargs={'pk': self.id})
 
     def clean(self):
         """
@@ -415,7 +415,7 @@ class ClientCallLog(CallLog):
     objects = ClientCallLogManager()
 
     def __str__(self):
-        return 'Client: %s Call Date: %s' % (self.client_id, self.call_date)
+        return 'Client: %s Call Date: %s' % (self.id, self.call_date)
 
     @property
     def full_details(self):
@@ -423,52 +423,52 @@ class ClientCallLog(CallLog):
         Gets client, call date and time.
         @return: client, call date and time.
         """
-        return 'Client: %s Call Date: %s Time: %s' % (self.client_id, self.call_date, self.call_time)
+        return 'Client: %s Call Date: %s Time: %s' % (self.id, self.call_date, self.call_time)
 
     @property
     def complete_details(self):
-        return 'Client: %s Purpose: %s Call Date: %s Time: %s' % (self.client_id, self.purpose,
+        return 'Client: %s Purpose: %s Call Date: %s Time: %s' % (self.id, self.purpose,
                                                                   self.call_date, self.call_time)
 
     def get_absolute_url(self):
-        return reverse('Client:clientcalllogdetails', kwargs={'pk': self.id})
+        return reverse('Client:clientcalllogdetails', kwargs={'pk': self.client_id.id})
 
     def get_absolute_url_client(self):
-        return reverse('Client:details', kwargs={'pk': self.client_id.client_id})
+        return reverse('Client:details', kwargs={'pk': self.client_id.id})
 
     def get_absolute_url_index(self):
-        return reverse('Client:clientcalllogindex', kwargs={'pk': self.client_id.client_id})
+        return reverse('Client:clientcalllogindex', kwargs={'pk': self.client_id.id})
 
     def get_absolute_url_edit(self):
-        return reverse('Client:editclientcall', kwargs={'pk': self.id})
+        return reverse('Client:editclientcall', kwargs={'pk': self.client_id.id})
 
     def get_absolute_url_follow(self):
-        return reverse('Client:followupcall', kwargs={'pk': self.id})
+        return reverse('Client:followupcall', kwargs={'pk': self.client_id.id})
 
 
 class SalesProspectCallLog(CallLog):
     id = models.AutoField(primary_key=True)
-    sales_id = models.ForeignKey('Client.SalesProspect')
+    sales_client_id = models.ForeignKey('Client.SalesProspect')
 
     objects = SalesProspectCallLogManager()
 
     def __str__(self):
-        return 'Prospect: %s Call Date: %s' % (self.sales_id, self.call_date)
+        return 'Prospect: %s Call Date: %s' % (self.sales_client_id, self.call_date)
 
     def get_absolute_url(self):
         return reverse('Client:salescalllogdetails', kwargs={'pk': self.id})
 
     def get_absolute_url_sales(self):
-        return reverse('Client:salesprospectdetails', kwargs={'pk': self.sales_id.id})
+        return reverse('Client:salesprospectdetails', kwargs={'pk': self.sales_client_id.id})
 
     def get_absolute_url_index(self):
-        return reverse('Client:salescalllogindex', kwargs={'pk': self.sales_id.id})
+        return reverse('Client:salescalllogindex', kwargs={'pk': self.sales_client_id.id})
 
     def get_absolute_url_edit(self):
-        return reverse('Client:editsalescall', kwargs={'pk': self.id})
+        return reverse('Client:editsalescall', kwargs={'pk': self.sales_client_id})
 
     def get_absolute_url_client(self):
-        return reverse('Client:details', kwargs={'pk': self.client_id.client_id})
+        return reverse('Client:details', kwargs={'pk': self.sales_client_id.id})
 
 
     @property
