@@ -1,60 +1,47 @@
-{% extends 'base.html' %}
-{% load bootstrap_toolkit %}
-
-{% block content %}
-<a href="{% url 'Client:salesprospectindex' %}">
-    Sales Home
-</a> &nbsp;/&nbsp;
-{% if calllog %}
-    <a href="{% url 'Client:salescallloghome' %}">
-        Sales Call Log Home
-    </a> &nbsp;/&nbsp;
-    <a href="{{ calllog.get_absolute_url_sales }}">
-        Sales Prospect Details
-    </a> &nbsp;/&nbsp;
-    <a href="={{ calllog.get_absolute_url_index }}">
-        Sales Prospect Call Log Index
-    </a>
-        {% comment %}
-        {% if client_detail or business_client %}
-            <a href="{% url 'site_info:details' client_detail.client_id %}">
-         Client Site Information
-            </a>
-        {% endif %}
-        {% endcomment %}
-    <ul>
-        <li>
-            Call Log Details
-        </li>
-        {% if calllog %}
-        <li>
-            Client: {{ calllog.sales_id }}
-        </li>
-        <li>
-            Call Date: {{ calllog.call_date }} {{ calllog.call_time }}
-        </li>
-        <li>
-            Next Call Date: {{ calllog.next_contact }}
-        </li>
-        <li>
-            Caller: {{ calllog.caller }}
-        </li>
-        <li>
-            Purpose:
-        </li>
-         <textarea name="purpose" rows="3" cols="160" readonly>
-            {{ calllog.purpose }}
-        </textarea>
-        <li>
-            Notes:
-        </li>
-        <textarea name="notes" rows="10" cols="160" readonly>
-            {{ calllog.notes }}
-        </textarea>
-        {% endif %}
-    </ul>
-{% else %}
-        <p>No Sales Calls are available.</p>
-{% endif %}
-
+{% extends 'common/__form_ro_base.html' %}
+{% load mytags %}
+{% block form_header %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-phone" title="Call Details" subtitle="Detailed Call Information" %}
 {% endblock %}
+
+{% block form_breadcrumb %}
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="/client/salesprospectindex/">Sales Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="{{ calllog.sales_id.get_absolute_url }}">Sales Details</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="fa fa-phone"></i>
+                Call Details
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+{% endblock form_breadcrumb %}
+{% block h4_block %}Call Details{% endblock h4_block %}
+
+{% block cog_block %}
+    {% include 'client/__calllog_details_cog.html' with cog_context=calllog %}
+{% endblock cog_block %}
+{% block form_content %}
+    {% include 'client/__calllog_details_cog.html' with calllog_main=calllog %}
+{% endblock %}
+

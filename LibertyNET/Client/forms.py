@@ -110,7 +110,7 @@ class ClientCallLogForm(forms.ModelForm):
         model = ClientCallLog
         fields = ['client_id', 'caller', 'call_date', 'call_time', 'follow_up',
                   'purpose', 'notes', 'next_contact']
-        #exclude = ['client_id']
+        #exclude = ['id']
         widgets = {
             'call_date': forms.DateInput(
                 attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd", 'auto-close': 'true'}),

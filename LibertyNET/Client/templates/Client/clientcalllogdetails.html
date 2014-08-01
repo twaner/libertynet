@@ -42,74 +42,10 @@
 {% block h4_block %}Call Details{% endblock h4_block %}
 
 {% block cog_block %}
- <ul class="box-toolbar">
-    <li>
-      <div class="btn-group">
-        <button class="btn btn-xs btn-default dropdown-toggle"
-                data-toggle="dropdown"><i class="fa fa-cog"></i></button>
-        <ul class="dropdown-menu">
-          <li>
-              <a href="{{ calllog.get_absolute_url_edit }}">Edit Call Details</a>
-          </li>
-          {% if calllog.follow_up %}
-          <li>
-                <a href="{{ calllog.get_absolute_url_follow }}" onclick="form.submit();">
-                    Follow Up</a>
-
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-    </li>
-</ul>
+ {% include 'client/__calllog_details_cog.html' with cog_context=calllog %}
 {% endblock cog_block %}
 
 {% block form_content %}
-    <form class="fill-up" action="" method="post">
-      {% csrf_token %}
-        <div class="row">
-            <div class="col-lg-8">
-                <ul class="padded separate-sections">
-                    {% if calllog %}
-                    <li>
-                        <label>Client</label>: {{ calllog.client_id }}
-                    </li>
-                    <li>
-                        <label>Call Date</label>:
-                        {{ calllog.call_date|date:"D d M Y" }}
-                    </li>
-                    <li>
-                        <label>Call Time</label>:
-                        {{ calllog.get_call_time }}
-                    </li>
-                    <li>
-                       <label>Next Call Date</label>: {{ calllog.next_contact }}
-                    </li>
-                    <li>
-                        <label>Caller</label>: {{ calllog.caller }}
-                    </li>
-                    <li>
-                        <label>Follow Up Required</label>:
-                        <b>{{ calllog.follow_up|yesno:"YES,NO,MAYBE" }}</b>
-                    </li>
-                    <li>
-                        <label>Purpose</label>
-                    </li>
-                     <textarea name="purpose" rows="3" cols="160" readonly>
-                        {{ calllog.purpose }}
-                    </textarea>
-                    <li>
-                        <label>Notes</label>
-                    </li>
-                    <textarea name="notes" rows="10" cols="160" readonly>
-                        {{ calllog.notes }}
-                    </textarea>
-                    {% else %}
-                        <p>No Call Details Available.</p>
-                    {% endif %}
-                </ul>
-            </div> <!-- col-lg-6 -->
-        </div> <!-- row -->
-    </form>
+    {% include 'client/__calllog_main_details.html' with calllog_main=calllog %}
 {% endblock %}
 

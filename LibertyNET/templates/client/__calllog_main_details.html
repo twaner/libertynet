@@ -1,0 +1,43 @@
+<div class="row">
+        <div class="col-lg-8">
+            <ul class="padded separate-sections">
+                {% if calllog_main %}
+                <li>
+                    <label>Name</label>: {{ calllog_main.get_name }}
+                </li>
+                <li>
+                    <label>Call Date</label>:
+                    {{ calllog_main.call_date|date:"D d M Y" }}
+                </li>
+                <li>
+                    <label>Call Time</label>:
+                    {{ calllog_main.get_call_time }}
+                </li>
+                <li>
+                   <label>Next Call Date</label>: {{ calllog_main.next_contact }}
+                </li>
+                <li>
+                    <label>Caller</label>: {{ calllog_main.caller }}
+                </li>
+                <li>
+                    <label>Follow Up Required</label>:
+                    <b>{{ calllog_main.follow_up|yesno:"YES,NO,MAYBE" }}</b>
+                </li>
+                <li>
+                    <label>Purpose</label>
+                </li>
+                 <textarea name="purpose" rows="3" cols="160" readonly>
+                    {{ calllog_main.purpose }}
+                </textarea>
+                <li>
+                    <label>Notes</label>
+                </li>
+                <textarea name="notes" rows="10" cols="160" readonly>
+                    {{ calllog_main.notes }}
+                </textarea>
+                {% else %}
+                    <p>No Call Details Available.</p>
+                {% endif %}
+            </ul>
+        </div> <!-- col-lg-6 -->
+    </div> <!-- row -->

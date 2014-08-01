@@ -111,11 +111,11 @@ class ClientTest(TestCase):
 class GetURLTest(TestCase):
         client = ClientFactoryBusiness()
 
-        url = '/client/%s/' % client.client_id
-        url_edit = '/client/editclient/%s/' % client.client_id
-        url_calllog = '/client/addclientcalllog/%s/' % client.client_id
-        url_calllog_index = '/client/clientcalllogindex/%s/' % client.client_id
-        url_add_site = 'client/addclientsite/%s/' % client.client_id
+        url = '/client/%s/' % client.id
+        url_edit = '/client/editclient/%s/' % client.id
+        url_calllog = '/client/addclientcalllog/%s/' % client.id
+        url_calllog_index = '/client/clientcalllogindex/%s/' % client.id
+        url_add_site = 'client/addclientsite/%s/' % client.id
         chm.assert_equals_worker(self, url, client.get_absolute_url())
         chm.assert_equals_worker(self, url_edit, client.get_absolute_url_edit())
         chm.assert_equals_worker(self, url_calllog, client.get_absolute_url_calllog())
@@ -151,9 +151,9 @@ class CallLogTest(TestCase):
         # get_absolute_url
         exp = '/client/clientcalllogdetails/%s/' % calllog.id
         chm.assert_equals_worker(self, exp, calllog.get_absolute_url())
-        url_client = '/client/%s/' % calllog.client_id.client_id
+        url_client = '/client/%s/' % calllog.client_id.id
         chm.assert_equals_worker(self, url_client, calllog.get_absolute_url_client())
-        url_index = '/client/clientcalllogindex/%s/' % calllog.client_id.client_id
+        url_index = '/client/clientcalllogindex/%s/' % calllog.client_id.id
         chm.assert_equals_worker(self, url_index, calllog.get_absolute_url_index())
         url_abs = '/client/clientcalllogdetails/%s/' % calllog.id
         chm.assert_equals_worker_long(self, url_abs, calllog.get_absolute_url(), calllog.get_absolute_url.__name__)

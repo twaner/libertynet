@@ -52,7 +52,7 @@ def addclientbilling(request, pk):
             billing = create_billing_helper(form_list[0], address=address, card=card)
             client_updated = update_client_billing_helper(client, billing)
             return HttpResponseRedirect(reverse('Client:details',
-                                                kwargs={'pk': client_updated.client_id}))
+                                                kwargs={'pk': client_updated.id}))
         else:
             return render(request, template_name, dict_generator(form_list))
     else:
@@ -95,7 +95,7 @@ def editclientbilling(request, pk):
             card_up = update_card_helper(form_list[2], card)
             billing_up = update_billing_helper(form_list[0], billing, address_up, card_up)
             return HttpResponseRedirect(reverse('Client:details',
-                                                kwargs={'pk': client.client_id}))
+                                                kwargs={'pk': client.id}))
         else:
             return render(request, template_name, dict_generator(form_list))
     else:
@@ -141,7 +141,7 @@ def addcalllist(request, pk):
             # Assumption a site must have a client
             related_client = Client.objects.get(pk=site.site_client_id)
             return HttpResponseRedirect(reverse('Client:details',
-                                                kwargs={'pk': related_client.client_id}))
+                                                kwargs={'pk': related_client.id}))
         else:
             return render(request, template_name, dict_generator(form_list))
     else:
@@ -170,7 +170,7 @@ def updatecalllist(request, pk):
 
     if request.method == 'POST':
         form_list[0] = CallListContactForm(request.POST)
-        form_list[1] = ContactForm(request.POST)
+        form_list[1] = CallListForm(request.POST)
 
         if validation_helper(form_list):
             contact_up = update_calllist_contact(form_list[0], contact)

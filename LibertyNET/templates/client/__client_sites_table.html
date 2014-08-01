@@ -43,7 +43,13 @@
                               </a>
                           </td>
                           <td>
-                              {{ s.top_calllist }}
+                              {% if s.top_calllist != 'Add Call List' %}
+                                {{ s.top_calllist }}
+                              {% else %}
+                                <a href="{{ s.get_absolute_url_add_calllist }}">
+                                    {{ s.top_calllist }}
+                                </a>
+                              {% endif %}
                           </td>
                       </tr>
                       {% endfor %}

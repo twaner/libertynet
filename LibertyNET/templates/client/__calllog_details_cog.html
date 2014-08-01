@@ -1,0 +1,19 @@
+ <ul class="box-toolbar">
+    <li>
+      <div class="btn-group">
+        <button class="btn btn-xs btn-default dropdown-toggle"
+                data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+        <ul class="dropdown-menu">
+          <li>
+              <a href="{{ cog_context.get_absolute_url_edit }}">Edit Call Details</a>
+          </li>
+          {% if cog_context.follow_up %}
+          <li>
+                <a href="{{ cog_context.get_absolute_url_follow }}" onclick="form.submit();">
+                    Follow Up</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </li>
+</ul>

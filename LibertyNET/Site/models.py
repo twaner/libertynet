@@ -132,7 +132,7 @@ class Site(models.Model):
         if self.get_calllist_len() >= 1:
             return '%s' % self.site_call_list.all()[0].__str__()
         else:
-            return 'Please Add Site'
+            return 'Add Call List'
 
     def get_absolute_url_add_calllist(self):
         return reverse('Client:addclientcalllist', kwargs={'pk': self.site_id})

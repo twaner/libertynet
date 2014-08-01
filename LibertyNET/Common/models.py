@@ -535,7 +535,7 @@ class Genre(models.Model):
 
 class Billing(models.Model):
     """
-    Billing connects to a client by client_id. Address and Contact are FK.
+    Billing connects to a client by id. Address and Contact are FK.
     Display changes based on business or not.
     """
     profile_name = models.CharField(max_length=45)

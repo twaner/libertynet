@@ -132,7 +132,7 @@ class Migration(SchemaMigration):
             'client_billing': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Common.Billing']", 'null': 'True', 'blank': 'True'}),
             'client_contact': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Common.Contact']"}),
             'client_date': ('django.db.models.fields.DateField', [], {}),
-            'client_id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'client_number': ('django.db.models.fields.IntegerField', [], {'max_length': '10'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'is_business': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),

@@ -98,17 +98,21 @@
                     <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
                         <thead>
                             <tr>
-                              <th><div>Client Name</div></th>
+                              <th><div>{{ called }} Name</div></th>
                               <th><div>Call Date</div></th>
                               <th><div>Caller</div></th>
                               <th><div></div></th>
                             </tr>
                         </thead>
                         <tbody role="alert" aria-live="polite" aria-relavent="all">
-                        {% if calllog %}
-                          {% for e in calllog_list %}
+                        {% if context %}
+                          {% for e in context %}
                             <tr>
-                              <td>{{ e.client_id }}</td>
+                              {% if identifier == 'Sales' %}
+                                <td>{{ e.get_name }}</td>
+                              {% else %}
+                                <td>{{ e.get_name }}</td>
+                              {% endif %}
                               <td class="sorting_1">{{ e.get_call_date_time }}</td>
                               <td>{{ e.caller }}</td>
                               <td>
@@ -118,7 +122,15 @@
                                     <ul class="dropdown-menu">
                                       <li><a href="{{ e.get_absolute_url }}">Call Details</a></li>
                                       <li><a href="{{ e.get_absolute_url_edit }}">Edit Call</a></li>
-                                      <li><a href="{{ e.get_absolute_url_client }}">View Client</a></li>
+                                      <li>
+                                          {% if identifier == 'Sales' %}
+                                            <a href="{{ e.get_absolute_url_sales }}">
+                                          {% else %}
+                                            <a href="{{ e.get_absolute_url_client }}">
+                                          {% endif %}
+                                              View {{ called }}
+                                          </a>
+                                      </li>
                                     </ul>
                                   </div>
                               </td>

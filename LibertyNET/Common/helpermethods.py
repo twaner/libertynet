@@ -281,7 +281,7 @@ def update_call_list_helper(form, calllist, contact):
     calllist.cl_contact = contact
     calllist.cl_order = form.cleaned_data['cl_order']
     calllist.cl_is_enabled = boolean_helper(form.cleaned_data['cl_is_enabled'])
-    calllist.cl_genre = Genre.objects.get(pk=form.cleaned_data['cl_genre'])
+    calllist.cl_genre = Genre.objects.get(pk=form.cleaned_data['cl_genre'].genre_id)
 
     calllist.save(update_fields=['first_name', 'last_name',
                                  'middle_initial', 'cl_contact',

@@ -47,8 +47,8 @@ class ClientListView(ListView):
         context['most_recent'] = sorted_list[q:]
         # Clients that are marked for follow up in call log => Client should appear once only
         calllog = ClientCallLog.objects.filter(follow_up=True)
-        #tmp_list = [calllog.client_id for calllog.client_id in calllog]
-        tmp_list = [Client.objects.get(pk=q.client_id.client_id) for q in calllog]
+        #tmp_list = [calllog.id for calllog.id in calllog]
+        tmp_list = [Client.objects.get(pk=q.client_id.id) for q in calllog]
         context['follow_up'] = set(tmp_list)
         context['calllog_follow_all'] = calllog
 
@@ -102,6 +102,7 @@ class ClientCallLogHome(ListView):
     def get_context_data(self, **kwargs):
         context = super(ClientCallLogHome, self).get_context_data(**kwargs)
         context['calllog_list'] = ClientCallLog.objects.all().order_by('-call_date', '-call_time')
+        context['identifier'] = 'Client'
         return context
 
 
@@ -113,9 +114,11 @@ class SalesCallLogHome(ListView):
     template_name = 'client/salescallloghome.html'
     context_object_name = 'calllog'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(SalesProspectCallLog, self).get_context_data(self, **kwargs)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(SalesCallLogHome, self).get_context_data(**kwargs)
+        context['calllog_list'] = SalesProspectCallLog.objects.all().order_by('-call_date', '-call_time')
+        context['identifier'] = 'Sales'
+        return context
 
 #region DetailViews - Details for an Object.
 
@@ -125,7 +128,7 @@ class ClientDetailView(DetailView):
     View for Client Details.
     """
     model = Client
-    client_id = 'pk'
+    id = 'pk'
     context_object_name = 'client_detail'
     template_name = 'client/details.html'
 
@@ -140,14 +143,14 @@ class ClientDetailView(DetailView):
         except ObjectDoesNotExist:
             pass
         try:
-            context['site_detail'] = Site.objects.filter(site_client_id=client.client_id)
+            context['site_detail'] = Site.objects.filter(site_client_id=client.id)
         except ObjectDoesNotExist:
             pass
         try:
-            client_calls = ClientCallLog.objects.filter(client_id=client.client_id).\
+            client_calls = ClientCallLog.objects.filter(client_id=client.id).\
                 order_by('-call_date', '-call_time')
             context['calllog_list'] = client_calls
-            context['calllog_follow'] = client_calls.filter(client_id=client.client_id).\
+            context['calllog_follow'] = client_calls.filter(client_id=client.id).\
                 filter(follow_up=True)
             context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
         except ObjectDoesNotExist:
@@ -175,7 +178,7 @@ class ClientDetailViewWO(DetailView):
         except ObjectDoesNotExist:
             pass
         try:
-            context['site_detail'] = Site.objects.get(site_client_id=client.client_id)
+            context['site_detail'] = Site.objects.get(site_client_id=client.id)
         except ObjectDoesNotExist:
             pass
         return context
@@ -292,7 +295,7 @@ class ClientView(View):
             contact = create_contact_helper(form_list[2])
             client = create_client_helper(form_list[0], address, contact)
             return HttpResponseRedirect(reverse('Client:details',
-                                                kwargs={'pk': client.client_id}))
+                                                kwargs={'pk': client.id}))
         else:
             return render(request, self.template_name, dict_generator(form_list))
 
@@ -482,11 +485,11 @@ def editclient(request, pk):
         if validation:
             a = update_address_helper(form_list[1], address)
             c = update_contact_helper(form_list[2], contact)
-            cl = update_client_helper(form_list[0], client, a, c)
+            client = update_client_helper(form_list[0], client, a, c)
             print('EDIT_CLIENT form %s' % request.POST)
             print('EDIT_CLIENT form %s' % request.body)
             return HttpResponseRedirect(reverse('Client:details',
-                                                kwargs={'pk': cl.client_id}))
+                                                kwargs={'pk': client.id}))
         else:
             render(request, template_name, dict_generator(form_list))
     else:
@@ -520,7 +523,7 @@ class ClientCallLogView(View):
 
         if validation_helper(form_list):
             calllog = create_client_calllog_helper(form_list[0])
-            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': calllog.client_id.client_id}))
+            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': calllog.client_id.id}))
         else:
             form_list[0] = ClientCallLogForm(calllog_dict)
             return render(request, self.template_name, dict_generator(form_list))
@@ -542,14 +545,14 @@ def addclientcalllog(request, pk):
     form_list[0] = ClientCallLogForm(request.POST)
     client = Client.objects.get(pk=pk)
     calllog_dict = {
-        'client_id': client.client_id, 'call_date': date.today().strftime("%Y-%m-%d"),
+        'id': client.id, 'call_date': date.today().strftime("%Y-%m-%d"),
         'call_time': datetime.now().time().strftime("%H:%M"),
     }
 
     if request.method == 'POST':
         if validation_helper(form_list):
             calllog = create_calllog_helper(form_list[0], client)
-            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.client_id}))
+            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.id}))
         else:
             form_list[0] = ClientCallLogForm(calllog_dict)
             return render(request, template_name, dict_generator(form_list))
@@ -570,7 +573,7 @@ def followupcall(request, pk):
     template_name = 'client/addclientcalllog.html'
     form_list = form_generator(1)
     call = ClientCallLog.objects.get(pk=pk)
-    client = call.client_id
+    client = call.id
     calllog_dict = {
         'client_id': call.client_id, 'call_date': date.today().strftime("%Y-%m-%d"),
         'call_time': datetime.now().time().strftime("%H:%M"), 'purpose': 'Follow Up: ' + call.purpose,
@@ -585,7 +588,7 @@ def followupcall(request, pk):
             #Update previous call
             call.follow_up = False
             call.save()
-            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': client.client_id}))
+            return HttpResponseRedirect(reverse('Client:details', kwargs={'pk': call.client_id.id}))
         else:
             form_list[0] = ClientCallLogForm(calllog_dict)
             return render(request, template_name, dict_generator(form_list))
@@ -662,7 +665,7 @@ class ClientCallLogIndex(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ClientCallLogIndex, self).get_context_data(**kwargs)
         client = self.get_object()
-        context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.client_id)\
+        context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.id)\
             .order_by('-call_date', 'call_time')
         context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
 
@@ -704,7 +707,7 @@ class SalesCallLogDetailView(DetailView):
     SalesProspect CallLog detail view.
     """
     model = SalesProspectCallLog
-    client_id = 'pk'
+    sales_id = 'pk'
     template_name = 'client/salescalllogdetails.html'
     context_object_name = 'calllog'
 
@@ -741,7 +744,7 @@ def editsalescall(request, pk):
         'caller': calllog.caller, 'call_date': calllog.call_date.strftime("%Y-%m-%d"),
         'call_time': calllog.call_time.strftime("%H:%M"), 'purpose': calllog.purpose,
         'notes': calllog.notes, 'next_contact': calllog.next_contact,
-        'follow_up': calllog.follow_up, 'client_id': calllog.client_id,
+        'follow_up': calllog.follow_up, 'id': calllog.id,
     }
 
     if request.method == 'POST':
