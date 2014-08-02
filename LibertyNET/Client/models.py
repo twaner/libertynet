@@ -213,7 +213,9 @@ class SalesProspectCallLogManager(models.Manager):
         @param sales: SalesProspect.
         @return: SalesProspectCallLog with date of soonest contact.
         """
-        call = SalesProspectCallLog.objects.filter(sales_id=sales).\
+        # call = SalesProspectCallLog.objects.filter(sales_id=sales).\
+        #     filter(next_contact__gte=date.today().strftime("%Y-%m-%d")).first()
+        call = sales.filter(sales_id=sales).\
             filter(next_contact__gte=date.today().strftime("%Y-%m-%d")).first()
         return call
 
@@ -356,10 +358,19 @@ class SalesProspect(Person):
     sp_address = models.ForeignKey('Common.Address', verbose_name="prospect address", null=True, blank=True)
     sp_contact = models.ForeignKey('Common.Contact', verbose_name="prospect contact info", null=True, blank=True)
     is_client = models.BooleanField(default=False)
-    # 6-8
     service_guide = models.BooleanField(default=False)
 
     objects = SalesProspectManager()
+
+    def is_a_business(self):
+        """
+            Checks if a client is a commercial account.
+            @return: Business name or first name of the client.
+            """
+        if self.is_business:
+            return True
+        else:
+            return False
 
     def get_absolute_url(self):
         return reverse('Client:salesprospectdetails', kwargs={'pk': self.id})

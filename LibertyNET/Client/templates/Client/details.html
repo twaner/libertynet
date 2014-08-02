@@ -20,6 +20,9 @@
         </div>
         <ul class="list-inline pull-right sparkline-box">
           <li class="sparkline-row">
+              <h4 class="blue"><span>Next Call: </span>{{ next_contact }}</h4>
+          </li>
+          <li class="sparkline-row">
             <h4 class="blue"><span>Follow Ups</span> {{ calllog_follow|length }} </h4>
           </li>
           <li class="sparkline-row">
@@ -40,29 +43,7 @@
 {% block base_content %}
   {% block form_breadcrumb %}
   <!-- Breadcrumb line -->
-  <div class="container padded">
-    <div class="row">
-      <div id="breadcrumbs">
-        <div class="breadcrumb-button blue">
-          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
-          <span class="breadcrumb-arrow"><span></span></span>
-        </div>
-            <div class="breadcrumb-button">
-              <span class="breadcrumb-label">
-                <i class="fa fa-group"></i>
-                  <a href="/client/index/">Client Home</a>
-              </span>
-              <span class="breadcrumb-arrow"><span></span></span>
-            </div>
-            <div class="breadcrumb-button">
-                <span class="breadcrumb-label">
-                    <i class="icon-th-large"></i>
-                    Client Details
-                </span>
-            </div>
-      </div>
-    </div>
-  </div> <!-- container padded -->
+  {% include 'client/common/__details_breadcrumb.html' with index="clientindex" type="Client" container="container padded" %}
   {% endblock form_breadcrumb %}
 
   <!-- Main content -->

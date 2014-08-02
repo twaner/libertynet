@@ -33,7 +33,7 @@
                 <ul class="dropdown-menu">
                   <li>
                       <a href="{{ client_detail.get_absolute_url_calllog }}">
-                          Add Call Log
+                          <i class="fa fa-plus-square"></i> Add Call Log
                       </a>
                   </li>
                 </ul>
@@ -63,10 +63,17 @@
                     </div>
                     <div class="news-content">
                         <div class="news-title">
-                            <a href="{{ c.get_absolute_url }}">{{ c.purpose }}</a>
+                            <a href="{{ c.get_absolute_url }}">
+                                {{ c.purpose|truncatechars:35 }}
+                                <i class="fa fa-info-circle"
+                                   style="padding-left: 10px; padding-right: 5px;"></i>
+                            </a>
+                            <a href="{{ c.get_absolute_url_edit }}">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </a>
                         </div>
                         <div class="news-text">
-                           {{ c.notes }}
+                           {{ c.notes|truncatechars:45 }}
                         </div>
                     </div>
                 </div>

@@ -18,7 +18,13 @@
   </div> <!-- box-header -->
   <div class="box-content scrollable" style="height: 360px; overflow-y: auto">
       <div class="box-content padded" >
-          <h5>Client Information</h5>
+          <h5>
+              Client Information
+              <a href="{{ client_detail.get_absolute_url_edit }}">
+                  <i class="fa fa-pencil-square-o"></i>
+              </a>
+          </h5>
+
           <strong>Client Number</strong>
               <li>
                   {{ client_detail.client_number }}
@@ -37,10 +43,12 @@
           {% endif %}
           <strong>Client Since</strong>
               <li>
-                  {{ client_detail.client_date|naturalday }}
+                 {{ client_detail.client_date|date:"d M Y"|naturalday }}
               </li>
           <strong>Time as Client</strong>
-                  {{ client_detail.client_date|date:"d M Y"|naturalday }}
+              <li>
+                 {{ client_detail.client_date|timesince }}
+              </li>
           <h5>Address</h5>
             {% include 'common/__address_info.html' with address_detail=address_detail %}
           <h5>Contact Information</h5>

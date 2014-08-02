@@ -1,0 +1,40 @@
+{% comment %}
+Takes two params:
+1: index - name of index page
+2: type - sales or client
+3: container - container or container padded
+{% endcomment %}
+
+<!-- Breadcrumb line -->
+<div class="{{ container }}">
+    <div class="row">
+        {% if type == 'Sales' %}
+        <div class="col-md-6">
+        {% endif %}
+          <div id="breadcrumbs" >
+            <div class="breadcrumb-button blue">
+              <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+                <div class="breadcrumb-button">
+                  <span class="breadcrumb-label">
+                    <i class="fa fa-phone"></i>
+                      <a href="/client/{{ index }}/">{{ type }} Home</a>
+                  </span>
+                  <span class="breadcrumb-arrow"><span></span></span>
+                </div>
+                <div class="breadcrumb-button">
+                    <span class="breadcrumb-label">
+                        <i class="icon-th-large"></i>
+                        {{ type }} Details
+                    </span>
+                </div>
+        {% if type == 'Sales' %}
+            </div>
+          </div>
+        </div>
+        {% else %}
+            </div>
+        </div> <!-- row -->
+    </div>
+        {% endif %}

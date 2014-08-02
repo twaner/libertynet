@@ -2,8 +2,8 @@ from django.conf.urls import patterns, url
 from Client.views import ClientListView, ClientDetailView, ClientView, editclient, SalesProspectListView, \
     SalesProspectDetailView, SalesProspectView, editsalesprospect, convert_to_client, addclientcalllog, \
     CallLogDetailView, ClientCallLogIndex, addsalescall, SalesCallLogDetailView, SalesCallLogIndex, \
-    ClientCallLogHome, SalesCallLogHome, ClientDetailViewWO, SalesProspectDetailViewWrap, \
-    ClientCallLogView, editclientcall, EditClientCall, followupcall
+    ClientCallLogHome, SalesCallLogHome, \
+    ClientCallLogView, editclientcall, EditClientCall, followupcall, editsalescall
 
 from Common.views import addclientbilling, editclientbilling, addcalllist, updatecalllist, \
     CallListDetails
@@ -12,7 +12,6 @@ from Site.views import SiteDetailView, addclientsite, editclientsite
 urlpatterns = patterns('',
                        url(r'^index/$', ClientListView.as_view(), name='index'),
                        ## Detail and Edit Views ##
-                       url(r'clientdetails/(?P<pk>[\d-]+)/$', ClientDetailViewWO.as_view(), name='clientdetails'),
                        url(r'^(?P<pk>[\d-]+)/$', ClientDetailView.as_view(), name='details'),
                        url(r'^addclient/$', ClientView.as_view(), name='addclient'),
                        url(r'editclient/(?P<pk>\d+)/$', editclient, name='editclient'),
@@ -49,8 +48,6 @@ urlpatterns = patterns('',
                        url(r'^salesprospectindex/$', SalesProspectListView.as_view(), name='salesprospectindex'),
                        url(r'^salesprospectdetails/(?P<pk>\d+)/$', SalesProspectDetailView.as_view(),
                            name='salesprospectdetails'),
-                       url(r'^salesdetails_wrap/(?P<pk>\d+)/$', SalesProspectDetailViewWrap.as_view(),
-                           name='salesdetails_wrap'),
                        url(r'^addsalesprospect/$', SalesProspectView.as_view(), name='addsalesprospect'),
                        url(r'^editsalesprospect/(?P<pk>\d+)/$', editsalesprospect, name='editsalesprospect'),
                        url(r'salestoclient/(?P<pk>\d+)/$', convert_to_client, name='salestoclient'),
@@ -60,7 +57,13 @@ urlpatterns = patterns('',
                        url(r'salescalllogindex/(?P<pk>\d+)/$', SalesCallLogIndex.as_view(),
                            name='salescalllogindex'),
                        url(r'^salescallloghome/$', SalesCallLogHome.as_view(), name='salescallloghome'),
+                       url(r'editsalescall/(?P<pk>[\d-]+)/$', editsalescall, name='editsalescall'),
+
+
 )
+
+
+
 
 
 

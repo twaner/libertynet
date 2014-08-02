@@ -89,9 +89,9 @@
         <div class="row">
           <div class="col-md-12">
           <div class="accordion" id="accordion2">
-          {% include 'client/__sales_index_table.html' with collapse_number="collapseOne" title="All Sales Leads" title1="Sales List" context=all_sales_prospect_list %}
-          {% include 'client/__sales_index_table.html' with collapse_number="collapseTwo" title="Follow Up Needed" title1="Client List" context=follow_up %}
-          {% include 'client/__sales_index_table.html' with collapse_number="collapseThree" title="10 Most Recent Leads" title1="Client List" context=most_recent %}
+          {% include 'client/sales/__sales_index_table.html' with collapse_number="collapseOne" title="All Sales Leads" title1="Sales List" context=all_sales_prospect_list %}
+          {% include 'client/sales/__sales_index_table.html' with collapse_number="collapseTwo" title="Follow Up Needed" title1="Client List" context=follow_up %}
+          {% include 'client/sales/__sales_index_table.html' with collapse_number="collapseThree" title="10 Most Recent Leads" title1="Client List" context=most_recent %}
           <!-- All Clients -->
           </div> <!-- div#accordion2 -->
         </div> <!-- col-md-12 -->

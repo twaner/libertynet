@@ -20,7 +20,11 @@
             <div class="breadcrumb-button">
               <span class="breadcrumb-label">
                 <i class="fa fa-group"></i>
-                  <a href="/client/index/">Client Home</a>
+                  {% if identifier == 'Sales' %}
+                                <a href="#">Sales Home</a>
+                              {% else %}
+                                <a href="/client/index/">Client Home</a>
+                              {% endif %}
               </span>
               <span class="breadcrumb-arrow"><span></span></span>
             </div>

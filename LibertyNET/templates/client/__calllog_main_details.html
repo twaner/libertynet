@@ -4,6 +4,9 @@
                 {% if calllog_main %}
                 <li>
                     <label>Name</label>: {{ calllog_main.get_name }}
+                    <a href="{{ calllog_main.get_absolute_url_edit }}">
+                        <i class="fa fa-pencil-square-o"></i>
+                    </a>
                 </li>
                 <li>
                     <label>Call Date</label>:
@@ -21,18 +24,18 @@
                 </li>
                 <li>
                     <label>Follow Up Required</label>:
-                    <b>{{ calllog_main.follow_up|yesno:"YES,NO,MAYBE" }}</b>
+                    <b>{{ calllog_main.follow_up|yesno:"Yes,No,Maybe" }}</b>
                 </li>
                 <li>
                     <label>Purpose</label>
                 </li>
-                 <textarea name="purpose" rows="3" cols="160" readonly>
+                 <textarea name="purpose" readonly>
                     {{ calllog_main.purpose }}
                 </textarea>
                 <li>
                     <label>Notes</label>
                 </li>
-                <textarea name="notes" rows="10" cols="160" readonly>
+                <textarea name="notes" readonly>
                     {{ calllog_main.notes }}
                 </textarea>
                 {% else %}

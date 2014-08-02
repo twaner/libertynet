@@ -13,7 +13,7 @@
                     <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive">
                         <thead>
                             <tr>
-                              {% include 'client/__sales_index_table_header.html' %}
+                              {% include 'client/sales/__sales_index_table_header.html' %}
                             </tr>
                         </thead>
                         <tbody role="alert" aria-live="polite" aria-relavent="all">
@@ -22,11 +22,11 @@
                               <td class="sorting_1">{{e.id}}</td>
                               <td>
                                    <a href="{{ e.get_absolute_url }}">
-                                          {{ e }}
+                                      {{ e }}
                                    </a>
                               </td>
                               <td>
-                                {% include 'client/__sales_btn-group.html' %}
+                                {% include 'client/sales/__sales_btn-group.html' %}
                               </td>
                             </tr>
                         {% endfor %}

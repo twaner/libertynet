@@ -1,59 +1,54 @@
-{% extends 'base.html' %}
-{% load bootstrap_toolkit %}
-
-{% block content %}
-<a href="{% url 'Client:salesprospectindex' %}">
-    Sales Home
-</a> &nbsp;/&nbsp;
-{% if sales_prospect_detail %}
-    <a href="{{ sales_prospect_detail.get_absolute_url_edit }}">
-        Edit Prospect Information
-    </a> &nbsp;/&nbsp;
-    <a href="{{ sales_prospect_detail.get_absolute_url_calllog_index }}">
-        Call Log Index
-    </a> &nbsp;/&nbsp;
-    <a href="{{ sales_prospect_detail.addsalescalllog }}">
-        Add Call Log
-    </a>
-
-    <ul>
-        <li>
-            Sales Prospect Information Info
-        </li>
-        {% if sales_prospect_detail %}
-        <li>
-            {{ sales_prospect_detail }}
-        </li>
-        {% endif %}
-
-        <li>
-            Prospect Address:
-        </li>
-        {% if address_detail %}
-        <li>
-            {{ address_detail }}
-        </li>
-        {% else %}
-        <li>
-            No address info.
-        </li>
-        {% endif %}
-        <li>
-            Prospect Contact:
-        </li>
-        {% if contact_detail %}
-        <li>
-            {{ contact_detail }}
-        </li>
-        {% else %}
-        <li>
-            No contact information
-        </li>
-        {% endif %}
-        <li>
-    </ul>
-{% else %}
-        <p>No Sales Prospects are available.</p>
-{% endif %}
-
+{% extends 'common/__basewrap.html' %}
+{% load humanize %}
+{% block body_block %}
 {% endblock %}
+{% block base_header %}
+<!-- Header for container -->
+  <div class="container">
+    <div class="row">
+      <div class="area-top clearfix">
+        <div class="pull-left header">
+          <h3 class="title">
+            <i class="icon-group"></i>
+            Sales Prospect Details
+          </h3>
+          <h5>
+            <span>
+              Detailed Sales Prospect Information
+            </span>
+          </h5>
+        </div>
+        <ul class="list-inline pull-right sparkline-box">
+          <li class="sparkline-row">
+            <h4 class="blue"><span>Calls</span> {{ calllog_list|length}} </h4>
+          </li>
+          <li class="sparkline-row">
+            <h4 class="blue"><span>Follow Ups</span> {{ calllog_follow|length }} </h4>
+          </li>
+          <li class="sparkline-row">
+              <h4 class="blue"><span>Next Calls: </span>{{ next_contact }}</h4>
+          </li>
+      </div>
+    </div>
+  </div> <!-- container -->
+{% endblock base_header %}
+
+{% block base_content %}
+ {% block form_breadcrumb %}
+    {% include 'client/common/__details_breadcrumb.html' with index="salesprospectindex" type="Sales" container="container" %}
+ {% endblock form_breadcrumb %}
+      <br />
+      <div class="row">
+          <div class="col-md-6">
+            {% include 'client/sales/__sales_info_table.html' with sales_detail=sales_detail %}
+          </div>
+      </div> <!-- end first container row -->
+
+      <div class="row">
+          <div class="col-md-6">
+            {% include 'client/__calllog.html' with context=calllog_list context1=calllog_follow %}
+          </div>
+      </div> <!-- row -->
+  </div> <!-- containter -->
+
+{% endblock base_content %}

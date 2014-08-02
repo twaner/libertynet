@@ -37,11 +37,10 @@
 </div> <!-- container padded -->
 {% endblock form_breadcrumb %}
 {% block h4_block %}Call Details{% endblock h4_block %}
-
 {% block cog_block %}
     {% include 'client/__calllog_details_cog.html' with cog_context=calllog %}
 {% endblock cog_block %}
 {% block form_content %}
-    {% include 'client/__calllog_details_cog.html' with calllog_main=calllog %}
-{% endblock %}
+    {% include 'client/__calllog_main_details.html' with calllog_main=calllog %}
+{% endblock form_content %}
 

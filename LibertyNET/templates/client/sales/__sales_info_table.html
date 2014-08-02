@@ -1,0 +1,89 @@
+{% load humanize %}
+<div class="box">
+  <div class="box-header">
+    <span class="title"><i class="fa fa-phone"></i>
+        Sales Prospect Information
+    </span>
+    <ul class="box-toolbar">
+        <dd>
+          <div class="btn-group">
+            <button class="btn btn-xs btn-default dropdown-toggle"
+                    data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+            <ul class="dropdown-menu">
+              <dd>
+                  <a href="{{ sales_detail.get_absolute_url_edit }}">
+                    <i class="fa fa-pencil-square-o"></i> Edit Details
+                </a>
+              </dd>
+              <dd>
+                  <a href="{{ sales_detail.get_absolute_url_edit }}">
+                      <i class="fa fa-user"></i> Convert to Cddent
+                  </a>
+              </dd>
+            </ul>
+          </div>
+        </dd>
+    </ul>
+  </div> <!-- box-header -->
+  <div class="box-content scrollable" style="height: 360px; overflow-y: auto">
+      <div class="box-content padded" >
+          <h5>
+              Sales Prospect Information
+              <a href="{{ sales_detail.get_absolute_url_edit }}">
+                  <i class="fa fa-pencil-square-o"></i>
+              </a>
+          </h5>
+          <dt>
+                <dt>Sales Prospect Name</dt>
+              <dd>
+                  {{ sales_detail.get_full_name }}
+              </dd>
+          {% if sales_detail.is_a_business == True %}
+              <dt>
+                  Business Name
+              </dt>
+              <dd>
+                  {{ sales_detail.business_name }}
+              </dd>
+          {% endif %}
+          <dt>ddberty Contact</dt>
+            <dd>
+                {{ sales_detail.sp_ddberty_contact }}
+            </dd>
+          <dt>Sales Probabiddty</dt>
+            <dd>
+                {{ sales_detail.sales_probabiddty }}
+            </dd>
+          <dt>Sales Type</dt>
+            <dd>
+                {{ sales_detail.sales_type }}
+            </dd>
+          <dt>Comments</dt>
+            <dd> {{ sales_detail.comments }}</dd>
+          <dt>Service Guide</dt>
+            {% if sales_detail.service_guide %}
+                <dd>Yes</dd>
+            {% else %}
+                <dd>No</dd>
+            {% endif %}
+          <dt>Prospect Since</dt>
+              <dd>
+                  {{ sales_detail.initial_contact_date|date:"d M Y"|naturalday }}
+              </dd>
+          <dt>Time as Prospect</dt>
+                  {{ sales_detail.initial_contact_date|timesince }}
+          </dt>
+
+
+
+          <h5>Address</h5>
+          {% if address_detail %}
+            {% include 'common/__address_info.html' with address_detail=address_detail %}
+          {% endif %}
+          <h5>Contact Information</h5>
+          {% if contact_detail %}
+            {% include 'common/__contact_info.html' with contact_detail=contact_detail %}
+          {% endif %}
+      </div>
+  </div> <!-- box-content scrollable -->
+</div>

@@ -15,7 +15,8 @@ from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
 from helpermethods import create_client_helper, create_sales_prospect_helper, update_client_helper, \
     update_sales_prospect_helper, create_calllog_helper, create_client_calllog_helper, create_sales_calllog_helper, \
     update_call_log_helper
-from forms import ClientForm, SalesProspectForm, SalesProspectEditForm, SalesProspectCallLogForm, ClientCallLogForm, ClientForm2
+from forms import ClientForm, SalesProspectForm, SalesProspectEditForm, SalesProspectCallLogForm, ClientCallLogForm, \
+    ClientForm2
 from Common.forms import AddressForm, ContactForm
 from Common.models import Address, Contact, Billing
 from Common.helpermethods import create_address_helper, form_generator, create_contact_helper, \
@@ -23,7 +24,7 @@ from Common.helpermethods import create_address_helper, form_generator, create_c
 from Site.models import Site
 import operator
 
-#region ListViews - Index Views of All of an Object
+# region ListViews - Index Views of All of an Object
 
 
 class ClientListView(ListView):
@@ -120,6 +121,7 @@ class SalesCallLogHome(ListView):
         context['identifier'] = 'Sales'
         return context
 
+
 #region DetailViews - Details for an Object.
 
 
@@ -147,38 +149,12 @@ class ClientDetailView(DetailView):
         except ObjectDoesNotExist:
             pass
         try:
-            client_calls = ClientCallLog.objects.filter(client_id=client.id).\
+            client_calls = ClientCallLog.objects.filter(client_id=client.id). \
                 order_by('-call_date', '-call_time')
             context['calllog_list'] = client_calls
-            context['calllog_follow'] = client_calls.filter(client_id=client.id).\
+            context['calllog_follow'] = client_calls.filter(client_id=client.id). \
                 filter(follow_up=True)
             context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
-        except ObjectDoesNotExist:
-            pass
-        return context
-
-
-class ClientDetailViewWO(DetailView):
-    """
-    View for Client Details.
-    """
-    model = Client
-    client_id = 'pk'
-    context_object_name = 'client_detail'
-    template_name = 'client/clientdetails.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(ClientDetailViewWO, self).get_context_data(**kwargs)
-        client = self.get_object()
-        context['address_detail'] = Address.objects.get(pk=client.client_address_id)
-        context['contact_detail'] = Contact.objects.get(pk=client.client_contact_id)
-        #if client.client_billing_id is not None:
-        try:
-            context['billing_detail'] = Billing.objects.get(pk=client.client_billing_id)
-        except ObjectDoesNotExist:
-            pass
-        try:
-            context['site_detail'] = Site.objects.get(site_client_id=client.id)
         except ObjectDoesNotExist:
             pass
         return context
@@ -191,7 +167,7 @@ class SalesProspectDetailView(DetailView):
     model = SalesProspect
     id = 'pk'
     template_name = 'client/salesprospectdetails.html'
-    context_object_name = 'sales_prospect_detail'
+    context_object_name = 'sales_detail'
 
     def get_context_data(self, **kwargs):
         context = super(SalesProspectDetailView, self).get_context_data(**kwargs)
@@ -205,36 +181,11 @@ class SalesProspectDetailView(DetailView):
         except Contact.DoesNotExist:
             pass
         try:
-            context['call_detail'] = SalesProspectCallLog.objects.\
-                filter(sales_id=sales.id)
-        except SalesProspectCallLog.DoesNotExist:
-            pass
-        return context
-
-
-class SalesProspectDetailViewWrap(DetailView):
-    """
-    View for Sales Prospect Details.
-    """
-    model = SalesProspect
-    id = 'pk'
-    template_name = 'client/salesdetails_wrap.html'
-    context_object_name = 'sales_prospect_detail'
-
-    def get_context_data(self, **kwargs):
-        context = super(SalesProspectDetailViewWrap, self).get_context_data(**kwargs)
-        sales = self.get_object()
-        try:
-            context['address_detail'] = Address.objects.get(pk=sales.sp_address_id)
-        except Address.DoesNotExist:
-            pass
-        try:
-            context['contact_detail'] = Contact.objects.get(pk=sales.sp_contact_id)
-        except Contact.DoesNotExist:
-            pass
-        try:
-            context['call_detail'] = SalesProspectCallLog.objects.\
-                filter(sales_id=sales.id)
+            calls = SalesProspectCallLog.objects. \
+                filter(sales_id=sales.id).order_by('-call_date', '-call_time')
+            context['calllog_list'] = calls
+            context['calllog_follow'] = calls.filter(follow_up=True)
+            context['next_contact'] = SalesProspectCallLog.objects.get_next_contact_date(calls)
         except SalesProspectCallLog.DoesNotExist:
             pass
         return context
@@ -444,6 +395,7 @@ def convert_to_client(request, pk):
     form_dict = dict_generator(form_list)
     return render(request, template_name, form_dict)
 
+
 @login_required
 def editclient(request, pk):
     """
@@ -532,6 +484,7 @@ class ClientCallLogView(View):
         form_list[0] = ClientCallLogForm(calllog_dict)
         return render(request, self.template_name, dict_generator(form_list))
 
+
 @login_required
 def addclientcalllog(request, pk):
     """
@@ -545,7 +498,7 @@ def addclientcalllog(request, pk):
     form_list[0] = ClientCallLogForm(request.POST)
     client = Client.objects.get(pk=pk)
     calllog_dict = {
-        'id': client.id, 'call_date': date.today().strftime("%Y-%m-%d"),
+        'client_id': client.id, 'call_date': date.today().strftime("%Y-%m-%d"),
         'call_time': datetime.now().time().strftime("%H:%M"),
     }
 
@@ -665,7 +618,7 @@ class ClientCallLogIndex(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ClientCallLogIndex, self).get_context_data(**kwargs)
         client = self.get_object()
-        context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.id)\
+        context['calllog_list'] = ClientCallLog.objects.filter(client_id=client.id) \
             .order_by('-call_date', 'call_time')
         context['next_contact'] = ClientCallLog.objects.get_next_contact_date(client)
 
@@ -728,7 +681,7 @@ class SalesCallLogIndex(DetailView):
     def get_context_data(self, **kwargs):
         context = super(SalesCallLogIndex, self).get_context_data(**kwargs)
         sales = self.get_object()
-        context['calllog_list'] = SalesProspectCallLog.objects.filter(sales_id=sales.id)\
+        context['calllog_list'] = SalesProspectCallLog.objects.filter(sales_id=sales.id) \
             .order_by('-call_date', '-call_time')
         context['next_contact'] = SalesProspectCallLog.objects.get_next_contact_date(sales)
 
@@ -762,4 +715,4 @@ def editsalescall(request, pk):
         form_dict['call'] = calllog
         return render(request, template_name, form_dict)
 
-#endregion
+        #endregion
