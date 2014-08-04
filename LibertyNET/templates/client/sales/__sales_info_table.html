@@ -5,24 +5,24 @@
         Sales Prospect Information
     </span>
     <ul class="box-toolbar">
-        <dd>
+        <li>
           <div class="btn-group">
             <button class="btn btn-xs btn-default dropdown-toggle"
                     data-toggle="dropdown"><i class="fa fa-cog"></i></button>
             <ul class="dropdown-menu">
-              <dd>
+              <li>
                   <a href="{{ sales_detail.get_absolute_url_edit }}">
-                    <i class="fa fa-pencil-square-o"></i> Edit Details
+                    <i class="fa fa-pencil-square-o"></i>  Edit Details
                 </a>
-              </dd>
-              <dd>
+              </li>
+              <li>
                   <a href="{{ sales_detail.get_absolute_url_edit }}">
-                      <i class="fa fa-user"></i> Convert to Cddent
+                    <i class="fa fa-user"></i> Convert to Client
                   </a>
-              </dd>
+              </li>
             </ul>
           </div>
-        </dd>
+        </li>
     </ul>
   </div> <!-- box-header -->
   <div class="box-content scrollable" style="height: 360px; overflow-y: auto">
@@ -86,4 +86,4 @@
           {% endif %}
       </div>
   </div> <!-- box-content scrollable -->
-</div>
+</div> <!-- box -->

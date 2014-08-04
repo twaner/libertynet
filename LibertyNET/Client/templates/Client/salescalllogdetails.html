@@ -1,3 +1,58 @@
+{% extends 'common/__basewrap.html' %}
+{% load humanize %}
+{% block body_block %}
+{% endblock %}
+{% block base_header %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-phone" title="Call Details" subtitle="Detailed Call Information" %}
+{% endblock base_header %}
+
+{% block base_content %}
+ {% block form_breadcrumb %}
+ <div class="container padded">
+    <div class="row">
+        <div class="col-lg-6">
+          <div id="breadcrumbs">
+            <div class="breadcrumb-button blue">
+              <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+              <span class="breadcrumb-label">
+                <i class="fa fa-group"></i>
+                  <a href="/client/salesprospectindex/">Sales Home</a>
+              </span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+              <span class="breadcrumb-label">
+                <i class="fa fa-group"></i>
+                  <a href="{{ calllog.sales_id.get_absolute_url }}">Sales Details</a>
+              </span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+                <span class="breadcrumb-label">
+                    <i class="fa fa-phone"></i>
+                    Call Details
+                </span>
+            </div>
+          </div>
+        </div>
+    </div>
+ {% endblock form_breadcrumb %}
+     <br />
+     <div class="col-lg-6">
+        <div class="box">
+            <div class="box-content">
+            {% include 'client/__calllog_main_details.html' with calllog_main=calllog %}
+            </div>
+        </div>
+     </div>
+ </div> <!-- container -->
+ {% endblock base_content %}
+
+{% comment %}
+
 {% extends 'common/__form_ro_base.html' %}
 {% load mytags %}
 {% block form_header %}
@@ -5,42 +60,47 @@
 {% endblock %}
 
 {% block form_breadcrumb %}
-<div class="container padded">
+<div class="container">
     <div class="row">
-      <div id="breadcrumbs">
-        <div class="breadcrumb-button blue">
-          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
-          <span class="breadcrumb-arrow"><span></span></span>
+        <div class="col-lg-6">
+          <div id="breadcrumbs">
+            <div class="breadcrumb-button blue">
+              <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+              <span class="breadcrumb-label">
+                <i class="fa fa-group"></i>
+                  <a href="/client/salesprospectindex/">Sales Home</a>
+              </span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+              <span class="breadcrumb-label">
+                <i class="fa fa-group"></i>
+                  <a href="{{ calllog.sales_id.get_absolute_url }}">Sales Details</a>
+              </span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+                <span class="breadcrumb-label">
+                    <i class="fa fa-phone"></i>
+                    Call Details
+                </span>
+            </div>
+          </div>
         </div>
-        <div class="breadcrumb-button">
-          <span class="breadcrumb-label">
-            <i class="fa fa-group"></i>
-              <a href="/client/salesprospectindex/">Sales Home</a>
-          </span>
-          <span class="breadcrumb-arrow"><span></span></span>
-        </div>
-        <div class="breadcrumb-button">
-          <span class="breadcrumb-label">
-            <i class="fa fa-group"></i>
-              <a href="{{ calllog.sales_id.get_absolute_url }}">Sales Details</a>
-          </span>
-          <span class="breadcrumb-arrow"><span></span></span>
-        </div>
-        <div class="breadcrumb-button">
-            <span class="breadcrumb-label">
-                <i class="fa fa-phone"></i>
-                Call Details
-            </span>
-        </div>
-      </div>
     </div>
-</div> <!-- container padded -->
+<!--</div> &lt;!&ndash; container padded &ndash;&gt;-->
 {% endblock form_breadcrumb %}
 {% block h4_block %}Call Details{% endblock h4_block %}
 {% block cog_block %}
     {% include 'client/__calllog_details_cog.html' with cog_context=calllog %}
 {% endblock cog_block %}
 {% block form_content %}
+    <br />
     {% include 'client/__calllog_main_details.html' with calllog_main=calllog %}
+    </div>
 {% endblock form_content %}
 
+{% endcomment %}

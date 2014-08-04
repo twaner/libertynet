@@ -46,11 +46,6 @@
                   </a>
                 </li>
               <li class="">
-                  <a href="{% url 'Client:addclient' %}">
-                      <i class="fa fa-plus-circle"></i> Add Client
-                  </a>
-              </li>
-              <li class="">
                   <a href="{% url 'Client:callloghome' %}">
                       <i class="fa fa-phone-square"></i> Client Call Log Home
                   </a>
@@ -58,6 +53,11 @@
               <li class="">
                   <a href="{% url 'Work:clientestimateindex' %}">
                       <i class="fa fa-home"></i> Client Estimate Home
+                  </a>
+              </li>
+              <li class="">
+                  <a href="{% url 'Client:addclient' %}">
+                      <i class="fa fa-plus-circle"></i> Add Client
                   </a>
               </li>
           </ul>
@@ -78,15 +78,15 @@
                   </a>
                 </li>
                 <li class="">
-                  <a href="{% url 'Client:addsalesprospect' %}">
-                      <i class="fa fa-plus-circle"></i> Add Sales Lead
-                  </a>
-                </li>
-                <li class="">
                   <a href="../other/sign_up.html">
                       <i class="fa fa-phone-square"></i> Sales Call Log Home
                   </a>
                 </li>
+                <li class="">
+                  <a href="{% url 'Client:addsalesprospect' %}">
+                      <i class="fa fa-plus-circle"></i> Add Sales Lead
+                  </a>
+               </li>
           </ul>
         </li>
         <li class="dark-nav ">
@@ -105,13 +105,13 @@
                   </a>
                 </li>
                 <li class="">
-                  <a href="../other/login.html">
-                      <i class="fa fa-plus-circle"></i> Add Work Order
+                  <a href="/work/clientestimateindex/">
+                      <i class="fa fa-file-o"></i> Client Estimate Home
                   </a>
                 </li>
                 <li class="">
-                  <a href="../other/sign_up.html">
-                      <i class="icon-user"></i> Sign Up Page
+                  <a href="/work/createestimate">
+                      <i class="fa fa-plus-circle"></i> Create Client Estimate
                   </a>
                 </li>
           </ul>

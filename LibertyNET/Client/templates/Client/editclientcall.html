@@ -11,49 +11,52 @@
 {% block h4_block %}Edit Call{% endblock h4_block %}
 {% block form_breadcrumb %}
 <!-- breadcrumb -->
-<div class="container padded">
+<div class="container">
     <div class="row">
-      <div id="breadcrumbs">
-        <div class="breadcrumb-button blue">
-          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
-          <span class="breadcrumb-arrow"><span></span></span>
-        </div>
-        <div class="breadcrumb-button">
-          <span class="breadcrumb-label">
-            <i class="fa fa-group"></i>
-              <a href="/client/index/">Client Home</a>
-          </span>
-          <span class="breadcrumb-arrow"><span></span></span>
-        </div>
-        <div class="breadcrumb-button">
-          <span class="breadcrumb-label">
-            <i class="fa fa-group"></i>
-              <a href="{{ call.client_id.get_absolute_url }}">Client Details</a>
-          </span>
-          <span class="breadcrumb-arrow"><span></span></span>
-        </div>
-        <div class="breadcrumb-button">
-          <span class="breadcrumb-label">
-            <i class="fa fa-group"></i>
-              <a href="{{ call.get_absolute_url }}">Call Details</a>
-          </span>
-          <span class="breadcrumb-arrow"><span></span></span>
-        </div>
-        <div class="breadcrumb-button">
-            <span class="breadcrumb-label">
-                <i class="fa fa-phone"></i>
-                Edit Call
-            </span>
-        </div>
+      <div class="col-lg-8">
+          <div id="breadcrumbs">
+            <div class="breadcrumb-button blue">
+              <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+              <span class="breadcrumb-label">
+                <i class="fa fa-group"></i>
+                  <a href="/client/index/">Client Home</a>
+              </span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+              <span class="breadcrumb-label">
+                <i class="fa fa-group"></i>
+                  <a href="{{ call.client_id.get_absolute_url }}">Client Details</a>
+              </span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+              <span class="breadcrumb-label">
+                <i class="fa fa-group"></i>
+                  <a href="{{ call.get_absolute_url }}">Call Details</a>
+              </span>
+              <span class="breadcrumb-arrow"><span></span></span>
+            </div>
+            <div class="breadcrumb-button">
+                <span class="breadcrumb-label">
+                    <i class="fa fa-phone"></i>
+                    Edit Call
+                </span>
+            </div>
+          </div>
       </div>
     </div>
 </div> <!-- container padded -->
+        <br />
 {% endblock form_breadcrumb %}
 {% block form_content %}
     {% for i in form0 %}
         <li>
             <label>{{ i.label|title|cut:"_" }}</label>
-            {% if i.name == "client_id" or i.name == "caller"%}
+            {% if i.name == "client_id" or i.name == "caller" or i.name == "sales_id" %}
                 {{ i|addcss:"form-control" }}
             {% elif i.name = 'notes' %}
                 {{ i }}

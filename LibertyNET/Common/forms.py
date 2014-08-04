@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
-from models import Address, Billing, Contact, CallList, Installer, Card, UserProfile
+from models import Address, Billing, Contact, CallList, Installer, \
+    Card, UserProfile, CallLog
 from bootstrap_toolkit.widgets import BootstrapDateInput
 
 #region AddressForms
@@ -148,4 +149,31 @@ class UserProfileForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'placeholder': 'Last Name'}),
         }
 
+
+class CallLogForm(forms.ModelForm):
+    class Meta:
+        model = CallLog
+
+        widgets = {
+            'call_date': forms.DateInput(
+                attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd", 'auto-close': 'true'}),
+            'next_contact': forms.DateInput(
+                attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd", 'auto-close': 'true'}),
+            'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 5,
+                                             'maxlength': CallLog._meta.get_field('purpose').max_length,
+                                             'onkeyup': "charRemaining('id_purpose', 'purpose_span')",
+                                             # 'onload': "initialChar('id_purpose', 'purpose_span')",
+            }),
+            'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10,
+                                           'maxlength': CallLog._meta.get_field('notes').max_length,
+                                           'onkeyup': "charRemaining('id_notes', 'notes_span')",
+                                           # 'onload': "initialChar('id_notes', 'notes_span')",
+            }),
+            'follow_up': forms.CheckboxInput(attrs={'class': "iButton-icons"}),
+        }
+        labels = {
+            'call_date': _('Date of Call'),
+            'call_time': _('Time of Call'),
+            'follow_up': _('Follow Up Required'),
+        }
 #endregion

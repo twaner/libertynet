@@ -15,8 +15,8 @@ from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
 from helpermethods import create_client_helper, create_sales_prospect_helper, update_client_helper, \
     update_sales_prospect_helper, create_calllog_helper, create_client_calllog_helper, create_sales_calllog_helper, \
     update_call_log_helper
-from forms import ClientForm, SalesProspectForm, SalesProspectEditForm, SalesProspectCallLogForm, ClientCallLogForm, \
-    ClientForm2
+from forms import ClientForm, SalesProspectForm, SalesProspectEditForm, ClientCallLogForm, \
+    ClientForm2, SalesCallLogForm
 from Common.forms import AddressForm, ContactForm
 from Common.models import Address, Contact, Billing
 from Common.helpermethods import create_address_helper, form_generator, create_contact_helper, \
@@ -634,7 +634,7 @@ def addsalescall(request, pk):
     """
     template_name = 'client/addsalescall.html'
     form_list = form_generator(1)
-    form_list[0] = SalesProspectCallLogForm(request.POST)
+    form_list[0] = SalesCallLogForm(request.POST)
     sales = SalesProspect.objects.get(pk=pk)
     calllog_dict = {
         'sales_id': sales.id, 'call_date': date.today().strftime("%Y-%m-%d"),
@@ -646,10 +646,10 @@ def addsalescall(request, pk):
             calllog = create_calllog_helper(form_list[0], sales)
             return HttpResponseRedirect(reverse('Client:salesprospectdetails', kwargs={'pk': sales.id}))
         else:
-            form_list[0] = SalesProspectCallLogForm(calllog_dict)
+            form_list[0] = SalesCallLogForm(calllog_dict)
             return render(request, template_name, dict_generator(form_list))
     else:
-        form_list[0] = SalesProspectCallLogForm(calllog_dict)
+        form_list[0] = SalesCallLogForm(calllog_dict)
         fd = dict_generator(form_list)
         fd['sales'] = sales
         return render(request, template_name, fd)
@@ -689,30 +689,36 @@ class SalesCallLogIndex(DetailView):
 
 
 def editsalescall(request, pk):
-    pass
+    """
+    View to edit a Sales Prospect Call.
+    @param request: request.
+    @param pk: pk of Call.
+    @return:
+    """
     template_name = 'client/editclientcall.html'
     form_list = form_generator(1)
-    calllog = ClientCallLog.objects.get(pk=pk)
+    calllog = SalesProspectCallLog.objects.get(pk=pk)
     calllog_dict = {
         'caller': calllog.caller, 'call_date': calllog.call_date.strftime("%Y-%m-%d"),
         'call_time': calllog.call_time.strftime("%H:%M"), 'purpose': calllog.purpose,
         'notes': calllog.notes, 'next_contact': calllog.next_contact,
-        'follow_up': calllog.follow_up, 'id': calllog.id,
+        'follow_up': calllog.follow_up, 'sales_id': calllog.sales_id,
     }
 
     if request.method == 'POST':
-        form_list[0] = ClientCallLogForm(request.POST)
+        form_list[0] = SalesCallLogForm(request.POST)
         if validation_helper(form_list):
             calllog = update_call_log_helper(form_list[0], calllog)
-            return HttpResponseRedirect(reverse('Client:clientcalllogdetails',
+            return HttpResponseRedirect(reverse('Client:salescalllogdetails',
                                                 kwargs={'pk': calllog.id}))
         else:
-            form_list[0] = ClientCallLogForm(calllog_dict)
+            form_list[0] = SalesCallLogForm(calllog_dict)
             return render(request, template_name, dict_generator(form_list))
     else:
-        form_list[0] = ClientCallLogForm(calllog_dict)
+        form_list[0] = SalesCallLogForm(calllog_dict)
         form_dict = dict_generator(form_list)
         form_dict['call'] = calllog
+        form_dict['type'] = "Sales"
         return render(request, template_name, form_dict)
 
         #endregion

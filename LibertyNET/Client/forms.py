@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext as _
 from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
-from Common.forms import AddressForm
+from Common.forms import AddressForm, CallLogForm
 
 #region ClientForms
 
@@ -110,13 +110,13 @@ class ClientCallLogForm(forms.ModelForm):
         model = ClientCallLog
         fields = ['client_id', 'caller', 'call_date', 'call_time', 'follow_up',
                   'purpose', 'notes', 'next_contact']
-        #exclude = ['id']
+
         widgets = {
             'call_date': forms.DateInput(
                 attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd", 'auto-close': 'true'}),
             'next_contact': forms.DateInput(
                 attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd", 'auto-close': 'true'}),
-            'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3,
+            'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 5,
                                              'maxlength': ClientCallLog._meta.get_field('purpose').max_length,
                                              'onkeyup': "charRemaining('id_purpose', 'purpose_span')",
                                              # 'onload': "initialChar('id_purpose', 'purpose_span')",
@@ -135,7 +135,7 @@ class ClientCallLogForm(forms.ModelForm):
         }
 
 
-class SalesProspectCallLogForm(forms.ModelForm):
+class SalesCallLogForm(CallLogForm):
     class Meta:
         model = SalesProspectCallLog
         fields = ['sales_id', 'caller', 'call_date', 'call_time', 'follow_up',
@@ -145,21 +145,35 @@ class SalesProspectCallLogForm(forms.ModelForm):
             'call_date': _('Date of Call'),
             'call_time': _('Time of Call'),
             'follow_up': _('Follow Up Required'),
-            'sales_id': _('Sales Lead')
-        }
-        widgets = {
-            'call_date': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
-            'next_contact': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
-            'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3,
-                                             'maxlength': SalesProspectCallLog._meta.get_field('purpose').max_length,
-                                             'onkeyup': "charRemaining('id_purpose', 'purpose_span')",
-                                             # 'onload': "initialChar('id_purpose', 'purpose_span')",
-            }),
-            'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10,
-                                           'maxlength': SalesProspectCallLog._meta.get_field('notes').max_length,
-                                           'onkeyup': "charRemaining('id_notes', 'notes_span')",
-                                           # 'onload': "initialChar('id_notes', 'notes_span')",
-            }),
-        }
+            'sales_id': _('Sales Lead'),
+            }
+
+
+# class SalesProspectCallLogForm(forms.ModelForm):
+#     class Meta:
+#         model = SalesProspectCallLog
+#         fields = ['sales_id', 'caller', 'call_date', 'call_time', 'follow_up',
+#                   'purpose', 'notes', 'next_contact']
+#
+#         labels = {
+#             'call_date': _('Date of Call'),
+#             'call_time': _('Time of Call'),
+#             'follow_up': _('Follow Up Required'),
+#             'sales_id': _('Sales Lead')
+#         }
+#         widgets = {
+#             'call_date': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+#             'next_contact': forms.DateInput(attrs={'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+#             'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 5,
+#                                              'maxlength': SalesProspectCallLog._meta.get_field('purpose').max_length,
+#                                              'onkeyup': "charRemaining('id_purpose', 'purpose_span')",
+#                                              # 'onload': "initialChar('id_purpose', 'purpose_span')",
+#             }),
+#             'notes': forms.Textarea(attrs={'cols': 160, 'rows': 10,
+#                                            'maxlength': SalesProspectCallLog._meta.get_field('notes').max_length,
+#                                            'onkeyup': "charRemaining('id_notes', 'notes_span')",
+#                                            # 'onload': "initialChar('id_notes', 'notes_span')",
+#             }),
+#         }
 
 #endregion

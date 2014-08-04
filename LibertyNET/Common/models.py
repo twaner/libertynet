@@ -605,8 +605,8 @@ class CallLog(models.Model):
     caller = models.ForeignKey('Employee.Employee', null=True, blank=True)
     call_date = models.DateField()
     call_time = models.TimeField()
-    purpose = models.CharField(max_length=150)
-    notes = models.CharField(max_length=500)
+    purpose = models.CharField(max_length=200)
+    notes = models.CharField(max_length=550)
     next_contact = models.DateField()
     follow_up = models.BooleanField(default=False)
 

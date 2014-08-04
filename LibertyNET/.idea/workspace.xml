@@ -2,23 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8959466-4394-41a0-a1ac-cc0945cfaa97" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/client/common/__details_breadcrumb.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/templates/client/__sales_btn-group.html" afterPath="$PROJECT_DIR$/templates/client/sales/__sales_btn-group.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/templates/client/__sales_index_table.html" afterPath="$PROJECT_DIR$/templates/client/sales/__sales_index_table.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/templates/client/__sales_index_table_header.html" afterPath="$PROJECT_DIR$/templates/client/sales/__sales_index_table_header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/common/__base_head.html" afterPath="$PROJECT_DIR$/templates/common/__base_head.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/client/__calllog.html" afterPath="$PROJECT_DIR$/templates/client/__calllog.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/client/__calllog_home.html" afterPath="$PROJECT_DIR$/templates/client/__calllog_home.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/client/__calllog_main_details.html" afterPath="$PROJECT_DIR$/templates/client/__calllog_main_details.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/client/__client_info_table.html" afterPath="$PROJECT_DIR$/templates/client/__client_info_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/employee/__employee_info_table.html" afterPath="$PROJECT_DIR$/templates/employee/__employee_info_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/common/__form_ro_base.html" afterPath="$PROJECT_DIR$/templates/common/__form_ro_base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/templates/Client/details.html" afterPath="$PROJECT_DIR$/Client/templates/Client/details.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/models.py" afterPath="$PROJECT_DIR$/Client/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/common/__primary_sidebar.html" afterPath="$PROJECT_DIR$/templates/common/__primary_sidebar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/client/sales/__sales_info_table.html" afterPath="$PROJECT_DIR$/templates/client/sales/__sales_info_table.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Employee/templates/employee/details.html" afterPath="$PROJECT_DIR$/Employee/templates/employee/details.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/templates/Client/editclientcall.html" afterPath="$PROJECT_DIR$/Client/templates/Client/editclientcall.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/forms.py" afterPath="$PROJECT_DIR$/Client/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/forms.py" afterPath="$PROJECT_DIR$/Common/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Common/models.py" afterPath="$PROJECT_DIR$/Common/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/templates/Client/salescalllogdetails.html" afterPath="$PROJECT_DIR$/Client/templates/Client/salescalllogdetails.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/templates/Client/salesprospectdetails.html" afterPath="$PROJECT_DIR$/Client/templates/Client/salesprospectdetails.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/templates/Client/salesprospectindex.html" afterPath="$PROJECT_DIR$/Client/templates/Client/salesprospectindex.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/urls.py" afterPath="$PROJECT_DIR$/Client/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/views.py" afterPath="$PROJECT_DIR$/Client/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -45,31 +38,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="details.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/templates/Client/details.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-4.375" vertical-offset="570" max-vertical-offset="1575">
-                  <caret line="45" column="125" selection-start-line="45" selection-start-column="125" selection-end-line="45" selection-end-column="125" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="details.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Employee/templates/employee/details.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-15.666667" vertical-offset="689" max-vertical-offset="1545">
-                  <caret line="71" column="37" selection-start-line="71" selection-start-column="37" selection-end-line="71" selection-end-column="37" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Client/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="6860" max-vertical-offset="7590">
-                  <caret line="485" column="29" selection-start-line="485" selection-start-column="8" selection-end-line="485" selection-end-column="29" />
+                <state vertical-scroll-proportion="12.897196" vertical-offset="0" max-vertical-offset="7590">
+                  <caret line="465" column="12" selection-start-line="465" selection-start-column="4" selection-end-line="465" selection-end-column="12" />
                   <folding />
                 </state>
               </provider>
@@ -78,8 +51,8 @@
           <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="7545" max-vertical-offset="10845">
-                  <caret line="500" column="18" selection-start-line="500" selection-start-column="18" selection-end-line="500" selection-end-column="18" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="9388" max-vertical-offset="10935">
+                  <caret line="651" column="47" selection-start-line="651" selection-start-column="47" selection-end-line="651" selection-end-column="47" />
                   <folding>
                     <element signature="e#0#23#0" expanded="true" />
                   </folding>
@@ -87,14 +60,52 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="__sales_info_table.html" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/templates/client/sales/__sales_info_table.html">
+          <file leaf-file-name="details.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Client/templates/Client/details.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="1.4517543" vertical-offset="403" max-vertical-offset="1410">
-                  <caret line="71" column="18" selection-start-line="71" selection-start-column="18" selection-end-line="71" selection-end-column="18" />
-                  <folding>
-                    <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                  </folding>
+                <state vertical-scroll-proportion="-20.083334" vertical-offset="418" max-vertical-offset="1575">
+                  <caret line="60" column="60" selection-start-line="60" selection-start-column="39" selection-end-line="60" selection-end-column="60" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="editclientcall.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Client/templates/Client/editclientcall.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.9166667" vertical-offset="757" max-vertical-offset="1245">
+                  <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="__calllog_main_details.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/templates/client/__calllog_main_details.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="765">
+                  <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="clientcalllogdetails.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-14.708333" vertical-offset="367" max-vertical-offset="855">
+                  <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="salescalllogdetails.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Client/templates/Client/salescalllogdetails.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-29.375" vertical-offset="0" max-vertical-offset="1665">
+                  <caret line="47" column="18" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -103,31 +114,53 @@
       </split-first>
       <split-second>
         <leaf>
+          <file leaf-file-name="forms.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Common/forms.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="780" max-vertical-offset="2760">
+                  <caret line="167" column="63" selection-start-line="167" selection-start-column="63" selection-end-line="167" selection-end-column="63" />
+                  <folding>
+                    <element signature="e#0#24#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="salescalllogdetails.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Client/templates/Client/salescalllogdetails.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-13.5" vertical-offset="1131" max-vertical-offset="1665">
+                  <caret line="97" column="3" selection-start-line="97" selection-start-column="3" selection-end-line="97" selection-end-column="3" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="salesprospectdetails.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/templates/Client/salesprospectdetails.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-8.166667" vertical-offset="359" max-vertical-offset="885">
-                  <caret line="37" column="57" selection-start-line="37" selection-start-column="57" selection-end-line="37" selection-end-column="57" />
+                <state vertical-scroll-proportion="-11.875" vertical-offset="165" max-vertical-offset="900">
+                  <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="__employee_info_table.html" pinned="false" current="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/templates/employee/__employee_info_table.html">
+          <file leaf-file-name="editclientcall.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Client/templates/Client/editclientcall.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.084269665" vertical-offset="375" max-vertical-offset="1545">
-                  <caret line="28" column="57" selection-start-line="28" selection-start-column="57" selection-end-line="28" selection-end-column="57" />
+                <state vertical-scroll-proportion="-1.0416666" vertical-offset="710" max-vertical-offset="1245">
+                  <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="__details_breadcrumb.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/templates/client/common/__details_breadcrumb.html">
+          <file leaf-file-name="__primary_sidebar.html" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/templates/common/__primary_sidebar.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-18.166666" vertical-offset="134" max-vertical-offset="690">
-                  <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
+                <state vertical-scroll-proportion="0.30919766" vertical-offset="937" max-vertical-offset="1875">
+                  <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
                   <folding />
                 </state>
               </provider>
@@ -153,10 +186,7 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/templates/client/__client_index_table.html" />
-        <option value="$PROJECT_DIR$/Client/templates/Client/index.html" />
         <option value="$PROJECT_DIR$/templates/common/__common_call_log.html" />
-        <option value="$PROJECT_DIR$/Employee/templates/employee/details.html" />
         <option value="$PROJECT_DIR$/Employee/forms.py" />
         <option value="$PROJECT_DIR$/Employee/templates/employee/editemployee.html" />
         <option value="$PROJECT_DIR$/Employee/templates/employee/index.html" />
@@ -164,8 +194,6 @@
         <option value="$PROJECT_DIR$/templates/common/__address_info.html" />
         <option value="$PROJECT_DIR$/templates/common/__contact_info.html" />
         <option value="$PROJECT_DIR$/Employee/models.py" />
-        <option value="$PROJECT_DIR$/Common/models.py" />
-        <option value="$PROJECT_DIR$/templates/common/__primary_sidebar.html" />
         <option value="$PROJECT_DIR$/Common/templatetags/mytags.py" />
         <option value="$PROJECT_DIR$/templates/work/__estimate_table.html" />
         <option value="$PROJECT_DIR$/static/js/charts/xcharts_bar.js" />
@@ -179,31 +207,36 @@
         <option value="$PROJECT_DIR$/templates/client/__client_sites_table.html" />
         <option value="$PROJECT_DIR$/Common/views.py" />
         <option value="$PROJECT_DIR$/Common/helpermethods.py" />
-        <option value="$PROJECT_DIR$/Client/forms.py" />
         <option value="$PROJECT_DIR$/Client/helpermethods.py" />
         <option value="$PROJECT_DIR$/Client/templates/Client/salescallloghome.html" />
         <option value="$PROJECT_DIR$/templates/client/__calllog_details_cog.html" />
         <option value="$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html" />
         <option value="$PROJECT_DIR$/templates/common/__form_ro_base.html" />
         <option value="$PROJECT_DIR$/templates/client/__calllog_home.html" />
-        <option value="$PROJECT_DIR$/Client/templates/Client/salescalllogdetails.html" />
         <option value="$PROJECT_DIR$/templates/common/__base_head.html" />
-        <option value="$PROJECT_DIR$/templates/client/__calllog_main_details.html" />
         <option value="$PROJECT_DIR$/templates/client/__sales_index_table.html" />
         <option value="$PROJECT_DIR$/templates/client/sales/__sales_btn-group.html" />
         <option value="$PROJECT_DIR$/Client/models.py" />
         <option value="$PROJECT_DIR$/Client/urls.py" />
         <option value="$PROJECT_DIR$/templates/client/sales/__sales_details.html" />
         <option value="$PROJECT_DIR$/templates/client/__client_info_table.html" />
-        <option value="$PROJECT_DIR$/Client/views.py" />
         <option value="$PROJECT_DIR$/templates/client/__calllog.html" />
         <option value="$PROJECT_DIR$/Client/templates/Client/salesprospectindex.html" />
         <option value="$PROJECT_DIR$/templates/client/sales/__sales_index_table.html" />
-        <option value="$PROJECT_DIR$/Client/templates/Client/salesprospectdetails.html" />
         <option value="$PROJECT_DIR$/Client/templates/Client/details.html" />
         <option value="$PROJECT_DIR$/templates/client/common/__details_breadcrumb.html" />
         <option value="$PROJECT_DIR$/templates/employee/__employee_info_table.html" />
+        <option value="$PROJECT_DIR$/Employee/templates/employee/details.html" />
+        <option value="$PROJECT_DIR$/Common/models.py" />
+        <option value="$PROJECT_DIR$/templates/client/__calllog_main_details.html" />
         <option value="$PROJECT_DIR$/templates/client/sales/__sales_info_table.html" />
+        <option value="$PROJECT_DIR$/Client/templates/Client/salescalllogdetails.html" />
+        <option value="$PROJECT_DIR$/Common/forms.py" />
+        <option value="$PROJECT_DIR$/Client/forms.py" />
+        <option value="$PROJECT_DIR$/Client/views.py" />
+        <option value="$PROJECT_DIR$/Client/templates/Client/editclientcall.html" />
+        <option value="$PROJECT_DIR$/Client/templates/Client/salesprospectdetails.html" />
+        <option value="$PROJECT_DIR$/templates/common/__primary_sidebar.html" />
       </list>
     </option>
   </component>
@@ -853,13 +886,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Work/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="6105">
-          <caret line="31" column="90" selection-start-line="31" selection-start-column="90" selection-end-line="31" selection-end-column="113" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/templates/Client/callloghome.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.875" vertical-offset="1461" max-vertical-offset="2280">
@@ -970,34 +996,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3845" max-vertical-offset="4455">
           <caret line="268" column="42" selection-start-line="268" selection-start-column="42" selection-end-line="268" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Common/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="78" max-vertical-offset="2280">
-          <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/templates/Client/calllistdetails.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.9508197" vertical-offset="952" max-vertical-offset="1800">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Common/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="8825" max-vertical-offset="10410">
-          <caret line="604" column="10" selection-start-line="604" selection-start-column="4" selection-end-line="604" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/addsalessprospect.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1845">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
@@ -1026,14 +1031,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/editclientcall.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.46771038" vertical-offset="689" max-vertical-offset="1200">
-          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/common/__base_head.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17612524" vertical-offset="0" max-vertical-offset="511">
@@ -1042,50 +1039,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/salescalllogdetails.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.747191" vertical-offset="246" max-vertical-offset="780">
-          <caret line="43" column="80" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/client/__calllog_main_details.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7303371" vertical-offset="0" max-vertical-offset="765">
-          <caret line="26" column="68" selection-start-line="26" selection-start-column="68" selection-end-line="26" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/client/__calllog_home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.75" vertical-offset="135" max-vertical-offset="2520">
-          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Common/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4396" max-vertical-offset="5310">
           <caret line="176" column="38" selection-start-line="176" selection-start-column="38" selection-end-line="176" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-30.0" vertical-offset="0" max-vertical-offset="855">
-          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.8108582" vertical-offset="0" max-vertical-offset="2520">
-          <caret line="110" column="26" selection-start-line="110" selection-start-column="26" selection-end-line="110" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -1114,14 +1071,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6860" max-vertical-offset="7590">
-          <caret line="485" column="29" selection-start-line="485" selection-start-column="8" selection-end-line="485" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/templates/Client/salescallloghome.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="488">
@@ -1146,14 +1095,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/client/__calllog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.041667" vertical-offset="659" max-vertical-offset="1320">
-          <caret line="68" column="81" selection-start-line="68" selection-start-column="81" selection-end-line="68" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/client/sales/__sales_index_table_header.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.06276151" vertical-offset="0" max-vertical-offset="478">
@@ -1166,14 +1107,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.119373776" vertical-offset="284" max-vertical-offset="945">
           <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Employee/templates/employee/details.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.666667" vertical-offset="689" max-vertical-offset="1545">
-          <caret line="71" column="37" selection-start-line="71" selection-start-column="37" selection-end-line="71" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1194,16 +1127,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7545" max-vertical-offset="10845">
-          <caret line="500" column="18" selection-start-line="500" selection-start-column="18" selection-end-line="500" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/client/common/__details_breadcrumb.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-18.166666" vertical-offset="134" max-vertical-offset="690">
@@ -1212,37 +1135,155 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/salesprospectdetails.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.166667" vertical-offset="359" max-vertical-offset="885">
-          <caret line="37" column="57" selection-start-line="37" selection-start-column="57" selection-end-line="37" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/templates/Client/details.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.375" vertical-offset="570" max-vertical-offset="1575">
-          <caret line="45" column="125" selection-start-line="45" selection-start-column="125" selection-end-line="45" selection-end-column="125" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/employee/__employee_info_table.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.084269665" vertical-offset="375" max-vertical-offset="1545">
+        <state vertical-scroll-proportion="-17.5" vertical-offset="0" max-vertical-offset="1545">
           <caret line="28" column="57" selection-start-line="28" selection-start-column="57" selection-end-line="28" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.5514019" vertical-offset="9875" max-vertical-offset="10410">
+          <caret line="608" column="43" selection-start-line="608" selection-start-column="43" selection-end-line="608" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Employee/templates/employee/details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7338552" vertical-offset="0" max-vertical-offset="1545">
+          <caret line="25" column="69" selection-start-line="25" selection-start-column="69" selection-end-line="25" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/client/__calllog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41291586" vertical-offset="809" max-vertical-offset="1320">
+          <caret line="68" column="81" selection-start-line="68" selection-start-column="81" selection-end-line="68" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/client/__calllog_home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.67514676" vertical-offset="0" max-vertical-offset="2520">
+          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/client/__calllog_main_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="765">
+          <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/addsalessprospect.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1845">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/clientcalllogdetails.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.708333" vertical-offset="367" max-vertical-offset="855">
+          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/client/sales/__sales_info_table.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.4517543" vertical-offset="403" max-vertical-offset="1410">
-          <caret line="71" column="18" selection-start-line="71" selection-start-column="18" selection-end-line="71" selection-end-column="18" />
+        <state vertical-scroll-proportion="2.7049181" vertical-offset="0" max-vertical-offset="1410">
+          <caret line="88" column="19" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="19" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.083334" vertical-offset="418" max-vertical-offset="1575">
+          <caret line="60" column="60" selection-start-line="60" selection-start-column="39" selection-end-line="60" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/salescalllogdetails.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.5" vertical-offset="1131" max-vertical-offset="1665">
+          <caret line="97" column="3" selection-start-line="97" selection-start-column="3" selection-end-line="97" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="780" max-vertical-offset="2760">
+          <caret line="167" column="63" selection-start-line="167" selection-start-column="63" selection-end-line="167" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="4.7460938" vertical-offset="0" max-vertical-offset="2775">
+          <caret line="162" column="11" selection-start-line="162" selection-start-column="11" selection-end-line="162" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="9388" max-vertical-offset="10935">
+          <caret line="651" column="47" selection-start-line="651" selection-start-column="47" selection-end-line="651" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="12.897196" vertical-offset="0" max-vertical-offset="7590">
+          <caret line="465" column="12" selection-start-line="465" selection-start-column="4" selection-end-line="465" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/salesprospectdetails.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.875" vertical-offset="165" max-vertical-offset="900">
+          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/templates/Client/editclientcall.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.0416666" vertical-offset="710" max-vertical-offset="1245">
+          <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/common/__primary_sidebar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30919766" vertical-offset="937" max-vertical-offset="1875">
+          <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
