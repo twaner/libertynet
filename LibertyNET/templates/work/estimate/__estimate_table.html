@@ -1,0 +1,72 @@
+{% load humanize %}
+<div class="box">
+    <div class="box-header">
+        <span class="title">
+            {{ identifier }} Estimates
+        </span>
+    </div>
+    <div class="box-content">
+        <div id="dataTables">
+            <table cellpadding="0" cellspacing="0" border="0" class="dataTable responsive">
+                <thead>
+                    <tr>
+                        <td><div>{{ identifier }} Name</div></td>
+                        <td><div>Estimate Name</div></td>
+                        <td><div>Date</div></td>
+                        <td><div>Price</div></td>
+                        <td><div>Proft</div></td>
+                    </tr>
+                </thead>
+                <tbody role="alert" aria-live="polite" aria-relavent="all">
+                    {% if estimate %}
+                        {% if type_of == 'Sales' %}
+                        {% for e in estimate %}
+                        <tr>
+                            <td class="sorting_1">{{ e.estimate_sales }}</td>
+                            <td>
+                                <a href="{{ e.get_absolute_url }}">
+                                    {{ e.job_name }}
+                                    <i class="fa fa-info-circle""></i>
+                                </a>
+                            </td>
+                            <td>{{ e.date }}</td>
+                            <td>
+                                ${{ e.listed_price|intcomma }}
+                            </td>
+                            <td>
+                                ${{ e.listed_profit|intcomma }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        {% for e in estimate %}
+                        <tr>
+                            <td class="sorting_1">{{ e.estimate_client }}</td>
+                            <td>
+                                <a href="{{ e.get_absolute_url }}">
+                                    {{ e.job_name }}
+                                    <i class="fa fa-info-circle"></i>
+                                </a>
+                            </td>
+                            <td>{{ e.date }}</td>
+                            <td>
+                                ${{ e.listed_price|intcomma }}
+                            </td>
+                            <td>
+                                ${{ e.listed_profit|intcomma }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    {% else %}
+                    <tr>
+                        <td>
+                            There are no Estimates available.
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

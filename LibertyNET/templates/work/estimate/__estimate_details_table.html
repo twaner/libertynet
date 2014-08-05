@@ -102,7 +102,9 @@
                           {{ e.total_labor }}
                       </td>
                       <td>
-                          <a href="#">Notes</a>
+                          <a href="#">
+                              <i class="fa fa-info-circle"></i>
+                          </a>
                       </td>
                     </tr>
                 {% endfor %}
@@ -206,7 +208,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>{{ estimate.labor }} hrs</td>
+                    <td>{{ estimate.labor }}</td>
                     <td></td>
                 </tr>
                 <tr>
@@ -230,7 +232,10 @@
                 <tr>
                     <td></td>
                     <td>
-                        Listed Price
+                        <a href="{{ estimate.update_estimate }}">
+                            Listed Price
+                            <i class="fa fa-pencil-square-o"></i>
+                        </a>
                     </td>
                     <td></td>
                     <td></td>

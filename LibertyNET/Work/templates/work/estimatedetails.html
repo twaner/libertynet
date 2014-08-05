@@ -17,13 +17,21 @@
         </div>
         <ul class="list-inline pull-right sparkline-box">
           <li class="sparkline-row">
-            <h4 class="blue"><span>Total Clients</span> 1 </h4>
+            <h4 class="blue"><span>Total Price</span> {{ estimate.total_price }} </h4>
           </li>
           <li class="sparkline-row">
-            <h4 class="blue"><span>New Clients</span> 2 </h4>
+            <h4 class="blue"><span>Listed Price</span> {{ estimate.listed_price }} </h4>
           </li>
           <li class="sparkline-row">
-            <h4 class="green"><span>Clients with Follow Ups</span> 4 </h4>
+            {% with lp=estimate.listed_profit %}
+                <h4 class="
+                    {% if lp > 0 %}
+                        green
+                    {% else %}
+                        red
+                    {% endif %}
+                "><span>Listed Profit</span> {{ lp }} </h4>
+            {% endwith %}
           </li>
         </ul>
       </div>
@@ -220,10 +228,11 @@
       <!-- ROW 2 -->
       <div class="row">
         <div class="col-md-12">
-          {% include "work/__estimate_table.html" with title="Estimate" context=parts context2=estimate %}
+          {% include "work/estimate/__estimate_details_table.html" with title="Estimate" context=parts context2=estimate %}
         </div>
       </div><!-- ROW -->
       <!-- ROW 3 -->
+      {% comment %}
       <div class="row">
         <div class="col-md-6">
             <div class="box">
@@ -309,6 +318,7 @@
             </div> <!-- box -->
         </div> <!-- col-md-4 -->
       </div> <!-- row -->
+      {% endcomment %}
   </div> <!-- container -->
 
 {% endblock %}
