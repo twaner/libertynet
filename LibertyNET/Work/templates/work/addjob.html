@@ -1,0 +1,59 @@
+{% extends 'common/__form_base.html' %}
+{% load mytags %}
+{% block body_block %}
+    <body onload="initialize()">
+{% endblock %}
+{% block form_header %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-group" title="Create Job" subtitle="Create Job" %}
+{% endblock %}
+{% block h4_block %}Create Job{% endblock h4_block %}
+{% block form_breadcrumb %}
+<!-- breadcrumb -->
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="/equipment/index/">Work Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="fa fa-phone"></i>
+                Add Job
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+<script>
+    $(document).ready(function(){
+      $("#id_address_input").change(function(){
+        $("#id_job_address").val($("#id_address_input").val());
+        $("#id_job_client").val($("#id_job_client").val());
+      });
+    });
+</script>
+{% endblock form_breadcrumb %}
+{% block form_content %}
+    {% for i in form %}
+        <li>
+            <label>{{ i.label|title|cut:"_" }}</label>
+                {% if i.name == 'job_address' %}
+                    {{ i }}
+                <select class="form-control"
+                        id="id_address_input" name="address_input">
+                    <option>Select Client to get Addresses</option>
+                </select>
+                {% else %}
+                {{ i }}
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endblock %}
