@@ -154,12 +154,10 @@ class Task(models.Model):
     creator = models.ForeignKey('Employee.Employee', related_name="task created by")
     order = models.IntegerField(choices=NUMBER_CHOICES)
     is_task_completed = models.BooleanField(default=False)
-    #completed_by
     task_employee = models.ForeignKey('Employee.Employee', related_name="task completed by",
                                       null=True, blank=True)
     completed_date = models.DateField(null=True, blank=True)
-    #TODO Task Notes as its own model m2m
-    notes = models.CharField(max_length=200)
+    notes = models.ForeignKey('Common.Notes')
 
     objects = TaskManager()
 
@@ -173,9 +171,8 @@ class Ticket(models.Model):
     scheduled_time = models.TimeField()
     ticket_job = models.ForeignKey('Work.Job')
     ticket_system = models.ForeignKey('Site.System')
-    description_work = models.ForeignKey('Common.Notes')
-    #TODO make this ForeignKey('Work.Task_Notes')
-    notes = models.CharField(max_length=500)
+    description_work = models.CharField(max_length=500)
+    notes = models.ForeignKey('Common.Notes')
     start_date = models.DateField()
     start_time = models.TimeField()
     end_date = models.DateField(blank=True, null=True)
@@ -189,6 +186,12 @@ class Ticket(models.Model):
 
     def __str__(self):
         return '%s' % self.description_work
+
+    def get_absolute_url(self):
+        reverse('Work:ticketdetails', kwargs={'pk': self.id})
+
+    def get_absolute_url_edit(self):
+        reverse('Work:updateticket', kwargs={'pk': self.id})
 
 
 class Wage(models.Model):

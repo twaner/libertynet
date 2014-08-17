@@ -438,7 +438,7 @@ class TicketDetailsView(DetailView):
 
 class CreateTicketView(CreateView):
     model = Ticket
-    emplate_name = 'work/addticket.html'
+    template_name = 'work/addticket.html'
     form_list = form_generator(3)
     form_class = TicketForm
     second_form = NotesForm
@@ -475,6 +475,7 @@ class CreateTicketView(CreateView):
         self.form_list[1] = NotesForm()
         self.form_list[2] = CallListContactForm()
         form_dict = dict_generator(self.form_list)
+
         return render(request, self.template_name, form_dict)
 
 

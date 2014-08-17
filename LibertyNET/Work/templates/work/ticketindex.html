@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{% extends "common/__basewrap.html" %}
+{% load mytags %}
+{% load humanize %}
+{% block body_block %}
+{% endblock %}
 
-</body>
-</html>
+{% block base_header %}
+  {% include 'work/estimate/__header.html' with type_of='Client' estimate=estimate price=price profit=profit %}
+{% endblock %}
+
+{% block base_content %}
+  {% block form_breadcrumb %}
+    {% include "common/breadcrumbs/__home_home.html" with this_home="Client Estimates" %}
+ {% endblock form_breadcrumb %}
+ <div class="container">
+     <div class="action-nav-normal action-nav-line">
+         <div class="row action-nav-row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-sm-2 action-nav-button">
+              <a href="/work/addticket/" title="New Ticket">
+                <i class="icon-file-alt"></i>
+                <span>New Ticket</span>
+              </a>
+              <span class="triangle-button green"><i class="icon-plus"></i></span>
+            </div>
+            <div class="col-sm-2 action-nav-button">
+              <a href="/work/jobindex/" title="View Jobs">
+                <i class="icon-info-sign"></i>
+                <span>Job Index</span>
+              </a>
+              <span class="triangle-button blue"><i class="icon-plus"></i></span>
+            </div>
+         </div>
+     </div>
+     <div class="row">
+        <div class="col-md-12">
+
+        </div>
+     </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% include "work/ticket/__ticket_index_table.html" with ticket=ticket %}
+        </div>
+    </div>
+ </div>
+{% endblock base_content %}

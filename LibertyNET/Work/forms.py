@@ -223,13 +223,13 @@ class TicketForm(forms.ModelForm):
         exclude = ['notes', 'ticket_contact']
 
         widgets = {
-            'scheduled_date': forms.Select(attrs={
-                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'scheduled_date': forms.DateInput(attrs={
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd",}),
             'scheduled_time': forms.TimeInput,
-            'start_date': forms.Select(attrs={
+            'start_date': forms.DateInput(attrs={
                 'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
             'start_time': forms.TimeInput,
-            'end_date': forms.Select(attrs={
+            'end_date': forms.DateInput(attrs={
                 'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
             'end_time': forms.TimeInput,
             'is_ticket_complete': forms.CheckboxInput(attrs={
