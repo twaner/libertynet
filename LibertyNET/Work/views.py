@@ -6,12 +6,17 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, UpdateView, View, DetailView
 from django.views.generic.detail import SingleObjectMixin
-from Work.models import ClientEstimate, SalesEstimate, Estimate_Parts_Client, Estimate_Parts_Sales
+from Work.models import ClientEstimate, SalesEstimate, Estimate_Parts_Client, Estimate_Parts_Sales, Job, Ticket
 from Work.forms import ClientEstimateForm, SalesEstimateForm, EstimatePartsClientForm, EstimatePartsSalesForm, \
-    JobForm, UpdateClientEstimateForm
-from Work.helpermethods import add_part_helper, update_estimate_helper, create_estimate_helper
+    JobForm, UpdateClientEstimateForm, UpdateJobForm, TicketForm
+from Work.helpermethods import add_part_helper, update_estimate_helper, create_estimate_helper, create_job_helper, \
+    update_job_helper, create_ticket_helper
 from Equipment.models import Part, PartCategory
-from Common.helpermethods import validation_helper, form_generator, dict_generator
+from Site.models import Site
+from Common.models import Address, Contact, Notes
+from Common.forms import CallListContactForm, NotesForm
+from Common.helpermethods import validation_helper, form_generator, dict_generator, create_notes_helper, \
+    create_calllist_contact_helper
 
 
 # region Index Views
@@ -27,13 +32,11 @@ class ClientEstimateIndex(ListView):
     def get_context_data(self, **kwargs):
         context = super(ClientEstimateIndex, self).get_context_data(**kwargs)
         client_estimates = ClientEstimate.objects.all()
-        # context['estimate_list'] = list(client_estimates)
         ser = serializers.serialize('json', client_estimates,
                                     fields=('job_name', 'listed_price', 'listed_profit', 'custom_sales_commission'))
 
-        tmp = list(client_estimates.values_list('job_name', 'listed_price', 'listed_profit'))
+        # tmp = list(client_estimates.values_list('job_name', 'listed_price', 'listed_profit'))
         context['estimate_list'] = json.dumps(ser)
-        print('JSON DUM %s ' % context['estimate_list'])
         dollar_dict = client_estimates.aggregate(Sum('listed_price'), Sum('listed_profit'))
         context['price'] = dollar_dict['listed_price__sum']
         context['profit'] = dollar_dict['listed_profit__sum']
@@ -88,10 +91,23 @@ class SalesEstimateDetails(DetailView):
         return context
 
 
-#endregion
+# endregion
 
 #region Create Views
 
+
+# def create_estiamte_part_one(request):
+#     form_class = ClientEstimateFormOne
+#     template_name = 'work/createestimate.html'
+#     form_list = form_generator(1)
+#
+#     if request.method =='POST':
+#         form_list[0] = ClientEstimateFormOne(request.POST)
+#         validation = validation_helper(form_list)
+#         if validation:
+#
+#     else:
+#         pass
 
 class CreateEstimateView(CreateView):
     """
@@ -125,10 +141,11 @@ class CreateEstimateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         self.form_list[0] = ClientEstimateForm(request.POST)
-        print('THRHRHRHRH {0}'.format(request.POST['estimate_address']))
-        print('THRHRHRHRH {0}'.format(request.POST['estimate_client']))
+        print('Create estimate view Post estimate address {0}'.format(request.POST['estimate_address']))
+        print('Create estimate view Post estimate client {0}'.format(request.POST['estimate_client']))
+        print('Create Estimate Client {0} Address {1}'.format(self.form_list[0]['estimate_client'].value(),
+                                                              self.form_list[0]['estimate_address'].value()))
 
-        print('CREATEESTIMATE {0}'.format(self.form_list[0].fields['estimate_address']))
         if validation_helper(self.form_list[0]):
             estimate = create_estimate_helper(self.form_list[0])
             return HttpResponseRedirect(reverse('Work:estimatedetails', kwargs={
@@ -139,8 +156,11 @@ class CreateEstimateView(CreateView):
 
     def get(self, request, *args, **kwargs):
         form = self.form_class
-        context = {'estimate_address': None}
-        return render(request, self.template_name, {'form': form, 'context': context})
+        # context = {'estimate_address': None}
+        # form = CourseBook(initial = {'course': course.pk})
+        form(initial={'estimate_address': Address.pk})
+
+        return render(request, self.template_name, {'form': form, })
 
 
 def add_part(request, pk):
@@ -302,101 +322,162 @@ class UpdateEstimateView(UpdateView):
         return render(request, self.template_name, {'form': self.form_list[0]})
 
 
-        #endregion
+#endregion
 
-        #region OLDCODE
+# region Job
 
-        # def addpart(request, pk):
-        #     form_list = form_generator(1)
-        #     template_name = 'work/addpart.html'
-        #     model = Estimate_Parts_Client
-        #     client = ClientEstimate.objects.get(pk=pk)
-        #     est_dict = {
-        #         'estimate_id': client
-        #     }
-        #
-        #     estimate = ClientEstimate.objects.get(pk=pk)
-        #     form_list[0] = EstimatePartsClientForm(request.POST)
-        #     if request.method == 'POST':
-        #         if validation_helper(form_list):
-        #             form_list[0].save()
-        #             return HttpResponseRedirect(reverse_lazy(estimate.get_absolute_url()))
-        #         else:
-        #             form_list[0] = EstimatePartsClientForm(est_dict)
-        #             return render(request, template_name, dict_generator(form_list))
-        #     else:
-        #         form_list[0] = EstimatePartsClientForm(est_dict)
-        #         return render(request, template_name, dict_generator(form_list))
+class JobIndexView(ListView):
+    model = Job
+    context_object_name = 'job'
+    template_name = 'work/jobindex.html'
 
-        #endregion
-        # def form_valid(self, form):
-        #     obj = self.get_object(queryset=None)
-        #     # estimate = update_estimate_helper(form, obj)
-        #     success_url = reverse_lazy(obj.get_absolute_url())
-        #     return super(UpdateEstimateView, self).form_valid(form)
-        #
-        # def form_invalid(self, form):
-        #     validation_helper(form_list=form)
-        #     obj = self.get_object(queryset=None)
-        #     print('UpdateEstimateView form_invalid %s ' % obj)
-        #     return super(UpdateEstimateView, self).form_invalid(form)
-
-        # def get_object(self, queryset=None):
-        #     object = super(UpdateClientEstimateForm, self).get_object()
-        #     return object
-        # class CreateEstimateStep2(UpdateView):
-        # form_class = EstimatePartsClientForm
-        # model = ClientEstimate
-        # template_name = 'work/createestimate_pt2.html'
-        # success_url = reverse_lazy('Work:estimatedetails')
-        # template_name = 'work/createestimate_pt2.html'
-        # success_url = reverse_lazy('Work:estimatedetails')
-        # #context_object_name = 'estimate'
-        # #
-        # # def get(self, request, *args, **kwargs):
-        # #     def get_context_data(self, **kwargs):
-        # #         context = super(CreateEstimateStep2, self).get_context_data()
-        # #         return context
-        # #     context = get_context_data()
-        # #     print('CreateEstimateStep2 get CALLED %s' % context)
-        # #     return render(request, self.template_name, context)
-        #
-        # def form_valid(self, form):
-        #     return super(CreateEstimateStep2, self).form_valid(form)
-        #
-        # def form_invalid(self, form):
-        #     validation_helper(form_list=form)
-        #     return super(CreateEstimateStep2, self).form_invalid(form)
+    def get_context_data(self, **kwargs):
+        context = super(JobIndexView, self).get_context_data(**kwargs)
+        return context
 
 
-"""
+class JobDetailsView(DetailView):
+    model = Job
+    context_object_name = 'job'
+    template_name = 'work/jobdetails.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(JobDetailsView, self).get_context_data(**kwargs)
+        context['address_detail'] = Address.objects.get(pk=context['job'].job_address.id)
+        context['employees'] = list(context['job'].job_employee.all())
+        return context
 
 
-
-==================
-def update_estimate(request, pk):
-    # DNU
-    template_name = 'work/createestimate.html'
+class CreateJobView(CreateView):
+    model = Job
+    template_name = 'work/addjob.html'
     form_list = form_generator(1)
-    obj = ClientEstimate.objects.get(pk=pk)
-    est_dict = {
-        'job_name': obj.job_name, 'margin': obj.margin, 'listed_price': obj.listed_price,
-        'custom_sales_commission': obj.custom_sales_commission
-    }
+    form_class = JobForm
 
-    if request.method == 'POST':
-        form_list[0] = UpdateClientEstimateForm(request.POST)
-        if validation_helper(form_list):
-            obj = update_estimate_helper(form_list[0], obj)
-            print('\n\tWork:update_estimate {0}\t{1}'.format(obj, obj.id))
-            return HttpResponseRedirect(reverse('Work:estimatedetails',
-                                                kwargs={'pk': obj.id}))
+    def get_context_data(self, **kwargs):
+        obj = self.get_object(queryset=None)
+        context = super(CreateJobView, self).get_context_data(**kwargs)
+        return context
+
+    def get_object(self, queryset=None):
+        obj = super(CreateJobView, self).get_object()
+        return obj
+
+    def post(self, request, *args, **kwargs):
+        self.form_list[0] = JobForm(request.POST)
+
+        if validation_helper(self.form_list[0]):
+            job = create_job_helper(self.form_list[0])
+            return HttpResponseRedirect(reverse('Work:jobdetails', kwargs={
+                'pk': job.id
+            }))
+
         else:
-            form_list[0] = UpdateClientEstimateForm()
-            return render(request, template_name, {'form': form_list[0]})
-    else:
+            return render(request, self.template_name, {
+                'form': self.form_list[0]})
 
-        form_list[0] = UpdateClientEstimateForm(est_dict)
-        return render(request, template_name, {'form': form_list[0]})
+    def get(self, request, *args, **kwargs):
+        self.form_list[0] = self.form_class()
+        form = self.form_list[0]
+        return render(request, self.template_name, {
+            'form': form})
 
-"""
+
+class UpdateJobView(UpdateView):
+    """
+    Updates a Job object.
+    """
+    form_class = UpdateJobForm
+    template_name = 'work/updatejob.html'
+    model = Job
+    form_list = form_generator(1)
+
+    def post(self, request, *args, **kwargs):
+        self.form_list[0] = UpdateJobForm(request.POST)
+        if validation_helper(self.form_list[0]):
+            job = self.get_object(queryset=None)
+            job = update_job_helper(job, self.form_list[0])
+            return HttpResponseRedirect(reverse('Work:jobdetails', kwargs={
+                'pk': job.id}))
+        else:
+            return render(request, self.template_name, {'form': self.form_list[0]})
+
+    def get(self, request, *args, **kwargs):
+        job = Job.objects.get(pk=self.kwargs['pk'])
+        job_dict = {
+            'name': job.name, 'job_employee': job.job_employee,
+        }
+        self.form_list[0] = UpdateJobForm(job_dict)
+        return render(request, self.template_name, {'form': self.form_list[0]})
+
+#endregion
+
+
+#region Ticket
+
+
+class TicketIndexView(ListView):
+    model = Ticket
+    context_object_name = 'ticket'
+    template_name = 'work/ticketindex.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(TicketIndexView, self).get_context_data(**kwargs)
+        return context
+
+
+class TicketDetailsView(DetailView):
+    model = Ticket
+    context_object_name = 'ticket'
+    template_name = 'work/ticketdetails.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(TicketDetailsView, self).get_context_data(**kwargs)
+        return context
+
+
+class CreateTicketView(CreateView):
+    model = Ticket
+    emplate_name = 'work/addticket.html'
+    form_list = form_generator(3)
+    form_class = TicketForm
+    second_form = NotesForm
+    third_form = CallListContactForm
+
+    def get_context_data(self, **kwargs):
+        obj = self.get_object(queryset=None)
+        context = super(CreateTicketView, self).get_context_data(**kwargs)
+        return context
+
+    def get_object(self, queryset=None):
+        obj = super(CreateTicketView, self).get_object()
+        return obj
+
+    def post(self, request, *args, **kwargs):
+        self.form_list[0] = self.form_class(request.POST)
+        self.form_list[1] = self.second_form(request.POST)
+        self.form_list[2] = self.third_form(request.POST)
+
+        if validation_helper(form_list=self.form_list):
+            notes = create_notes_helper(self.form_list[1])
+            contact = create_calllist_contact_helper(self.form_list[2])
+            ticket = create_ticket_helper(self.form_list[0], notes, contact)
+            return HttpResponseRedirect(reverse('Work:ticketdetails', kwargs={
+                'pk': ticket.id
+            }))
+
+        else:
+            form_dict = dict_generator(self.form_list)
+            return render(request, self.template_name, form_dict)
+
+    def get(self, request, *args, **kwargs):
+        self.form_list[0] = TicketForm()
+        self.form_list[1] = NotesForm()
+        self.form_list[2] = CallListContactForm()
+        form_dict = dict_generator(self.form_list)
+        return render(request, self.template_name, form_dict)
+
+
+
+
+# endregion

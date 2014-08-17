@@ -11,6 +11,7 @@ from Common.helpermethods import create_address_helper, create_employee_contact_
 from Common.forms import AddressForm, EmployeeContactForm
 from Common.models import Address, Contact
 from Client.models import ClientCallLog, SalesProspectCallLog
+from Work.models import Job
 
 # region ListViews
 
@@ -48,16 +49,22 @@ class EmployeeDetailView(DetailView):
         context['title_detail'] = employee.emp_title.all()
         try:
             client_calls = ClientCallLog.objects.filter(caller=employee.employee_id). \
-                order_by('-call_date', '-call_time')
+                    order_by('-call_date', '-call_time')
+            context['client_calls'] = client_calls
+            context['client_calls_follow'] = client_calls.filter(follow_up=True)
+        except ObjectDoesNotExist:
+            pass
+        try:
             sales_calls = SalesProspectCallLog.objects.filter(caller=employee.employee_id). \
                 order_by('-call_date', '-call_time')
-            context['client_calls'] = client_calls
             context['sales_calls'] = sales_calls
-            context['client_calls_follow'] = client_calls.filter(follow_up=True)
             context['sales_calls_follow'] = sales_calls.filter(follow_up=True)
         except ObjectDoesNotExist:
             pass
-
+        try:
+            context['jobs'] = Job.objects.filter(job_employee=employee)
+        except ObjectDoesNotExist:
+            pass
         return context
 
 

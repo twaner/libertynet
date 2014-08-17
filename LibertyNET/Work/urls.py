@@ -3,7 +3,8 @@ from dajaxice.core import dajaxice_autodiscover, dajaxice_config
 dajaxice_autodiscover()
 from Work.views import CreateEstimateView, ClientEstimateIndex, CreateSalesEstimateView, SalesEstimateIndex, \
     ClientEstimateDetails, SalesEstimateDetails, UpdatePartView, UpdateEstimateView, \
-    update_part, add_part
+    update_part, add_part, UpdateJobView, JobIndexView, JobDetailsView, CreateJobView, \
+    TicketIndexView, TicketDetailsView, CreateTicketView
 #CreateEstimateStep2, , update_estimate
 
 
@@ -34,6 +35,19 @@ urlpatterns = patterns('',
                        # Create Views
                        url(r'^createsalesestimate', CreateSalesEstimateView.as_view(), name='createsalesestimate'),
                        # Update Views
+
+                       ## Job ##
+                       # Static Views
+                       url(r'^jobindex/$', JobIndexView.as_view(), name='jobindex'),
+                       url(r'^jobdetails/(?P<pk>[\d-]+)/$', JobDetailsView.as_view(), name='jobdetails'),
+                       url(r'^addjob/$', CreateJobView.as_view(), name='addjob'),
+                       url(r'^updatejob/(?P<pk>\d+)/$', UpdateJobView.as_view(), name='updatejob'),
+
+                       ## Ticket ##
+                       url(r'^ticketindex/$', TicketIndexView.as_view(), name='ticketindex'),
+                       url(r'^ticketdetails/(?P<pk>[\d-]+)/$', TicketDetailsView.as_view(), name='ticketdetails'),
+                       url(r'^addticket/$', CreateTicketView.as_view(), name='addticket'),
+
                        )
 
 # urlpatterns += staticfiles_urlpatterns()

@@ -4,15 +4,11 @@ from bootstrap_toolkit.widgets import BootstrapDateInput
 from Common.helpermethods import readonly_worker
 from models import Job, Task, Ticket, Wage, ClientEstimate, Estimate_Parts_Client, \
     Estimate_Parts_Sales, SalesEstimate
+from Common.models import Address
+from Site.models import Site
 from Equipment.models import Part
 
 # region ModelForms
-
-
-class JobForm(forms.ModelForm):
-    class Meta:
-        model = Job
-        fields = '__all__'
 
 
 class TaskForm(forms.ModelForm):
@@ -25,25 +21,6 @@ class TaskForm(forms.ModelForm):
             'task_note': forms.Textarea(attrs={
                 'cols': 80, 'rows': 7
             }),
-        }
-
-
-class TicketForm(forms.ModelForm):
-    class Meta:
-        model = Ticket
-        fields = '__all__'
-        widgets = {
-            'scheduled_date': BootstrapDateInput,
-            'scheduled_time': forms.TimeInput,
-            'description_work': forms.Textarea(attrs={
-                'cols': 80, 'rows': 7}),
-            'technician_note': forms.Textarea(attrs={
-                'cols': 80, 'rows': 7}),
-            'start_time': forms.TimeInput,
-            'start_date': BootstrapDateInput,
-            'end_time': forms.TimeInput,
-            'end_date': BootstrapDateInput,
-            'is_ticket_completed': forms.CheckboxInput
         }
 
 
@@ -66,10 +43,27 @@ class WageForm(forms.ModelForm):
 
 # endregion
 
-#region Estimates
+# region Estimates
+
+class ClientEstimateFormOne(forms.ModelForm):
+    class Meta:
+        model = ClientEstimate
+        fields = ['estimate_client']
+
+        widgets = {
+            'estimate_client': forms.Select(attrs={
+                'class': 'form-control',
+                'onchange': "Dajaxice.Work.get_sites(Dajax.process,{"
+                            "'pk': this.value"
+                            "});",
+            }),
+        }
 
 
 class ClientEstimateForm(forms.ModelForm):
+    estimate_address = forms.ModelChoiceField(queryset=Address.objects.all(),
+                                              widget=forms.HiddenInput())
+
     class Meta:
         model = ClientEstimate
         fields = ['estimate_client', 'estimate_address', 'job_name', 'date',
@@ -78,9 +72,7 @@ class ClientEstimateForm(forms.ModelForm):
         widgets = {
             'is_capital_improvement': forms.CheckboxInput(attrs={
                 'class': "iButton-icons"}),
-            'estimate_address': forms.Select(attrs={
-                'class': 'form-control',
-            }),
+            # 'estimate_address': forms.HiddenInput(),
             'preparer': forms.Select(attrs={
                 'class': 'form-control'
             }),
@@ -184,3 +176,78 @@ class EstimatePartsSalesForm(forms.ModelForm):
     class Meta:
         model = Estimate_Parts_Sales
         fields = '__all__'
+
+
+# endregion
+
+# region Jobs
+
+
+class JobForm(forms.ModelForm):
+    job_address = forms.ModelChoiceField(queryset=Address.objects.all(),
+                                         widget=forms.HiddenInput())
+
+    class Meta:
+        model = Job
+        fields = ['name', 'job_client', 'job_address', 'job_employee']
+
+        widgets = {
+            'job_client': forms.Select(attrs={
+                'class': 'form-control',
+                'onchange': "Dajaxice.Work.get_sites(Dajax.process,{"
+                            "'pk': this.value"
+                            "});",
+            }),
+        }
+        labels = {
+            'name': _('Job Name'),
+            'job_client': _('Client Name'),
+            'job_address': _('Job Locations'),
+            'job_employee': _('Employees on Job'),
+        }
+
+
+class UpdateJobForm(forms.ModelForm):
+    class Meta:
+        model = Job
+        exclude = ['building_owner', 'job_client', 'job_address']
+
+# endregion
+
+# region Ticket
+
+
+class TicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        exclude = ['notes', 'ticket_contact']
+
+        widgets = {
+            'scheduled_date': forms.Select(attrs={
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'scheduled_time': forms.TimeInput,
+            'start_date': forms.Select(attrs={
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'start_time': forms.TimeInput,
+            'end_date': forms.Select(attrs={
+                'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
+            'end_time': forms.TimeInput,
+            'is_ticket_complete': forms.CheckboxInput(attrs={
+                'class': "iButton-icons"}),
+            'ticket_job': forms.Select(attrs={
+                'class': 'form-control'}),
+            'ticket_system': forms.Select(attrs={
+                'class': 'form-control'}),
+            'description_work': forms.Textarea(attrs={
+                'cols': 160, 'rows': 5,
+                'maxlength': Ticket._meta.get_field(
+                'description_work').max_length,
+                'onkeyup': "charRemaining('id_description_work', "
+                      "'remaining_span')"
+            }),
+        }
+
+        labels = {
+
+        }
+# endregion

@@ -82,19 +82,16 @@ class WageManager(models.Manager):
 
 
 class ClientEstimateManager(models.Manager):
-    def create_clientestimate(self, job_name, estimate_address, date, preparer,
-                              cost, is_capital_improvement, total_cost, total_price,
-                              total_profit, total_flat_rate, listed_price, listed_profit,
-                              sales_commission, labor, prevailing_wage, margin, margin_guidelines,
-                              custom_sales_commission):
+    def create_clientestimate(self, job_name, estimate_address, date, preparer, estimate_client,
+                              is_capital_improvement, margin, margin_guidelines):
 
         estimate = self.create(job_name=job_name, estimate_address=estimate_address, date=date,
-                               preparer=preparer, cost=cost, is_capital_improvement=is_capital_improvement,
-                               total_cost=total_cost, total_price=total_price, total_profit=total_profit,
-                               listed_price=listed_price, listed_profit=listed_profit,
-                               labor=labor, sales_commission=sales_commission, prevailing_wage=prevailing_wage,
-                               margin=margin, margin_guidelines=margin_guidelines, total_flat_rate=total_flat_rate,
-                               custom_sales_commission=custom_sales_commission)
+                               preparer=preparer, is_capital_improvement=is_capital_improvement,
+                               total_cost=0.0, total_price=0.0, total_profit=0.0,
+                               listed_price=0.0, listed_profit=0.0, estimate_client=estimate_client,
+                               labor=0.0, sales_commission=0.0, prevailing_wage=0.0,
+                               margin=margin, margin_guidelines=margin_guidelines, total_flat_rate=0.0,
+                               custom_sales_commission=0.0)
         estimate.cost = 0.0
         estimate.total_cost = 0.0
         estimate.total_price = 0.0
@@ -141,6 +138,12 @@ class Job(models.Model):
     def __str__(self):
         return '%s' % self.name
 
+    def get_absolute_url(self):
+        return reverse('Work:jobdetails', kwargs={'pk': self.id})
+
+    def get_absolute_url_edit(self):
+        return reverse('Work:jobdetails', kwargs={'pk': self.id})
+
 
 class Task(models.Model):
     id = models.AutoField(primary_key=True)
@@ -170,7 +173,7 @@ class Ticket(models.Model):
     scheduled_time = models.TimeField()
     ticket_job = models.ForeignKey('Work.Job')
     ticket_system = models.ForeignKey('Site.System')
-    description_work = models.CharField(max_length=500)
+    description_work = models.ForeignKey('Common.Notes')
     #TODO make this ForeignKey('Work.Task_Notes')
     notes = models.CharField(max_length=500)
     start_date = models.DateField()

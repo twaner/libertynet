@@ -5,7 +5,7 @@
 <body onload="initialize()" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 {% block form_header %}
-{% include "common/mainheader_nograph.html" with icon="fa fa-user" title="Add Employee" subtitle="Add Employee Information" %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-user" title="Add Ticket" subtitle="Add Ticket Information" %}
 {% endblock %}
 
 {% block form_breadcrumb %}
@@ -19,14 +19,14 @@
         <div class="breadcrumb-button">
           <span class="breadcrumb-label">
             <i class="fa fa-user"></i>
-              <a href="/employee/index/">Employee Home</a>
+              <a href="/work/ticketindex/">Ticket Home</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
         <div class="breadcrumb-button">
             <span class="breadcrumb-label">
                 <i class="fa fa-plus-square"></i>
-                Add Employee
+                Add Ticket
             </span>
         </div>
       </div>
@@ -34,34 +34,21 @@
 </div> <!-- container padded -->
 {% endblock form_breadcrumb %}
 
-{% block h4_block %}Add Employee{% endblock h4_block %}
+{% block h4_block %}Add Ticket{% endblock h4_block %}
 {% block form_content %}
+<label>Ticket:</label>
  {% for i in form0 %}
     <li class="input">
       <label>{{ i.label|title|cut:"_" }}</label>
-         {% if i.name == "pay_type" %}
-            {{ i|addcss:"form-control" }}
-        {% elif i.name == 'pay_rate' %}
-            {{ i|addcss:"form-control" }}
-        {% else %}
-            {{ i }}
-        {% endif %}
+        {{ i }}
     </li>
     {% endfor %}
     <!-- end Client Info -->
-    <label>Address Information:</label>
-    <div id="locationField">
-        <input id="autocomplete" placeholder="Enter address"
-        onFocus="geolocate()" type="text" />
-    </div>
+    <label>Ticket Notes:</label>
     {% for i in form1 %}
     <li>
         <label>{{ i.label|title|cut:"_" }}</label>
-        {% if i.name == "state" %}
-            {{ i|addcss:"form-control" }}
-        {% else %}
             {{ i }}
-        {% endif %}
     </li>
     {% endfor %}
     <!-- end Address Info -->

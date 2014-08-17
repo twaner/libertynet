@@ -227,7 +227,7 @@ class InstallerManager(models.Manager):
 
 
 class NotesManager(models.Manager):
-    def create_notes(self, date, time, purpose, notes):
+    def create_notes(self, note_date, time, purpose, notes):
         """
         Creates a new Notes object.
         @param date: Date.
@@ -236,7 +236,7 @@ class NotesManager(models.Manager):
         @param notes: Notes.
         @return: Notes.
         """
-        notes = self.create(date=date, time=time, purpose=purpose, notes=notes)
+        notes = self.create(note_date=note_date, time=time, purpose=purpose, notes=notes)
         notes.save()
         return notes
 
@@ -648,7 +648,7 @@ class CallLog(models.Model):
 
 
 class Notes(models.Model):
-    date = models.DateField()
+    note_date = models.DateField()
     time = models.TimeField()
     purpose = models.TextField(max_length=100)
     notes = models.TextField(max_length=1000)

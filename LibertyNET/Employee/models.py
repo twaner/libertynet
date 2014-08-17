@@ -123,7 +123,7 @@ class Employee(Person):
         ('NP', 'Non-Paid'),
     )
     employee_id = models.AutoField(primary_key=True)
-    emp_number = models.IntegerField(max_length=10)
+    emp_number = models.IntegerField(max_length=10, unique=True)
     emp_title = models.ManyToManyField(Title, verbose_name="Employee Title")
     emp_address = models.ForeignKey('Common.Address')
     emp_contact = models.ForeignKey('Common.Contact')
@@ -152,12 +152,12 @@ class Employee(Person):
 
     def clean(self):
         super(Employee, self).clean()
-        print('Update Employee, isTerm: %s || termDate: %s || termReason : %s' % (self.is_terminated,
+        print('Update Employee, isTerm: {0} || termDate: {1} || termReason : {2}'.format(self.is_terminated,
                                                                                   self.termination_date,
                                                                                   self.termination_reason))
         # Happy Path True, Not None, Not None => All other options fail!
         helper_str = ''
-        if self.is_terminated and self.termination_date is not None and self.termination_reason != '':
+        if not self.is_terminated and self.termination_date is None and self.termination_reason is None:
             pass
         elif not self.is_terminated and self.termination_date is None and self.termination_reason == '':
             pass

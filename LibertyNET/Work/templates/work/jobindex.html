@@ -1,0 +1,16 @@
+{% extends "common/__basewrap.html" %}
+{% load mytags %}
+{% load humanize %}
+{% block body_block %}
+{% endblock %}
+
+{% block base_header %}
+  {% include 'work/job/__header.html' with job=job  %}
+{% endblock %}
+
+{% block base_content %}
+  {% block form_breadcrumb %}
+    {% include "common/breadcrumbs/__home_home.html" with this_home="Jobs" %}
+  {% endblock form_breadcrumb %}
+    {% include "work/job/__job_index_table.html" with job=job %}
+{% endblock base_content %}

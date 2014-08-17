@@ -1,0 +1,58 @@
+<div class="box">
+  <div class="box-header">
+      <span class="title">
+          <i class="fa fa-compass"></i>
+          Jobs
+      </span>
+      <ul class="box-toolbar">
+        <li>
+            <a href="#" class="tip" title data-original-title="Total Jobs">
+            {% if jobs %}
+                <span class="label label-blue">
+                    {{ jobs|length }}
+                </span>
+            {% endif %}
+            </a>
+        </li>
+        <li>
+          <div class="btn-group">
+            <button class="btn btn-xs btn-default dropdown-toggle"
+                    data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+            <ul class="dropdown-menu">
+              <li><a href="">TODO?</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+  </div>
+  <div class="box-content scrollable" style="height: 160px; overflow-y: auto">
+      <div class="box-content">
+          <table class="table table-normal">
+              <tbody>
+                  {% if jobs %}
+                      {% for s in jobs %}
+                      <tr>
+                          <td>
+                              <a href="{{ s.get_absolute_url }}">
+                                {{ s.name }}
+                              </a>
+                          </td>
+                          <td>
+                              <a href="{{ s.get_absolute_url }}">
+                                {{ s.job_client }}
+                              </a>
+                          </td>
+                      </tr>
+                      {% endfor %}
+                  {% else %}
+                    <tr>
+                        <td>
+                            No jobs for Employee
+                        </td>
+                    </tr>
+                  {% endif %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>

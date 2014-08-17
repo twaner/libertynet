@@ -1,4 +1,4 @@
-from models import Address, Contact, Card, Billing, CallList, Genre
+from models import Address, Contact, Card, Billing, CallList, Genre, Notes
 from django.db import models
 import django.forms
 from datetime import datetime, timedelta, date
@@ -266,7 +266,6 @@ def create_call_list_helper_not_site(form, contact):
     return call_list
 
 
-
 def update_call_list_helper(form, calllist, contact):
     """
     Updates a Call List
@@ -339,6 +338,17 @@ def update_card_helper(form, card):
     return card
 
 
+def create_notes_helper(form):
+    note_date = form.cleaned_data['note_date']
+    time = form.cleaned_data['time']
+    purpose = form.cleaned_data['purpose']
+    notes = form.cleaned_data['notes']
+
+    note = Notes.objects.create_notes(note_date=note_date, time=time,
+                                      purpose=purpose, notes=note)
+    return note
+
+
 #endregion
 
 #region General Helpers
@@ -364,7 +374,10 @@ def validation_helper(form_list):
     for i in form_list:
         if not i.is_valid():
             invalid += 1
-            print('VALIDATION_HELPER ==> Errors: %s | Num Errors: %s \n Form: %s ' % (i.errors, len(i.errors), type(i)))
+            # q = []
+            # for k, v in i.errors:
+            #     q.append(str(v))
+            print('VALIDATION_HELPER ==> ERRORS: %s | Num Errors: %s \n Form: %s ' % (i.errors, len(i.errors), type(i)))
             # for q in i:
             #     print('validation_helper: %s' % q.name_of_field.errors)
         else:

@@ -340,7 +340,6 @@ def convert_to_client(request, pk):
     @param pk: Sales PK.
     @return: http.
     """
-    pass
     template_name = 'client/salestoclient.html'
     form_list = form_generator(3)
     sp = SalesProspect.objects.get(pk=pk)

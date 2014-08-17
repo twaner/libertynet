@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from models import Address, Billing, Contact, CallList, Installer, \
-    Card, UserProfile, CallLog
+    Card, UserProfile, CallLog, Notes
 from bootstrap_toolkit.widgets import BootstrapDateInput
 
 #region AddressForms
@@ -177,3 +177,21 @@ class CallLogForm(forms.ModelForm):
             'follow_up': _('Follow Up Required'),
         }
 #endregion
+
+
+class NotesForm(forms.ModelForm):
+    class Meta:
+        model = Notes
+        widgets = {
+            'note_date': forms.DateInput(attrs={
+            'class': 'datepicker fill-up',
+            'data-date-format': "yyyy-mm-dd",
+            'auto-close': 'true'}),
+            'purpose': forms.Textarea(attrs={'cols': 160, 'rows': 3,
+                           'maxlength': Notes._meta.get_field('purpose').max_length,
+                           'onkeyup': "charRemaining('id_purpose', 'purpose_span')"}),
+            'notes': forms.Textarea(attrs={'cols': 160, 'rows': 3,
+                           'maxlength': Notes._meta.get_field('notes').max_length,
+                           'onkeyup': "charRemaining('id_notes', 'notes_span')"}),
+
+        }

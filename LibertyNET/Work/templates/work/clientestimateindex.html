@@ -5,40 +5,7 @@
 {% endblock %}
 
 {% block base_header %}
-  <div class="container">
-    <div class="row">
-      <div class="area-top clearfix">
-        <div class="pull-left header">
-          <h3 class="title">
-            <i class="icon-group"></i>
-            Client Estimate Index
-          </h3>
-          <h5>
-            <span>
-              Client Estimate Landing Page
-            </span>
-          </h5>
-        </div>
-        <ul class="list-inline pull-right sparkline-box">
-          <li class="sparkline-row">
-            <h4 class="blue"><span>Total Estimates</span> {{ estimate|length }} </h4>
-          </li>
-          <li class="sparkline-row">
-            <h4 class="blue"><span>Total Price</span> {{ price }} </h4>
-          </li>
-          <li class="sparkline-row">
-            <h4 class="
-                {% if profit > 0 %}
-                    green
-                {% else %}
-                    red
-                {% endif %}
-            "><span>Total Profit</span> {{ profit }} </h4>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  {% include 'work/estimate/__header.html' with type_of='Client' estimate=estimate price=price profit=profit %}
 {% endblock %}
 
 {% block base_content %}
@@ -46,41 +13,57 @@
     {% include "common/breadcrumbs/__home_home.html" with this_home="Client Estimates" %}
  {% endblock form_breadcrumb %}
  <div class="container">
+     <div class="action-nav-normal action-nav-line">
+         <div class="row action-nav-row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-sm-2 action-nav-button">
+              <a href="/work/createestimate/" title="New Estimate">
+                <i class="icon-file-alt"></i>
+                <span>New Estimate</span>
+              </a>
+              <span class="triangle-button green"><i class="icon-plus"></i></span>
+            </div>
+            <div class="col-sm-2 action-nav-button">
+              <a href="/equipment/index/" title="Part Index">
+                <i class="icon-info-sign"></i>
+                <span>Part Index</span>
+              </a>
+              <span class="triangle-button blue"><i class="icon-plus"></i></span>
+            </div>
+         </div>
+     </div>
+
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
       var estimates = jQuery.parseJSON({{ estimate_list|safe }});
       var estimates_array = [['Job Name', 'Price', 'Profit', 'Commission']]
       for (var i = 0; i < estimates.length; i++) {
-//          if(parseFloat(estimates[i]["fields"]["listed_price"]) > 0 &&
-//             parseFloat(estimates[i]["fields"]["listed_profit"] > 0) &&
-//              parseFloat(estimates[i]["fields"]["custom_sales_commission"]) > 0)
-//          {
-              estimates_array.push([estimates[i]["fields"]["job_name"], parseFloat(estimates[i]["fields"]["listed_price"]),
-                  parseFloat(estimates[i]["fields"]["listed_profit"]), parseFloat(estimates[i]["fields"]["custom_sales_commission"])])
-      }
-
-//      $.each(estimates, function(){
-//          estimates_array.push([estimates["fields"]["job_name"],parseFloat(estimates["fields"]["listed_price"]),
-//             parseFloat(estimates["fields"]["listed_profit"]),parseFloat(estimates["fields"]["custom_sales_commission"])])
-//      });
+              estimates_array.push([estimates[i]["fields"]["job_name"],
+                  parseFloat(estimates[i]["fields"]["listed_price"]),
+                  parseFloat(estimates[i]["fields"]["listed_profit"]),
+                  parseFloat(estimates[i]["fields"]["custom_sales_commission"])]);
+            }
 
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
-        var data = google.visualization.arrayToDataTable(
-            estimates_array
-        );
+        var data = google.visualization.arrayToDataTable(estimates_array);
 
         var options = {
           title: 'Estimates Overview',
-          hAxis: {title: 'Estimates', titleTextStyle: {color: 'blue'}}
+          hAxis: {title: 'Estimate', titleTextStyle: {color: 'blue'}}
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
     </script>
-     <div id="chart_div" style="width: 900px; height: 500px;"></div>
+     <div class="row">
+        <div class="col-md-12">
+            <div id="chart_div" style="width: 100%; height: 80%;"></div>
+        </div>
+     </div>
     <div class="row">
         <div class="col-md-12">
             {% include "work/estimate/__estimate_table.html" with identifier="Client" estimate=estimate %}
@@ -88,59 +71,3 @@
     </div>
  </div>
 {% endblock base_content %}
-
-
-{%comment%}
-
-        <script>
-    function my_js_callback(data){
-
-        alert(data.message);
-    }
-
-    function estimate(pk){
-        alert(data.message);
-
-    }
-
-    function alerter(){
-        Dajaxice.Work.sayhello(Dajax.process);
-    }
-
-    function calculate(){
-    Dajaxice.Work.multiply(Dajax.process,{'a':$('#a').val(),'b':$('#b').val()})
-    }
-</script>
-
-    get_estimate
-    <p>Client-Estimate</p>
-    {% for i in estimate %}
-    <li>
-        <a href="{{ i.get_absolute_url }}">{{ i }}</a>
-         Testing:
-        {{ i.id }}
-        <button title="{{ i }}" name="{{ i }}"
-                onclick="Dajaxice.Work.get_estimate(Dajax.process, {pk: '{{ i.id }}'});">BTN</button>
-    </li>
-    {% endfor %}
-    <li>
-        <input type="button" value="Say Hello Input"
-                onclick="Dajaxice.Work.sayhello(my_js_callback);"></input>
-                <!--
-                onclick="Dajaxice.Work.sayhello(Dajax.process)";
-                -->
-
-    </li>
-    <input type="text" value="" id="result">
-    <input type="button" onclick="Dajaxice.Work.randomize(Dajax.process)" value="Random!">
-    <button onclick="alerter()">alerter()</button>
-    <button onclick="Dajaxice.LibertyNET.Work.sayhello(my_js_callback);">Say Hello!</button>
-
-    <div onclick="Dajaxice.Work.assign_test(Dajax.process);">Click Here!</div>
-    <div onclick="Dajaxice.Work.assign_test(Dajax.process);">Click Here!</div>
-
-    <input type="text" value="5" id="a"> x
-    <input type="text" value="6" id="b"> =
-    <input type="text" value="" id="result">
-    <input type="button" value="Multiply!" onclick="calculate();">
-{% endcomment %}

@@ -1,0 +1,44 @@
+{% extends 'common/__form_ro_base.html' %}
+{% load mytags %}
+{% block body_block %}
+<body onload="initialize()" xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+{% block form_header %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-phone" title="Job Details" subtitle="Detailed Job Information" %}
+{% endblock %}
+
+{% block form_breadcrumb %}
+<div class="container padded">
+    <div class="row">
+      <div id="breadcrumbs">
+        <div class="breadcrumb-button blue">
+          <span class="breadcrumb-label"><i class="icon-home"></i> Home</span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+          <span class="breadcrumb-label">
+            <i class="fa fa-group"></i>
+              <a href="/work/jobindex/">Job Home</a>
+          </span>
+          <span class="breadcrumb-arrow"><span></span></span>
+        </div>
+        <div class="breadcrumb-button">
+            <span class="breadcrumb-label">
+                <i class="fa fa-phone"></i>
+                Job Details
+            </span>
+        </div>
+      </div>
+    </div>
+</div> <!-- container padded -->
+{% endblock form_breadcrumb %}
+{% comment %}
+{% block h4_block %}
+    Job Details
+{% endblock h4_block %}
+{% endcomment %}
+
+{% block form_content %}
+    {% include 'work/job/__job_details_table.html' with job=job address_detail=address_detail %}
+{% endblock %}
+

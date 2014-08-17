@@ -34,24 +34,13 @@
 </div> <!-- container padded -->
 <script>
     $(document).ready(function(){
-       $('#id_estimate_address').empty();
+      $("#id_address_input").change(function(){
+        $("#id_estimate_address").val($("#id_address_input").val());
+        $("#id_estimate_client").val($("#id_estimate_client").val());
+        alert("Hidden is: " + $('#id_estimate_address').val());
+        alert('client is ' + $("#id_estimate_client").val());
+      });
     });
-//    $(document).ready(function(){
-//       $('#id_estimate_client').change(function(){
-//          alert($('#id_estimate_address').value);
-//          alert('estimate client changed');
-//       });
-//    });
-    function buttonfunc(){
-        var tmp = ($('#id_estimate_address'));
-        alert(tmp.val());
-        $('#id_estimate_address') = tmp.val();
-        $("#id_estimate_address option[value='tmp']").attr("selected", true);
-        alert($("#id_estimate_address").selected==true);
-        alert($("#id_estimate_address").selected);
-    }
-
-//        $("#routetype option[value='quietest']").attr("selected", "selected");
 </script>
 {% endblock form_breadcrumb %}
 {% block form_content %}
@@ -63,15 +52,30 @@
                 <span>Characters Remaining: </span>
                 <span id="remaining_span">{{ i.field.max_length }}</span>
                 {% elif i.name == 'estimate_client' %}
-                {{ i }}
-                <!--<select id="id_estimate_address" name="estimate_address"-->
-                        <!--class="form-control">-->
-                    <!--<option>Select an Address</option>-->
-                <!--</select>-->
-            <button title="Click me" onclick="buttonfunc()"/>
+                    {{ i }}
+                {% elif i.name == 'estimate_address' %}
+                    {{ i }}
+                    <select class="form-control"
+                            id="id_address_input" name="address_input">
+                        <option>Select Client to get Addresses</option>
+                    </select>
             {% else %}
                 {{ i }}
             {% endif %}
         </li>
     {% endfor %}
+    <div id="msg">
+  {% if form.errors %}
+  <div class="error">
+   <p><span>ERROR</span></p>
+   <ul>
+   {% for key,value in form.errors.items %}
+    {% for error in value %}
+     <li>{{ error }}</li>
+    {% endfor %}
+   {% endfor %}
+   </ul>
+  </div>
+  {% endif %}
+ </div>
 {% endblock %}

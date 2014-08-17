@@ -34,7 +34,6 @@ def get_estimate_parts_details(request, pk, estimate_id):
     estimate = ClientEstimate.objects.get(pk=estimate_id)
     if pk >= 1:
         est_parts = estimate.estimate_parts.filter(part_id=pk)
-    print('value tester %s' % len(est_parts))
     if est_parts:
         ep = est_parts[0]
         dajax.assign('#id_quantity', 'value', str(ep.quantity))
@@ -69,14 +68,18 @@ def get_sites(request, pk):
     site = list(Site.objects.filter(site_client=pk))
     # populate dropdown
     print('get_sites %s ' % site)
-    out = []
+    out = ["<option>Select Client to get Addresses</option>"]
     # out = ["<option value='' selected='/selected'>---------</option>"]
     # [out.append("<option value='#'>%s</option>" % option.get_address) for option in site]
     [out.append("<option value='{1}'>{0}</option>".format
-                (option.get_address, option.site_id))
+                (option.get_address, option.site_address.id))
      for option in site]
 
-    dajax.assign('#id_estimate_address', 'innerHTML', ''.join(out))
+    for option in site:
+        print("site get_address | site_id %s" % option.get_address, option.site_id)
+
+    dajax.assign('#id_address_input', 'innerHTML', ''.join(out))
+    # dajax.assign('#id_estimate_address', 'innerHTML', ''.join(out))
 
     return dajax.json()
 
