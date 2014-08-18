@@ -12,5 +12,11 @@
   {% block form_breadcrumb %}
     {% include "common/breadcrumbs/__home_home.html" with this_home="Jobs" %}
   {% endblock form_breadcrumb %}
-    {% include "work/job/__job_index_table.html" with job=job %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% include "work/job/__job_index_table.html" with job=job %}
+            </div>
+        </div>
+    </div>
 {% endblock base_content %}

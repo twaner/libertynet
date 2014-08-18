@@ -3,17 +3,17 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.views.generic.base import View
 from Common.helpermethods import create_address_helper, form_generator, \
     validation_helper, dict_generator, update_address_helper, update_contact_helper, \
     create_contact_client_calllog_helper, create_call_list_helper, create_call_list_helper_not_site
 from Client.models import Client
-from Site.models import Site
-from Site.forms import SiteForm
-from Site.helper_methods import create_site_helper, update_site_helper
+from Site.models import Site, System
+from Site.forms import SiteForm, SystemForm, NetworkForm
+from Site.helper_methods import create_site_helper, update_site_helper, create_system_helper
 from Common.models import Address, CallList, Contact
-from Common.forms import AddressForm, CallListForm, CallListContactForm
+from Common.forms import AddressForm, CallListForm, CallListContactForm, InstallerForm
 
 #region ClientSite
 
@@ -118,5 +118,70 @@ def editclientsite(request, pk):
         fd['client'] = site.site_client
         fd['site'] = site
         return render(request, template_name, fd)
+
+#endregion
+
+
+# region System
+
+
+class SystemIndexView(ListView):
+    model = System
+    context_object_name = 'system'
+    template_name = 'site/systemindex'
+
+
+class SystemDetailView(DetailView):
+    model = System
+    context_object_name = 'system'
+    template_name = 'site/systemdetails'
+
+
+class CreateSystemView(CreateView):
+    model = System
+    context_object_name = 'system'
+    template_name = 'site/systemdetails'
+
+    model = Job
+    template_name = 'work/addjob.html'
+    form_list = form_generator(3)
+    form_class = SystemForm
+    second_form = InstallerForm
+    third_form = NetworkForm
+
+    def get_context_data(self, **kwargs):
+        obj = self.get_object(queryset=None)
+        context = super(CreateSystemView, self).get_context_data(**kwargs)
+        return context
+
+    def get_object(self, queryset=None):
+        obj = super(CreateSystemView, self).get_object()
+        return obj
+
+    def post(self, request, *args, **kwargs):
+        self.form_list[0] = self.form_list(request.POST)
+        self.form_list[1] = self.second_form(request.POST)
+        self.form_list[2] = self.third_form(request.POST)
+
+        if validation_helper(self.form_list):
+            system = create_system_helper()
+            return HttpResponseRedirect(reverse('Work:jobdetails', kwargs={
+                'pk': system.system_id
+            }))
+
+        else:
+            return render(request, self.template_name, {
+                'form': self.form_list[0]})
+
+    def get(self, request, *args, **kwargs):
+        self.form_list[0] = self.form_class()
+        form = self.form_list[0]
+        return render(request, self.template_name, {
+            'form': form})
+
+
+class UpdateSystemView(UpdateView):
+    pass
+
 
 #endregion

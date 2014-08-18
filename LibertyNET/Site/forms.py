@@ -41,5 +41,11 @@ class ZoneForm(forms.ModelForm):
         model = Zone
         fields = '__all__'
 
+
+class NetworkForm(forms.ModelChoiceField):
+    class Meta:
+        model = Network
+        fields = '__all__'
+
 #endregion
 

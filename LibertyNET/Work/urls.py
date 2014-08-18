@@ -4,7 +4,7 @@ dajaxice_autodiscover()
 from Work.views import CreateEstimateView, ClientEstimateIndex, CreateSalesEstimateView, SalesEstimateIndex, \
     ClientEstimateDetails, SalesEstimateDetails, UpdatePartView, UpdateEstimateView, \
     update_part, add_part, UpdateJobView, JobIndexView, JobDetailsView, CreateJobView, \
-    TicketIndexView, TicketDetailsView, CreateTicketView
+    TicketIndexView, TicketDetailsView, CreateTicketView, CreateTicketOffJob
 #CreateEstimateStep2, , update_estimate
 
 
@@ -47,6 +47,7 @@ urlpatterns = patterns('',
                        url(r'^ticketindex/$', TicketIndexView.as_view(), name='ticketindex'),
                        url(r'^ticketdetails/(?P<pk>[\d-]+)/$', TicketDetailsView.as_view(), name='ticketdetails'),
                        url(r'^addticket/$', CreateTicketView.as_view(), name='addticket'),
+                       url(r'^addticket/(?P<job>[\d-]+)/$', CreateTicketOffJob.as_view(), name='addticket'),
 
                        )
 

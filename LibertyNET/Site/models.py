@@ -20,8 +20,8 @@ class SiteManager(models.Manager):
 
 
 class SystemManager(models.Manager):
-    def create_system(self, system_site, system_name, system_client_id, system_type_id, system_panel_id,
-                      tampered_id, is_system_local, panel_location, primary_power_location,
+    def create_system(self, system_site, system_name, system_client, system_type, system_panel,
+                      tampered, is_system_local, panel_location, primary_power_location,
                       primary_communications, secondary_communications, backup_communications,
                       system_installer_code, master_code, lockout_code, system_ip_address, port,
                       user_name, password, network_id):
@@ -30,10 +30,10 @@ class SystemManager(models.Manager):
         @rtype : System
         @param system_site: Site where System is located.
         @param system_name: Name of system.
-        @param system_client_id: Client Id.
-        @param system_type_id: System Type Id.
-        @param system_panel_id: Panel Id.
-        @param tampered_id: Tampered Id.
+        @param system_client: Client Id.
+        @param system_type: System Type Id.
+        @param system_panel: Panel Id.
+        @param tampered: Tampered Id.
         @param is_system_local: Is Local?
         @param panel_location: Location of Panel.
         @param primary_power_location: Location of primary power source.
@@ -50,8 +50,8 @@ class SystemManager(models.Manager):
         @param network_id: Network Id.
         @return: System.
         """
-        system = self.create(system_site=system_site, system_name=system_name, system_client_id=system_client_id,
-                             system_type_id=system_type_id, system_panel_id=system_panel_id, tampered_id=tampered_id,
+        system = self.create(system_site=system_site, system_name=system_name, system_client=system_client,
+                             system_type=system_type, system_panel=system_panel, tampered=tampered,
                              is_system_local=is_system_local, panel_location=panel_location,
                              primary_power_location=primary_power_location,
                              primary_communications=primary_communications,
@@ -153,9 +153,9 @@ class System(models.Model):
     # System must be at a Site
     system_site = models.ForeignKey('Site.Site')
     system_name = models.CharField(max_length=45)
-    system_client_id = models.ForeignKey('Client.Client')
-    system_type_id = models.ForeignKey('Common.Genre')
-    system_panel_id = models.ForeignKey('Equipment.Panel', blank=True, null=True)
+    system_client = models.ForeignKey('Client.Client')
+    system_type = models.ForeignKey('Common.Genre')
+    system_panel = models.ForeignKey('Equipment.Panel', blank=True, null=True)
     tampered_id = models.IntegerField(max_length=11)
     is_system_local = models.BooleanField(default=False)
     panel_location = models.CharField(max_length=45)
@@ -174,7 +174,7 @@ class System(models.Model):
     user_name = models.CharField(max_length=45)
     password = models.CharField(max_length=45)
     #TODO is this a FK? to a network model
-    network_id = models.ForeignKey('Site.Network')
+    network = models.ForeignKey('Site.Network')
 
     objects = SystemManager()
 

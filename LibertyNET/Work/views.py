@@ -17,6 +17,8 @@ from Common.models import Address, Contact, Notes
 from Common.forms import CallListContactForm, NotesForm
 from Common.helpermethods import validation_helper, form_generator, dict_generator, create_notes_helper, \
     create_calllist_contact_helper
+from Site.models import System
+
 
 
 # region Index Views
@@ -95,19 +97,6 @@ class SalesEstimateDetails(DetailView):
 
 #region Create Views
 
-
-# def create_estiamte_part_one(request):
-#     form_class = ClientEstimateFormOne
-#     template_name = 'work/createestimate.html'
-#     form_list = form_generator(1)
-#
-#     if request.method =='POST':
-#         form_list[0] = ClientEstimateFormOne(request.POST)
-#         validation = validation_helper(form_list)
-#         if validation:
-#
-#     else:
-#         pass
 
 class CreateEstimateView(CreateView):
     """
@@ -274,7 +263,6 @@ class CreateSalesEstimateView(CreateView):
 
     def form_invalid(self, form):
         validation_helper(form_list=form)
-        print('CreateEstimateStep2 -form_invalid %s ' % form)
         return super(CreateSalesEstimateView, self).form_invalid(form)
 
 
@@ -478,6 +466,21 @@ class CreateTicketView(CreateView):
 
         return render(request, self.template_name, form_dict)
 
+
+class CreateTicketOffJob(CreateTicketView):
+
+    def get(self, request, *args, **kwargs):
+        job = Job.objects.get(pk=self.kwargs['job'])
+        system = System.objects.filter(system_client=job.job_client)
+        ticket_dict = {
+            'ticket_job': job, 'ticket_system': system,
+        }
+        self.form_list[0] = TicketForm(ticket_dict)
+        self.form_list[1] = NotesForm()
+        self.form_list[2] = CallListContactForm()
+        form_dict = dict_generator(self.form_list)
+
+        return render(request, self.template_name, form_dict)
 
 
 
