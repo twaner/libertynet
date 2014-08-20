@@ -392,8 +392,10 @@ class UpdateJobView(UpdateView):
 
     def get(self, request, *args, **kwargs):
         job = Job.objects.get(pk=self.kwargs['pk'])
+
+        employees = [val for val in job.job_employee.all()]
         job_dict = {
-            'name': job.name, 'job_employee': job.job_employee,
+            'name': job.name, 'job_employee': employees,
         }
         self.form_list[0] = UpdateJobForm(job_dict)
         return render(request, self.template_name, {'form': self.form_list[0]})

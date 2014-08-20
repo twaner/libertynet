@@ -14,6 +14,7 @@ from Site.forms import SiteForm, SystemForm, NetworkForm
 from Site.helper_methods import create_site_helper, update_site_helper, create_system_helper
 from Common.models import Address, CallList, Contact
 from Common.forms import AddressForm, CallListForm, CallListContactForm, InstallerForm
+from Work.models import Job
 
 #region ClientSite
 

@@ -124,8 +124,11 @@ def create_job_helper(form):
 
 def update_job_helper(job, form):
     job.name = form.cleaned_data['name']
-    job.job_employee = form.cleaned_data['job_employee']
-    job.save(update_fields=['name', 'job_employee'])
+    employees = form.cleaned_data['job_employee']
+    job.save(update_fields=['name'])
+    job.job_employee.clear()
+    [job.job_employee.add(t) for t in employees]
+    job.save()
 
     return job
 

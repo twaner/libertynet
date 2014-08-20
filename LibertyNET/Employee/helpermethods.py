@@ -61,12 +61,10 @@ def update_employee(request, employee, address, contact):
         employee.termination_date = request.POST.get('termination_date')
     employee.termination_reason = request.POST.get('termination_reason')
 
-    # Handle titles
-    et_list = []
-    [et_list.append(unicode(t.title_id)) for t in employee.emp_title.all()]
-    [employee.emp_title.add(t) for t in emp_title if t not in et_list]
-    [employee.emp_title.remove(t) for t in et_list if t not in emp_title]
-    # [t.remove(i) for i in t if i not in r] set(t+r)
+    # Clear all titles then add from form
+    employee.emp_title.clear()
+    [employee.emp_title.add(t) for t in emp_title]
+
     employee.save(update_fields=['first_name', 'middle_initial', 'last_name', 'emp_number', 'emp_address',
                                  'emp_contact', 'hire_date', 'pay_type', 'pay_type', 'is_terminated',
                                  'termination_date', 'termination_reason'])

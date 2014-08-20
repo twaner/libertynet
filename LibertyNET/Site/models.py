@@ -24,7 +24,7 @@ class SystemManager(models.Manager):
                       tampered, is_system_local, panel_location, primary_power_location,
                       primary_communications, secondary_communications, backup_communications,
                       system_installer_code, master_code, lockout_code, system_ip_address, port,
-                      user_name, password, network_id):
+                      user_name, password, network):
         """
         Creates a new system.
         @rtype : System
@@ -47,7 +47,7 @@ class SystemManager(models.Manager):
         @param port: Port.
         @param user_name: Username.
         @param password: Password.
-        @param network_id: Network Id.
+        @param network: Network.
         @return: System.
         """
         system = self.create(system_site=system_site, system_name=system_name, system_client=system_client,
@@ -60,7 +60,7 @@ class SystemManager(models.Manager):
                              system_installer_code=system_installer_code, master_code=master_code,
                              lockout_code=lockout_code,
                              system_ip_address=system_ip_address, port=port, user_name=user_name, password=password,
-                             network_id=network_id)
+                             network=network)
         system.save()
         return system
 

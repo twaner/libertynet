@@ -58,13 +58,13 @@ def create_system_helper(form):
     network = form.cleaned_data['network']
 
     system = System.objects.create_system(
-        system_site=system_site, system_name=system_name, system_client, system_client,
-        system_type=system_type,system_panel=system_panel, tampered_id=tampered_id, is_system_local=is_system_local,
+        system_site=system_site, system_name=system_name, system_client=system_client,
+        system_type=system_type, system_panel=system_panel, tampered_id=tampered_id, is_system_local=is_system_local,
         panel_location=panel_location, primary_power_location=primary_power_location,
         primary_communications=primary_communications, secondary_communications=secondary_communications,
-        backup_communications=backup_communications, system_installer_code=system_installer_code, master_code=master_code,
-        lockout_code=lockout_code, system_ip_address=system_ip_address, port=port, user_name=user_name,
-        network=network)
+        backup_communications=backup_communications, system_installer_code=system_installer_code,
+        master_code=master_code, lockout_code=lockout_code, system_ip_address=system_ip_address,
+        port=port, user_name=user_name, password=password, network=network)
 
     return system
 

@@ -142,7 +142,7 @@ class Job(models.Model):
         return reverse('Work:jobdetails', kwargs={'pk': self.id})
 
     def get_absolute_url_edit(self):
-        return reverse('Work:jobdetails', kwargs={'pk': self.id})
+        return reverse('Work:updatejob', kwargs={'pk': self.id})
 
 
 class Task(models.Model):
