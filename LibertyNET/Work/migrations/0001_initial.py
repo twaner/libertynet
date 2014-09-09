@@ -271,7 +271,7 @@ class Migration(SchemaMigration):
         },
         u'Vendor.supplier': {
             'Meta': {'object_name': 'Supplier'},
-            'account_id': ('django.db.models.fields.IntegerField', [], {'max_length': '11'}),
+            'account': ('django.db.models.fields.IntegerField', [], {'max_length': '11'}),
             'supplier_company_id': ('django.db.models.fields.IntegerField', [], {'max_length': '11'}),
             'supplier_contact_id': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Common.Contact']"}),
             'supplier_id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})

@@ -246,8 +246,6 @@ class TicketForm(forms.ModelForm):
                       "'remaining_span')"
             }),
         }
-
         labels = {
-
         }
 # endregion

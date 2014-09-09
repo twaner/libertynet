@@ -16,7 +16,7 @@ from Common.models import Address, CallList, Contact
 from Common.forms import AddressForm, CallListForm, CallListContactForm, InstallerForm
 from Work.models import Job
 
-#region ClientSite
+# region ClientSite
 
 
 class SiteDetailView(DetailView):
@@ -66,7 +66,7 @@ def addclientsite(request, pk):
             calllist = create_call_list_helper_not_site(form_list[2], contact)
             site = create_site_helper(form_list[0], client, address, calllist)
             return HttpResponseRedirect(reverse('Client:sitedetails',
-                                        kwargs={'pk': site.site_id}))
+                                                kwargs={'pk': site.site_id}))
         else:
             return render(request, template_name, dict_generator(form_list))
     else:
@@ -108,7 +108,7 @@ def editclientsite(request, pk):
             a = update_address_helper(form_list[1], address)
             site = update_site_helper(form_list[0], a, site)
             return HttpResponseRedirect(reverse('Client:sitedetails',
-                                        kwargs={'pk': site.site_id}))
+                                                kwargs={'pk': site.site_id}))
         else:
             return render(request, template_name, dict_generator(form_list))
 
@@ -120,6 +120,7 @@ def editclientsite(request, pk):
         fd['site'] = site
         return render(request, template_name, fd)
 
+
 #endregion
 
 
@@ -129,22 +130,20 @@ def editclientsite(request, pk):
 class SystemIndexView(ListView):
     model = System
     context_object_name = 'system'
-    template_name = 'site/systemindex'
+    template_name = 'site/systemindex.html'
 
 
 class SystemDetailView(DetailView):
     model = System
     context_object_name = 'system'
-    template_name = 'site/systemdetails'
+    template_name = 'site/systemdetails.html'
 
 
 class CreateSystemView(CreateView):
     model = System
     context_object_name = 'system'
-    template_name = 'site/systemdetails'
+    template_name = 'site/addsystem.html'
 
-    model = Job
-    template_name = 'work/addjob.html'
     form_list = form_generator(3)
     form_class = SystemForm
     second_form = InstallerForm
@@ -182,7 +181,14 @@ class CreateSystemView(CreateView):
 
 
 class UpdateSystemView(UpdateView):
-    pass
+    model = System
+    context_object_name = 'system'
+    template_name = 'site/addsystem.html'
+
+    form_list = form_generator(3)
+    form_class = SystemForm
+    second_form = InstallerForm
+    third_form = NetworkForm
 
 
-#endregion
+    #endregion

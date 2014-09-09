@@ -32,6 +32,7 @@
           <strong>Client Name</strong>
               <li>
                   {{ job.job_client.get_full_name }}
+                  <a href="{{ job.job_client.get_absolute_url }}">Info</a>
               </li>
           {% if job.job_client.is_a_business == True %}
               <strong>
@@ -41,7 +42,7 @@
                   {{ job.job_client.business_name }}
               </li>
           {% endif %}
-          <h5>Address</h5>
+          <h5>Site Address</h5>
             {% include 'common/__address_info.html' with address_detail=address_detail %}
           <h5>Employees on Job</h5>
             <strong>

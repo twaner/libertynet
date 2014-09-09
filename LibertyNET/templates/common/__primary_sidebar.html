@@ -1,137 +1,243 @@
 <div class="primary-sidebar">
   <!-- Main nav -->
   <ul class="nav navbar-collapse collapse navbar-collapse-primary">
+    <li class="">
+      <span class="glow"></span>
+      <a href="../dashboard/dashboard.html">
+          <i class="icon-dashboard icon-2x"></i>
+          <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="dark-nav ">
+      <span class="glow"></span>
+      <a class="accordion-toggle collapsed " data-toggle="collapse" href="#yJ6h3Npe7C">
+        <i class="fa fa-user icon-2x"></i>
+        <span>
+          Employee
+          <i class="icon-caret-down"></i>
+        </span>
+      </a>
+      <ul id="yJ6h3Npe7C" class="collapse ">
         <li class="">
-          <span class="glow"></span>
-          <a href="../dashboard/dashboard.html">
-              <i class="icon-dashboard icon-2x"></i>
-              <span>Dashboard</span>
+          <a href="{% url 'Employee:index' %}">
+              <i class="fa fa-home"></i> Employee Home
           </a>
         </li>
-        <li class="dark-nav ">
-          <span class="glow"></span>
-          <a class="accordion-toggle collapsed " data-toggle="collapse" href="#yJ6h3Npe7C">
-            <i class="fa fa-user icon-2x"></i>
-            <span>
-              Employee
-              <i class="icon-caret-down"></i>
-            </span>
+        <li class="">
+          <a href="{% url 'Employee:addemployee' %}">
+              <i class="fa fa-plus-circle"></i> Add Employee
           </a>
-          <ul id="yJ6h3Npe7C" class="collapse ">
-            <li class="">
-              <a href="{% url 'Employee:index' %}">
-                  <i class="fa fa-home"></i> Employee Home
-              </a>
-            </li>
-            <li class="">
-              <a href="{% url 'Employee:addemployee' %}">
-                  <i class="fa fa-plus-circle"></i> Add Employee
-              </a>
-            </li>
-          </ul>
         </li>
-        <li class="dark-nav ">
-          <span class="glow"></span>
-          <a class="accordion-toggle collapsed " data-toggle="collapse" href="#QU6D6nx48s">
-            <i class="fa fa-group icon-2x"></i>
-            <span>
-              Client
-              <i class="icon-caret-down"></i>
-            </span>
+      </ul>
+    </li>
+    <li class="dark-nav ">
+      <span class="glow"></span>
+      <a class="accordion-toggle collapsed " data-toggle="collapse" href="#QU6D6nx48s">
+        <i class="fa fa-group icon-2x"></i>
+        <span>
+          Client
+          <i class="icon-caret-down"></i>
+        </span>
+      </a>
+      <ul id="QU6D6nx48s" class="collapse ">
+          <li class="">
+              <a href="{% url 'Client:index' %}">
+                  <i class="fa fa-home"></i> Client Home
+              </a>
+            </li>
+          <li class="">
+              <a href="{% url 'Client:callloghome' %}">
+                  <i class="fa fa-phone-square"></i> Client Call Log Home
+              </a>
+          </li>
+          <li class="">
+              <a href="{% url 'Work:clientestimateindex' %}">
+                  <i class="fa fa-home"></i> Client Estimate Home
+              </a>
+          </li>
+          <li class="">
+              <a href="{% url 'Client:addclient' %}">
+                  <i class="fa fa-plus-circle"></i> Add Client
+              </a>
+          </li>
+      </ul>
+    </li>
+    <li class="dark-nav ">
+      <span class="glow"></span>
+      <a class="accordion-toggle collapsed " data-toggle="collapse" href="#QU6D6nx48qq">
+        <i class="fa fa-phone icon-2x"></i>
+        <span>
+          Sales
+          <i class="icon-caret-down"></i>
+        </span>
+      </a>
+      <ul id="QU6D6nx48qq" class="collapse ">
+            <li class="">
+              <a href="{% url 'Client:salesprospectindex' %}">
+                  <i class="fa fa-home"></i> Sales Home
+              </a>
+            </li>
+            <li class="">
+              <a href="../other/sign_up.html">
+                  <i class="fa fa-phone-square"></i> Sales Call Log Home
+              </a>
+            </li>
+            <li class="">
+              <a href="{% url 'Client:addsalesprospect' %}">
+                  <i class="fa fa-plus-circle"></i> Add Sales Lead
+              </a>
+           </li>
+      </ul>
+    </li>
+    <li class="dark-nav ">
+      <span class="glow"></span>
+      <a class="accordion-toggle collapsed " data-toggle="collapse" href="#QU6D6nx48d">
+        <i class="icon-wrench icon-2x"></i>
+        <span>
+          Work
+          <i class="icon-caret-down"></i>
+        </span>
+      </a>
+      <ul id="QU6D6nx48d" class="collapse ">
+        <li class="">
+          <a href="/work/clientestimateindex/">
+              <i class="fa fa-file-o"></i> Client Estimate Home
           </a>
-          <ul id="QU6D6nx48s" class="collapse ">
-              <li class="">
-                  <a href="{% url 'Client:index' %}">
-                      <i class="fa fa-home"></i> Client Home
-                  </a>
-                </li>
-              <li class="">
-                  <a href="{% url 'Client:callloghome' %}">
-                      <i class="fa fa-phone-square"></i> Client Call Log Home
-                  </a>
-              </li>
-              <li class="">
-                  <a href="{% url 'Work:clientestimateindex' %}">
-                      <i class="fa fa-home"></i> Client Estimate Home
-                  </a>
-              </li>
-              <li class="">
-                  <a href="{% url 'Client:addclient' %}">
-                      <i class="fa fa-plus-circle"></i> Add Client
-                  </a>
-              </li>
-          </ul>
         </li>
-        <li class="dark-nav ">
-          <span class="glow"></span>
-          <a class="accordion-toggle collapsed " data-toggle="collapse" href="#QU6D6nx48qq">
-            <i class="fa fa-phone icon-2x"></i>
-            <span>
-              Sales
-              <i class="icon-caret-down"></i>
-            </span>
+        <li class="">
+          <a href="/work/createestimate">
+              <i class="fa fa-plus-circle"></i> Create Client Estimate
           </a>
-          <ul id="QU6D6nx48qq" class="collapse ">
-                <li class="">
-                  <a href="{% url 'Client:salesprospectindex' %}">
-                      <i class="fa fa-home"></i> Sales Home
-                  </a>
-                </li>
-                <li class="">
-                  <a href="../other/sign_up.html">
-                      <i class="fa fa-phone-square"></i> Sales Call Log Home
-                  </a>
-                </li>
-                <li class="">
-                  <a href="{% url 'Client:addsalesprospect' %}">
-                      <i class="fa fa-plus-circle"></i> Add Sales Lead
-                  </a>
-               </li>
-          </ul>
         </li>
-        <li class="dark-nav ">
-          <span class="glow"></span>
-          <a class="accordion-toggle collapsed " data-toggle="collapse" href="#QU6D6nx48d">
-            <i class="icon-wrench icon-2x"></i>
-            <span>
-              Work
-              <i class="icon-caret-down"></i>
-            </span>
+        <li class="divider"></li>
+        <li class="">
+          <a href="/work/jobindex/">
+              <i class="icon-home"></i> Job Home
           </a>
-          <ul id="QU6D6nx48d" class="collapse ">
-            <li class="">
-              <a href="/work/clientestimateindex/">
-                  <i class="fa fa-file-o"></i> Client Estimate Home
-              </a>
-            </li>
-            <li class="">
-              <a href="/work/createestimate">
-                  <i class="fa fa-plus-circle"></i> Create Client Estimate
-              </a>
-            </li>
-            <li class="divider"></li>
-            <li class="">
-              <a href="/work/jobindex/">
-                  <i class="icon-home"></i> Job Home
-              </a>
-            </li>
-            <li class="">
-              <a href="/work/addjob/">
-                  <i class="icon-home"></i> Add Job
-              </a>
-            </li>
-            <li class="divider"></li>
-                <li class="">
-                  <a href="/work/ticketindex/">
-                      <i class="icon-home"></i> Ticket Home
-                  </a>
-                </li>
-                <li class="">
-                  <a href="/work/addticket/">
-                      <i class="icon-home"></i> Add Ticket
-                  </a>
-                </li>
-          </ul>
         </li>
+        <li class="">
+          <a href="/work/addjob/">
+              <i class="icon-home"></i> Add Job
+          </a>
+        </li>
+        <li class="divider"></li>
+            <li class="">
+              <a href="/work/ticketindex/">
+                  <i class="icon-home"></i> Ticket Home
+              </a>
+            </li>
+            <li class="">
+              <a href="/work/addticket/">
+                  <i class="icon-home"></i> Add Ticket
+              </a>
+            </li>
+      </ul>
+    </li>
+    <li class="dark-nav ">
+      <span class="glow"></span>
+      <a class="accordion-toggle collapsed " data-toggle="collapse" href="#QU6D6nx48qv">
+        <i class="fa fa-phone icon-2x"></i>
+        <span>
+          Equipment
+          <i class="icon-caret-down"></i>
+        </span>
+      </a>
+      <ul id="QU6D6nx48qv" class="collapse ">
+        <li class="">
+          <a href="{% url 'Client:salesprospectindex' %}">
+              <i class="fa fa-home"></i> Equipment Home
+          </a>
+        </li>
+        <li class="">
+          <a href="../other/sign_up.html">
+              <i class="fa fa-phone-square"></i> Add Equipment
+          </a>
+        </li>
+        <li class="">
+          <a href="{% url 'Client:addsalesprospect' %}">
+              <i class="fa fa-plus-circle"></i> Equipment Placeholder2
+          </a>
+       </li>
+      </ul>
+    </li>
+    <li class="dark-nav ">
+      <span class="glow"></span>
+      <a class="accordion-toggle collapsed " data-toggle="collapse" href="#QU6D6nx48qvv">
+        <i class="fa fa-phone icon-2x"></i>
+        <span>
+          Vendor
+          <i class="icon-caret-down"></i>
+        </span>
+      </a>
+      <ul id="QU6D6nx48qvv" class="collapse ">
+        <li class="">
+          <a href="../other/sign_up.html">
+              <i class="fa fa-phone-square"></i> Manufacturer Home
+          </a>
+        </li>
+        <li class="">
+          <a href="{% url 'Client:addsalesprospect' %}">
+              <i class="fa fa-plus-circle"></i> Add Manufacturer
+          </a>
+       </li>
+       <li class="">
+          <a href="../other/sign_up.html">
+              <i class="fa fa-phone-square"></i> Supplier Home
+          </a>
+        </li>
+        <li class="">
+          <a href="{% url 'Client:addsalesprospect' %}">
+              <i class="fa fa-plus-circle"></i> Add Supplier
+          </a>
+       </li>
+       <li class="">
+          <a href="../other/sign_up.html">
+              <i class="fa fa-phone-square"></i> Supplier List Home
+          </a>
+        </li>
+        <li class="">
+          <a href="{% url 'Client:addsalesprospect' %}">
+              <i class="fa fa-plus-circle"></i> Supplier List Vendor
+          </a>
+       </li>
+      </ul>
+    </li>
+    <li class="dark-nav ">
+      <span class="glow"></span>
+      <a class="accordion-toggle collapsed " data-toggle="collapse" href="#QU6D6nx48qw">
+        <i class="fa fa-phone icon-2x"></i>
+        <span>
+          System
+          <i class="icon-caret-down"></i>
+        </span>
+      </a>
+      <ul id="QU6D6nx48qw" class="collapse ">
+        <li class="">
+          <a href="{% url 'Client:salesprospectindex' %}">
+              <i class="fa fa-home"></i> System Home
+          </a>
+        </li>
+        <li class="">
+          <a href="../other/sign_up.html">
+              <i class="fa fa-phone-square"></i> Add System
+          </a>
+        </li>
+        <li class="">
+          <a href="{% url 'Client:addsalesprospect' %}">
+              <i class="fa fa-plus-circle"></i> System Placeholder2
+          </a>
+       </li>
+       <li class="">
+          <a href="../other/sign_up.html">
+              <i class="fa fa-phone-square"></i> Add Panel
+          </a>
+        </li>
+        <li class="">
+          <a href="{% url 'Client:addsalesprospect' %}">
+              <i class="fa fa-plus-circle"></i> Panel Placeholder2
+          </a>
+       </li>
+      </ul>
+    </li>
   </ul>
 </div> <!-- primary-sidebar -->

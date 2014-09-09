@@ -1,3 +1,4 @@
+from Finder.Containers_and_folders import folder
 from django import forms
 from django.utils.translation import gettext as _
 from models import Client, SalesProspect, ClientCallLog, SalesProspectCallLog
@@ -75,7 +76,16 @@ class SalesProspectForm(forms.ModelForm):
                 'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
             'is_business': forms.CheckboxInput(attrs={
                 'class': "iButton-icons"
-            })
+            }),
+            'service_guide': forms.CheckboxInput(attrs={
+                'class': "iButton-icons"
+            }),
+            'sp_liberty_contact': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'sales_probability': forms.Select(attrs={
+                'class': 'form-control'
+            }),
         }
 
 
@@ -96,7 +106,16 @@ class SalesProspectEditForm(forms.ModelForm):
                 'class': 'datepicker fill-up', 'data-date-format': "yyyy-mm-dd"}),
             'is_business': forms.CheckboxInput(attrs={
                 'class': "iButton-icons"
-            })
+            }),
+            'service_guide': forms.CheckboxInput(attrs={
+                'class': "iButton-icons"
+            }),
+            'sp_liberty_contact': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+            'sales_probability': forms.Select(attrs={
+                'class': 'form-control'
+            }),
         }
 
 

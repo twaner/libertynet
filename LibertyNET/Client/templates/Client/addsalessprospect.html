@@ -39,10 +39,10 @@
  {% for i in form0 %}
     <li class="input">
       <label>{{ i.label|title|cut:"_" }}</label>
-        {% if i.name == "is_business" or i.name == "sp_liberty_contact" or i.name == "sales_probability" %}
+        {% if i.name == "sp_liberty_contact" or i.name == "sales_probability" %}
             {{ i|addcss:"form-control" }}
         {% else %}
-        {{ i }}
+            {{ i }}
         {% endif %}
     </li>
     {% endfor %}

@@ -20,8 +20,8 @@ from Common.helpermethods import validation_helper, form_generator, dict_generat
 from Site.models import System
 
 
-
 # region Index Views
+
 
 class ClientEstimateIndex(ListView):
     """
@@ -95,7 +95,7 @@ class SalesEstimateDetails(DetailView):
 
 # endregion
 
-#region Create Views
+# region Create Views
 
 
 class CreateEstimateView(CreateView):
@@ -400,6 +400,7 @@ class UpdateJobView(UpdateView):
         self.form_list[0] = UpdateJobForm(job_dict)
         return render(request, self.template_name, {'form': self.form_list[0]})
 
+
 #endregion
 
 
@@ -453,8 +454,8 @@ class CreateTicketView(CreateView):
             contact = create_calllist_contact_helper(self.form_list[2])
             ticket = create_ticket_helper(self.form_list[0], notes, contact)
             return HttpResponseRedirect(reverse('Work:ticketdetails', kwargs={
-                'pk': ticket.id
-            }))
+                                                            'pk': ticket.id
+                                                        }))
 
         else:
             form_dict = dict_generator(self.form_list)
@@ -470,7 +471,6 @@ class CreateTicketView(CreateView):
 
 
 class CreateTicketOffJob(CreateTicketView):
-
     def get(self, request, *args, **kwargs):
         job = Job.objects.get(pk=self.kwargs['job'])
         system = System.objects.filter(system_client=job.job_client)
@@ -483,7 +483,5 @@ class CreateTicketOffJob(CreateTicketView):
         form_dict = dict_generator(self.form_list)
 
         return render(request, self.template_name, form_dict)
-
-
 
 # endregion

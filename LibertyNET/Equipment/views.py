@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, View, DetailView
-from Equipment.models import Part, PartCategory
+from Equipment.models import Part, PartCategory, Panel
 from Equipment.forms import PartFormEstimate, PartCategoryForm, \
     PartFormInventory, PartFormInventoryRO
 from Vendor.models import Manufacturer
+from Common.helpermethods import form_generator, dict_generator
 
 #region Globals
 
@@ -122,6 +123,39 @@ class UpdatePartInventory(UpdateView):
         #     return render(request, self.template_name, {'form': form})
 
 # endregion Part
+
+# region Panel
+
+
+class PanelListView(ListView):
+    model = Panel
+    context_object_name = 'all_panel_list'
+    template_name = 'equipment/panelindex.html'
+
+
+class PanelDetailView(DetailView):
+    model = Panel
+    context_object_name = 'panel'
+    template_name = 'equipment/paneldetails.html'
+
+
+class CreatePanelView(CreateView):
+    model = Panel
+    template_name = 'equipment/panelindex.html'
+    form_list = form_generator(1)
+
+
+class UpdatePanelView(UpdateView):
+    model = Panel
+    template_name = 'equipment/panelindex.html'
+    form_list = form_generator(1)
+
+
+# endregion Panel
+
+# region
+
+
 
 #region Spare Code
 

@@ -12,8 +12,9 @@ class ManufacturerForm(forms.ModelForm):
 
 class SupplierForm(forms.ModelForm):
     class Meta:
-        model = SupplierForm
-        exclude = ['supplier_contact_id']
+        model = Supplier
+        exclude = ['supplier_contact']
+
 
 class SupplierListForm(forms.ModelForm):
     class Meta:
