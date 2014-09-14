@@ -13,3 +13,18 @@ def create_supplier_helper(form, contact):
     return supplier
 
 # end region
+
+#region Manufacturer
+
+
+def create_manufacturer_helper(form, address, contact):
+    name = form.cleaned_data['name']
+    primary_supplier = form.cleaned_data['primary_supplier']
+    secondary_supplier = form.cleaned_data['secondary_supplier']
+
+    manufacturer = Manufacturer.object.create_manufacturer(name, address, contact,
+                                                           primary_supplier, secondary_supplier)
+    return manufacturer
+
+
+#end region

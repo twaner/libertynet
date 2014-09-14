@@ -1,7 +1,10 @@
 {% extends 'common/__form_base.html' %}
 {% load mytags %}
+{% block body_block %}
+<body onload="initialize()">
+{% endblock %}
 {% block form_header %}
-{% include "common/mainheader_nograph.html" with icon="fa fa-group" title="Add Supplier" subtitle="Add Supplier Information" %}
+{% include "common/mainheader_nograph.html" with icon="fa fa-group" title="Add Manufacturer" subtitle="Add Manufacturer Information" %}
 {% endblock %}
 {% block form_breadcrumb %}
 <div class="container padded">
@@ -14,14 +17,14 @@
         <div class="breadcrumb-button">
           <span class="breadcrumb-label">
             <i class="fa fa-group"></i>
-              <a href="/client/index/">Supplier Home</a>
+              <a href="/client/index/">Manufacturer Home</a>
           </span>
           <span class="breadcrumb-arrow"><span></span></span>
         </div>
         <div class="breadcrumb-button">
             <span class="breadcrumb-label">
                 <i class="fa fa-plus-square"></i>
-                Add Supplier
+                Add Manufacturer
             </span>
         </div>
       </div>
@@ -30,15 +33,26 @@
 {% endblock form_breadcrumb %}
 {% block h4_block %}Add Supplier{% endblock h4_block %}
 {% block form_content %}
-    <label>Supplier Information:</label>
+    <label>Manufacturer Information:</label>
     {% for i in form0 %}
       <li class="input">
         <label>{{ i.label|title|cut:"_" }}</label>
             {{ i }}
         </li>
     {% endfor %}
-    <label>Contact Information:</label>
+    <div id="locationField">
+        <input id="autocomplete" placeholder="Enter address"
+        onFocus="geolocate()" type="text" />
+    </div>
+    <label>Address Information:</label>
     {% for i in form1 %}
+        <li class="input">
+        <label>{{ i.label|title|cut:"_" }}</label>
+            {{ i }}
+        </li>
+    {% endfor %}
+     <label>Contact Information:</label>
+    {% for i in form2 %}
         <li class="input">
         <label>{{ i.label|title|cut:"_" }}</label>
             {{ i }}

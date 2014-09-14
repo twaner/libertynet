@@ -13,6 +13,10 @@ class AddressForm(forms.ModelForm):
         model = Address
         fields = '__all__'
         labels = dict(street=_('Street Address'), unit=_('Unit Number'))
+        widgets = {
+            'state': forms.Select(attrs={
+                'class': 'form-control'}),
+        }
         help_texts = {
             'street': _('Ex. 44 Broadway'),
             'unit': _('Ex. Apt 23'),
@@ -22,7 +26,6 @@ class AddressForm(forms.ModelForm):
                 'max_length': _('Too many digits in Zip Code.'),
             }
         }
-
 #endregion
 
 #region ContactForms

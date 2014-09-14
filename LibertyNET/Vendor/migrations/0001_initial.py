@@ -12,10 +12,10 @@ class Migration(SchemaMigration):
         db.create_table(u'Vendor_manufacturer', (
             ('manufacturer_id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=45)),
-            ('manu_address', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['Common.Address'], null=True, blank=True)),
-            ('manu_contact', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['Common.Contact'], null=True, blank=True)),
-            ('manu_primary_supplier', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='primary supplier', null=True, to=orm['Vendor.Supplier'])),
-            ('manu_secondary_supplier', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='secondary supplier', null=True, to=orm['Vendor.Supplier'])),
+            ('address', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['Common.Address'], null=True, blank=True)),
+            ('contact', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['Common.Contact'], null=True, blank=True)),
+            ('primary_supplier', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='primary supplier', null=True, to=orm['Vendor.Supplier'])),
+            ('secondary_supplier', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='secondary supplier', null=True, to=orm['Vendor.Supplier'])),
             ('is_direct', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'Vendor', ['Manufacturer'])
@@ -74,10 +74,10 @@ class Migration(SchemaMigration):
         u'Vendor.manufacturer': {
             'Meta': {'object_name': 'Manufacturer'},
             'is_direct': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'manu_address': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Common.Address']", 'null': 'True', 'blank': 'True'}),
-            'manu_contact': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Common.Contact']", 'null': 'True', 'blank': 'True'}),
-            'manu_primary_supplier': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'primary supplier'", 'null': 'True', 'to': u"orm['Vendor.Supplier']"}),
-            'manu_secondary_supplier': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'secondary supplier'", 'null': 'True', 'to': u"orm['Vendor.Supplier']"}),
+            'address': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Common.Address']", 'null': 'True', 'blank': 'True'}),
+            'contact': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Common.Contact']", 'null': 'True', 'blank': 'True'}),
+            'primary_supplier': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'primary supplier'", 'null': 'True', 'to': u"orm['Vendor.Supplier']"}),
+            'secondary_supplier': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'secondary supplier'", 'null': 'True', 'to': u"orm['Vendor.Supplier']"}),
             'manufacturer_id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '45'})
         },

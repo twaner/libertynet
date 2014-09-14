@@ -208,8 +208,7 @@ def update_billing_helper(form, billing, address, card):
     billing.billing_address = address
     billing.card = card
 
-    billing.save(update_fields=['profile_name',
-                                'method', 'billing_address', 'card'])
+    billing.save(update_fields=['profile_name', 'method', 'billing_address', 'card'])
     return billing
 
 
